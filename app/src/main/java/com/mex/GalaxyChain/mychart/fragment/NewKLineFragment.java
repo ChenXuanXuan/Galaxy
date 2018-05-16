@@ -123,10 +123,10 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
             double mLatitude = UserGolbal.getInstance().getLongitude();
             paramMap.put("latitude", mLatitude);
             paramMap.put("longitude", mLongitude);
-            String symbol = "EURUSD";
+            String symbol = "BTCUSDT";
             paramMap.put("symbol", symbol);
             paramMap.put("starttime", starttime);//返回每次数量的最后一条蜡烛数据的时间撮
-            int count = -500;//(- 向左 每次取500条   + 向右 每次取500)一开始时间为节点，正直是向右取，负值是向左取(每次返回的条数)
+            int count = -1500;//(- 向左 每次取500条   + 向右 每次取500)一开始时间为节点，正直是向右取，负值是向左取(每次返回的条数)
             paramMap.put("count", count);
             String interval = Constants.ONE_MIN; //默认周期  1分钟
             paramMap.put("interval", interval);
@@ -180,7 +180,6 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
                                 }
                             }else {
                                 mKChartView.refreshEnd();
-                                ToastUtils.showCorrectImage("没有更多数据了");
                             }
 
                             //第一次加载时开始动画
