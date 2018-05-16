@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:gravity="left"
-                android:text="15101650501"
+                android:text="18612875467"
                 android:background="@color/transparent"
                 android:hint="请输入手机号码"
                 android:inputType="number"

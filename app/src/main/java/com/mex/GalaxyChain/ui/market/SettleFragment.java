@@ -13,6 +13,7 @@ import com.mex.GalaxyChain.MyApplication;
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.adapter.SettleAdapter;
 import com.mex.GalaxyChain.bean.TradeDetailBean;
+import com.mex.GalaxyChain.bean.eventbean.VarietyHoldPosiBean;
 import com.mex.GalaxyChain.bean.requestbean.RequestTradeDetailListBean;
 import com.mex.GalaxyChain.common.BaseFragment;
 import com.mex.GalaxyChain.common.Constants;
@@ -31,6 +32,8 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -101,20 +104,20 @@ public class SettleFragment extends BaseFragment {
         setOnItemClickForListView();
         showLoading(getString(R.string.loading));
          currentPage=1;
-         loadNetData(currentPage);
+         loadNetData(currentPage,null);
 
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 currentPage=1;
-                loadNetData(currentPage);
+                loadNetData(currentPage,null);
             }
         });
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
                 currentPage++;
-                loadNetData(currentPage);
+                loadNetData(currentPage,null);
             }
         });
         }
@@ -129,7 +132,7 @@ public class SettleFragment extends BaseFragment {
     }
 
 
-    private void loadNetData(final int currentPage) {
+    private void loadNetData(final int currentPage, final VarietyHoldPosiBean varietyHoldPosiBean) {
 
             if(UserGolbal.getInstance().locationSuccess()){
                 RequestTradeDetailListBean   requestTradeDetailListBean = new  RequestTradeDetailListBean();
@@ -178,6 +181,9 @@ public class SettleFragment extends BaseFragment {
                                        //addItems是直接在原来数据后面添加上数据
                                         mSettleAdapter.addItems(listBeanList);
                                     }
+
+                                    mSettleAdapter.setItemData(varietyHoldPosiBean);
+
                                        //是否全部加载完毕     后台返回的集合为空  或size=0  或 最有一页返回的数据条数<15条 后台没有数据返回了
                                     refreshLayout.setLoadmoreFinished(listBeanList == null || listBeanList.size() == 0||listBeanList.size()<Constants.PAGESIZE);
 
@@ -202,6 +208,16 @@ public class SettleFragment extends BaseFragment {
          if(currentPage==1) refreshLayout.finishRefresh();
          else  refreshLayout.finishLoadmore();
     }
+
+
+
+
+
+      @Subscribe(threadMode = ThreadMode.MAIN)
+     public void getVarietyHoldPosi(VarietyHoldPosiBean varietyHoldPosiBean) {
+
+          loadNetData(currentPage,varietyHoldPosiBean);
+       }
 
 
 }

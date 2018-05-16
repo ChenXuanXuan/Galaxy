@@ -45,6 +45,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -165,7 +166,8 @@ public class AllVarietyFragment extends BaseFragment {
     }
 
 
-    List<VarietyHoldPosi> varietyHoldPosiList = new ArrayList();
+    //List<VarietyHoldPosi> varietyHoldPosiList = new ArrayList();
+    HashMap<String,VarietyHoldPosi>  hashMap = new HashMap<>();
     private void netDataForDescription(final int all_variety, int deviceType, String phoneModel, int channelID,
                                        String APKVersion, String deviceID, final double mLongitude, final double mLatitude) {
         RequestDescriptionBean requestDescriptionBean = new RequestDescriptionBean();//商品描述
@@ -214,18 +216,29 @@ public class AllVarietyFragment extends BaseFragment {
                         mAllVarietyAdapter2.setItems(mSymbolInfosBeanList);
                         List<SymbolBean.DataBean.HandNumSBean> handNumSBeanList = symbolBean.getData().getHandNumS();// 几手
                         List<SymbolBean.DataBean.StopLossTimesBean> stopLossTimesBeanList  =symbolBean.getData().getStopLossTimes(); //几倍
+
+
+
+
                         //============================
                         for (SymbolBean.DataBean.SymbolInfosBean symbolInfosBean : mSymbolInfosBeanList) {
-                            VarietyHoldPosi varietyHoldPosi=new VarietyHoldPosi();
+                            String symbol=symbolInfosBean.getSymbol();  //key =symbol
+                            VarietyHoldPosi varietyHoldPosi=new VarietyHoldPosi();// value= varietyHoldPosi
                             varietyHoldPosi.symbol=symbolInfosBean.getSymbol();
                             varietyHoldPosi.symbolname=symbolInfosBean.getSymbolname();
                             varietyHoldPosi.closetime=symbolInfosBean.getClosetime();
-                            varietyHoldPosiList.add(varietyHoldPosi);
+                            hashMap.put(symbol,varietyHoldPosi);
                         }
-                        VarietyHoldPosiBean varietyHoldPosiBean =new VarietyHoldPosiBean();
-                        varietyHoldPosiBean.setVarietyHoldPosiList(varietyHoldPosiList);
-                        EventBus.getDefault().post(varietyHoldPosiBean);//传到持仓界面
-                        //=======================
+                         VarietyHoldPosiBean varietyHoldPosiBean =new VarietyHoldPosiBean();
+                         varietyHoldPosiBean.setHashMap(hashMap);
+                         EventBus.getDefault().post(varietyHoldPosiBean);//1.传到持仓界面   2.  来到持仓界面
+                      //=======================
+
+
+
+
+
+
 
                         setOnItemClickForListView(mSymbolInfosBeanList, mLongitude, mLatitude, all_variety, handNumSBeanList,stopLossTimesBeanList);
                     }

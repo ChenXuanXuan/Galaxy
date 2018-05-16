@@ -14,11 +14,9 @@ import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.UIHelper;
 import com.mex.GalaxyChain.bean.HoldPositionBean;
 import com.mex.GalaxyChain.bean.QuitEvent;
-import com.mex.GalaxyChain.bean.VarietyHoldPosiForAdat;
 import com.mex.GalaxyChain.bean.eventbean.RefleshBean;
 import com.mex.GalaxyChain.bean.eventbean.TagBean;
 import com.mex.GalaxyChain.bean.eventbean.ToMarketFragBean;
-import com.mex.GalaxyChain.bean.eventbean.VarietyHoldPosi;
 import com.mex.GalaxyChain.bean.eventbean.VarietyHoldPosiBean;
 import com.mex.GalaxyChain.bean.requestbean.RequestTradeHomeBean;
 import com.mex.GalaxyChain.common.BaseFragment;
@@ -42,7 +40,6 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.text.NumberFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -208,25 +205,25 @@ public class ExchangeFragment2 extends BaseFragment {
                                 }
                             //=======================================
                              //在单独创建一个集合 VarietyHoldPosiForAdatList
-                             List<VarietyHoldPosiForAdat>  varietyHoldPosiForAdatList =new ArrayList<>();
+                           //  List<VarietyHoldPosiForAdat>  varietyHoldPosiForAdatList =new ArrayList<>();
 
-                                  List<VarietyHoldPosi> mVarietyHoldPosiList=varietyHoldPosiBean.getVarietyHoldPosiList();
-                               for (HoldPositionBean.DataBean.ListBean listBean : listBeanList) { //便利持仓列表集合
-                                      for (VarietyHoldPosi varietyHoldPosi : mVarietyHoldPosiList) {
-                                               if(listBean.getSymbol().equals(varietyHoldPosi.symbol)){
-                                                   VarietyHoldPosiForAdat varietyHoldPosiForAdat =new VarietyHoldPosiForAdat();
-                                                  varietyHoldPosiForAdat.symbolname=varietyHoldPosi.symbolname;
-                                                   varietyHoldPosiForAdat.closetime=varietyHoldPosi.closetime;
-                                                   varietyHoldPosiForAdatList.add(varietyHoldPosiForAdat);
-                                                   }
-                                       }
+                                //  List<VarietyHoldPosi> mVarietyHoldPosiList=varietyHoldPosiBean.getVarietyHoldPosiList();
+                              // for (HoldPositionBean.DataBean.ListBean listBean : listBeanList) { //便利持仓列表集合
+                                     // for (VarietyHoldPosi varietyHoldPosi : mVarietyHoldPosiList) {
+                                              // if(listBean.getSymbol().equals(varietyHoldPosi.symbol)){
+                                                 //  VarietyHoldPosiForAdat varietyHoldPosiForAdat =new VarietyHoldPosiForAdat();
+                                                 // varietyHoldPosiForAdat.symbolname=varietyHoldPosi.symbolname;
+                                                 //  varietyHoldPosiForAdat.closetime=varietyHoldPosi.closetime;
+                                                 //  varietyHoldPosiForAdatList.add(varietyHoldPosiForAdat);
+                                                //   }
+                                     //  }
 
-                                  }
+                                //  }
 
                                   //================================
 
                                 searchAdapter.setItems(listBeanList);
-                                  searchAdapter.setVarietyHoldPosiForAdatListMeth();
+                               //   searchAdapter.setVarietyHoldPosiForAdatListMeth();
 
                                 }else{
                                 ToastUtils.showTextInMiddle("获取持仓失败");

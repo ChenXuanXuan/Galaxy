@@ -184,7 +184,7 @@ public class MainActivity extends FragmentActivity implements BackHandledInterfa
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void getTagBean(TagBean tagBean){
        if(tagBean.getTag().equals(Constants.FROM_K_BUTTON_PAYORDERMORE)){
-           initViewPager(Constants.INDEX_EXCHANGE);
+           initViewPager(Constants.INDEX_EXCHANGE); //直接到持仓界面 1
        }
 
        //ToastUtils.showTextInMiddle(tagBean.getSymbolName()+tagBean.getCloseTime()+"mainAct");

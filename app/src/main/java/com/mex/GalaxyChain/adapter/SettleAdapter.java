@@ -7,13 +7,18 @@ import android.widget.TextView;
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.UIHelper;
 import com.mex.GalaxyChain.bean.TradeDetailBean;
+import com.mex.GalaxyChain.bean.eventbean.VarietyHoldPosi;
+import com.mex.GalaxyChain.bean.eventbean.VarietyHoldPosiBean;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.control.BaseAbsListAdapter;
 import com.mex.GalaxyChain.common.control.BaseViewHolder;
 
+import java.util.Map;
 
 
 public class SettleAdapter  extends BaseAbsListAdapter<TradeDetailBean.DataBean.ListBean,SettleAdapter.SettleViewHolder> {
+    private VarietyHoldPosiBean varietyHoldPosiBean;
+
     public SettleAdapter(Context context) {
         super(context);
     }
@@ -25,6 +30,10 @@ public class SettleAdapter  extends BaseAbsListAdapter<TradeDetailBean.DataBean.
         SettleViewHolder settleViewHolder=new SettleViewHolder(itemView,this);
 
         return settleViewHolder;
+    }
+
+    public void setItemData(VarietyHoldPosiBean varietyHoldPosiBean) {
+         this.varietyHoldPosiBean=varietyHoldPosiBean;
     }
 
     public class SettleViewHolder extends BaseViewHolder<TradeDetailBean.DataBean.ListBean> {
@@ -60,7 +69,23 @@ public class SettleAdapter  extends BaseAbsListAdapter<TradeDetailBean.DataBean.
         @Override
         public void loadDataToView(int position, TradeDetailBean.DataBean.ListBean listBean) {
             super.loadDataToView(position, data);
-            tv_sysbmol_name.setText(listBean.getSymbol());
+            if(varietyHoldPosiBean!=null){
+                Map<String, VarietyHoldPosi> holdPosiMap=varietyHoldPosiBean.getHashMap();
+
+                for (String key : holdPosiMap.keySet()) {
+                       if(key.equals(listBean.getSymbol())){
+                           VarietyHoldPosi  varietyHoldPosi=holdPosiMap.get(listBean.getSymbol());
+                           tv_sysbmol_name.setText(varietyHoldPosi.symbolname);
+                       }
+                }
+            }//else{tv_sysbmol_name.setText(listBean.getSymbol());}
+
+
+
+
+
+
+
              tv_shoushu.setText(String.valueOf(listBean.getQuantity()));  // 手数 quantity
            int bstype= listBean.getBstype();
            if(bstype==1){

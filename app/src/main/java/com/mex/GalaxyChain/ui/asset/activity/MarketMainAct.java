@@ -598,20 +598,22 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                             dismissLoading();
                        int code= postOrderBean.getCode();
                             if(code==200){
-                                ToastUtils.showTextInMiddle("下单成功");
+                                //ToastUtils.showTextInMiddle("下单成功");
                               UIHelper.jumptoMainActivity(MarketMainAct.this,"");//下单成功,跳到对应的已登陆持仓界面
                                 TagBean tagBean =new TagBean();
                                 tagBean.setTag(Constants.FROM_K_BUTTON_PAYORDERMORE);
-                                //tagBean.setSymbol(symbol);
-                               // tagBean.setSymbolName_ch(symbolName);
+                                 //tagBean.setSymbol(symbol);
+                                // tagBean.setSymbolName_ch(symbolName);
                                 //tagBean.setCloseTime_ch(closeTime);
-                                EventBus.getDefault().post(tagBean);//eventbus 发送 标签到MainActivity 制定1 持仓
+                                EventBus.getDefault().post(tagBean); //eventbus 发送 标签到MainActivity 制定1 持仓
                                 dialog.dismiss(); //网络请求成功后 要关闭对话框后跳转到 持仓界面
                                 finish();
                             }else if(code==402){
                                 ToastUtils.showTextInMiddle("非交易时间不可下单交易"); return;
                             } else if(code==404){
                                 ToastUtils.showTextInMiddle("商品数据不存在"); return;
+                            }else{
+                                 ToastUtils.showTextInMiddle("下单失败请重试");
                             }
                             }
                 });

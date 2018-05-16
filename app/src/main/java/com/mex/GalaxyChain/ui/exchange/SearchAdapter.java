@@ -51,8 +51,8 @@ public class SearchAdapter extends BaseAbsListAdapter<HoldPositionBean.DataBean.
 	   return  platHolder;
 	}
 
-    public void setVarietyHoldPosiForAdatListMeth() {
-    }
+    //public void setVarietyHoldPosiForAdatListMeth() {
+   // }
 
 
     class PlatHolder extends BaseViewHolder<HoldPositionBean.DataBean.ListBean> {
