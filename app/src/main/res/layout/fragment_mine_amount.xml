@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_topbar" />
+
+    <LinearLayout
+        style="@style/MineView"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/MineTV"
+            android:layout_gravity="center_vertical"
+            android:text="币币账户" />
+
+
+        <TextView
+            android:id="@+id/bibiAmount"
+            style="@style/MineTV"
+            android:layout_gravity="center_vertical"
+            android:text="123,456,980.88" />
+
+    </LinearLayout>
+
+    <View style="@style/ViewLine" />
+
+    <LinearLayout
+        style="@style/MineView"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/MineTV"
+            android:layout_gravity="center_vertical"
+            android:text="法币账户(C2C交易)" />
+
+
+        <TextView
+            android:id="@+id/coinIn"
+            style="@style/MineTV"
+            android:layout_gravity="center_vertical"
+            android:text="购买代币"
+            android:textColor="@color/btn_bg_blue_pressed" />
+
+        <TextView
+            android:id="@+id/coinOut"
+            style="@style/MineTV"
+            android:layout_gravity="center_vertical"
+            android:text="卖出代币"
+            android:textColor="@color/btn_bg_blue_pressed" />
+
+    </LinearLayout>
+
+    <View style="@style/ViewLine" />
+
+
+    <RelativeLayout style="@style/MineView">
+
+        <TextView
+            android:id="@+id/card"
+            style="@style/MineTV"
+            android:text="银行卡" />
+
+
+        <TextView
+            android:id="@+id/bankCard"
+            style="@style/MineTV"
+            android:layout_alignParentRight="true"
+            android:text="未绑定"
+            android:textColor="@color/text_333333" />
+
+    </RelativeLayout>
+
+    <View style="@style/ViewLine" />
+
+</LinearLayout>

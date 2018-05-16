@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:background="@drawable/bc">
+
+    <LinearLayout
+        android:id="@+id/ll_fourthSelect"
+        android:layout_width="match_parent"
+        android:layout_height="327dp"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+        android:layout_marginLeft="34dp"
+        android:layout_marginRight="34dp"
+        android:background="@drawable/bc_aqi">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="双向交易"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:layout_marginTop="20dp"
+                android:background="@color/transparent"
+
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="做多做空皆可转钱"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#B9B9B9"
+                android:textSize="12sp"
+
+                />
+
+        </LinearLayout>
+        <include layout="@layout/grayline"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            >
+
+            <TextView
+
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="品种多样"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:layout_marginTop="20dp"
+                android:background="@color/transparent"
+
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="全球热门指数 数字货币"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#B9B9B9"
+                android:textSize="12sp"
+
+                />
+
+        </LinearLayout>
+        <include layout="@layout/grayline"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            >
+
+            <TextView
+
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="低保证金"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:layout_marginTop="20dp"
+                android:background="@color/transparent"
+
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="投资人出全额保证金"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#B9B9B9"
+                android:textSize="12sp"
+
+                />
+
+        </LinearLayout>
+        <include layout="@layout/grayline"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            >
+
+            <TextView
+                android:id="@+id/et_phone_number"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="7*24小时交易"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                android:layout_marginTop="20dp"
+                android:background="@color/transparent"
+
+                />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="投资人出全额保证金"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:textColor="#B9B9B9"
+                android:textSize="12sp"
+
+                />
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_chicang_login"
+        android:layout_height="40dp"
+        android:layout_width="match_parent"
+        android:layout_marginTop="40dp"
+        android:text="立即登陆"
+        android:textColor="@color/font_white"
+        android:gravity="center"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/btn_bg_blue_shape"/>
+
+
+
+
+</LinearLayout>

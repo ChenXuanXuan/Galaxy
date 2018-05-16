@@ -1,0 +1,13 @@
+<resources>
+    <string name="xlistview_header_hint_normal">下拉可以刷新</string>
+    <string name="xlistview_header_hint_ready">释放立即刷新</string>
+    <string name="xlistview_header_hint_loading">正在加载...</string>
+    <string name="xlistview_header_hint_complete">加载完成</string>
+    <string name="xlistview_header_last_time">最后更新：</string>
+    <string name="xlistview_footer_hint_normal">加载更多</string>
+    <string name="xlistview_footer_hint_ready">松开载入更多</string>
+
+    <string name="xlistview_pull_to_more_header_hint_normal">下拉加载</string>
+    <string name="xlistview_pull_to_more_header_hint_ready">松开加载数据</string>
+    <string name="xlistview_pull_to_more_header_hint_loading">正在加载...</string>
+</resources>

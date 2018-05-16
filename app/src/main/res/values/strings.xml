@@ -1,0 +1,26 @@
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="StringEscaping">
+
+    <string name="app_name">一币通</string>
+    <string name="get_again">重新获取</string>
+    <string name="lang">zh-CN</string>
+    <string name="main_market">行情</string>
+    <string name="main_exchange">持仓</string>
+    <string name="main_asset">动态</string>
+    <string name="main_mine">我的</string>
+    <string name="filter_vcode">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="guizhe">规则</string>
+    <string name="btn_forget_pwd">忘记密码？</string>
+    <string name="btn_register">注册</string>
+
+    // int OPENING=1; //开盘中
+    // int CLOSING=2; //未开盘
+    // int TRADING=3; //交易中
+    //  int SUSPEND_TRADING=4; //暂停交易
+
+    <string name="OPENING">开盘中</string>
+    <string name="CLOSING">未开盘</string>
+    <string name="TRADING">交易中</string>
+    <string name="SUSPEND_TRADING">暂停交易</string>
+
+
+</resources>

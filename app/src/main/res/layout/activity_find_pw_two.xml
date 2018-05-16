@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:background="@drawable/bc">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/transparent"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+
+        <!--<ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:src="@drawable/icon_back" />-->
+
+
+        <TextView
+            android:id="@+id/title_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="手机找回密码"
+            android:textSize="@dimen/dp18"
+            android:textColor="@color/font_white"
+            />
+
+    </RelativeLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/ll_registPhoneNumer"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="100dp"
+        android:orientation="horizontal"
+        android:layout_marginLeft="34dp"
+        android:layout_marginRight="34dp"
+        android:background="@drawable/bc_aqi"
+        >
+
+        <ImageView
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/locklock"
+            android:layout_gravity="center_vertical"
+
+            />
+
+        <EditText
+            android:id="@+id/et_verify_password"
+            android:layout_width="0dp"
+            android:layout_weight="2.2"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="left"
+
+            android:background="@color/transparent"
+            android:hint="请输入验证码"
+            android:inputType="number"
+            android:maxLines="1"
+            android:paddingBottom="@dimen/dp1"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textColorHint="@color/light_gray"
+            android:textSize="14sp"
+            />
+
+        <TextView
+            android:id="@+id/bt_retrieve_verify_code"
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1.7"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:text="@string/get_verifyCode"
+            android:textColor="@color/light_bule"
+            android:textSize="@dimen/dp12"
+            android:clickable="true" />
+
+    </LinearLayout>
+
+
+
+
+
+
+
+    <TextView
+        android:id="@+id/tv_nextStep"
+        android:layout_height="40dp"
+        android:layout_width="match_parent"
+        android:layout_marginTop="38dp"
+        android:text="下一步"
+        android:textSize="18sp"
+        android:textColor="@color/font_white"
+        android:gravity="center"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/btn_bg_blue_shape"/>
+
+
+
+
+
+</LinearLayout>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_topbar" />
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="vertical">
+        <com.mex.GalaxyChain.view.magicindicator.MagicIndicator
+            android:id="@+id/magic_indicator4"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="#F5F5F5"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="品种名称"
+             android:layout_gravity="left|center_vertical"
+            android:textColor="@color/font_gray_normal"
+            android:textSize="@dimen/font_size_lv3" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="最新价"
+            android:gravity="center"
+            android:textColor="@color/font_gray_normal"
+            android:textSize="@dimen/font_size_lv3" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="涨跌幅"
+            android:gravity="center"
+            android:textColor="@color/font_gray_normal"
+            android:textSize="@dimen/font_size_lv3" />
+
+    </LinearLayout>
+
+
+
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_hq_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <!--<com.mex.GalaxyChain.view.viewpager.LazyViewPager
+        android:id="@+id/vp_hq_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>-->
+
+
+</LinearLayout>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_topbar" />
+
+    <com.mex.GalaxyChain.ui.asset.view.XEditText
+        android:hint="请输入手机号码"
+        android:inputType="phone"
+        android:id="@+id/phone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp45"
+        android:layout_marginLeft="@dimen/dp30"
+        android:layout_marginRight="@dimen/dp30"
+        android:layout_marginTop="@dimen/dp160"
+        android:background="@drawable/code_normal_bg" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/dp25"
+        android:layout_marginLeft="@dimen/dp30"
+        android:layout_marginTop="@dimen/dp15"
+        android:orientation="horizontal">
+
+        <CheckedTextView
+            android:id="@+id/ruleDesc"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableLeft="@drawable/bg_checktext"
+            android:gravity="center_vertical"
+            android:text="@string/lbl_rule_desc"
+            android:textColor="@color/font_white"
+            android:textSize="@dimen/font_size_lv2" />
+
+        <TextView
+            android:id="@+id/ruleDescLink"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:padding="5dp"
+            android:text="@string/lbl_rule_link"
+            android:textColor="@color/font_text_yellow"
+            android:textSize="@dimen/font_size_lv2" />
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/confirm"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp45"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/dp30"
+        android:layout_marginRight="@dimen/dp30"
+        android:layout_marginTop="@dimen/dp45"
+        android:background="@drawable/code_bg"
+        android:gravity="center"
+        android:text="完成"
+        android:textColor="@color/white" />
+
+
+</LinearLayout>

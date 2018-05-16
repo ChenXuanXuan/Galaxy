@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+                android:orientation="vertical" >
+
+
+    <TextView
+        android:id="@+id/noData"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/tab_asset_inpour_nodata"
+        android:textColor="@color/light_gray"
+        android:visibility="gone" />
+
+
+
+
+     <include layout="@layout/layout_refresh" />
+
+
+
+
+    <!--<TextView
+        android:id="@+id/tv_onceAgain"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="再来一单"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/dp24"
+        android:background="@drawable/btn_bg_blue_shape"/>-->
+
+
+
+
+
+</LinearLayout>

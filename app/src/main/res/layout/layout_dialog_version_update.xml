@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@color/transparent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="285dp"
+        android:layout_height="450dp"
+        android:layout_gravity="center"
+        android:background="@drawable/newversion_bg"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/round_flikerbar"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/dp15"
+            android:layout_marginTop="@dimen/dp150"
+            android:text="@string/tab_mine_downing"
+            android:textColor="#1eacd3"
+            android:textSize="@dimen/dp15" />
+
+
+        <com.mex.GalaxyChain.view.FlikerProgressBar
+            android:id="@+id/round_flikerbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/dp15"
+            android:layout_marginRight="@dimen/dp15"
+            app:loadingColor="#40c4ff"
+            app:progressradius="@dimen/dp20"
+            app:stopColor="#ff9800"
+            app:textSize="@dimen/dp12" />
+
+
+    </LinearLayout>
+
+
+</LinearLayout>
+

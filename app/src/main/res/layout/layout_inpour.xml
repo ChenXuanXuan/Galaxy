@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--<TextView-->
+    <!--android:id="@+id/noData"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:gravity="center"-->
+    <!--android:text="@string/tab_asset_inpour_nodata"-->
+    <!--android:textColor="@color/white"-->
+    <!--android:visibility="gone" />-->
+
+    <include layout="@layout/layout_topbar" />
+    <!--<include layout="@layout/layout_refresh"/>-->
+
+    <RelativeLayout
+        android:id="@+id/bibi"
+        style="@style/MineView">
+
+        <TextView
+            android:id="@+id/title"
+            style="@style/MineTextViewIpour"
+            android:text="币币账户充值"
+            android:textColor="#6D6D6D"
+            android:textSize="@dimen/dp14" />
+
+        <TextView
+            style="@style/MineTextViewIpour"
+            android:layout_below="@+id/title"
+            android:layout_marginTop="@dimen/dp3"
+            android:text="可以使用代币账户、BTC账户、ETH账户"
+            android:textColor="#6D6D6D"
+            android:textSize="@dimen/dp12" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_arrow_right" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0.5"
+        android:layout_marginLeft="@dimen/dp15"
+        android:layout_marginRight="@dimen/dp15"
+        android:layout_marginTop="@dimen/dp5"
+        android:background="@color/line_color" />
+
+
+    <RelativeLayout
+        android:id="@+id/fabi"
+        style="@style/MineView">
+
+        <TextView
+            android:id="@+id/france"
+            style="@style/MineTextViewIpour"
+            android:text="法币账户通道"
+            android:textColor="#6D6D6D"
+            android:textSize="@dimen/dp14" />
+
+        <TextView
+            style="@style/MineTextViewIpour"
+            android:layout_below="@+id/france"
+            android:layout_marginTop="@dimen/dp3"
+            android:text="可以使用CNY购买代币进行充值"
+            android:textColor="#6D6D6D"
+            android:textSize="@dimen/dp12" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_arrow_right" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0.5"
+        android:layout_marginLeft="@dimen/dp15"
+        android:layout_marginRight="@dimen/dp15"
+        android:layout_marginTop="@dimen/dp5"
+        android:background="@color/line_color" />
+
+</LinearLayout>

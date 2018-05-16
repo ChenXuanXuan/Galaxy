@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_topbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabLayout"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            app:tabIndicatorColor="@color/font_color_blue"
+            app:tabMode="scrollable"
+            app:tabSelectedTextColor="@color/font_color_blue"
+            app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
+            app:tabTextColor="@color/font_gray_normal">
+
+        </android.support.design.widget.TabLayout>
+
+        <ImageView
+            android:id="@+id/arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:padding="10dp"
+            android:src="@drawable/ic_white_arrow"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:text="品种名称"
+            android:textColor="@color/font_gray_normal"
+            android:textSize="@dimen/font_size_lv3" />
+
+        <TextView
+            android:layout_width="@dimen/dp80"
+            android:layout_height="wrap_content"
+            android:text="最新价"
+            android:textColor="@color/font_gray_normal"
+            android:textSize="@dimen/font_size_lv3" />
+
+        <TextView
+            android:layout_width="@dimen/dp80"
+            android:layout_height="wrap_content"
+            android:text="涨跌幅"
+            android:textColor="@color/font_gray_normal"
+            android:textSize="@dimen/font_size_lv3" />
+
+    </LinearLayout>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</LinearLayout>

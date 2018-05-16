@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/dp25"
+    android:paddingRight="@dimen/dp25">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp45"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="触发止盈止损金额" />
+
+
+    <com.mex.GalaxyChain.view.CustomWheelView
+        android:id="@+id/wheelView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp140"
+        android:layout_marginTop="@dimen/dp15"
+        android:focusable="false">
+
+    </com.mex.GalaxyChain.view.CustomWheelView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp45">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="触发止损金额 " />
+
+        <TextView
+            android:id="@+id/tv_touch_StopLoss_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:text="-0.0" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp45">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="触发止盈金额" />
+
+        <TextView
+            android:id="@+id/tv_touch_StopProfi_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:text="0.0" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp45">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="占用保证金 " />
+
+        <TextView
+            android:id="@+id/tv_occupy_perrmbmargin"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:text="0.0" />
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/confirm"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp45"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/dp15"
+        android:background="@drawable/code_bg"
+        android:gravity="center"
+        android:text="确定"
+        android:textColor="@color/white" />
+</LinearLayout>

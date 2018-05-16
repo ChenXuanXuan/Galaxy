@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:background="@drawable/bc">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/transparent"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/dp32">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:src="@drawable/icon_back"
+            android:visibility="gone"/>
+
+
+        <TextView
+            android:id="@+id/title_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="手机号注册"
+            android:textColor="@color/font_white"
+            android:layout_marginTop="20dp"
+            android:textSize="@dimen/dp18"/>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="@dimen/dp90"
+        android:orientation="vertical"
+        android:layout_marginLeft="34dp"
+        android:layout_marginRight="34dp"
+        android:background="@drawable/bc_aqi"
+        >
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_marginLeft="34dp"
+            android:layout_marginRight="34dp"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="+86"
+                android:gravity="center"
+                android:layout_gravity="center_vertical"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                />
+
+            <EditText
+                android:id="@+id/et_phone_number"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="left"
+                android:background="@color/transparent"
+                android:hint="请输入手机号码"
+                android:inputType="number"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:paddingBottom="@dimen/dp1"
+                android:textColor="@color/white"
+                android:textColorHint="@color/light_gray"
+                android:textSize="14sp"
+                />
+
+            <ImageView
+                android:id="@+id/ll_clear_phone"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:src="@drawable/clear"
+                android:layout_gravity="center_vertical"
+                android:visibility="gone"
+                />
+
+        </LinearLayout>
+
+
+       <!-- <include layout="@layout/grayline"/>-->
+
+
+        <LinearLayout
+            android:id="@+id/ll_registPhoneNumer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_marginLeft="34dp"
+            android:layout_marginRight="34dp"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:src="@drawable/locklock"
+                android:layout_gravity="center_vertical"
+
+                />
+
+            <EditText
+                android:id="@+id/et_verify_password"
+                android:layout_width="0dp"
+                android:layout_weight="2.4"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="left"
+
+                android:background="@color/transparent"
+                android:hint="请输入验证码"
+                android:inputType="number"
+                android:maxLines="1"
+                android:paddingBottom="@dimen/dp1"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textColorHint="@color/light_gray"
+                android:textSize="14sp"
+                />
+
+            <TextView
+                android:id="@+id/bt_retrieve_verify_code"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1.5"
+                android:layout_gravity="center_vertical"
+                android:gravity="center"
+                android:text="@string/get_verifyCode"
+                android:textColor="@color/light_bule"
+                android:textSize="@dimen/dp12"
+                android:clickable="true" />
+
+        </LinearLayout>
+
+
+
+
+
+        <!--<include layout="@layout/grayline"/>-->
+
+
+
+        <LinearLayout
+            android:id="@+id/ll_inputPassword"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="34dp"
+            android:layout_marginRight="34dp"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+
+            <ImageView
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:src="@drawable/lock"
+                android:layout_gravity="center_vertical"
+
+                />
+
+            <EditText
+                android:id="@+id/et_phone_password"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:hint="请设置密码"
+                android:inputType="textPassword"
+                android:paddingBottom="@dimen/dp1"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:layout_gravity="center_vertical"
+                android:gravity="left"
+                android:textColor="@android:color/white"
+                android:textColorHint="@color/light_gray"
+                android:textSize="14sp"
+                android:background="@color/transparent"
+                />
+
+
+
+            <CheckBox
+                android:id="@+id/cb_show_password_phone"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/login_show_password"
+                android:button="@null"
+                android:layout_gravity="center"
+                android:clickable="true"
+                />
+
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:layout_marginLeft="34dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/ch_bx"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:id="@+id/ruleDescLink"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lbl_rule_desc"
+            android:textColor="@color/font_white"
+            android:textSize="10sp" />
+
+        <TextView
+            android:layout_marginLeft="@dimen/dp5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+
+            android:text="@string/lbl_rule_link"
+            android:textColor="@color/font_text_yellow"
+            android:textSize="@dimen/font_size_lv2"/>
+
+
+    </LinearLayout>
+    <TextView
+        android:id="@+id/tv_wanchen"
+        android:layout_height="40dp"
+        android:layout_width="match_parent"
+        android:layout_marginTop="40dp"
+        android:text="完 成"
+        android:textColor="@color/font_white"
+        android:gravity="center"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/btn_bg_blue_shape"/>
+
+</LinearLayout>

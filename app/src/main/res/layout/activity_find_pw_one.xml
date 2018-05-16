@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:background="@drawable/bc">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/transparent"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/dp32">
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:src="@drawable/icon_back"
+            android:visibility="gone"/>
+
+
+        <TextView
+            android:id="@+id/title_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="20dp"
+            android:text="手机找回密码"
+            android:textColor="@color/font_white"
+            android:textSize="@dimen/dp18"/>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="@dimen/dp90"
+        android:orientation="vertical"
+        android:layout_marginLeft="34dp"
+        android:layout_marginRight="34dp"
+        android:background="@drawable/bc_aqi"
+        >
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_marginLeft="34dp"
+            android:layout_marginRight="34dp"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="+86"
+                android:gravity="center"
+                android:layout_gravity="center_vertical"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                />
+
+            <EditText
+                android:id="@+id/et_phone_number"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="left"
+                android:background="@color/transparent"
+                android:hint="请输入手机号码"
+                android:inputType="number"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:paddingBottom="@dimen/dp1"
+                android:textColor="@color/white"
+                android:textColorHint="@color/light_gray"
+                android:textSize="14sp"
+                />
+
+            <ImageView
+                android:id="@+id/ll_clear_phone"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="0.5"
+                android:src="@drawable/clear"
+                android:layout_gravity="center_vertical"
+                android:visibility="gone"
+                />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:id="@+id/tv_findPS_oneNext"
+        android:layout_height="40dp"
+        android:layout_width="match_parent"
+        android:layout_marginTop="40dp"
+        android:text="下 一 步"
+        android:textColor="@color/font_white"
+        android:gravity="center"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/btn_bg_blue_shape"/>
+
+</LinearLayout>
+
+
+
+
+
+
+

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/code_normal_bg"
+        android:paddingLeft="@dimen/dp5"
+        android:paddingTop="@dimen/dp15"
+        android:gravity="center_horizontal"
+        android:text="为什么要设置触发止盈?" />
+
+</LinearLayout>

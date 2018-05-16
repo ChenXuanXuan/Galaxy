@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_topbar" />
+
+    <RelativeLayout
+        style="@style/MineView">
+
+        <TextView
+            style="@style/MineTV"
+            android:text="注册登录问题" />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_arrow_right" />
+
+    </RelativeLayout>
+
+
+    <View style="@style/ViewLine" />
+
+    <RelativeLayout
+        style="@style/MineView">
+
+        <TextView
+            style="@style/MineTV"
+            android:text="充值提现问题" />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_arrow_right" />
+
+    </RelativeLayout>
+
+
+    <View style="@style/ViewLine" />
+
+    <RelativeLayout
+        style="@style/MineView">
+
+        <TextView
+            style="@style/MineTV"
+            android:text="交易保证金费用问题" />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_arrow_right" />
+
+    </RelativeLayout>
+
+
+    <View style="@style/ViewLine" />
+
+    <RelativeLayout
+        style="@style/MineView">
+
+        <TextView
+            style="@style/MineTV"
+            android:text="交易相关问题" />
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_arrow_right" />
+
+    </RelativeLayout>
+
+
+    <View style="@style/ViewLine" />
+
+
+</LinearLayout>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:background="@drawable/bc">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/transparent"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp">
+
+
+
+
+        <TextView
+            android:id="@+id/title_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="手机找回密码"
+            android:textSize="18sp"
+            android:textColor="@color/font_white"
+            />
+
+    </RelativeLayout>
+
+
+
+
+
+
+
+    <LinearLayout
+        android:id="@+id/ll_fourthSelect"
+        android:layout_width="match_parent"
+        android:layout_height="122dp"
+        android:layout_marginTop="50dp"
+        android:orientation="vertical"
+        android:layout_marginLeft="34dp"
+        android:layout_marginRight="34dp"
+        android:background="@drawable/bc_aqi">
+
+
+        <LinearLayout
+            android:id="@+id/ll_registPhoneNumer"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_marginLeft="34dp"
+            android:layout_marginRight="34dp"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="新密码"
+                android:gravity="center"
+                android:layout_gravity="center_vertical"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                />
+
+            <EditText
+                android:id="@+id/et_newPW"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="left"
+                android:layout_marginLeft="10dp"
+                android:background="@color/transparent"
+                android:hint="请输入新密码"
+                android:inputType="textPassword"
+                android:paddingBottom="@dimen/dp1"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@android:color/white"
+                android:textColorHint="@color/light_gray"
+                android:textSize="14sp"
+                />
+
+
+
+        </LinearLayout>
+
+        <include layout="@layout/grayline"/>
+
+
+        <LinearLayout
+            android:id="@+id/ll_registPhoneNumer_again"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:layout_marginLeft="34dp"
+            android:layout_marginRight="34dp"
+            >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1.2"
+                android:layout_height="wrap_content"
+                android:text="确认密码"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:textColor="@android:color/white"
+                android:textSize="14sp"
+                />
+
+            <EditText
+                android:id="@+id/et_confirm_newPS"
+                android:layout_width="0dp"
+                android:layout_weight="3"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:gravity="left"
+                android:layout_marginLeft="10dp"
+                android:background="@color/transparent"
+                android:paddingBottom="@dimen/dp1"
+                android:hint="再次输入新密码"
+                android:inputType="textPassword"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@android:color/white"
+                android:textColorHint="@color/light_gray"
+                android:textSize="14sp"
+                />
+
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+
+
+
+
+    <TextView
+        android:id="@+id/tv_commit_changePS"
+        android:layout_height="40dp"
+        android:layout_width="match_parent"
+        android:layout_marginTop="38dp"
+        android:text="完 成"
+        android:textSize="18sp"
+        android:textColor="@color/font_white"
+        android:gravity="center"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@drawable/btn_bg_blue_shape"/>
+
+</LinearLayout>

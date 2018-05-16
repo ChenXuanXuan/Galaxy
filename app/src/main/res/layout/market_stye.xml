@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp35"
+    android:background="@color/white"
+    android:orientation="horizontal"
+    android:paddingRight="@dimen/dp12">
+
+    <TextView
+        android:id="@+id/fenshi"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:drawableBottom="@drawable/market_pre"
+        android:gravity="center"
+        android:text="分时"
+        android:textColor="@color/red"
+        android:textSize="@dimen/dp13" />
+
+    <TextView
+        android:id="@+id/days"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:drawableBottom="@drawable/market_nor"
+        android:gravity="center"
+        android:text="1分钟"
+        android:textColor="@color/text_333333"
+        android:textSize="@dimen/dp13" />
+
+    <TextView
+        android:id="@+id/week"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:drawableBottom="@drawable/market_nor"
+        android:gravity="center"
+        android:text="3分钟"
+        android:textColor="@color/text_333333"
+        android:textSize="@dimen/dp13" />
+
+    <TextView
+        android:id="@+id/month"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:drawableBottom="@drawable/market_nor"
+        android:gravity="center"
+        android:text="日K"
+        android:textColor="@color/text_333333"
+        android:textSize="@dimen/dp13" />
+
+    <TextView
+        android:id="@+id/min"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:drawableBottom="@drawable/market_nor"
+        android:drawableRight="@drawable/market_arrow"
+        android:gravity="center"
+        android:text="分钟"
+        android:textColor="@color/text_333333"
+        android:textSize="@dimen/dp13" />
+
+</LinearLayout>

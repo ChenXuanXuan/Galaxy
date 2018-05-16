@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/dp45"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/handSum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/dp5"
+        android:background="@drawable/icon_check"
+        android:checked="true"
+        android:gravity="center_vertical"
+        android:text="1手"
+        android:textColor="@color/color_check"
+        android:textSize="@dimen/dp12" />
+
+
+</RelativeLayout>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_topbar" />
+
+    <RelativeLayout
+        android:id="@+id/rl_psw"
+        style="@style/MineView"
+        android:layout_below="@+id/topBar">
+
+        <TextView
+            android:id="@+id/psw"
+            style="@style/MineTV"
+            android:text="设置支付密码" />
+
+
+        <com.mex.GalaxyChain.ui.asset.view.XEditText
+            android:id="@+id/etPsw"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp15"
+            android:layout_toRightOf="@+id/psw"
+            android:background="@null"
+            android:digits="@string/filter_vcode"
+            android:hint="请输入支付密码"
+            android:inputType="textVisiblePassword"
+            android:minWidth="@dimen/dp150" />
+
+    </RelativeLayout>
+
+    <View style="@style/ViewLine" />
+
+    <RelativeLayout
+        style="@style/MineView"
+        android:layout_below="@+id/rl_psw">
+
+        <TextView
+            android:id="@+id/pswAgain"
+            style="@style/MineTV"
+            android:text="确认支付密码" />
+
+
+        <com.mex.GalaxyChain.ui.asset.view.XEditText
+            android:id="@+id/etPswAgain"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp15"
+            android:layout_toRightOf="@+id/pswAgain"
+            android:background="@null"
+            android:digits="@string/filter_vcode"
+            android:hint="请确认支付密码"
+            android:inputType="textVisiblePassword"
+            android:minWidth="@dimen/dp150" />
+
+    </RelativeLayout>
+
+    <View style="@style/ViewLine" />
+
+    <TextView
+        android:id="@+id/confirm"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp45"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/dp15"
+        android:background="@drawable/code_bg"
+        android:gravity="center"
+        android:text="确认"
+        android:textColor="@color/white"
+        android:textSize="@dimen/dp15" />
+
+
+</RelativeLayout>

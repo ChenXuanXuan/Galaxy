@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/ll_inditor"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp35"
+        android:orientation="vertical"
+        android:paddingRight="@dimen/dp12">
+
+        <!-- 分时  日K  周K 月K   -->
+        <include layout="@layout/market_stye" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp2"
+            android:background="@color/background" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="270dp"
+        android:layout_marginRight="@dimen/dp12"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <!-- 交易K图绘制区域-->
+        <include
+            layout="@layout/anewmarket_detail_two"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2" />
+
+        <include
+            android:id="@+id/marker_detail_bottom"
+            layout="@layout/market_detail_botton"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="@dimen/dp5"
+            android:layout_weight="0.3"
+            android:gravity="center_vertical"
+            android:visibility="gone" />
+
+    </LinearLayout>
+
+</LinearLayout>

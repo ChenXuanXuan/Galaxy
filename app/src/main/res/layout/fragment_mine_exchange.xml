@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/btn_bg_gray_pressed"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_topbar" />
+
+    <LinearLayout style="@style/MineView">
+
+        <TextView
+            style="@style/MineTextView"
+            android:text="总资金(CNY)" />
+
+        <TextView
+            style="@style/MineTextViewShow"
+            android:text="123456" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0.5"
+        android:background="@color/line_color" />
+
+    <LinearLayout style="@style/MineView">
+
+        <TextView
+            style="@style/MineTextView"
+            android:text="总可用余额(CNY)" />
+
+        <TextView
+            style="@style/MineTextViewShow"
+            android:text="123456" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0.5"
+        android:background="@color/line_color" />
+
+    <LinearLayout style="@style/MineView">
+
+        <TextView
+            style="@style/MineTextView"
+            android:text="占用保证金(CNY)" />
+
+        <TextView
+            style="@style/MineTextViewShow"
+            android:text="123456" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0.5"
+        android:background="@color/line_color" />
+
+    <LinearLayout style="@style/MineView">
+
+        <TextView
+            style="@style/MineTextView"
+            android:text="总浮动盈亏(CNY)" />
+
+        <TextView
+            style="@style/MineTextViewShow"
+            android:text="123456" />
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0.5"
+        android:background="@color/line_color" />
+
+    <RelativeLayout
+        android:id="@+id/inpour"
+        style="@style/MineView">
+
+        <TextView
+            style="@style/MineTextView"
+            android:text="充值" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_arrow_right" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0.5"
+        android:background="@color/line_color" />
+
+    <RelativeLayout
+        android:id="@+id/withDraw"
+        style="@style/MineView">
+
+        <TextView
+            style="@style/MineTextView"
+            android:text="提现" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/icon_arrow_right" />
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0.5"
+        android:background="@color/line_color" />
+
+
+</LinearLayout>
+
