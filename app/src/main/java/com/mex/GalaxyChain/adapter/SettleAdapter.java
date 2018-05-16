@@ -66,6 +66,8 @@ public class SettleAdapter  extends BaseAbsListAdapter<TradeDetailBean.DataBean.
         }
 
 
+
+
         @Override
         public void loadDataToView(int position, TradeDetailBean.DataBean.ListBean listBean) {
             super.loadDataToView(position, data);
