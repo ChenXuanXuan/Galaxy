@@ -908,20 +908,11 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
     @SuppressLint("NewApi")
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(TickerEvent event) {
-
         if (event != null) {
             TickeBean tickeBean = event.getTickeBean();
             if (tvCurrent != null) {
                 String newestPrice = tvCurrent.getText().toString();
-                if (tickeBean!= null && !isEmpty(newestPrice)) {
-                    //最新价
-                    if (Double.parseDouble(newestPrice)
-                            >= Double.parseDouble(tickeBean.getOfferPrice())) {
-                        tvCurrent.setTextColor(getColor(R.color.red));
-                    } else {
-                        tvCurrent.setTextColor(getColor(R.color.chart_green));
-                    }
-
+                if (tickeBean!= null && !isEmpty(newestPrice) && tickeBean.getOfferPrice()!=null) {
                     double offerPrice = Double.parseDouble(tickeBean.getOfferPrice()); //最新价 (卖价) 12841.99
                     double preClose = Double.parseDouble(tickeBean.getPreClose());  //昨日收盘价12840.34
                     //  涨跌幅度=(最新价 -  昨日收盘价)100% /  昨日收盘价

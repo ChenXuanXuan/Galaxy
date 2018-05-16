@@ -24,6 +24,7 @@
             android:layout_width="50dp"
             android:layout_height="match_parent"
             android:text="切屏"
+            android:visibility="gone"
             android:textColor="@color/chart_ma5"
             android:layout_alignParentRight="true"
             android:paddingRight="15dp"

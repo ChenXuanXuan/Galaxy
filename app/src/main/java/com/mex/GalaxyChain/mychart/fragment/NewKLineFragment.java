@@ -213,7 +213,7 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
 
     @Override
     public void onLoadMoreBegin(KChartView chart) {
-      onLoadKData();
+        onLoadKData();
     }
 
     public void setObject(MarketMainAct newMarketMainAct) {

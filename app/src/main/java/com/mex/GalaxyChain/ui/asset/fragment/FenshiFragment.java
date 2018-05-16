@@ -169,12 +169,12 @@ public class FenshiFragment extends LineBaseFragment implements IObserver, Chart
 		if (i == 0) {//十字线显示
 			if (newMarketMainAct != null)
 				newMarketMainAct.setVisAndGone(0);
-			if (landMarketMainAct != null)
+			if (newMarketMainAct != null)
 				newMarketMainAct.setVisAndGone(0);
 		} else {
 			if (newMarketMainAct != null)
 				newMarketMainAct.setVisAndGone(1);
-			if (landMarketMainAct != null)
+			if (newMarketMainAct != null)
 				newMarketMainAct.setVisAndGone(1);
 		}
 	}

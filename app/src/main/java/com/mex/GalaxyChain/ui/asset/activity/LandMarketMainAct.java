@@ -47,7 +47,6 @@ public class LandMarketMainAct extends BaseActivity implements View.OnClickListe
 	protected String[] mProvinceDatas;
 	private TextView fenshi, days, week, month, min;
 	private PopupWindow pwMyPopWindow;
-	private LinearLayout  warning;
 	private String type = "1";
 	private String typeKx = "0";
 	private String instID = "Au(T+D)";
@@ -66,6 +65,7 @@ public class LandMarketMainAct extends BaseActivity implements View.OnClickListe
 	private Dialog wheelDialog;
 	private CustomWheelView wheelView;
 	private String value;
+	private TextView makeMore,makeEmpty;
 
 	public static void launch(Context mContext) {
 		Intent intent = new Intent(mContext, LandMarketMainAct.class);
@@ -105,6 +105,12 @@ public class LandMarketMainAct extends BaseActivity implements View.OnClickListe
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+
+			case R.id.makeMore://做多
+				break;
+
+			case R.id.makeEmpty://做空
+				break;
 
 			case R.id.fenshi:
 				type = "1";
@@ -348,14 +354,15 @@ public class LandMarketMainAct extends BaseActivity implements View.OnClickListe
 		week = (TextView) findViewById(R.id.week);
 		month = (TextView) findViewById(R.id.month);
 		min = (TextView) findViewById(R.id.min);
-		warning = (LinearLayout) findViewById(R.id.warning);
-
-		warning.setOnClickListener(this);
+		makeMore = (TextView) findViewById(R.id.makeMore);
+		makeEmpty = (TextView) findViewById(R.id.makeEmpty);
 		fenshi.setOnClickListener(this);
 		days.setOnClickListener(this);
 		week.setOnClickListener(this);
 		month.setOnClickListener(this);
 		min.setOnClickListener(this);
+		makeMore.setOnClickListener(this);
+		makeEmpty.setOnClickListener(this);
 		initPopu();
 	}
 
