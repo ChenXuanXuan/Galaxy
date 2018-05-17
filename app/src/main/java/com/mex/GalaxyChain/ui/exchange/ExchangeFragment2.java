@@ -20,6 +20,7 @@ import com.mex.GalaxyChain.bean.eventbean.ToMarketFragBean;
 import com.mex.GalaxyChain.bean.eventbean.VarietyHoldPosiBean;
 import com.mex.GalaxyChain.bean.requestbean.RequestTradeHomeBean;
 import com.mex.GalaxyChain.common.BaseFragment;
+import com.mex.GalaxyChain.common.ConfigManager;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.common.view.BaseSmartRefreshLayout;
@@ -84,7 +85,9 @@ public class ExchangeFragment2 extends BaseFragment {
 
 
      private TagBean tagBean;
-     @Click({R.id.tv_isLogined_jiesuan,R.id.tv_sart_profit})
+    private VarietyHoldPosiBean mVarietyHoldPosiBean;
+
+    @Click({R.id.tv_isLogined_jiesuan,R.id.tv_sart_profit})
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_isLogined_jiesuan:
@@ -117,18 +120,19 @@ public class ExchangeFragment2 extends BaseFragment {
 
     @AfterViews
     void init() {
+        mVarietyHoldPosiBean = ConfigManager.getVarietyHold();
         EventBus.getDefault().register(this);
         searchAdapter = new SearchAdapter(getActivity());
         listView.setAdapter(searchAdapter);
          // showLoading(getString(R.string.loading));
-          loadNetData(null);
+          loadNetData(mVarietyHoldPosiBean);
           refreshLayout.setDefaultLoadingHeaderView();
-         // refreshLayout.setDefaultLoadingFooterView();
+           refreshLayout.setDefaultLoadingFooterView();
           refreshLayout.setPrimaryColorsId(R.color.white, R.color.month_view_gray);
           refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                loadNetData(null);
+                loadNetData(mVarietyHoldPosiBean);
             }
         });
 
@@ -203,27 +207,9 @@ public class ExchangeFragment2 extends BaseFragment {
                                     tv_canusedamount.setText(0+"");//可用余额
                                     tv_post.setText(0+"");
                                 }
-                            //=======================================
-                             //在单独创建一个集合 VarietyHoldPosiForAdatList
-                           //  List<VarietyHoldPosiForAdat>  varietyHoldPosiForAdatList =new ArrayList<>();
 
-                                //  List<VarietyHoldPosi> mVarietyHoldPosiList=varietyHoldPosiBean.getVarietyHoldPosiList();
-                              // for (HoldPositionBean.DataBean.ListBean listBean : listBeanList) { //便利持仓列表集合
-                                     // for (VarietyHoldPosi varietyHoldPosi : mVarietyHoldPosiList) {
-                                              // if(listBean.getSymbol().equals(varietyHoldPosi.symbol)){
-                                                 //  VarietyHoldPosiForAdat varietyHoldPosiForAdat =new VarietyHoldPosiForAdat();
-                                                 // varietyHoldPosiForAdat.symbolname=varietyHoldPosi.symbolname;
-                                                 //  varietyHoldPosiForAdat.closetime=varietyHoldPosi.closetime;
-                                                 //  varietyHoldPosiForAdatList.add(varietyHoldPosiForAdat);
-                                                //   }
-                                     //  }
-
-                                //  }
-
-                                  //================================
-
-                                searchAdapter.setItems(listBeanList);
-                               //   searchAdapter.setVarietyHoldPosiForAdatListMeth();
+                                 searchAdapter.setItems(listBeanList);
+                                 searchAdapter.setItemData(varietyHoldPosiBean);;
 
                                 }else{
                                 ToastUtils.showTextInMiddle("获取持仓失败");
@@ -263,18 +249,8 @@ public class ExchangeFragment2 extends BaseFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRefleshBean(RefleshBean refleshBean) {
-        loadNetData(null);
+        loadNetData(mVarietyHoldPosiBean);
 
     }
-
-
-
-   // @Subscribe(threadMode = ThreadMode.MAIN)
-   // public void getVarietyHoldPosi(VarietyHoldPosiBean varietyHoldPosiBean) {
-   //     loadNetData(varietyHoldPosiBean);
-
-  //  }
-
-
 }
 

@@ -14,6 +14,8 @@ import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.bean.HoldPositionBean;
 import com.mex.GalaxyChain.bean.PostCloseOrderBean;
 import com.mex.GalaxyChain.bean.eventbean.RefleshBean;
+import com.mex.GalaxyChain.bean.eventbean.VarietyHoldPosi;
+import com.mex.GalaxyChain.bean.eventbean.VarietyHoldPosiBean;
 import com.mex.GalaxyChain.bean.requestbean.RequestClosePositionBean;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
@@ -28,6 +30,8 @@ import com.mex.GalaxyChain.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.Map;
+
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 import rx.Subscriber;
@@ -40,6 +44,7 @@ import rx.Subscriber;
 public class SearchAdapter extends BaseAbsListAdapter<HoldPositionBean.DataBean.ListBean, SearchAdapter.PlatHolder> {
 
 
+    private VarietyHoldPosiBean varietyHoldPosiBean;
 
     public SearchAdapter(Context context) {
 		super(context);
@@ -51,8 +56,11 @@ public class SearchAdapter extends BaseAbsListAdapter<HoldPositionBean.DataBean.
 	   return  platHolder;
 	}
 
-    //public void setVarietyHoldPosiForAdatListMeth() {
-   // }
+    public void setItemData(VarietyHoldPosiBean varietyHoldPosiBean) {
+        this.varietyHoldPosiBean=varietyHoldPosiBean;
+    }
+
+
 
 
     class PlatHolder extends BaseViewHolder<HoldPositionBean.DataBean.ListBean> {
@@ -133,16 +141,18 @@ public class SearchAdapter extends BaseAbsListAdapter<HoldPositionBean.DataBean.
 		public void loadDataToView(final int position,final HoldPositionBean.DataBean.ListBean listBean)
         {
 			super.loadDataToView(position, listBean);
+			 if(varietyHoldPosiBean!=null){
+                Map<String, VarietyHoldPosi> holdPosiMap=varietyHoldPosiBean.getHashMap();
+                for (String key : holdPosiMap.keySet()) {
+                    if(key.equals(listBean.getSymbol())){
+                        VarietyHoldPosi  varietyHoldPosi=holdPosiMap.get(listBean.getSymbol());
+                        tv_symbolName.setText(varietyHoldPosi.symbolname);//商品名称
+                        tv_details_symbolName.setText(varietyHoldPosi.symbolname);//商品名称
+                        tv_autiPinCang_time.setText(varietyHoldPosi.closetime+"自动平仓"); // 平仓时间
+                    }
+                }
 
-			// String symbolName= UserGolbal.getInstance().getSymbolname_ch();
-			 //持仓列表
-            //tv_symbolName.setText(symbolName);//商品名称
-          //   String sysmbolName=listBean.getSymbolname();
-            // if(sysmbolName!=null){
-            ////     tv_symbolName.setText(sysmbolName);//商品名称
-            //     tv_details_symbolName.setText(sysmbolName);//商品名称
-           //  }
-
+            }
              tv_handsNum.setText(listBean.getQuantity()+"");
              int  bstype=listBean.getBstype();
               if(bstype==1){
@@ -156,16 +166,6 @@ public class SearchAdapter extends BaseAbsListAdapter<HoldPositionBean.DataBean.
             tv_lossProfit.setText(String.valueOf(listBean.getProfit()));
             tv_stopprofit.setText(String.valueOf(listBean.getStopprofit()));
             tv_stoploss.setText(String.valueOf(listBean.getStoploss()));
-
-             //持仓item 详情
-            //tv_details_symbolName.setText(symbolName);//商品名称
-           // tv_autiPinCang_time.setText(UserGolbal.getInstance().getClosetime_ch()+"自动平仓"); // 平仓时间
-           //  String closeTime=listBean.getClosetime();
-           //  if(closeTime!=null){
-            //     tv_autiPinCang_time.setText(closeTime+"自动平仓"); // 平仓时间
-            // }
-
-
             tv_details_handsNum.setText(listBean.getQuantity()+"");
             tv_lossProfit_detail.setText(String.valueOf(listBean.getProfit()));
             tv_oddNumbers.setText(listBean.getShowno()+"");

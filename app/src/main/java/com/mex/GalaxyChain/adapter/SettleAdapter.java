@@ -26,9 +26,7 @@ public class SettleAdapter  extends BaseAbsListAdapter<TradeDetailBean.DataBean.
     @Override
     public SettleAdapter.SettleViewHolder onCreateViewHolder(int viewType) {
       View itemView=  View.inflate(context, R.layout.layout_settle_item, null);
-
         SettleViewHolder settleViewHolder=new SettleViewHolder(itemView,this);
-
         return settleViewHolder;
     }
 
