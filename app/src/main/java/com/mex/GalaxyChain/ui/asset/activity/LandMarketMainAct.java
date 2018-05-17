@@ -122,21 +122,21 @@ public class LandMarketMainAct extends BaseActivity implements View.OnClickListe
 			case R.id.days:
 				typeKx = "6";
 				selType = "2";
-				klFragment.setType(instID, typeKx, selType);
+				klFragment.setType(instID, typeKx, selType,"","");
 				changeType(3);
 				break;
 
 			case R.id.week:
 				typeKx = "7";
 				selType = "3";
-				klFragment.setType(instID, typeKx, selType);
+				klFragment.setType(instID, typeKx, selType,"","");
 				changeType(4);
 				break;
 
 			case R.id.month:
 				typeKx = "8";
 				selType = "4";
-				klFragment.setType(instID, typeKx, selType);
+				klFragment.setType(instID, typeKx, selType,"","");
 				changeType(5);
 				break;
 
@@ -147,14 +147,14 @@ public class LandMarketMainAct extends BaseActivity implements View.OnClickListe
 			case R.id.minutes1://240分钟
 				typeKx = "5";
 				selType = "5";
-				klFragment.setType(instID, typeKx, selType);
+				klFragment.setType(instID, typeKx, selType,"","");
 				changeMin(1);
 				break;
 
 			case R.id.minutes2://60分钟
 				typeKx = "4";
 				selType = "6";
-				klFragment.setType(instID, typeKx, selType);
+				klFragment.setType(instID, typeKx, selType,"","");
 				changeMin(2);
 				break;
 
@@ -162,14 +162,14 @@ public class LandMarketMainAct extends BaseActivity implements View.OnClickListe
 				changeMin(3);
 				typeKx = "3";
 				selType = "7";
-				klFragment.setType(instID, typeKx, selType);
+				klFragment.setType(instID, typeKx, selType,"","");
 				break;
 
 			case R.id.minutes4://15分钟
 				changeMin(4);
 				typeKx = "2";
 				selType = "8";
-				klFragment.setType(instID, typeKx, selType);
+				klFragment.setType(instID, typeKx, selType,"","");
 				break;
 
 

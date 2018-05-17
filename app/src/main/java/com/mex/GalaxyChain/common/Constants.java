@@ -75,16 +75,16 @@ int SUSPEND_TRADING=4;
      String FIVE_MIN="5m";
      String FIFTEEN_MIN="15m";
     String THIRTY_MIN="30m";
-    String SIXTY_MIN="60m";
-    String DAY_K="";
+    String SIXTY_MIN="1h";
+    String DAY_K="1d";
 
    String FROM_PAYORDER_K_MOKEMORE="from_payorder_k_mokemore";
    String FROM_CHICANG_UNLOGIN="from_chicang_unlogin";
    String  FROM_K_BUTTON_PAYORDERMORE="from_k_button_payordermore"; //点击下单按钮做多 跳转到持仓界面
 
 
-    int BUY_RISE=1;//买涨
-    int BUY_DROP=2;//买跌；
+    int BUY_RISE=1;//买涨做多
+    int BUY_DROP=2;//买跌做空
 
 
      String DOLLAR="美元";

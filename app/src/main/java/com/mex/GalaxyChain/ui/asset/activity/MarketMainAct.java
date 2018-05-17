@@ -104,6 +104,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
     private boolean isVisible;
     private LinearLayout llInditor;
     private String selType = "0";//0：分时 1：两日 2：日K...
+    private String interval;
     private Dialog dialog;
     private TextView stopLoss, exchange, tv_closeTime, tv_current_cny_rate, tv_open_price;
     private ImageView iv_down_arrow;
@@ -121,7 +122,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
     private double mPer_stoploss_amount;
 
     private TextView mTv_lossAmount;
-    private TextView mTv_shiyin_amount,tv_enable_amount,tv_deal_perrmbmargin,tv_sum_amount,tv_confirm_postOrder_makeMore;
+    private TextView mTv_shiyin_amount,tv_enable_amount,tv_deal_perrmbmargin,tv_sum_amount,tv_confirm_postOrder_makeMoreOrLoss;
     private double mPerrmbfee;
     private double mMLongitude;
     private double mMLatitude;
@@ -168,6 +169,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
 
     }
 
+    int bsType;
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -176,7 +178,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                 LandMarketMainAct.launch(this);
                 break;
 
-            case R.id.exchange:
+            case R.id.exchange://触发止盈
                 showExchange(0);
                 break;
 
@@ -185,7 +187,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
             //    wheelDialog.dismiss();
             //     break;
 
-            case R.id.stopLoss:
+            case R.id.stopLoss://触发止损
                 showExchange(1);
                 break;
 
@@ -193,62 +195,71 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
 //	 showWheelDialog();
               //  break;
 
-            case R.id.ll_make_nothing:
-                //showWheelDialog();
+            case R.id.ll_make_nothing: //看跌做空
+                bsType=Constants.BUY_DROP; // 2 买跌做空
+                showMakeMoreOrLossDialog(bsType);
                 break;
 
-            case R.id.ll_makeMore: //下单 买涨 对话款啊哥
-                showMakeMoreDialog();
+            case R.id.ll_makeMore:  //看涨做多
+                  bsType=Constants.BUY_RISE; //1买涨
+                 showMakeMoreOrLossDialog(bsType);
                 break;
 
-            case R.id.tv_confirm_postOrder_makeMore: //   确定做多 按钮
-                  loadNetPostOrderMakeMore();
+            case R.id.tv_confirm_postOrder_makeMoreOrLoss: //   确定看涨做多/确定看跌做空  按钮
+                loadNetPostOrderMakeMoreOrLoss(bsType);
+
                 break;
 
 
-            case R.id.fenshi:
+            case R.id.fenshi://分时
                 type = "1";
                 selType = "0";
                 fsFragmet.setType(instID, type, selType);
                 changeType(1);
                 break;
 
-            case R.id.days:
+            case R.id.days://1分钟
                 typeKx = "6";
                 selType = "2";
-                klFragment.setType(instID, typeKx, selType);
+                interval= Constants.ONE_MIN; //  1分钟
+                             //symbol
+                klFragment.setType(instID, typeKx, selType,interval,symbol);
                 changeType(3);
                 break;
 
-            case R.id.week:
+            case R.id.week: //3分钟
                 typeKx = "7";
                 selType = "3";
-                klFragment.setType(instID, typeKx, selType);
+                 interval= Constants.THREE_MIN; //  3分钟
+                klFragment.setType(instID, typeKx, selType,interval,symbol);
                 changeType(4);
                 break;
 
-            case R.id.month:
+            case R.id.month://日K
                 typeKx = "8";
                 selType = "4";
-                klFragment.setType(instID, typeKx, selType);
+                interval= Constants.DAY_K; //  日K
+                klFragment.setType(instID, typeKx, selType,interval,symbol);
                 changeType(5);
                 break;
 
-            case R.id.min:
+            case R.id.min://分钟(弹出popu)
                 showPopu();
                 break;
 
-            case R.id.minutes1://240分钟
+            case R.id.minutes1://5分钟
                 typeKx = "5";
                 selType = "5";
-                klFragment.setType(instID, typeKx, selType);
+                interval= Constants.FIVE_MIN; //  5分钟
+                klFragment.setType(instID, typeKx, selType,interval,symbol);
                 changeMin(1);
                 break;
 
-            case R.id.minutes2://60分钟
+            case R.id.minutes2://15分钟
                 typeKx = "4";
                 selType = "6";
-                klFragment.setType(instID, typeKx, selType);
+                interval= Constants.FIFTEEN_MIN; //  15分钟
+                klFragment.setType(instID, typeKx, selType,interval,symbol);
                 changeMin(2);
                 break;
 
@@ -256,14 +267,16 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                 changeMin(3);
                 typeKx = "3";
                 selType = "7";
-                klFragment.setType(instID, typeKx, selType);
+                interval= Constants.THIRTY_MIN; //  30分钟
+                klFragment.setType(instID, typeKx, selType,interval,symbol);
                 break;
 
-            case R.id.minutes4://15分钟
+            case R.id.minutes4://60分钟
                 changeMin(4);
                 typeKx = "2";
                 selType = "8";
-                klFragment.setType(instID, typeKx, selType);
+                interval= Constants.SIXTY_MIN; //  30分钟
+                klFragment.setType(instID, typeKx, selType,interval,symbol);
                 break;
 
         }
@@ -293,11 +306,11 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
 
 
     //做多对话框 : 判断是否登陆
-    public void showMakeMoreDialog() {
+    public void showMakeMoreOrLossDialog(int bsType) {
         if (UserGolbal.getInstance().isLogin()) {
             dialog = new Dialog(getActivity(), R.style.ActionSheetDialogStyle);
             View inflate = LayoutInflater.from(getActivity()).inflate(R.layout.layout_dialog_make_more, null);
-            initDialog(inflate);
+             initDialog(bsType,inflate);
             dialog.setContentView(inflate);
             Window win = dialog.getWindow();
             win.setGravity(Gravity.BOTTOM);
@@ -314,9 +327,9 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
 
     }
 
-    String symbol = null;//symbol不同
-    String closeTime = null; // 平仓时间
-    private void initDialog(View inflate) {
+
+
+    private void initDialog(int bsType,View inflate) {
         tv_closeTime = (TextView) inflate.findViewById(R.id.tv_closeTime);//平仓时间和涨点挣
         tv_current_cny_rate = (TextView) inflate.findViewById(R.id.tv_current_cny_rate); //当前人民币汇率
         tv_open_price = (TextView) inflate.findViewById(R.id.tv_open_price); //开仓价
@@ -331,9 +344,17 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
         mTv_shiyin_amount = (TextView)inflate.findViewById(R.id.tv_shiyin_amount);//触发止盈
         tv_enable_amount = (TextView)inflate.findViewById(R.id.tv_enable_amount); //可用资金
         tv_deal_perrmbmargin = (TextView)inflate.findViewById(R.id.tv_deal_perrmbmargin);//交易费用0 +占用保证金0
-        tv_sum_amount = (TextView)inflate.findViewById(R.id.tv_sum_amount);  //合计
-        tv_confirm_postOrder_makeMore = (TextView)inflate.findViewById(R.id.tv_confirm_postOrder_makeMore);//确定做多 按钮
-        tv_confirm_postOrder_makeMore.setOnClickListener(this);
+        tv_sum_amount = (TextView)inflate.findViewById(R.id.tv_sum_amount);  //合计   tv_confirm_postOrder_makeMoreOrLoss
+        tv_confirm_postOrder_makeMoreOrLoss = (TextView)inflate.findViewById(R.id.tv_confirm_postOrder_makeMoreOrLoss);//确定做多 按钮
+         if(bsType==Constants.BUY_RISE){
+             tv_confirm_postOrder_makeMoreOrLoss.setText("确定看涨做多");
+             tv_confirm_postOrder_makeMoreOrLoss.setBackgroundColor(getResources().getColor(R.color.market_red));
+         }else{
+             tv_confirm_postOrder_makeMoreOrLoss.setText("确定看跌做空");
+             tv_confirm_postOrder_makeMoreOrLoss.setBackgroundColor(getResources().getColor(R.color.rgb_150_177_248));
+         }
+
+        tv_confirm_postOrder_makeMoreOrLoss.setOnClickListener(this);
 
         // private List<NumEntity> praizeList = new ArrayList<>();
         //  final   List<NumEntity>  numEntityList =UserGolbal.getInstance().getNumEntityList(); //几手集合从那个界面来??
@@ -342,13 +363,13 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
         //UserGolbal.getInstance().setCurrencytype(symbolInfosBean.getCurrencytype());  //currencytype;//币种类型
 
 
-        double perprofitnumber = 0; //收益点数
-        double perprofit = 0;  //perprofit 收益
-        String currencytype = null; //币种类型
+       // double perprofitnumber = 0; //收益点数
+      //  double perprofit = 0;  //perprofit 收益
+      //  String currencytype = null; //币种类型
 
-        List<NumEntity> numEntityList = null;//几手集合从那个界面来??
-        List<MultiplBean> multiplBeanList = null;//存储 几倍 集合
-        if (UserGolbal.getInstance().getTag() == Constants.ALL_VARIETY) {
+       // List<NumEntity> numEntityList = null;//几手集合从那个界面来??
+       // List<MultiplBean> multiplBeanList = null;//存储 几倍 集合
+        /*if (UserGolbal.getInstance().getTag() == Constants.ALL_VARIETY) {
             closeTime = UserGolbal.getInstance().getClosetime();
             symbol = UserGolbal.getInstance().getSymbol();
             perprofitnumber = UserGolbal.getInstance().getPerprofitnumber();
@@ -375,9 +396,9 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
             numEntityList = UserGolbal.getInstance().getNumEntityList();
             multiplBeanList = UserGolbal.getInstance().getMultiplBeanList();
 
-        }
+        }*/
 
-        if (numEntityList != null && numEntityList.size() > 0) {
+        if(numEntityList != null && numEntityList.size() > 0) {
               for(int i=0;i<numEntityList.size();i++){
                   NumEntity  numEntity= numEntityList.get(i);
                   if(i==0){
@@ -405,7 +426,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
         }
 
         //一旦点击看涨买多按钮 弹出一个对话框  就立马做一个网络请求操作
-        loadOrderPayBuyData(closeTime, perprofitnumber, perprofit, multiplBeanList, symbol, currencytype, wheelView);
+        loadOrderPayBuyData(bsType,closeTime, perprofitnumber, perprofit, multiplBeanList, symbol, currencytype, wheelView);
 
         //  箭头iv_down_arrow弹出 设置 倍数(1234倍)的对话框,是对应的 止损 止盈 发生变化
          setOnClicekForChangeBeiShuDialog(multiplBeanList);
@@ -452,7 +473,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
              if(!isEmpty(mSelectedHandSum)&&mSelectedHandSum!=0){
                  LogUtils.d("TAG","手数->"+mSelectedHandSum);
                   if(!isEmpty(mPer_stoploss_amount)){
-                     String sum_stoplossAmountWithBeiShou = "-"+mPer_stoploss_amount*beishu*mSelectedHandSum;//(负)(总)触发止损金额=(负)单价止损金额*?手*?倍
+                     String sum_stoplossAmountWithBeiShou = "-"+ mPer_stoploss_amount*beishu*mSelectedHandSum*1.0;//(负)(总)触发止损金额=(负)单价止损金额*?手*?倍
                       LogUtils.d("TAG","(负)(单价)触发止损金额->"+"-"+mPer_stoploss_amount);
                      LogUtils.d("TAG","(负)(总)触发止损金额->"+ sum_stoplossAmountWithBeiShou);
                      stoplossAmountWithBSList.add(sum_stoplossAmountWithBeiShou);
@@ -478,10 +499,10 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
 
                 }
 
-                tv_touch_StopLoss_amount.setText(item);//(负)(总)触发止损金额(带倍数手数)=item=value
-                tv_touch_StopProfi_amount.setText(Math.abs(Double.valueOf(item))*2+""); //触发止盈金额=(正)(总)触发止损金额(带倍数手数)*2
-                if(!isEmpty(mStoplossratio)&&mStoplossratio!=0){
-                    tv_occupy_perrmbmargin.setText(Math.abs(Double.valueOf(item))/mStoplossratio+"");//占用保证金=(正)触发止损金额/止损率
+                tv_touch_StopLoss_amount.setText(Double.valueOf(item)+"");//(负)(总)触发止损金额(带倍数手数)=item=value
+                tv_touch_StopProfi_amount.setText( Math.abs(Double.valueOf(item))*2.0+""); //触发止盈金额=(正)(总)触发止损金额(带倍数手数)*2
+                if(!isEmpty(mStoplossratio)&&mStoplossratio!=0.0){
+                    tv_occupy_perrmbmargin.setText( Math.abs(Double.valueOf(item))/mStoplossratio+"");//占用保证金=(正)触发止损金额/止损率
                     LogUtils.d("TAG","止损率"+mStoplossratio);
                 }
 
@@ -494,14 +515,14 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                 wheelDialog.dismiss();
 
                 if(!isEmpty(value)){
-                    mTv_lossAmount.setText(value);//(负)(总价)止损金额
-                    mTv_shiyin_amount.setText(Math.abs(Double.valueOf(value))*2+"");//触发止盈
+                    mTv_lossAmount.setText( Double.valueOf(value)+"");//(负)(总价)止损金额
+                    mTv_shiyin_amount.setText(Math.abs(Double.valueOf(value))*2.0+"");//触发止盈
                 }
 
-                 if(!isEmpty(mPerrmbfee,value,mStoplossratio)&&mStoplossratio!=0){
+                 if(!isEmpty(mPerrmbfee,value,mStoplossratio)&&mStoplossratio!=0.0){
                      tv_deal_perrmbmargin.setText("交易费用: "+mPerrmbfee
                                           +" + 占用保证金: "+Math.abs(Double.valueOf(value))/mStoplossratio+" = ");
-                     tv_sum_amount.setText(String.valueOf(mPerrmbfee+Math.abs(Double.valueOf(value))/mStoplossratio));//价格合计
+                     tv_sum_amount.setText(mPerrmbfee+Math.abs(Double.valueOf(value))/mStoplossratio+"");//价格合计
                  }
 
 
@@ -511,7 +532,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
 
 
     //下单确定买涨做多
-    private void loadNetPostOrderMakeMore() {
+    private void loadNetPostOrderMakeMoreOrLoss(int bsType) {
 
         RequestPostOrderMore requestPostOrderMore = new RequestPostOrderMore();
      if(!isEmpty(mMLongitude,mMLatitude)){
@@ -532,13 +553,18 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
        // ******
         ////委托价格(价格合计)
         String str_sum_amout=tv_sum_amount.getText().toString().trim();
-        requestPostOrderMore.setPrice(Double.valueOf(str_sum_amout));
+        requestPostOrderMore.setPrice(Double.valueOf(str_sum_amout) );
         if (isEmpty(str_sum_amout)) {
             ToastUtils.showTextInMiddle("合计金额不能为空");
             return;
         }
+       //  int bsType=Constants.BUY_RISE;
+        if(bsType==Constants.BUY_RISE){
+            requestPostOrderMore.setBstype(Constants.BUY_RISE);//1.买涨
+        }else if(bsType==Constants.BUY_DROP){
+            requestPostOrderMore.setBstype(Constants.BUY_DROP);//2  买跌
+        }else{return;}
 
-        requestPostOrderMore.setBstype(Constants.BUY_RISE);//买涨
 
         requestPostOrderMore.setQuantity(mSelectedHandSum);//手数
          if(isEmpty(mSelectedHandSum)){
@@ -598,22 +624,20 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                             dismissLoading();
                        int code= postOrderBean.getCode();
                             if(code==200){
-                                //ToastUtils.showTextInMiddle("下单成功");
+                                ToastUtils.showTextInMiddle("下单成功");
                               UIHelper.jumptoMainActivity(MarketMainAct.this,"");//下单成功,跳到对应的已登陆持仓界面
                                 TagBean tagBean =new TagBean();
                                 tagBean.setTag(Constants.FROM_K_BUTTON_PAYORDERMORE);
-                                 //tagBean.setSymbol(symbol);
-                                // tagBean.setSymbolName_ch(symbolName);
+                                //tagBean.setSymbol(symbol);
+                               // tagBean.setSymbolName_ch(symbolName);
                                 //tagBean.setCloseTime_ch(closeTime);
-                                EventBus.getDefault().post(tagBean); //eventbus 发送 标签到MainActivity 制定1 持仓
+                                EventBus.getDefault().post(tagBean);//eventbus 发送 标签到MainActivity 制定1 持仓
                                 dialog.dismiss(); //网络请求成功后 要关闭对话框后跳转到 持仓界面
                                 finish();
                             }else if(code==402){
                                 ToastUtils.showTextInMiddle("非交易时间不可下单交易"); return;
                             } else if(code==404){
                                 ToastUtils.showTextInMiddle("商品数据不存在"); return;
-                            }else{
-                                 ToastUtils.showTextInMiddle("下单失败请重试");
                             }
                             }
                 });
@@ -624,7 +648,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
 
 
     //宾哥的 号码 登陆  18612875467 配置了资金账号
-    private void loadOrderPayBuyData(final String closeTime, final double perprofitnumber, final double perprofit, final List<MultiplBean> multiplBeanList, final String symbol, final String currencytype, final CustomWheelView wheelView) {
+    private void loadOrderPayBuyData(int bsType,final String closeTime, final double perprofitnumber, final double perprofit, final List<MultiplBean> multiplBeanList, final String symbol, final String currencytype, final CustomWheelView wheelView) {
 
         // 做网络请求 下单买入
 
@@ -633,7 +657,8 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
             mMLatitude = UserGolbal.getInstance().getLatitude();
             mToken = UserGolbal.getInstance().getUserToken();
             RequestOrderBuyBean requestOrderBuyBean = new RequestOrderBuyBean();
-            requestOrderBuyBean.setBstype(Constants.BUY_RISE);  //1 买涨
+              //  int bsType=Constants.BUY_RISE; //1买涨
+            requestOrderBuyBean.setBstype(bsType);
             requestOrderBuyBean.setUsertoken(mToken);
             requestOrderBuyBean.setSymbol(symbol);
             requestOrderBuyBean.setCurrencytype(currencytype);//币种类型
@@ -679,7 +704,11 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                                 }
 
                                 double count_CNY = perprofitnumber * perprofit * rate; //?CNY=点数*收益*汇率(rate)
-                                tv_closeTime.setText(closeTime + "自动平仓,涨" + perprofitnumber + "个点赚" + perprofit + currencytype_zh + "(" + count_CNY + Constants.RMB + ")");
+                                tv_closeTime.setText(closeTime + "自动平仓,涨"
+                                        + perprofitnumber + "个点赚"
+                                        + perprofit + currencytype_zh
+                                        + "(" + count_CNY+ Constants.RMB + ")");
+
                                 tv_current_cny_rate.setText("当前汇率:  " + "1" + currencytype_zh + "=" + rate + Constants.RMB); //人民币汇率
                                 //=================================================
                                 mPerrmbfee = dataBean.getPerrmbfee(); //每笔手续费(交易费用)perrmbfee
@@ -687,14 +716,17 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                                 mStoplossratio = dataBean.getStoplossratio();//止损率
                                 mPer_stoploss_amount = perrmbmargin * mStoplossratio;//单价触发止损金额(不带倍手)= 履约保证金*止损率
                                 // 一进入界面 默认(1手1倍)  显示 默认止损金额  默认止盈金额  默认占用保证金
-                                mTv_lossAmount.setText("-"+mPer_stoploss_amount*mDefault_handNum_one*mDefautl_beishu_one); //(负)默认触发止损金额(默认1手1倍)
-                                mTv_shiyin_amount.setText(String.valueOf(mPer_stoploss_amount*mDefault_handNum_one*mDefautl_beishu_one*2)); //(正)默认触发止盈 =默认止损金额(默认1手1倍)*2
+
+                                mTv_lossAmount.setText("-"+mPer_stoploss_amount*mDefault_handNum_one*mDefautl_beishu_one*1.0); //(负)默认触发止损金额(默认1手1倍)
+
+
+                                mTv_shiyin_amount.setText(    mPer_stoploss_amount*mDefault_handNum_one*mDefautl_beishu_one*2.0+""); //(正)默认触发止盈 =默认止损金额(默认1手1倍)*2
                                    //默认占用保证金=(正)默认触发止损金额/止损率
                                 tv_deal_perrmbmargin.setText("交易费用: "+mPerrmbfee
-                                        +" + 占用保证金: "+mPer_stoploss_amount*mDefault_handNum_one*mDefautl_beishu_one/mStoplossratio
+                                        +" + 占用保证金: "+ (mPer_stoploss_amount*mDefault_handNum_one*mDefautl_beishu_one*1.0)/mStoplossratio
                                         +" = ");//交易费用: 0 + 占用保证金: 0 =
                                   //默认合计
-                                tv_sum_amount.setText(String.valueOf(mPerrmbfee+mPer_stoploss_amount*mDefault_handNum_one*mDefautl_beishu_one/mStoplossratio));
+                                tv_sum_amount.setText(  mPerrmbfee+(mPer_stoploss_amount*mDefault_handNum_one*mDefautl_beishu_one*1.0)/mStoplossratio+"");
                                 //==================================
                                 double mBalance = dataBean.getBalance(); //可用余额(可用资金)
                                 if(!isEmpty(mBalance))  tv_enable_amount.setText("可用资金: "+mBalance);
@@ -808,7 +840,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
             pwMyPopWindow.dismiss();
         } else {
             int xpos = getActivity().getWindowManager().getDefaultDisplay().getWidth() - pwMyPopWindow.getWidth();
-            pwMyPopWindow.showAsDropDown(min, -100, 0);// 显示
+            pwMyPopWindow.showAsDropDown(min, 50, 0);// 显示
             backgroundAlpha();
         }
     }
@@ -880,15 +912,18 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                                 String  handSumStr=selectedHandSumArr[0];
                          mSelectedHandSum = Integer.valueOf(handSumStr);
 
-                         //切换手数(1 2 3 5 10 )(改变默认手数)  金额改变 对应的 止损金额 止盈金额  占用保证金  合计
-            mTv_lossAmount.setText("-"+mPer_stoploss_amount*mSelectedHandSum*mDefautl_beishu_one); //(负)改变触发止损金额(改变?手1倍)
-             mTv_shiyin_amount.setText(String.valueOf(mPer_stoploss_amount*mSelectedHandSum*mDefautl_beishu_one*2)); //(正)改变触发止盈金额 =改变的触发止损金额(改变?手1倍)*2
+
+
+
+             //切换手数(1 2 3 5 10 )(改变默认手数)  金额改变 对应的 止损金额 止盈金额  占用保证金  合计
+             mTv_lossAmount.setText("-"+  mPer_stoploss_amount*mSelectedHandSum*mDefautl_beishu_one*1.0 ); //(负)改变触发止损金额(改变?手1倍)
+             mTv_shiyin_amount.setText( mPer_stoploss_amount*mSelectedHandSum*mDefautl_beishu_one*2.0+""); //(正)改变触发止盈金额 =改变的触发止损金额(改变?手1倍)*2
                            //改变占用保证金=(正)改变触发止损金额(改变?手1倍)/止损率
               tv_deal_perrmbmargin.setText("交易费用: "+mPerrmbfee
-                +" + 占用保证金: "+mPer_stoploss_amount*mSelectedHandSum*mDefautl_beishu_one/mStoplossratio
+                +" + 占用保证金: "+  (mPer_stoploss_amount*mSelectedHandSum*mDefautl_beishu_one*1.0)/mStoplossratio
                 +" = ");
                  //改变的合计
-          tv_sum_amount.setText(String.valueOf(mPerrmbfee+mPer_stoploss_amount*mSelectedHandSum*mDefautl_beishu_one/mStoplossratio));
+          tv_sum_amount.setText(mPerrmbfee+(mPer_stoploss_amount*mSelectedHandSum*mDefautl_beishu_one*1.0)/mStoplossratio+"");
                     } else {
                         numEntityList.get(i).setSelcet(false);
                     }
@@ -903,7 +938,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
         ColorDrawable cd = new ColorDrawable(0x000000);
         pwMyPopWindow.setBackgroundDrawable(cd);
         WindowManager.LayoutParams lp = getActivity().getWindow().getAttributes();
-        lp.alpha = 0.8f;
+        lp.alpha = 0.9f;
         getActivity().getWindow().setAttributes(lp);
     }
 
@@ -1014,7 +1049,16 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
     public void initData() {
     }
 
+
     String symbolName="";
+    String symbol = null;//symbol不同
+    String closeTime = null; // 平仓时间
+    double perprofitnumber = 0; //收益点数
+    double perprofit = 0;  //perprofit 收益
+    String currencytype = null; //币种类型
+    List<NumEntity> numEntityList = null;//几手集合从那个界面来??
+    List<MultiplBean> multiplBeanList = null;//存储 几倍 集合
+
     private void initOthreView() {
         fenshi = (TextView) findViewById(R.id.fenshi);
         days = (TextView) findViewById(R.id.days);
@@ -1039,6 +1083,42 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
             symbolName=UserGolbal.getInstance().getSymbolname();
         }
         tv_top_bar_middle.setText(symbolName);
+
+
+        if (UserGolbal.getInstance().getTag() == Constants.ALL_VARIETY) {
+            closeTime = UserGolbal.getInstance().getClosetime();
+            symbol = UserGolbal.getInstance().getSymbol();
+            perprofitnumber = UserGolbal.getInstance().getPerprofitnumber();
+            perprofit = UserGolbal.getInstance().getPerprofit();
+            currencytype = UserGolbal.getInstance().getCurrencytype();
+            numEntityList = UserGolbal.getInstance().getNumEntityList();
+            multiplBeanList = UserGolbal.getInstance().getMultiplBeanList();
+
+        } else if (UserGolbal.getInstance().getTag() == Constants.GLOBAL_INDEX) {
+            closeTime = UserGolbal.getInstance().getClosetime();
+            symbol = UserGolbal.getInstance().getSymbol();
+            perprofitnumber = UserGolbal.getInstance().getPerprofitnumber();
+            perprofit = UserGolbal.getInstance().getPerprofit();
+            currencytype = UserGolbal.getInstance().getCurrencytype();
+            numEntityList = UserGolbal.getInstance().getNumEntityList();
+            multiplBeanList = UserGolbal.getInstance().getMultiplBeanList();
+
+        } else if (UserGolbal.getInstance().getTag() == Constants.CRYPTO_CURRENCY) {
+            closeTime = UserGolbal.getInstance().getClosetime();
+            symbol = UserGolbal.getInstance().getSymbol();
+            perprofitnumber = UserGolbal.getInstance().getPerprofitnumber();
+            perprofit = UserGolbal.getInstance().getPerprofit();
+            currencytype = UserGolbal.getInstance().getCurrencytype();
+            numEntityList = UserGolbal.getInstance().getNumEntityList();
+            multiplBeanList = UserGolbal.getInstance().getMultiplBeanList();
+
+        }
+
+
+
+
+
+
 
 
         fenshi.setOnClickListener(this);

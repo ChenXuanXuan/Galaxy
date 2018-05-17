@@ -118,7 +118,7 @@ public class AllVarietyAdapter2
 
                           tv_mostNew_price.setText(Double.toString(offerPrice)); //最新价
                           int decimalplace =symbolInfosBean.getDecimalplace();//保留小数位数
-                         NumberFormat mNumberFormat= MyApplication.getInstance().mNumberFormat;
+                          NumberFormat mNumberFormat= MyApplication.getInstance().mNumberFormat;
                          mNumberFormat.setMaximumFractionDigits(decimalplace);
                           tv_24hoursTrade.setText(mNumberFormat.format(upsAndDowns)+"%"); //涨幅度(默认保留2位 待商量)
                           //  ToastUtils.showTextInMiddle("test");

@@ -233,7 +233,7 @@ public class AllVarietyFragment extends BaseFragment {
                          varietyHoldPosiBean.setHashMap(hashMap);
                         ConfigManager.setVarietyHold(varietyHoldPosiBean);
                      LogUtils.d("TAG",varietyHoldPosiBean.getHashMap().size()+"");
-                      setOnItemClickForListView(mSymbolInfosBeanList, mLongitude, mLatitude, all_variety, handNumSBeanList,stopLossTimesBeanList);
+                     setOnItemClickForListView(mSymbolInfosBeanList, mLongitude, mLatitude, all_variety, handNumSBeanList,stopLossTimesBeanList);
                     }
                 });
     }

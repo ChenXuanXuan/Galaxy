@@ -30,7 +30,6 @@ import com.mex.GalaxyChain.ui.asset.activity.LandMarketMainAct;
 import com.mex.GalaxyChain.ui.asset.activity.MarketMainAct;
 import com.mex.GalaxyChain.ui.asset.fragment.LineBaseFragment;
 import com.mex.GalaxyChain.utils.AppUtil;
-import com.mex.GalaxyChain.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -60,6 +59,8 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
     private boolean isLoading;
     private int page = 0;
     private  long starttime = 0;
+    private String interval;
+    private String symbol;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -74,7 +75,6 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
     }
 
     public void initData() {
-
         mKChartView.showLoading();
         mKChartView.setRefreshListener(this);
         starttime = 0;
@@ -104,7 +104,7 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
     }
 
 
-    public void setType(String instID, String type, String selType) {
+    public void setType(String instID, String type, String selType,String interval,String symbol) {
         mAdapter.clearItems();
         this.instID = instID;
         this.type = type;
@@ -112,6 +112,8 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
         isLoading = false;
         page = 0;
         mKChartView.resetLoadMoreEnd();
+        this.interval=interval;//周期
+         this.symbol=symbol;//  symbol
         initData();
     }
 
@@ -123,12 +125,12 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
             double mLatitude = UserGolbal.getInstance().getLongitude();
             paramMap.put("latitude", mLatitude);
             paramMap.put("longitude", mLongitude);
-            String symbol = "BTCUSDT";
+            //  String symbol = "BTCUSDT";
             paramMap.put("symbol", symbol);//todo 变化的
             paramMap.put("starttime", starttime);//返回每次数量的最后一条蜡烛数据的时间撮
-            int count = -1500;//(- 向左 每次取500条   + 向右 每次取500)一开始时间为节点，正直是向右取，负值是向左取(每次返回的条数)
+            int count = -500;//(- 向左 每次取500条   + 向右 每次取500)一开始时间为节点，正直是向右取，负值是向左取(每次返回的条数)
             paramMap.put("count", count);
-            String interval = Constants.ONE_MIN; //默认周期  1分钟 todo 变化的
+           // String interval = Constants.ONE_MIN; //默认周期  1分钟 todo 变化的
             paramMap.put("interval", interval);
             int vol = 500; //交易量
             paramMap.put("vol", vol);
@@ -157,9 +159,9 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
                             starttime = dataBeanList.get(dataBeanList.size()-1).getTimes();
                             LogUtils.d("K线--->每页最后一条time:"+starttime);
                             if (dataBeanList != null && dataBeanList.size() > 0) {
-                                if (dataBeanList.size()==1){
+                                if (dataBeanList.size()==1){ //当第一页都不够500条 如何
                                     mKChartView.refreshEnd();
-                                    ToastUtils.showCorrectImage("没有更多数据了");
+                                    //ToastUtils.showTextInMiddle("没有更多数据了");
                                     return;
                                 }
                                 for (HistoryKLineBean.DataBean dataBean : dataBeanList) {
