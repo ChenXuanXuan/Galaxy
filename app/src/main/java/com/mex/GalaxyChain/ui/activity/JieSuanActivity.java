@@ -11,14 +11,12 @@ import android.widget.TextView;
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.adapter.viewpagerAdapter.IndicatorViewPagerAdapter;
 import com.mex.GalaxyChain.bean.QuitEvent;
-import com.mex.GalaxyChain.bean.eventbean.VarietyHoldPosiBean;
 import com.mex.GalaxyChain.common.BaseActivity;
 import com.mex.GalaxyChain.common.BaseFragment;
 import com.mex.GalaxyChain.ui.market.FlowSheetFragment;
 import com.mex.GalaxyChain.ui.market.FlowSheetFragment_;
 import com.mex.GalaxyChain.ui.market.SettleFragment;
 import com.mex.GalaxyChain.ui.market.SettleFragment_;
-import com.mex.GalaxyChain.utils.LogUtils;
 import com.mex.GalaxyChain.view.magicindicator.MagicIndicator;
 import com.mex.GalaxyChain.view.magicindicator.ViewPagerHelper;
 import com.mex.GalaxyChain.view.magicindicator.buildins.UIUtil;
@@ -33,7 +31,6 @@ import com.mex.GalaxyChain.view.magicindicator.buildins.commonnavigator.titles.S
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -58,7 +55,6 @@ public class JieSuanActivity extends BaseActivity {
 
     @AfterViews
     void initView(){
-        EventBus.getDefault().register(this);
         intThreeFragmentList();
         initViewpager();
         initMagicIndicator();
@@ -134,23 +130,5 @@ public class JieSuanActivity extends BaseActivity {
 
         magic_indicator4.setNavigator(commonNavigator);
         ViewPagerHelper.bind(magic_indicator4, vp_hq_fragment);
-    }
-
-
-
-
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMoonEvent(QuitEvent event) {
-
-    }
-
-
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void getVarietyHoldPosi(VarietyHoldPosiBean varietyHoldPosiBean) {
-        // loadNetData(currentPage,varietyHoldPosiBean);
-     //   mSettleAdapter.setItemData(varietyHoldPosiBean);
-        LogUtils.d("TAG-->结算A:接收:VarietyHoldPosiBean",varietyHoldPosiBean.getHashMap().size()+"");
     }
 }

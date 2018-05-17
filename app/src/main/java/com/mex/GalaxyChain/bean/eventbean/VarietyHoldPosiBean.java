@@ -1,8 +1,9 @@
 package com.mex.GalaxyChain.bean.eventbean;
 
+import java.io.Serializable;
 import java.util.Map;
 
-public class VarietyHoldPosiBean {
+public class VarietyHoldPosiBean implements Serializable{
 
    /* private List<VarietyHoldPosi> mVarietyHoldPosiList;
 

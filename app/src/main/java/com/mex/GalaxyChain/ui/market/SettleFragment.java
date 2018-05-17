@@ -16,6 +16,7 @@ import com.mex.GalaxyChain.bean.TradeDetailBean;
 import com.mex.GalaxyChain.bean.eventbean.VarietyHoldPosiBean;
 import com.mex.GalaxyChain.bean.requestbean.RequestTradeDetailListBean;
 import com.mex.GalaxyChain.common.BaseFragment;
+import com.mex.GalaxyChain.common.ConfigManager;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.common.view.BaseSmartRefreshLayout;
@@ -101,7 +102,7 @@ public class SettleFragment extends BaseFragment {
      int currentPage=1;
     @AfterViews
     void init() {
-        EventBus.getDefault().register(this);
+        initVarietyData();
         mSettleAdapter = new SettleAdapter(getActivity());
         listView.setAdapter(mSettleAdapter);
         setOnItemClickForListView();
@@ -124,6 +125,16 @@ public class SettleFragment extends BaseFragment {
             }
         });
         }
+
+    private void initVarietyData() {
+        VarietyHoldPosiBean varietyHold = ConfigManager.getVarietyHold();
+        LogUtils.d("***************variety:"+new Gson().toJson(varietyHold));
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+    }
 
     private void setOnItemClickForListView() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -185,7 +196,7 @@ public class SettleFragment extends BaseFragment {
                                         mSettleAdapter.addItems(listBeanList);
                                     }
 
-                                    //mSettleAdapter.setItemData(varietyHoldPosiBean);
+                                    mSettleAdapter.setItemData(varietyHoldPosiBean);
 
                                        //是否全部加载完毕     后台返回的集合为空  或size=0  或 最有一页返回的数据条数<15条 后台没有数据返回了
                                     refreshLayout.setLoadmoreFinished(listBeanList == null || listBeanList.size() == 0||listBeanList.size()<Constants.PAGESIZE);
@@ -212,16 +223,9 @@ public class SettleFragment extends BaseFragment {
          else  refreshLayout.finishLoadmore();
     }
 
-
-
-
-
       @Subscribe(threadMode = ThreadMode.MAIN)
      public void getVarietyHoldPosi(VarietyHoldPosiBean varietyHoldPosiBean) {
-         // loadNetData(currentPage,varietyHoldPosiBean);
-          mSettleAdapter.setItemData(varietyHoldPosiBean);
-          LogUtils.d("TAG-->结算:接收:VarietyHoldPosiBean",varietyHoldPosiBean.getHashMap().size()+"");
+          loadNetData(currentPage,varietyHoldPosiBean);
        }
-
 
 }

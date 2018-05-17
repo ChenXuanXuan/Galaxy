@@ -3,6 +3,7 @@ package com.mex.GalaxyChain.common;
 
 import android.content.Context;
 
+import com.mex.GalaxyChain.bean.eventbean.VarietyHoldPosiBean;
 import com.mex.GalaxyChain.data.sp.SharePStore;
 
 /**
@@ -13,6 +14,9 @@ public class ConfigManager {
 	private static final String KEY_ISLOGIN = "isLogin";
 	private static final String KEY_USER_TOKEN = "key_user_token";
     private static final String KEY_U_DEVICE_ID = "key_udid";
+	private static final String KEY_CONFIG = "key_config";
+	private static final String KEY_ASSET = "key_asset";
+	private static VarietyHoldPosiBean varietyEntity;
 
 	public static void init(Context context) {
 		sharePStore = SharePStore.getStore(context, "config");
@@ -42,4 +46,17 @@ public class ConfigManager {
     public static String getUDeviceId() {
         return sharePStore.getString(KEY_U_DEVICE_ID,"");
     }
+
+	public static VarietyHoldPosiBean getVarietyHold() {
+		if (varietyEntity == null) {
+			return varietyEntity = sharePStore.getObject(KEY_ASSET, VarietyHoldPosiBean.class);
+		}
+		return varietyEntity;
+	}
+
+	public static void setVarietyHold(VarietyHoldPosiBean result) {
+		varietyEntity = result;
+		sharePStore.save(KEY_ASSET, result);
+	}
+
 }
