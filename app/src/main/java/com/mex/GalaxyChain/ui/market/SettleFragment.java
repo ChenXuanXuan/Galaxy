@@ -34,9 +34,6 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -102,36 +99,34 @@ public class SettleFragment extends BaseFragment {
      int currentPage=1;
     @AfterViews
     void init() {
-        initVarietyData();
+
+       final  VarietyHoldPosiBean varietyHold = ConfigManager.getVarietyHold();
+        LogUtils.d("TAG"+new Gson().toJson(varietyHold));
         mSettleAdapter = new SettleAdapter(getActivity());
         listView.setAdapter(mSettleAdapter);
         setOnItemClickForListView();
         showLoading(getString(R.string.loading));
          currentPage=1;
-         loadNetData(currentPage,null);
+         loadNetData(currentPage,varietyHold);
 
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 currentPage=1;
-                loadNetData(currentPage,null);
+                loadNetData(currentPage,varietyHold);
             }
         });
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
                 currentPage++;
-                loadNetData(currentPage,null);
+                loadNetData(currentPage,varietyHold);
             }
         });
         }
 
-    private void initVarietyData() {
-        VarietyHoldPosiBean varietyHold = ConfigManager.getVarietyHold();
-        LogUtils.d("***************variety:"+new Gson().toJson(varietyHold));
-    }
 
-    @Override
+        @Override
     public void onDestroyView() {
         super.onDestroyView();
     }
@@ -223,9 +218,5 @@ public class SettleFragment extends BaseFragment {
          else  refreshLayout.finishLoadmore();
     }
 
-      @Subscribe(threadMode = ThreadMode.MAIN)
-     public void getVarietyHoldPosi(VarietyHoldPosiBean varietyHoldPosiBean) {
-          loadNetData(currentPage,varietyHoldPosiBean);
-       }
 
 }

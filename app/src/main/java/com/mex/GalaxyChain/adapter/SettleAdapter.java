@@ -77,15 +77,9 @@ public class SettleAdapter  extends BaseAbsListAdapter<TradeDetailBean.DataBean.
                            tv_sysbmol_name.setText(varietyHoldPosi.symbolname);
                        }
                 }
-            }//else{tv_sysbmol_name.setText(listBean.getSymbol());}
+            }
 
-
-
-
-
-
-
-             tv_shoushu.setText(String.valueOf(listBean.getQuantity()));  // 手数 quantity
+            tv_shoushu.setText(String.valueOf(listBean.getQuantity())+"手");  // 手数 quantity
            int bstype= listBean.getBstype();
            if(bstype==1){
                tv_loss.setText(Constants.UP);

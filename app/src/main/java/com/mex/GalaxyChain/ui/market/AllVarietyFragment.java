@@ -41,7 +41,6 @@ import com.mex.GalaxyChain.utils.RequestPermissionUtils;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -233,9 +232,8 @@ public class AllVarietyFragment extends BaseFragment {
                          VarietyHoldPosiBean varietyHoldPosiBean =new VarietyHoldPosiBean();
                          varietyHoldPosiBean.setHashMap(hashMap);
                         ConfigManager.setVarietyHold(varietyHoldPosiBean);
-//                         EventBus.getDefault().post(varietyHoldPosiBean);//1.传到持仓界面   2.  来到持仓界面
-                      //=======================
-                        setOnItemClickForListView(mSymbolInfosBeanList, mLongitude, mLatitude, all_variety, handNumSBeanList,stopLossTimesBeanList);
+                     LogUtils.d("TAG",varietyHoldPosiBean.getHashMap().size()+"");
+                      setOnItemClickForListView(mSymbolInfosBeanList, mLongitude, mLatitude, all_variety, handNumSBeanList,stopLossTimesBeanList);
                     }
                 });
     }

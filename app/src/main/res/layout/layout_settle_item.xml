@@ -13,8 +13,6 @@
         layout="@layout/item_jiesuan"
         />
 
-
-
     <TextView
        android:id="@+id/tv_onceAgain"
        android:layout_width="match_parent"
