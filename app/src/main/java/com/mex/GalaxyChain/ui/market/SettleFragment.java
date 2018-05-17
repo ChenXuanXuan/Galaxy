@@ -32,6 +32,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -99,6 +100,9 @@ public class SettleFragment extends BaseFragment {
      int currentPage=1;
     @AfterViews
     void init() {
+        if (!EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().register(this);
+        }
         mSettleAdapter = new SettleAdapter(getActivity());
         listView.setAdapter(mSettleAdapter);
         setOnItemClickForListView();
@@ -121,6 +125,14 @@ public class SettleFragment extends BaseFragment {
             }
         });
         }
+
+    @Override
+    public void onDestroyView() {
+        if (EventBus.getDefault().isRegistered(this)) {
+            EventBus.getDefault().unregister(this);
+        }
+        super.onDestroyView();
+    }
 
     private void setOnItemClickForListView() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -215,9 +227,7 @@ public class SettleFragment extends BaseFragment {
 
       @Subscribe(threadMode = ThreadMode.MAIN)
      public void getVarietyHoldPosi(VarietyHoldPosiBean varietyHoldPosiBean) {
-
           loadNetData(currentPage,varietyHoldPosiBean);
        }
-
 
 }
