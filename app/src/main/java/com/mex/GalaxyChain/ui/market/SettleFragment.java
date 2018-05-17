@@ -16,6 +16,7 @@ import com.mex.GalaxyChain.bean.TradeDetailBean;
 import com.mex.GalaxyChain.bean.eventbean.VarietyHoldPosiBean;
 import com.mex.GalaxyChain.bean.requestbean.RequestTradeDetailListBean;
 import com.mex.GalaxyChain.common.BaseFragment;
+import com.mex.GalaxyChain.common.ConfigManager;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.common.view.BaseSmartRefreshLayout;
@@ -23,6 +24,7 @@ import com.mex.GalaxyChain.net.HttpInterceptor;
 import com.mex.GalaxyChain.net.repo.UserRepo;
 import com.mex.GalaxyChain.utils.AppUtil;
 import com.mex.GalaxyChain.utils.DeviceUtil;
+import com.mex.GalaxyChain.utils.LogUtils;
 import com.mex.GalaxyChain.utils.ToastUtils;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
@@ -100,9 +102,7 @@ public class SettleFragment extends BaseFragment {
      int currentPage=1;
     @AfterViews
     void init() {
-        if (!EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().register(this);
-        }
+        initVarietyData();
         mSettleAdapter = new SettleAdapter(getActivity());
         listView.setAdapter(mSettleAdapter);
         setOnItemClickForListView();
@@ -126,11 +126,13 @@ public class SettleFragment extends BaseFragment {
         });
         }
 
+    private void initVarietyData() {
+        VarietyHoldPosiBean varietyHold = ConfigManager.getVarietyHold();
+        LogUtils.d("***************variety:"+new Gson().toJson(varietyHold));
+    }
+
     @Override
     public void onDestroyView() {
-        if (EventBus.getDefault().isRegistered(this)) {
-            EventBus.getDefault().unregister(this);
-        }
         super.onDestroyView();
     }
 
@@ -220,10 +222,6 @@ public class SettleFragment extends BaseFragment {
          if(currentPage==1) refreshLayout.finishRefresh();
          else  refreshLayout.finishLoadmore();
     }
-
-
-
-
 
       @Subscribe(threadMode = ThreadMode.MAIN)
      public void getVarietyHoldPosi(VarietyHoldPosiBean varietyHoldPosiBean) {

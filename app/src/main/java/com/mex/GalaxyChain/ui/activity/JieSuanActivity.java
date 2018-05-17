@@ -131,13 +131,4 @@ public class JieSuanActivity extends BaseActivity {
         magic_indicator4.setNavigator(commonNavigator);
         ViewPagerHelper.bind(magic_indicator4, vp_hq_fragment);
     }
-
-
-
-
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMoonEvent(QuitEvent event) {
-
-    }
 }

@@ -91,6 +91,7 @@ public class SharePStore {
 		}
 	}
 
+
 	public <T extends Serializable> T getObject(String key, Class<T> clazz) {
 		String val = sp.getString(key, null);
 		if (TextUtils.isEmpty(val)) {
