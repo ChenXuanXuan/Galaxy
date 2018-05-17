@@ -23,6 +23,7 @@ import com.mex.GalaxyChain.net.HttpInterceptor;
 import com.mex.GalaxyChain.net.repo.UserRepo;
 import com.mex.GalaxyChain.utils.AppUtil;
 import com.mex.GalaxyChain.utils.DeviceUtil;
+import com.mex.GalaxyChain.utils.LogUtils;
 import com.mex.GalaxyChain.utils.ToastUtils;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
@@ -32,6 +33,7 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -99,6 +101,7 @@ public class SettleFragment extends BaseFragment {
      int currentPage=1;
     @AfterViews
     void init() {
+        EventBus.getDefault().register(this);
         mSettleAdapter = new SettleAdapter(getActivity());
         listView.setAdapter(mSettleAdapter);
         setOnItemClickForListView();
@@ -182,7 +185,7 @@ public class SettleFragment extends BaseFragment {
                                         mSettleAdapter.addItems(listBeanList);
                                     }
 
-                                    mSettleAdapter.setItemData(varietyHoldPosiBean);
+                                    //mSettleAdapter.setItemData(varietyHoldPosiBean);
 
                                        //是否全部加载完毕     后台返回的集合为空  或size=0  或 最有一页返回的数据条数<15条 后台没有数据返回了
                                     refreshLayout.setLoadmoreFinished(listBeanList == null || listBeanList.size() == 0||listBeanList.size()<Constants.PAGESIZE);
@@ -215,8 +218,9 @@ public class SettleFragment extends BaseFragment {
 
       @Subscribe(threadMode = ThreadMode.MAIN)
      public void getVarietyHoldPosi(VarietyHoldPosiBean varietyHoldPosiBean) {
-
-          loadNetData(currentPage,varietyHoldPosiBean);
+         // loadNetData(currentPage,varietyHoldPosiBean);
+          mSettleAdapter.setItemData(varietyHoldPosiBean);
+          LogUtils.d("TAG-->结算:接收:VarietyHoldPosiBean",varietyHoldPosiBean.getHashMap().size()+"");
        }
 
 

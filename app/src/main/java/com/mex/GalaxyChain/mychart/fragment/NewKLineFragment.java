@@ -124,11 +124,11 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
             paramMap.put("latitude", mLatitude);
             paramMap.put("longitude", mLongitude);
             String symbol = "BTCUSDT";
-            paramMap.put("symbol", symbol);
+            paramMap.put("symbol", symbol);//todo 变化的
             paramMap.put("starttime", starttime);//返回每次数量的最后一条蜡烛数据的时间撮
             int count = -1500;//(- 向左 每次取500条   + 向右 每次取500)一开始时间为节点，正直是向右取，负值是向左取(每次返回的条数)
             paramMap.put("count", count);
-            String interval = Constants.ONE_MIN; //默认周期  1分钟
+            String interval = Constants.ONE_MIN; //默认周期  1分钟 todo 变化的
             paramMap.put("interval", interval);
             int vol = 500; //交易量
             paramMap.put("vol", vol);
@@ -153,8 +153,9 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
                             List<KLineEntity> kLineEntityArrayList = new ArrayList<>();
                             //K历史数据
                             List<HistoryKLineBean.DataBean> dataBeanList = historyKLineBean.getData();
-                            LogUtils.d("******************K线："+new Gson().toJson(dataBeanList));
+                            LogUtils.d("K线--->数据"+new Gson().toJson(dataBeanList));
                             starttime = dataBeanList.get(dataBeanList.size()-1).getTimes();
+                            LogUtils.d("K线--->每页最后一条time:"+starttime);
                             if (dataBeanList != null && dataBeanList.size() > 0) {
                                 if (dataBeanList.size()==1){
                                     mKChartView.refreshEnd();

@@ -75,8 +75,8 @@ int SUSPEND_TRADING=4;
      String FIVE_MIN="5m";
      String FIFTEEN_MIN="15m";
     String THIRTY_MIN="30m";
-
-
+    String SIXTY_MIN="60m";
+    String DAY_K="";
 
    String FROM_PAYORDER_K_MOKEMORE="from_payorder_k_mokemore";
    String FROM_CHICANG_UNLOGIN="from_chicang_unlogin";

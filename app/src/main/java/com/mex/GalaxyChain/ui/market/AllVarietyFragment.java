@@ -232,13 +232,8 @@ public class AllVarietyFragment extends BaseFragment {
                          VarietyHoldPosiBean varietyHoldPosiBean =new VarietyHoldPosiBean();
                          varietyHoldPosiBean.setHashMap(hashMap);
                          EventBus.getDefault().post(varietyHoldPosiBean);//1.传到持仓界面   2.  来到持仓界面
-                      //=======================
-
-
-
-
-
-
+                        LogUtils.d("TAG-->行情:发送:VarietyHoldPosiBean",varietyHoldPosiBean.getHashMap().size()+"");
+                        //=======================
 
                         setOnItemClickForListView(mSymbolInfosBeanList, mLongitude, mLatitude, all_variety, handNumSBeanList,stopLossTimesBeanList);
                     }
@@ -319,10 +314,6 @@ public class AllVarietyFragment extends BaseFragment {
                     UserGolbal.getInstance().setPerprofitnumber(symbolInfosBean.getPerprofitnumber());  //perprofitnumber 收益点数
                     UserGolbal.getInstance().setPerprofit(symbolInfosBean.getPerprofit()); //perprofit 收益
                     UserGolbal.getInstance().setCurrencytype(symbolInfosBean.getCurrencytype());  //currencytype;//币种类型
-
-
-
-
 
                     if (handNumSBeanList != null && handNumSBeanList.size() > 0) {
                         List<NumEntity> numEntityList = new ArrayList<>();
