@@ -20,7 +20,6 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
-
             android:padding="@dimen/dp12"
             android:paddingLeft="@dimen/dp15"
             android:src="@drawable/back" />

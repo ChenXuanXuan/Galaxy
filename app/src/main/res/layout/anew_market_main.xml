@@ -25,15 +25,36 @@
         android:layout_below="@+id/text_notuse"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvCurrent"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/dp50"
-            android:layout_marginLeft="@dimen/dp15"
-            android:layout_marginTop="@dimen/dp15"
-            android:text="0"
-            android:textColor="@color/chart_green"
-            android:textSize="@dimen/dp22"/>
+         <RelativeLayout
+             android:layout_width="match_parent"
+             android:layout_height="@dimen/dp50"
+             android:layout_marginLeft="@dimen/dp15"
+             android:layout_marginRight="@dimen/dp15"
+            android:layout_gravity="center_vertical"
+             android:gravity="center_vertical">
+             <TextView
+                 android:id="@+id/tvCurrent"
+                 android:layout_width="wrap_content"
+                 android:layout_height="match_parent"
+                 android:layout_alignParentLeft="true"
+                 android:gravity="center_vertical"
+                 android:text="00"
+                 android:textColor="@color/chart_green"
+                 android:textSize="@dimen/dp22"/>
+
+             <ImageView
+                 android:id="@+id/im_out_k"
+                  android:layout_width="20dp"
+                  android:layout_height="20dp"
+                  android:background="@drawable/out"
+                  android:layout_alignParentRight="true"
+                 android:layout_centerInParent="true"
+                  android:gravity="center_vertical"
+                 />
+
+         </RelativeLayout>
+
+
 
         <RelativeLayout
             android:layout_width="match_parent"

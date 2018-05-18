@@ -106,11 +106,11 @@ public class LandMarketMainAct extends BaseActivity implements View.OnClickListe
 	public void onClick(View v) {
 		switch (v.getId()) {
 
-			case R.id.makeMore://做多
-				break;
+			//case R.id.makeMore://做多
+			//	break;
 
-			case R.id.makeEmpty://做空
-				break;
+			//case R.id.makeEmpty://做空
+			//	break;
 
 			case R.id.fenshi:
 				type = "1";
@@ -354,15 +354,15 @@ public class LandMarketMainAct extends BaseActivity implements View.OnClickListe
 		week = (TextView) findViewById(R.id.week);
 		month = (TextView) findViewById(R.id.month);
 		min = (TextView) findViewById(R.id.min);
-		makeMore = (TextView) findViewById(R.id.makeMore);
-		makeEmpty = (TextView) findViewById(R.id.makeEmpty);
+		//makeMore = (TextView) findViewById(R.id.makeMore);
+	//	makeEmpty = (TextView) findViewById(R.id.makeEmpty);
 		fenshi.setOnClickListener(this);
 		days.setOnClickListener(this);
 		week.setOnClickListener(this);
 		month.setOnClickListener(this);
 		min.setOnClickListener(this);
-		makeMore.setOnClickListener(this);
-		makeEmpty.setOnClickListener(this);
+	//	makeMore.setOnClickListener(this);
+		//makeEmpty.setOnClickListener(this);
 		initPopu();
 	}
 

@@ -4,73 +4,301 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="horizontal">
+    android:orientation="vertical">
+
+
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_weight="1"
+         android:layout_height="0dp"
+         android:orientation="vertical">
+
+         <RelativeLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="@dimen/dp15"
+             android:layout_marginRight="@dimen/dp15"
+             android:layout_gravity="center_vertical"
+             android:gravity="center_vertical">
+             <TextView
+                 android:id="@+id/tvCurrent"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_alignParentLeft="true"
+                 android:gravity="center_vertical"
+                 android:text="00"
+                 android:textColor="@color/chart_green"
+                 android:textSize="@dimen/dp12"/>
+
+             <ImageView
+                 android:id="@+id/im_in_k"
+                 android:layout_width="15dp"
+                 android:layout_height="15dp"
+                 android:background="@drawable/in"
+                 android:layout_alignParentRight="true"
+                 android:layout_centerInParent="true"
+                 android:gravity="center_vertical"
+                 />
+
+         </RelativeLayout>
+
+         <RelativeLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginLeft="@dimen/dp15"
+             android:layout_marginRight="@dimen/dp15">
+
+             <TextView
+                 android:id="@+id/tv_downUp_rate"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:text="0%"
+                 android:textColor="@color/chart_green"
+                 android:textSize="@dimen/dp12" />
+
+             <TextView
+                 android:id="@+id/tv_downUp"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"
+                 android:layout_below="@+id/tv_downUp_rate"
+                 android:text="0"
+                 android:textColor="@color/chart_green"
+                 android:textSize="@dimen/dp12"/>
+
+             <LinearLayout
+                 android:layout_width="wrap_content"
+                 android:layout_height="match_parent"
+                 android:layout_alignParentRight="true"
+                 android:orientation="vertical">
+
+                 <LinearLayout
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content">
+
+                     <TextView
+                         android:layout_width="@dimen/dp50"
+                         android:layout_height="wrap_content"
+                         android:text="今开:"
+                         android:textColor="@color/hint_color"
+                         android:textSize="@dimen/sp12" />
+
+                     <TextView
+                         android:id="@+id/open"
+                         android:layout_width="@dimen/dp60"
+                         android:layout_height="wrap_content"
+                         android:text="0"
+                         android:textColor="@color/red"
+                         android:textSize="@dimen/sp12" />
+
+                     <TextView
+                         android:layout_width="@dimen/dp50"
+                         android:layout_height="wrap_content"
+                         android:text="最高:"
+                         android:textColor="@color/hint_color"
+                         android:textSize="@dimen/sp12" />
+
+                     <TextView
+                         android:id="@+id/high"
+                         android:layout_width="@dimen/dp60"
+                         android:layout_height="wrap_content"
+                         android:text="0"
+                         android:textColor="@color/red"
+                         android:textSize="@dimen/sp12" />
+
+                 </LinearLayout>
+
+                 <LinearLayout
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content">
+
+                     <TextView
+                         android:layout_width="@dimen/dp50"
+                         android:layout_height="wrap_content"
+                         android:text="昨收:"
+                         android:textColor="@color/hint_color"
+                         android:textSize="@dimen/sp12" />
+
+                     <TextView
+                         android:id="@+id/close"
+                         android:layout_width="@dimen/dp60"
+                         android:layout_height="wrap_content"
+                         android:text="0"
+
+                         android:textColor="@color/hint_color"
+                         android:textSize="@dimen/sp12" />
+
+                     <TextView
+                         android:layout_width="49dp"
+                         android:layout_height="wrap_content"
+                         android:text="最低:"
+                         android:textColor="@color/hint_color"
+                         android:textSize="@dimen/sp12"/>
+
+                     <TextView
+                         android:id="@+id/low"
+                         android:layout_width="@dimen/dp60"
+                         android:layout_height="wrap_content"
+                         android:text="0"
+                         android:textColor="@color/chart_green"
+                         android:textSize="@dimen/sp12" />
+
+                 </LinearLayout>
+
+             </LinearLayout>
+
+         </RelativeLayout>
+
+     </LinearLayout>
+
+
+
+
+
+
+
+
+
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="5"
-        android:background="@color/white"
-        android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_weight="4"
+        android:layout_height="0dp"
+        android:orientation="horizontal">
 
         <LinearLayout
-            android:id="@+id/ll_inditor"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp35"
-            android:orientation="vertical"
-            android:paddingRight="@dimen/dp12">
-
-            <!-- 分时  日K  周K 月K   -->
-            <include layout="@layout/market_stye" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp2"
-                android:background="@color/background" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/dp10"
-            android:layout_marginRight="@dimen/dp12"
-            android:orientation="vertical"
-            android:visibility="visible">
+            android:layout_weight="5"
+            android:background="@color/white"
+            android:orientation="vertical">
 
-            <!-- 交易K图绘制区域-->
-            <include
-                layout="@layout/anewmarket_detail_two"
+            <LinearLayout
+                android:id="@+id/ll_inditor"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="@dimen/dp35"
+                android:orientation="vertical"
+                android:paddingRight="@dimen/dp12">
+
+                <!-- 分时  日K  周K 月K   -->
+                <include layout="@layout/market_stye" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp2"
+                    android:background="@color/background" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/dp10"
+                android:layout_marginRight="@dimen/dp12"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <!-- 交易K图绘制区域-->
+                <include
+                    layout="@layout/anewmarket_detail_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
 
         </LinearLayout>
 
+
+
+
+        <!-- 底部下单 按钮 做多  做空 -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="0.6"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/dp20"
+            android:layout_marginBottom="@dimen/dp20"
+            android:layout_marginRight="@dimen/dp5"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:id="@+id/ll_makeMore"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:background="@drawable/heng_makemore"
+                android:orientation="vertical"
+                android:layout_marginBottom="@dimen/dp5">
+
+                <TextView
+                    android:id="@+id/tv_optional_stock"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:text="2631.8"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/sp12" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="做多"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/sp12"/>
+
+
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/ll_makeLoss"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/dp5"
+                android:background="@drawable/heng_makeloss"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="做空"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/sp12"/>
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:text="2631.9"
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/sp12"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/makeMore"
-            android:paddingTop="@dimen/dp50"
-            android:paddingBottom="@dimen/dp50"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="看涨做多" />
-
-        <TextView
-            android:id="@+id/makeEmpty"
-            android:paddingTop="@dimen/dp50"
-            android:paddingBottom="@dimen/dp50"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp50"
-            android:text="看跌做空" />
-    </LinearLayout>
 
 </LinearLayout>

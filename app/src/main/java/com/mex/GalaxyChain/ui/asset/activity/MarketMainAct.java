@@ -87,7 +87,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
     private RelativeLayout tv_top_bar_left;
     private RelativeLayout iv_top_bar_right;
     private TextView tv_top_bar_middle;
-    private ImageView iv_top_image;
+    private ImageView iv_top_image,im_out_k;
     private TextView fenshi, days, week, month, min;
     private PopupWindow pwMyPopWindow;
     private String type = "1";
@@ -175,7 +175,11 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
         switch (v.getId()) {
 
             case R.id.iv_top_image://全屏
-                LandMarketMainAct.launch(this);
+               // LandMarketMainAct.launch(this);
+                break;
+
+            case R.id.im_out_k:
+             LandMarketMainAct.launch(this);
                 break;
 
             case R.id.exchange://触发止盈
@@ -1069,8 +1073,10 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
         tv_top_bar_left = (RelativeLayout) findViewById(R.id.tv_top_bar_left);
         iv_top_image = (ImageView) findViewById(R.id.iv_top_image);
         iv_top_bar_right = (RelativeLayout) findViewById(R.id.iv_top_bar_right);
-        iv_top_image = (ImageView) findViewById(R.id.iv_top_image);
         iv_top_image.setOnClickListener(this);
+        im_out_k = (ImageView) findViewById(R.id.im_out_k);
+        im_out_k.setOnClickListener(this);
+
 
 
         if (UserGolbal.getInstance().getTag() == Constants.ALL_VARIETY) { // 全部品种
