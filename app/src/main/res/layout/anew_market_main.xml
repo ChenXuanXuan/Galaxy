@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
     <!-- b标题 -->
-    <include layout="@layout/top_bar_market" />
+    <include layout="@layout/top_bar_market_k" />
 
     <TextView
         android:id="@+id/text_notuse"
@@ -232,11 +232,11 @@
                 android:textSize="14dp"/>
 
             <TextView
-                android:id="@+id/tv_optional_stock"
+                android:id="@+id/tv_makeMore_newPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="2631.8"
+                android:text="--"
                 android:textColor="@android:color/white"
                 android:textSize="12dp" />
 
@@ -263,11 +263,11 @@
                 android:textSize="15dp" />
 
             <TextView
-
+                  android:id="@+id/tv_makeLoss_newPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="2631.8"
+                android:text="--"
                 android:textColor="@android:color/white"
                 android:textSize="12dp" />
 
