@@ -2,6 +2,9 @@ package com.mex.GalaxyChain.ui.asset.fragment;
 
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.common.BaseFragment;
+import com.mex.GalaxyChain.ui.activity.BrowserActivity_;
+
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 
 
@@ -11,4 +14,8 @@ import org.androidannotations.annotations.EFragment;
 @EFragment(R.layout.fragment_asset)
 public class AssetFragment extends BaseFragment {
 
+    @AfterViews
+    void init(){
+        BrowserActivity_.launch(getActivity(), "http://www.iqiyi.com/w_19rvw2t8wh.html");
+    }
 }
