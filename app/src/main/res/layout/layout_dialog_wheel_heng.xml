@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical"
+      android:layout_marginTop="@dimen/dp10"
+    android:paddingLeft="@dimen/dp25"
+    android:paddingRight="@dimen/dp25">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp25"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:text="触发止盈止损金额"
+        android:textSize="@dimen/dp14"/>
+
+
+    <com.mex.GalaxyChain.view.CustomWheelView
+        android:id="@+id/wheelView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp100"
+        android:focusable="false">
+
+    </com.mex.GalaxyChain.view.CustomWheelView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp25">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="触发止损金额 "
+            android:textSize="@dimen/dp12" />
+
+        <TextView
+            android:id="@+id/tv_touch_StopLoss_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:text="-0.0"
+            android:textSize="@dimen/dp12"/>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp25">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="触发止盈金额"
+            android:textSize="@dimen/dp12"/>
+
+        <TextView
+            android:id="@+id/tv_touch_StopProfi_amount"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:text="0.0"
+            android:textSize="@dimen/dp12"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp25">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="占用保证金 "
+            android:textSize="@dimen/dp12"/>
+
+        <TextView
+            android:id="@+id/tv_occupy_perrmbmargin"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:text="0.0"
+            android:textSize="@dimen/dp12"/>
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/confirm"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp25"
+        android:layout_gravity="center"
+        android:layout_marginLeft="@dimen/dp24"
+        android:layout_marginRight="@dimen/dp24"
+        android:background="@drawable/code_bg"
+        android:gravity="center"
+        android:text="确  定"
+        android:textSize="@dimen/dp12"
+        android:textColor="@color/white" />
+</LinearLayout>

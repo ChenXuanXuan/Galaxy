@@ -124,7 +124,7 @@ public class ExchangeFragment2 extends BaseFragment {
         EventBus.getDefault().register(this);
         searchAdapter = new SearchAdapter(getActivity());
         listView.setAdapter(searchAdapter);
-         // showLoading(getString(R.string.loading));
+           showLoading(getString(R.string.loading));
           loadNetData(mVarietyHoldPosiBean);
           refreshLayout.setDefaultLoadingHeaderView();
            refreshLayout.setDefaultLoadingFooterView();
@@ -186,9 +186,10 @@ public class ExchangeFragment2 extends BaseFragment {
 
                         @Override
                         public void onNext(HoldPositionBean holdPositionBean) {
-                              //dismissLoading();
+                              dismissLoading();
                             if(refreshLayout!=null) refreshLayout.finishRefresh();
                               if(holdPositionBean.getCode()==200){
+                                  ToastUtils.showTextInMiddle(holdPositionBean.getMsg());
                                   HoldPositionBean.DataBean dataBean =holdPositionBean.getData();
                                   tv_total_amount.setText("总资金: "+dataBean.getTotalamount());//总资金
 
@@ -249,7 +250,7 @@ public class ExchangeFragment2 extends BaseFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRefleshBean(RefleshBean refleshBean) {
-        loadNetData(mVarietyHoldPosiBean);
+         loadNetData(mVarietyHoldPosiBean);
 
     }
 }
