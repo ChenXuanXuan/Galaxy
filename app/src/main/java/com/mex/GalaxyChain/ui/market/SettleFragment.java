@@ -20,7 +20,9 @@ import com.mex.GalaxyChain.common.ConfigManager;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.common.view.BaseSmartRefreshLayout;
+import com.mex.GalaxyChain.net.ApiException;
 import com.mex.GalaxyChain.net.HttpInterceptor;
+import com.mex.GalaxyChain.net.HttpSubscriber;
 import com.mex.GalaxyChain.net.repo.UserRepo;
 import com.mex.GalaxyChain.utils.AppUtil;
 import com.mex.GalaxyChain.utils.DeviceUtil;
@@ -39,7 +41,6 @@ import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import rx.Subscriber;
 
 
 //结算
@@ -135,7 +136,7 @@ public class SettleFragment extends BaseFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                   ToastUtils.showTextInMiddle(position+"");
             }
         });
     }
@@ -162,13 +163,55 @@ public class SettleFragment extends BaseFragment {
                 String jsonStr = gson.toJson(requestTradeDetailListBean);
                 RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonStr);
                 UserRepo.getInstance().PostTradeDetail(requestBody)
-                        .subscribe(new Subscriber<TradeDetailBean>() {
+                    .subscribe(new HttpSubscriber<TradeDetailBean>() {
+                        @Override
+                        protected void onSuccess(TradeDetailBean tradeDetailBean) {
+                                refreshComplete();
+                                if(tradeDetailBean.getCode()==200){
+                                    TradeDetailBean.DataBean dataBean=tradeDetailBean.getData();
+                                    if(dataBean==null) return;
+                                    List<TradeDetailBean.DataBean.ListBean> listBeanList= dataBean.getList();
+
+                                    if(currentPage==1){ //加载第一页的数据
+                                        if(listBeanList==null||listBeanList.size()==0){
+                                            listView.setEmptyView(noData);
+                                        }
+                                        //setItems是把之前的数据清空了添加上去数据
+                                        mSettleAdapter.setItems(listBeanList);
+
+                                    }else{ // currentPage =2 3 加载第二 三页数据 到集合里
+                                       //addItems是直接在原来数据后面添加上数据
+                                        mSettleAdapter.addItems(listBeanList);
+                                    }
+
+                                    mSettleAdapter.setItemData(varietyHoldPosiBean);
+
+                                       //是否全部加载完毕     后台返回的集合为空  或size=0  或 最有一页返回的数据条数<15条 后台没有数据返回了
+                                    refreshLayout.setLoadmoreFinished(listBeanList == null || listBeanList.size() == 0||listBeanList.size()<Constants.PAGESIZE);
+
+                                }else{
+                                    ToastUtils.showTextInMiddle(tradeDetailBean.getMsg());
+                                }
+
+                            }
+
+
+                        @Override
+                        protected void onFailure(ApiException e) {
+                            refreshComplete();
+                            //使用缓存的数据
+                        }
+                    });
+
+
+                     /*   .subscribe(new Subscriber<TradeDetailBean>() {
                             @Override
                             public void onCompleted() {}
 
                             @Override
                             public void onError(Throwable e) {
                                 refreshComplete();
+                                ToastUtils.showTextInMiddle("没有网络");
                             }
 
                             @Override
@@ -201,7 +244,7 @@ public class SettleFragment extends BaseFragment {
                                 }
 
                             }
-                        });
+                        });*/
 
 
 

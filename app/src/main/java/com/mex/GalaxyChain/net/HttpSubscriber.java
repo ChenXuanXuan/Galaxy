@@ -3,14 +3,18 @@ package com.mex.GalaxyChain.net;
 import android.os.Looper;
 import android.text.TextUtils;
 
+import com.google.gson.JsonParseException;
 import com.mex.GalaxyChain.MyApplication;
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.utils.CommonUtil;
 import com.mex.GalaxyChain.utils.NetWorkUtils;
 import com.mex.GalaxyChain.utils.ToastUtils;
 
+import org.json.JSONException;
+
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
+import java.text.ParseException;
 
 import retrofit2.HttpException;
 import rx.Subscriber;
@@ -82,14 +86,14 @@ public abstract class HttpSubscriber<T> extends Subscriber<T> {
 					handleErrMsg(ex);
 					break;
 			}
-		}/* else if (e instanceof JsonParseException
-				//|| e instanceof JSONException
+		} else if (e instanceof JsonParseException
+				|| e instanceof JSONException
 				|| e instanceof ParseException
 				|| e instanceof com.google.gson.stream.MalformedJsonException) {
 			ex = new ApiException(e, ApiException.PARSE_ERROR);
 			ex.setDisplayMessage(parseMsg);
 			handleErrMsg(ex);
-		} */else if (e instanceof ConnectException) {
+		} else if (e instanceof ConnectException) {
 			ex = new ApiException(e, NOT_FOUND);
 			ex.setDisplayMessage(connectMsg);  //均视为网络错误
 			handleErrMsg(ex);
@@ -118,6 +122,7 @@ public abstract class HttpSubscriber<T> extends Subscriber<T> {
 	public void onNext(T t) {
 		onSuccess(t);
 	}
+
 
 	protected abstract void onSuccess(T repoData);
 

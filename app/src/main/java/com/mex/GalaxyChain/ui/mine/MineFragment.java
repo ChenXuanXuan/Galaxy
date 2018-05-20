@@ -18,17 +18,27 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.mex.GalaxyChain.MyApplication;
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.bean.QuitEvent;
+import com.mex.GalaxyChain.bean.UserAccountInfoBean;
 import com.mex.GalaxyChain.common.BaseFragment;
+import com.mex.GalaxyChain.common.Constants;
+import com.mex.GalaxyChain.common.UserGolbal;
+import com.mex.GalaxyChain.net.HttpInterceptor;
+import com.mex.GalaxyChain.net.repo.UserRepo;
+import com.mex.GalaxyChain.ui.mine.activity.AccountMoneyFlowActivity_;
 import com.mex.GalaxyChain.ui.mine.activity.AssetCenterAct_;
 import com.mex.GalaxyChain.ui.mine.activity.InpourActivity_;
 import com.mex.GalaxyChain.ui.mine.activity.QuestionActivity_;
 import com.mex.GalaxyChain.ui.mine.activity.SettingActivity_;
+import com.mex.GalaxyChain.utils.AppUtil;
 import com.mex.GalaxyChain.utils.BitmapUtils;
+import com.mex.GalaxyChain.utils.DeviceUtil;
 import com.mex.GalaxyChain.utils.IsEmptyUtils;
 import com.mex.GalaxyChain.utils.RequestPermissionUtils;
 import com.mex.GalaxyChain.view.PhotoPopupWindow;
@@ -44,6 +54,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
+
+import rx.Subscriber;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -58,8 +71,17 @@ public class MineFragment extends BaseFragment {
     @ViewById
     TextView mTitle;
 
+    @ViewById(R.id.tv_amount_type)
+    TextView tv_amount_type;
+    @ViewById(R.id.tv_canusedamount)
+    TextView tv_canusedamount;
+
     @ViewById
     ImageView iv_user_icon;
+
+    @ViewById(R.id.rl_getMoneyFlow)
+    RelativeLayout rl_getMoneyFlow;
+
 
 
     private PhotoPopupWindow popupWindow;
@@ -67,7 +89,10 @@ public class MineFragment extends BaseFragment {
     @AfterViews
     void init() {
         initView();
+        loadNetData();
     }
+
+
 
     private void initView() {
         // 直接加载显示本地存储的头像(经过处理的头像)
@@ -80,6 +105,73 @@ public class MineFragment extends BaseFragment {
 
         initListenerForPopu();
     }
+
+
+    private void loadNetData() {
+
+        if(UserGolbal.getInstance().locationSuccess()){
+            HashMap<String, Object> paramMap = new HashMap<>();
+            //定位成功 经纬度直接用
+            double mLongitude = UserGolbal.getInstance().getLongitude(); //空
+            double mLatitude = UserGolbal.getInstance().getLatitude();//空
+            String token = UserGolbal.getInstance().getUserToken();
+            paramMap.put("latitude", mLatitude);
+            paramMap.put("longitude", mLongitude);
+            paramMap.put("usertoken", token);
+
+            final int deviceType = Constants.ANDROID;//设备类型(1=IOS，2=安卓,3=UWP,4=PC)
+            paramMap.put("deviceType", deviceType);
+            String devcieModel = Build.MODEL;  //手机型号(如:华为)
+            paramMap.put("devcieModel", devcieModel);
+            int channelId = Constants.channelId;////白标ID
+            paramMap.put("channelId", channelId);
+            paramMap.put("version", AppUtil.getAppVersionName(MyApplication.getInstance()));
+            MyApplication instance = MyApplication.getInstance();
+            String device_identifier = DeviceUtil.getUdid(instance);
+            String deviceID= HttpInterceptor.silentURLEncode(device_identifier);
+            paramMap.put("deviceId", deviceID);
+            UserRepo.getInstance().getUserAccountInfo(paramMap)
+                    .subscribe(new Subscriber<UserAccountInfoBean>() {
+                        @Override
+                        public void onCompleted() {}
+
+                        @Override
+                        public void onError(Throwable e) {}
+
+                        @Override
+                        public void onNext(UserAccountInfoBean userAccountInfoBean) {
+
+                            if(userAccountInfoBean.getCode()==200){
+                                UserAccountInfoBean.DataBean data=userAccountInfoBean.getData();
+                                UserAccountInfoBean.DataBean.AccountMoneyInfoBean accountMoneyInfo= data.getAccountMoneyInfo();
+
+                                tv_amount_type.setText("总金额("+ accountMoneyInfo.getCurrenttype()+")");
+                                tv_canusedamount.setText(accountMoneyInfo.getCanusedamount()+"");
+                                UserGolbal.getInstance().setRealnamestatus(accountMoneyInfo.getRealnamestatus());
+                                UserGolbal.getInstance().amount=accountMoneyInfo.getAmount();
+                                UserGolbal.getInstance().canusedamount=accountMoneyInfo.getCanusedamount();
+                                UserGolbal.getInstance().frozenmargin=accountMoneyInfo.getFrozenmargin();
+                                UserGolbal.getInstance().totalprofit=accountMoneyInfo.getTotalprofit();
+
+                            }
+
+                            }
+                    });
+
+
+        }else{
+            //重新去请求经纬度 在进行赋值
+            UserGolbal.getInstance().requestLocation();
+
+        }
+
+    }
+
+
+
+
+
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMoonEvent(QuitEvent event) {
@@ -98,10 +190,10 @@ public class MineFragment extends BaseFragment {
 
 
     @Click({R.id.inpour, R.id.withDraw, R.id.assetCenter, R.id.normalQa,
-            R.id.about_us, R.id.setting, R.id.iv_user_icon})
+            R.id.about_us, R.id.setting, R.id.iv_user_icon,R.id.rl_getMoneyFlow})
     void onClick(View view) {
         switch (view.getId()) {
-            case R.id.inpour:
+            case R.id.inpour: //充值
                 InpourActivity_.intent(this).start();
                 break;
 
@@ -109,7 +201,7 @@ public class MineFragment extends BaseFragment {
 
                 break;
 
-            case R.id.assetCenter://资产中心
+            case R.id.assetCenter://账户中心
                 AssetCenterAct_.intent(getActivity()).start();
                 break;
 
@@ -127,6 +219,11 @@ public class MineFragment extends BaseFragment {
             case R.id.iv_user_icon:  // 更换用户头像
                     changeUserPhoto();
                 //  RegisActivity_.intent(getActivity()).start();
+                break;
+
+
+            case R.id.rl_getMoneyFlow: // 资金明细
+                 AccountMoneyFlowActivity_.intent(getActivity()).start();
                 break;
         }
     }

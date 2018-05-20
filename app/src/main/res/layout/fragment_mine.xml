@@ -26,29 +26,29 @@
                 android:src="@drawable/icon_user" />
 
             <TextView
-                android:id="@+id/amount"
+                android:id="@+id/tv_amount_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv_user_icon"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/dp10"
-                android:text="总金额（元）" />
+                android:text="总金额(--)" />
 
             <TextView
-                android:id="@+id/amountShow"
+                android:id="@+id/tv_canusedamount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/amount"
+                android:layout_below="@+id/tv_amount_type"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/dp10"
-                android:text="1234521432"
+                android:text="0"
                 android:textSize="@dimen/dp18"
                 android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/amountShow"
+                android:layout_below="@+id/tv_canusedamount"
                 android:layout_marginLeft="@dimen/dp15"
                 android:layout_marginRight="@dimen/dp15"
                 android:layout_marginTop="@dimen/dp15">
@@ -78,7 +78,9 @@
 
         </RelativeLayout>
 
-        <RelativeLayout style="@style/MineView">
+        <RelativeLayout
+            android:id="@+id/rl_getMoneyFlow"
+            style="@style/MineView">
 
             <TextView
                 style="@style/MineTV"

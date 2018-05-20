@@ -1,0 +1,122 @@
+package com.mex.GalaxyChain.ui.mine.fragment;
+
+import android.widget.ListView;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+import com.mex.GalaxyChain.R;
+import com.mex.GalaxyChain.adapter.MoneyFlowAdapter;
+import com.mex.GalaxyChain.bean.MoneyFlowBean;
+import com.mex.GalaxyChain.bean.eventbean.MeneyFlowFailebean;
+import com.mex.GalaxyChain.common.BaseFragment;
+import com.mex.GalaxyChain.common.Constants;
+import com.mex.GalaxyChain.common.view.BaseSmartRefreshLayout;
+import com.mex.GalaxyChain.utils.LoadNetDataForMoneyFlowUtil;
+import com.mex.GalaxyChain.utils.LogUtils;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnLoadmoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import org.androidannotations.annotations.AfterViews;
+import org.androidannotations.annotations.EFragment;
+import org.androidannotations.annotations.ViewById;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.List;
+
+@EFragment(R.layout.fragment_moneyflow)
+public class AllFragment extends BaseFragment {
+
+    @ViewById(R.id.refreshLayout)
+    BaseSmartRefreshLayout refreshLayout;
+
+    @ViewById(R.id.noData)
+    TextView noData;
+    @ViewById(R.id.listView)
+    ListView listView;
+
+
+    int currentPage = 1;
+    private MoneyFlowAdapter mMoneyFlowAdapter;
+    private List<MoneyFlowBean.DataBean.ListBean> mListBeanList;
+
+    @AfterViews
+    void init() {
+        EventBus.getDefault().register(this);
+        mMoneyFlowAdapter = new MoneyFlowAdapter(getActivity());
+        listView.setAdapter(mMoneyFlowAdapter);
+       //setOnItemClickForListView();
+        showLoading(getString(R.string.loading));
+        currentPage = 1;
+        loadNetData(currentPage, Constants.ALL);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                currentPage=1;
+                loadNetData(currentPage,Constants.ALL);
+            }
+        });
+        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
+            @Override
+            public void onLoadmore(RefreshLayout refreshlayout) {
+                currentPage++;
+                loadNetData(currentPage,Constants.ALL);
+            }
+        });
+
+    }
+
+    private void loadNetData(final int currentPage, int biztype) {
+        LoadNetDataForMoneyFlowUtil.getMoneyFlowInstance().loadNetData(currentPage, biztype);
+        LoadNetDataForMoneyFlowUtil.getMoneyFlowInstance().setLoadMeneyFlowCallBackListener(new LoadNetDataForMoneyFlowUtil.LoadMeneyFlowsSuccessCallBackListener() {
+            @Override
+            public void onSuccessCallBack(MoneyFlowBean moneyFlowBean) {
+                refreshComplete();
+                LogUtils.d("TAG-->成功回调&资金明细&全部", new Gson().toJson(moneyFlowBean));
+                MoneyFlowBean.DataBean dataBean=moneyFlowBean.getData();
+                        if(dataBean==null) return;
+                mListBeanList = dataBean.getList();
+                   if(currentPage==1){
+                       if(mListBeanList ==null|| mListBeanList.size()==0){
+                           listView.setEmptyView(noData);
+                       }
+                       mMoneyFlowAdapter.setItems(mListBeanList);
+
+
+                   }else{
+                       mMoneyFlowAdapter.addItems(mListBeanList);
+                   }
+
+                refreshLayout.setLoadmoreFinished(mListBeanList == null || mListBeanList.size() == 0||mListBeanList.size()<Constants.PAGESIZE);
+            }
+
+
+
+
+        });
+
+    }
+
+
+
+    private void refreshComplete() {
+     dismissLoading();
+     if(refreshLayout != null){
+         if(currentPage==1){
+             refreshLayout.finishRefresh();
+         }else{
+             refreshLayout.finishLoadmore();
+         }
+     }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMeneyFlowFaileEvent(MeneyFlowFailebean meneyFlowFailebean) {
+        refreshComplete();
+        LogUtils.d("TAG-->失败回调&资金明细&全部", "全部");
+    }
+
+
+}

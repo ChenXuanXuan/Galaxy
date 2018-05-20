@@ -4,19 +4,23 @@ package com.mex.GalaxyChain.net.service;
 import com.mex.GalaxyChain.bean.HistoryKLineBean;
 import com.mex.GalaxyChain.bean.HoldPositionBean;
 import com.mex.GalaxyChain.bean.LoginOutBean;
+import com.mex.GalaxyChain.bean.MoneyFlowBean;
 import com.mex.GalaxyChain.bean.OrderBuyBean;
 import com.mex.GalaxyChain.bean.PostCloseOrderBean;
 import com.mex.GalaxyChain.bean.PostLoginBean;
 import com.mex.GalaxyChain.bean.PostOrderBean;
+import com.mex.GalaxyChain.bean.RealNameAuthBean;
 import com.mex.GalaxyChain.bean.ResetPWBean;
 import com.mex.GalaxyChain.bean.SymbolBean;
 import com.mex.GalaxyChain.bean.TradeDetailBean;
+import com.mex.GalaxyChain.bean.UserAccountInfoBean;
 import com.mex.GalaxyChain.bean.VerifycodeBean;
 import com.mex.GalaxyChain.bean.requestbean.GoodsPriceBean;
 import com.mex.GalaxyChain.net.NetFuncConstants;
 import com.mex.GalaxyChain.net.bean.galaxychainbean.LoginBean;
 import com.mex.GalaxyChain.net.bean.galaxychainbean.RegistBean;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.RequestBody;
@@ -136,6 +140,15 @@ public interface IUserService {
      @GET(NetFuncConstants.GET_HISTORY_KLIINE)
      Observable<HistoryKLineBean> getHistoryKLine(@QueryMap Map<String, Object> paramMap);
 
+    //获取中户账号信息
+    @GET(NetFuncConstants.GET_USER_ACCOUNTINFO)
+     Observable<UserAccountInfoBean> userAccountInfo(@QueryMap HashMap<String, Object> paramMap);
+
+ //资金明细
+ @GET(NetFuncConstants.GET_ACCOUNT_MONEYFLOW_LIST)
+    Observable<MoneyFlowBean>  MoneyFlow(@QueryMap HashMap<String, Object> paramMap);
+
+
     @POST(NetFuncConstants.GET_ORDER_BUYPAGE)
      Observable<OrderBuyBean> orderBuyPage(@Body RequestBody requestBody);
 
@@ -147,4 +160,10 @@ public interface IUserService {
 
     @POST(NetFuncConstants.POST_TRADE_DETAIL_LIST)
     Observable<TradeDetailBean> tradeDetail(@Body RequestBody requestBody);
+
+    @POST(NetFuncConstants.POST_REALNAME_AUTH)
+    Observable<RealNameAuthBean>  CheckRealNameAuth(@Body RequestBody requestBody);
+
+
+
 }

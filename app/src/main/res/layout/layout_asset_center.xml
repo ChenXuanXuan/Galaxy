@@ -6,43 +6,47 @@
 
     <include layout="@layout/layout_topbar" />
 
-    <LinearLayout
-        style="@style/MineView"
-        android:orientation="horizontal">
+
+
+    <RelativeLayout
+        style="@style/MineView">
 
         <TextView
             style="@style/MineTV"
-            android:layout_gravity="center_vertical"
             android:text="手机号" />
-
 
         <TextView
             android:id="@+id/phoneNum"
             style="@style/MineTV"
-            android:layout_gravity="center_vertical"
-            android:text="150****0770" />
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="151********" />
 
-    </LinearLayout>
+
+    </RelativeLayout>
 
     <View style="@style/ViewLine" />
 
-    <LinearLayout
-        style="@style/MineView"
-        android:orientation="horizontal">
+
+
+
+    <RelativeLayout
+        android:id="@+id/rl_amountCenter_Certification"
+        style="@style/MineView">
 
         <TextView
             style="@style/MineTV"
-            android:layout_gravity="center_vertical"
             android:text="实名认证" />
 
-
         <TextView
-            android:id="@+id/usreName"
+            android:id="@+id/tv_isRenZheng"
             style="@style/MineTV"
-            android:layout_gravity="center_vertical"
-            android:text="李小二" />
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:text="未认证" />
 
-    </LinearLayout>
+
+    </RelativeLayout>
 
     <View style="@style/ViewLine" />
 

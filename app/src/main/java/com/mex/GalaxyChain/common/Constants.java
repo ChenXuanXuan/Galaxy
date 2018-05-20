@@ -101,4 +101,12 @@ int SUSPEND_TRADING=4;
      String   DROP="买跌做空";
 
     int PAGESIZE=15;
+
+
+     //操作类型
+    int ALL=0;
+    int CONGZHI=8;
+   int TIXIAN=9;
+   int PINCHANG=7;//平仓委托 = 就是结算
+   int KAICHANG=11; // 开仓委托
 }

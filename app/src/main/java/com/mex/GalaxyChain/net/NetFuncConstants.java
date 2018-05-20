@@ -36,6 +36,9 @@ version	"1.0.0"
      //王皓 登陆注册接口
    String ACCOUNTURL="http://39.105.28.205:5000";
     String POST_USERINFO_LOGIN =ACCOUNTURL+"/api/Userinfo/PostLogin" ;
+    String POST_REALNAME_AUTH=ACCOUNTURL+"/api/Userinfo/PostRealNameAuth";  // 实名认证
+    String GET_USER_ACCOUNTINFO=ACCOUNTURL+"/api/Account/GetAccountInfo";//获取账号信息
+    String GET_ACCOUNT_MONEYFLOW_LIST=ACCOUNTURL+"/api/Account/GetFundAccountMoneyFlowList";//资金明细
 
       String TRADEURL="http://39.105.28.205:8001";
        String  GET_ORDER_BUYPAGE=TRADEURL+"/api/Order/GetBuyPage";//买入的所有信息
@@ -51,6 +54,7 @@ version	"1.0.0"
 
      String MARKETURL="http://39.105.28.205:7000";
     String GET_HISTORY_KLIINE=MARKETURL+"/api/KLine/GetHistory";
+
 
 
 }

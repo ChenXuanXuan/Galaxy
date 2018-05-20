@@ -54,8 +54,6 @@ public class UserGolbal {
     private boolean  isFirst_tag;
     private long last_times_after_first;
     private  int tag;
-
-
     private String currencytype;//币种类型
     private double perprofit;//收益(赚了多少钱(11.0))
     private double perprofitnumber;//收益点数(涨了多少个点)
@@ -65,6 +63,22 @@ public class UserGolbal {
     private  List<MultiplBean> multiplBeanList; //几倍
     private double perrmbmargin;//每笔保证金(履约保证金)
     private double stoplossratio; //止损率
+    private int realnamestatus; //开户状态(1=开户(已实名认证),2=销户)
+
+    public double frozenmargin;//冻结保证金(占用保证金)
+    public double amount;//总金额
+    public double totalprofit;//总盈亏(浮动)
+    public double canusedamount;//可用余额
+
+
+
+    public int getRealnamestatus() {
+        return realnamestatus;
+    }
+
+    public void setRealnamestatus(int realnamestatus) {
+        this.realnamestatus = realnamestatus;
+    }
 
 
 

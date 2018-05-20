@@ -61,7 +61,7 @@ public class MarketFragment extends BaseFragment {
 
 
     private void intThreeFragmentList() {
-          mFragmentList = new ArrayList<>();
+        mFragmentList = new ArrayList<>();
 		AllVarietyFragment allVarietyFragment = AllVarietyFragment_.builder().build();
 
 		GlobalIndexFragment globalIndexFragment = GlobalIndexFragment_.builder().build();
@@ -76,7 +76,7 @@ public class MarketFragment extends BaseFragment {
 	private void initViewpager() {
         mIndicatorViewPagerAdapter = new IndicatorViewPagerAdapter(getChildFragmentManager(), mFragmentList, titleTabArr);
 		  vp_hq_fragment.setAdapter(mIndicatorViewPagerAdapter);
-		  vp_hq_fragment.setOffscreenPageLimit(0); //我们的页面不能进行缓存
+		  vp_hq_fragment.setOffscreenPageLimit(3);
 		 vp_hq_fragment.setCurrentItem(0);
 		 //额外添加的
         vp_hq_fragment.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -146,7 +146,19 @@ public class MarketFragment extends BaseFragment {
 		ViewPagerHelper.bind(magic_indicator4, vp_hq_fragment);
 	}
 
-    private void initListener() { }
+    private void initListener() {
+        //需不需要对viewpage滑动进行监听,当滑动到某当前一个界面 开启此定时器  关闭其他页面定时器
+        vp_hq_fragment.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
+
+            @Override
+            public void onPageSelected(int position) { }
+
+            @Override
+            public void onPageScrollStateChanged(int state) { }
+        });
+    }
 
 
 
