@@ -93,4 +93,5 @@ dependencies {
     implementation files('libs/AMap_Location_V4.0.1_20180426.jar')
     implementation files('libs/AMap_Location_V4.0.1_20180426.jar')
     implementation project(path: ':kchartlib')
+    implementation files('libs/tentent.jar')
 }

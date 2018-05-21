@@ -61,6 +61,7 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
     private  long starttime = 0;
     private String interval;
     private String symbol;
+    private Boolean isFirstLoading = true;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -75,6 +76,7 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
     }
 
     public void initData() {
+       isFirstLoading = true;
         mKChartView.showLoading();
         mKChartView.setRefreshListener(this);
         starttime = 0;
@@ -111,7 +113,6 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
         this.selType = selType;
         isLoading = false;
         page = 0;
-        mKChartView.resetLoadMoreEnd();
         this.interval=interval;//周期
          this.symbol=symbol;//  symbol
         initData();
@@ -215,7 +216,9 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
 
     @Override
     public void onLoadMoreBegin(KChartView chart) {
+        if (!isFirstLoading)
         onLoadKData();
+        isFirstLoading = false;
     }
 
     public void setObject(MarketMainAct newMarketMainAct) {
