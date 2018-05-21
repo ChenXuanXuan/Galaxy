@@ -230,10 +230,7 @@ public class SearchAdapter extends BaseAbsListAdapter<HoldPositionBean.DataBean.
             });
 
         }
-
-
     }
-
     public interface setBack {
         void back();
     }
