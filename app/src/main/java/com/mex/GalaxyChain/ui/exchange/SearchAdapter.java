@@ -13,7 +13,6 @@ import com.mex.GalaxyChain.MyApplication;
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.bean.HoldPositionBean;
 import com.mex.GalaxyChain.bean.PostCloseOrderBean;
-import com.mex.GalaxyChain.bean.eventbean.RefleshBean;
 import com.mex.GalaxyChain.bean.eventbean.VarietyHoldPosi;
 import com.mex.GalaxyChain.bean.eventbean.VarietyHoldPosiBean;
 import com.mex.GalaxyChain.bean.requestbean.RequestClosePositionBean;
@@ -27,8 +26,6 @@ import com.mex.GalaxyChain.utils.AppUtil;
 import com.mex.GalaxyChain.utils.DeviceUtil;
 import com.mex.GalaxyChain.utils.IPutils;
 import com.mex.GalaxyChain.utils.ToastUtils;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.Map;
 
@@ -175,7 +172,7 @@ public class SearchAdapter extends BaseAbsListAdapter<HoldPositionBean.DataBean.
             tv_fast_pinCang.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    setBackListener.back();
+
                     if (UserGolbal.getInstance().locationSuccess()) {
                         RequestClosePositionBean requestClosePositionBean = new RequestClosePositionBean();
                         double mMLongitude = UserGolbal.getInstance().getLongitude();
@@ -213,14 +210,10 @@ public class SearchAdapter extends BaseAbsListAdapter<HoldPositionBean.DataBean.
                                     @Override
                                     public void onNext(PostCloseOrderBean postCloseOrderBean) {
                                         if (postCloseOrderBean.getCode() == 200) {
+                                             ToastUtils.showTextInMiddle("平仓下单成功");
+                                             setBackListener.back();
+                                        } else { //否者平仓失败
                                             ToastUtils.showTextInMiddle(postCloseOrderBean.getMsg());
-                                            RefleshBean refleshBean = new RefleshBean();
-                                            EventBus.getDefault().post(refleshBean);
-
-                                        } else if (postCloseOrderBean.getCode() == 402) {
-                                            ToastUtils.showTextInMiddle("已在平仓状态");
-                                        } else {
-                                            ToastUtils.showTextInMiddle("平仓下单失败,请重试");
                                         }
 
 
@@ -239,7 +232,7 @@ public class SearchAdapter extends BaseAbsListAdapter<HoldPositionBean.DataBean.
     }
 
     public interface setBack {
-        void back();
+          void back();
     }
 }
 

@@ -14,7 +14,6 @@ import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.UIHelper;
 import com.mex.GalaxyChain.bean.HoldPositionBean;
 import com.mex.GalaxyChain.bean.QuitEvent;
-import com.mex.GalaxyChain.bean.eventbean.RefleshBean;
 import com.mex.GalaxyChain.bean.eventbean.TagBean;
 import com.mex.GalaxyChain.bean.eventbean.ToMarketFragBean;
 import com.mex.GalaxyChain.bean.eventbean.VarietyHoldPosiBean;
@@ -28,6 +27,7 @@ import com.mex.GalaxyChain.net.HttpInterceptor;
 import com.mex.GalaxyChain.net.repo.UserRepo;
 import com.mex.GalaxyChain.utils.AppUtil;
 import com.mex.GalaxyChain.utils.DeviceUtil;
+import com.mex.GalaxyChain.utils.LogUtils;
 import com.mex.GalaxyChain.utils.ToastUtils;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -123,8 +123,8 @@ public class ExchangeFragment2 extends BaseFragment {
         searchAdapter = new SearchAdapter(getActivity(), new SearchAdapter.setBack() {
             @Override
             public void back() {
-                ToastUtils.showCorrectImage("刷新列表");
-            }
+                loadNetData(mVarietyHoldPosiBean);
+                }
         });
         listView.setAdapter(searchAdapter);
         showLoading(getString(R.string.loading));
@@ -187,7 +187,7 @@ public class ExchangeFragment2 extends BaseFragment {
                             dismissLoading();
                             if (refreshLayout != null) refreshLayout.finishRefresh();
                             if (holdPositionBean.getCode() == 200) {
-                                ToastUtils.showTextInMiddle(holdPositionBean.getMsg());
+                                LogUtils.d("TAG--->请求持仓列表数据成功",holdPositionBean.getData().getList().size()+"");
                                 HoldPositionBean.DataBean dataBean = holdPositionBean.getData();
                                 tv_total_amount.setText("总资金: " + dataBean.getTotalamount());//总资金
 
@@ -243,11 +243,5 @@ public class ExchangeFragment2 extends BaseFragment {
     public void onMoonEvent(QuitEvent event) {
     }
 
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onRefleshBean(RefleshBean refleshBean) {
-        loadNetData(mVarietyHoldPosiBean);
-
-    }
 }
 
