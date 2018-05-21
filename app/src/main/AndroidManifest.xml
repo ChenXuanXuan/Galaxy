@@ -157,6 +157,14 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
 
+
+        <activity
+            android:name="com.mex.GalaxyChain.ui.mine.activity.CertificationActivity_"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
+
         <activity
             android:name="com.mex.GalaxyChain.ui.mine.activity.ExchangeActivity_"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -192,6 +200,14 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+        <activity
+            android:name="com.mex.GalaxyChain.ui.mine.activity.AccountMoneyFlowActivity_"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
+
+
 
         <activity
             android:name="com.mex.GalaxyChain.ui.mine.activity.PassWordActivity_"

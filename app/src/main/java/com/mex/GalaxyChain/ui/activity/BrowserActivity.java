@@ -9,11 +9,12 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
+import android.webkit.ValueCallback;
+
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.common.BaseActivity;
 import com.mex.GalaxyChain.utils.webUtils.WebViewJavaScriptFunction;
 import com.mex.GalaxyChain.view.X5WebView;
-import com.tencent.smtt.sdk.ValueCallback;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;

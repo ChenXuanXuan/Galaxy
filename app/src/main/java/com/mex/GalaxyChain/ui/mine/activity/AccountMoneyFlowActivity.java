@@ -1,4 +1,4 @@
-package com.mex.GalaxyChain.ui.activity;
+package com.mex.GalaxyChain.ui.mine.activity;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -13,10 +13,16 @@ import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.adapter.viewpagerAdapter.IndicatorViewPagerAdapter;
 import com.mex.GalaxyChain.common.BaseActivity;
 import com.mex.GalaxyChain.common.BaseFragment;
-import com.mex.GalaxyChain.ui.market.FlowSheetFragment;
-import com.mex.GalaxyChain.ui.market.FlowSheetFragment_;
-import com.mex.GalaxyChain.ui.market.SettleFragment;
-import com.mex.GalaxyChain.ui.market.SettleFragment_;
+import com.mex.GalaxyChain.ui.mine.fragment.AllFragment;
+import com.mex.GalaxyChain.ui.mine.fragment.AllFragment_;
+import com.mex.GalaxyChain.ui.mine.fragment.DrawOutFragment;
+import com.mex.GalaxyChain.ui.mine.fragment.DrawOutFragment_;
+import com.mex.GalaxyChain.ui.mine.fragment.InPutFragment;
+import com.mex.GalaxyChain.ui.mine.fragment.InPutFragment_;
+import com.mex.GalaxyChain.ui.mine.fragment.OpenPositionFragment;
+import com.mex.GalaxyChain.ui.mine.fragment.OpenPositionFragment_;
+import com.mex.GalaxyChain.ui.mine.fragment.SettleAccountsFragment;
+import com.mex.GalaxyChain.ui.mine.fragment.SettleAccountsFragment_;
 import com.mex.GalaxyChain.view.magicindicator.MagicIndicator;
 import com.mex.GalaxyChain.view.magicindicator.ViewPagerHelper;
 import com.mex.GalaxyChain.view.magicindicator.buildins.UIUtil;
@@ -34,67 +40,64 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-
-@EActivity(R.layout.activity_jiesuan)
-public class JieSuanActivity extends BaseActivity {
+@EActivity(R.layout.activity_moneyflow)
+public class AccountMoneyFlowActivity extends BaseActivity {
 
     @ViewById(R.id.mTitle)
     TextView mTitle;
+    @ViewById(R.id.magic_indicator4)
+    MagicIndicator magic_indicator4;
+    @ViewById(R.id.vp_hq_fragment)
+    ViewPager vp_hq_fragment;
+
+
     @ViewById(R.id.back)
     ImageView back;
 
-
-    @ViewById
-    MagicIndicator magic_indicator4;
-    @ViewById
-    ViewPager vp_hq_fragment;
-
-    String[]  titleTabArr = {"结算","流单"};
-    private List<String> titleList = Arrays.asList(titleTabArr);
-
-
     @Click(R.id.back)
     void onClick(View view){
-        finish();
+         finish();
     }
 
+    String[]  titleTabArr = {"全部","充值","提现","开仓","结算"};
+    List<BaseFragment> mFragmentList;
+    private IndicatorViewPagerAdapter mIndicatorViewPagerAdapter;
+
     @AfterViews
-    void initView(){
-        mTitle.setText("结算");
+    void init(){
+        mTitle.setText("资金明细");
         back.setVisibility(View.VISIBLE);
-        intThreeFragmentList();
+        intFragmentList();
         initViewpager();
         initMagicIndicator();
         initListener();
-
     }
 
 
 
 
+    private void intFragmentList() {
+         mFragmentList =new ArrayList<>();
+        AllFragment allFragment = AllFragment_.builder().build();
+        InPutFragment inPutFragment = InPutFragment_.builder().build();
+        DrawOutFragment drawOutFragment = DrawOutFragment_.builder().build();
+        OpenPositionFragment openPositionFragment =  OpenPositionFragment_.builder().build();
+        SettleAccountsFragment settleAccountsFragment =  SettleAccountsFragment_.builder().build();
+        mFragmentList.add(allFragment);
+        mFragmentList.add(inPutFragment);
+        mFragmentList.add(drawOutFragment);
+        mFragmentList.add(openPositionFragment);
+        mFragmentList.add(settleAccountsFragment);
 
-
-    List<BaseFragment> mFragmentList;
-    private void intThreeFragmentList() {
-          mFragmentList =new ArrayList<>();
-        SettleFragment settlement = SettleFragment_.builder().build();
-        FlowSheetFragment flowSheetFragment  = FlowSheetFragment_.builder().build();
-        mFragmentList.add(settlement);
-        mFragmentList.add(flowSheetFragment);
     }
-
-
-    private IndicatorViewPagerAdapter mIndicatorViewPagerAdapter;
     private void  initViewpager(){
         mIndicatorViewPagerAdapter = new IndicatorViewPagerAdapter(getSupportFragmentManager(), mFragmentList, titleTabArr);
         vp_hq_fragment.setAdapter(mIndicatorViewPagerAdapter);
-        vp_hq_fragment.setOffscreenPageLimit(2);
+        vp_hq_fragment.setOffscreenPageLimit(5);
         vp_hq_fragment.setCurrentItem(0);
     }
-
 
     private void initMagicIndicator() {
         magic_indicator4.setBackgroundColor(Color.TRANSPARENT);
@@ -143,19 +146,6 @@ public class JieSuanActivity extends BaseActivity {
 
 
     private void initListener() {
-        //需不需要对viewpage滑动进行监听,
-       /* vp_hq_fragment.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) { }
-
-            @Override
-            public void onPageSelected(int position) { }
-
-            @Override
-            public void onPageScrollStateChanged(int state) { }
-        });*/
     }
-
-
 
 }

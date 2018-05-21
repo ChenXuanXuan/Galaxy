@@ -123,7 +123,7 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
         if (UserGolbal.getInstance().locationSuccess()) {
             HashMap<String, Object> paramMap = new HashMap<>();
             double mLongitude = UserGolbal.getInstance().getLongitude();
-            double mLatitude = UserGolbal.getInstance().getLongitude();
+            double mLatitude = UserGolbal.getInstance().getLatitude();
             paramMap.put("latitude", mLatitude);
             paramMap.put("longitude", mLongitude);
             //  String symbol = "BTCUSDT";

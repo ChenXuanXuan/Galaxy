@@ -10,12 +10,14 @@
     <LinearLayout style="@style/MineView">
 
         <TextView
+
             style="@style/MineTextView"
-            android:text="总资金(CNY)" />
+            android:text="总资金(YY)" />
 
         <TextView
+            android:id="@+id/tv_totalAmount"
             style="@style/MineTextViewShow"
-            android:text="123456" />
+            android:text="0" />
 
     </LinearLayout>
 
@@ -28,11 +30,12 @@
 
         <TextView
             style="@style/MineTextView"
-            android:text="总可用余额(CNY)" />
+            android:text="总可用余额(YY)" />
 
         <TextView
+            android:id="@+id/tv_canUsedAmount"
             style="@style/MineTextViewShow"
-            android:text="123456" />
+            android:text="0" />
 
     </LinearLayout>
 
@@ -45,11 +48,12 @@
 
         <TextView
             style="@style/MineTextView"
-            android:text="占用保证金(CNY)" />
+            android:text="占用保证金(YY)" />
 
         <TextView
+            android:id="@+id/tv_frozenmargin"
             style="@style/MineTextViewShow"
-            android:text="123456" />
+            android:text="0" />
 
     </LinearLayout>
 
@@ -62,11 +66,12 @@
 
         <TextView
             style="@style/MineTextView"
-            android:text="总浮动盈亏(CNY)" />
+            android:text="总浮动盈亏(YY)" />
 
         <TextView
+            android:id="@+id/tv_totalprofit"
             style="@style/MineTextViewShow"
-            android:text="123456" />
+            android:text="0" />
 
     </LinearLayout>
 

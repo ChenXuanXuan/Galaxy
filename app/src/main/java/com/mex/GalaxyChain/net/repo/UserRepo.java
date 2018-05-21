@@ -3,13 +3,16 @@ package com.mex.GalaxyChain.net.repo;
 import com.mex.GalaxyChain.bean.HistoryKLineBean;
 import com.mex.GalaxyChain.bean.HoldPositionBean;
 import com.mex.GalaxyChain.bean.LoginOutBean;
+import com.mex.GalaxyChain.bean.MoneyFlowBean;
 import com.mex.GalaxyChain.bean.OrderBuyBean;
 import com.mex.GalaxyChain.bean.PostCloseOrderBean;
 import com.mex.GalaxyChain.bean.PostLoginBean;
 import com.mex.GalaxyChain.bean.PostOrderBean;
+import com.mex.GalaxyChain.bean.RealNameAuthBean;
 import com.mex.GalaxyChain.bean.ResetPWBean;
 import com.mex.GalaxyChain.bean.SymbolBean;
 import com.mex.GalaxyChain.bean.TradeDetailBean;
+import com.mex.GalaxyChain.bean.UserAccountInfoBean;
 import com.mex.GalaxyChain.bean.VerifycodeBean;
 import com.mex.GalaxyChain.bean.requestbean.GoodsPriceBean;
 import com.mex.GalaxyChain.net.BaseRepo;
@@ -241,6 +244,17 @@ public class UserRepo extends BaseRepo<IUserService> {
 
     }
 
+
+    public Observable<RealNameAuthBean> checkIDNum(RequestBody requestBody) {
+        return getService().CheckRealNameAuth(requestBody)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+
+                // RealNameAuthBean
+    }
+
+
+
     public Observable<OrderBuyBean> GetBuyPage(RequestBody requestBody) {
          return getService().orderBuyPage(requestBody)
                  .subscribeOn(Schedulers.io())
@@ -282,7 +296,26 @@ public class UserRepo extends BaseRepo<IUserService> {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
 
+        }
 
+
+    public Observable<UserAccountInfoBean> getUserAccountInfo(HashMap<String, Object> paramMap) {
+        return getService().userAccountInfo(paramMap)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+
+        // UserAccountInfoBean
+
+    }
+
+
+    public Observable<MoneyFlowBean> getMoneyFlow(HashMap<String, Object> paramMap) {
+
+        return getService().MoneyFlow(paramMap)
+                 .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+
+                // MoneyFlowBean
 
     }
 

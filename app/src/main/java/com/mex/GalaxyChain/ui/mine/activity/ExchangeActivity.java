@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.common.BaseActivity;
+import com.mex.GalaxyChain.common.UserGolbal;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -26,6 +27,21 @@ public class ExchangeActivity extends BaseActivity {
 	@ViewById
 	TextView mTitle;
 
+    @ViewById(R.id.tv_totalAmount)
+    TextView tv_totalAmount;
+
+    @ViewById(R.id.tv_canUsedAmount)
+    TextView tv_canUsedAmount;
+
+    @ViewById(R.id.tv_frozenmargin)
+    TextView tv_frozenmargin;
+
+
+    @ViewById(R.id.tv_totalprofit)
+    TextView tv_totalprofit;
+
+
+
 	@AfterViews
 	void init() {
 		initView();
@@ -34,6 +50,12 @@ public class ExchangeActivity extends BaseActivity {
 	private void initView() {
 		mTitle.setText("交易账户");
 		back.setVisibility(View.VISIBLE);
+        tv_totalAmount.setText(UserGolbal.getInstance().amount+"");
+        tv_canUsedAmount.setText(UserGolbal.getInstance().canusedamount+"");
+        tv_frozenmargin.setText(UserGolbal.getInstance().frozenmargin+"");
+        tv_totalprofit.setText(UserGolbal.getInstance().totalprofit+"");
+
+
 	}
 
 	@Click({R.id.back, R.id.inpour, R.id.withDraw})
