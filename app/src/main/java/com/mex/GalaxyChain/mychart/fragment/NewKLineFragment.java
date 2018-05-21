@@ -78,8 +78,8 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
         mKChartView.showLoading();
         mKChartView.setRefreshListener(this);
         starttime = 0;
-        onLoadKData();
-//        onLoadMoreBegin(mKChartView);
+//        onLoadKData();
+        onLoadMoreBegin(mKChartView);
     }
 
 
@@ -111,7 +111,6 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
         this.selType = selType;
         isLoading = false;
         page = 0;
-        mKChartView.resetLoadMoreEnd();
         this.interval=interval;//周期
          this.symbol=symbol;//  symbol
         initData();
@@ -128,7 +127,7 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
             //  String symbol = "BTCUSDT";
             paramMap.put("symbol", symbol);//todo 变化的
             paramMap.put("starttime", starttime);//返回每次数量的最后一条蜡烛数据的时间撮
-            int count = -500;//(- 向左 每次取500条   + 向右 每次取500)一开始时间为节点，正直是向右取，负值是向左取(每次返回的条数)
+            int count = -20;//(- 向左 每次取500条   + 向右 每次取500)一开始时间为节点，正直是向右取，负值是向左取(每次返回的条数)
             paramMap.put("count", count);
            // String interval = Constants.ONE_MIN; //默认周期  1分钟 todo 变化的
             paramMap.put("interval", interval);

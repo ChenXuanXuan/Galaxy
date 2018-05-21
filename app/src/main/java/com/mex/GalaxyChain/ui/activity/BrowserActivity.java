@@ -5,16 +5,12 @@ import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.Build;
-import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
-
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.common.BaseActivity;
-import com.mex.GalaxyChain.common.ConfigManager;
-import com.mex.GalaxyChain.ui.mine.activity.LoginActivity;
 import com.mex.GalaxyChain.utils.webUtils.WebViewJavaScriptFunction;
 import com.mex.GalaxyChain.view.X5WebView;
 import com.tencent.smtt.sdk.ValueCallback;
