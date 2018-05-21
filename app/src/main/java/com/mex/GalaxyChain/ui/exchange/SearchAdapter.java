@@ -13,7 +13,7 @@ import com.mex.GalaxyChain.MyApplication;
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.bean.HoldPositionBean;
 import com.mex.GalaxyChain.bean.PostCloseOrderBean;
-import com.mex.GalaxyChain.bean.eventbean.RefleshBean;
+import com.mex.GalaxyChain.bean.eventbean.ToRefleshExchang2Bean;
 import com.mex.GalaxyChain.bean.eventbean.VarietyHoldPosi;
 import com.mex.GalaxyChain.bean.eventbean.VarietyHoldPosiBean;
 import com.mex.GalaxyChain.bean.requestbean.RequestClosePositionBean;
@@ -26,6 +26,7 @@ import com.mex.GalaxyChain.net.repo.UserRepo;
 import com.mex.GalaxyChain.utils.AppUtil;
 import com.mex.GalaxyChain.utils.DeviceUtil;
 import com.mex.GalaxyChain.utils.IPutils;
+import com.mex.GalaxyChain.utils.LogUtils;
 import com.mex.GalaxyChain.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -216,9 +217,9 @@ public class SearchAdapter extends BaseAbsListAdapter<HoldPositionBean.DataBean.
                                     public void onNext(PostCloseOrderBean postCloseOrderBean) {
                                          if(postCloseOrderBean.getCode()==200){
                                              ToastUtils.showTextInMiddle(postCloseOrderBean.getMsg());
-                                             RefleshBean refleshBean = new  RefleshBean();
-                                             EventBus.getDefault().post(refleshBean);
-
+                                             ToRefleshExchang2Bean toRefleshExchang2Bean = new ToRefleshExchang2Bean();
+                                             EventBus.getDefault().post(toRefleshExchang2Bean);
+                                             LogUtils.e("TAG-->SearchAdapter 发送平仓消息-->到持仓ExchangeFragment2进行刷新");
                                          }else if(postCloseOrderBean.getCode()==402){
                                              ToastUtils.showTextInMiddle("已在平仓状态");
                                          }
