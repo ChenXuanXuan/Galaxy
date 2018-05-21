@@ -14,9 +14,9 @@ import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.UIHelper;
 import com.mex.GalaxyChain.bean.HoldPositionBean;
 import com.mex.GalaxyChain.bean.QuitEvent;
-import com.mex.GalaxyChain.bean.eventbean.ToRefleshExchang2Bean;
 import com.mex.GalaxyChain.bean.eventbean.TagBean;
 import com.mex.GalaxyChain.bean.eventbean.ToMarketFragBean;
+import com.mex.GalaxyChain.bean.eventbean.ToRefleshExchang2Bean;
 import com.mex.GalaxyChain.bean.eventbean.VarietyHoldPosiBean;
 import com.mex.GalaxyChain.bean.requestbean.RequestTradeHomeBean;
 import com.mex.GalaxyChain.common.BaseFragment;
@@ -251,8 +251,19 @@ public class ExchangeFragment2 extends BaseFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onRefleshBean(ToRefleshExchang2Bean refleshBean) {
-         loadNetData(ConfigManager.getVarietyHold());
-         LogUtils.e("TAG-->持仓ExchangeFragment2 接收SearchAdapter发送平仓消息进行刷新");
+        if(refleshBean!=null&&refleshBean.isSended){
+            loadNetData(ConfigManager.getVarietyHold());
+            LogUtils.e("TAG-->持仓ExchangeFragment2 接收SearchAdapter发送平仓消息进行刷新");
+        }
+
+
+        /*refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                LogUtils.e("TAG-->持仓ExchangeFragment2 接收SearchAdapter发送平仓消息进行刷新");
+                loadNetData(ConfigManager.getVarietyHold());
+            }
+        });*/
     }
 }
 

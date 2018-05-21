@@ -218,6 +218,7 @@ public class SearchAdapter extends BaseAbsListAdapter<HoldPositionBean.DataBean.
                                          if(postCloseOrderBean.getCode()==200){
                                              ToastUtils.showTextInMiddle(postCloseOrderBean.getMsg());
                                              ToRefleshExchang2Bean toRefleshExchang2Bean = new ToRefleshExchang2Bean();
+                                             toRefleshExchang2Bean.isSended=true;
                                              EventBus.getDefault().post(toRefleshExchang2Bean);
                                              LogUtils.e("TAG-->SearchAdapter 发送平仓消息-->到持仓ExchangeFragment2进行刷新");
                                          }else if(postCloseOrderBean.getCode()==402){
