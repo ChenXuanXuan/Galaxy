@@ -92,7 +92,10 @@ public class AllFragment extends BaseFragment {
                 refreshLayout.setLoadmoreFinished(mListBeanList == null || mListBeanList.size() == 0||mListBeanList.size()<Constants.PAGESIZE);
             }
 
-
+            @Override
+            public void onFailtueCallBack() {
+                LogUtils.e("TAG","失败回调");
+            }
 
 
         });

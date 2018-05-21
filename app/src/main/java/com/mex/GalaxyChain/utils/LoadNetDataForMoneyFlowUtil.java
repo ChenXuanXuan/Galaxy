@@ -69,6 +69,10 @@ public class LoadNetDataForMoneyFlowUtil {
                          public void onError(Throwable e) {
                              ToastUtils.showTextInMiddle("无网络");
                              EventBus.getDefault().post(new MeneyFlowFailebean());
+                             if (!IsEmptyUtils.isEmpty(loadMeneyFlowCallBackListener)) {
+                                 loadMeneyFlowCallBackListener.onFailtueCallBack();
+                             }
+
                              }
 
                          @Override
@@ -101,6 +105,8 @@ public class LoadNetDataForMoneyFlowUtil {
 
    public interface LoadMeneyFlowsSuccessCallBackListener {
         void  onSuccessCallBack(MoneyFlowBean moneyFlowBean);
+       void  onFailtueCallBack();
+
         }
 
 }
