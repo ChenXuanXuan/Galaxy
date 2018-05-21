@@ -76,7 +76,12 @@ public class ExchangeFragment extends BaseFragment implements OnRefreshListener,
 
     @AfterViews
 	void init() {
-		searchAdapter = new SearchAdapter(getActivity());
+		searchAdapter = new SearchAdapter(getActivity(), new SearchAdapter.setBack() {
+			@Override
+			public void back() {
+
+			}
+		});
 		initData(page);
 		initView();
 	}
