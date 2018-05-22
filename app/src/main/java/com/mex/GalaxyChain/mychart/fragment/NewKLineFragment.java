@@ -157,6 +157,8 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
                             List<KLineEntity> kLineEntityArrayList = new ArrayList<>();
                             //K历史数据
                             List<HistoryKLineBean.DataBean> dataBeanList = historyKLineBean.getData();
+                            Collections.reverse(dataBeanList);
+                            starttime = dataBeanList.get(dataBeanList.size() - 1).getTimes();
                             LogUtils.d("TAG:K线--->数据"+new Gson().toJson(dataBeanList));
                             starttime = dataBeanList.get(dataBeanList.size()-1).getTimes();
                             LogUtils.d("TAG:K线--->每页第一条time:"+dataBeanList.get(0).getTimes());
@@ -174,13 +176,13 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
                                     KLineEntity kLineEntity = new KLineEntity();
                                     kLineEntity.Open = (float) dataBean.getOpen();
                                     kLineEntity.Close = (float) dataBean.getClose();
-                                    kLineEntity.Date = AppUtil.getDateToStringDetail2(dataBean.getTimes());
+                                    kLineEntity.Date = AppUtil.getDateToStringDetail(dataBean.getTimes());
                                     kLineEntity.High = (float) dataBean.getHigh();
                                     kLineEntity.Low = (float) dataBean.getLow();
                                     kLineEntity.Volume = (float) dataBean.getVol();
                                     kLineEntityArrayList.add(kLineEntity);
                                 }
-                                Collections.reverse(kLineEntityArrayList); // 倒序排列kLineEntityArrayList 否者K线显示方向不对
+//                                Collections.reverse(kLineEntityArrayList); // 倒序排列kLineEntityArrayList 否者K线显示方向不对
 
                                 //==============================
                                 DataHelper.calculate(kLineEntityArrayList);
@@ -192,7 +194,7 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
                                 }
 
                                 //=============================
-                            }else {
+                            } else {
                                 mKChartView.refreshEnd();
                             }
 

@@ -603,7 +603,7 @@ context.getPackageName(), PackageManager.GET_SIGNATURES);
 
 	public static String getDateToStringDetail(long time) {
 		Date d = new Date(time);
-		sf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		sf = new SimpleDateFormat("MM-dd HH:mm");
 		return sf.format(d);
 	}
 

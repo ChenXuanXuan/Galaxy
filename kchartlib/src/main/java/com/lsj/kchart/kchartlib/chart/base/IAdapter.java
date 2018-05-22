@@ -35,6 +35,14 @@ public interface IAdapter {
     Date getDate(int position);
 
     /**
+     * 通过序号获取时间
+     *
+     * @param position
+     * @return
+     */
+    String getStringDate(int position);
+
+    /**
      * 注册一个数据观察者
      *
      * @param observer 数据观察者
