@@ -44,7 +44,7 @@ public class AllFragment extends BaseFragment {
         mMoneyFlowAdapter = new MoneyFlowAdapter(getActivity());
         listView.setAdapter(mMoneyFlowAdapter);
        //setOnItemClickForListView();
-        showLoading(getString(R.string.loading));
+//        showLoading(getString(R.string.loading));
         currentPage = 1;
         loadNetData(currentPage, Constants.ALL);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
