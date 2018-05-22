@@ -59,4 +59,9 @@ public class ConfigManager {
 		sharePStore.save(KEY_ASSET, result);
 	}
 
+
+  public static void setMoneyFlowCatheBean(){
+
+  }
+
 }

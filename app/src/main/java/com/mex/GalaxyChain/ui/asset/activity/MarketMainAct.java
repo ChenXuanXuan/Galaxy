@@ -579,11 +579,9 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                         dismissLoading();
                         int code = postOrderBean.getCode();
                         if (code == 200) {
-                            //ToastUtils.showTextInMiddle("下单成功");
                             UIHelper.jumptoMainActivity(MarketMainAct.this, "");//下单成功,跳到对应的已登陆持仓界面
                             TagBean tagBean = new TagBean();
                             tagBean.setTag(Constants.FROM_K_BUTTON_PAYORDERMORE);
-
                             EventBus.getDefault().post(tagBean);//eventbus 发送 标签到MainActivity 制定1 持仓
                             dialog.dismiss(); //网络请求成功后 要关闭对话框后跳转到 持仓界面
                             finish();

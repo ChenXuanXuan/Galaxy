@@ -9,20 +9,19 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.support.v4.view.GestureDetectorCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.lsj.kchart.kchartlib.R;
-import com.lsj.kchart.kchartlib.chart.entity.KLineImpl;
-import com.lsj.kchart.kchartlib.chart.formatter.TimeFormatter;
-import com.lsj.kchart.kchartlib.chart.formatter.ValueFormatter;
 import com.lsj.kchart.kchartlib.chart.base.IAdapter;
 import com.lsj.kchart.kchartlib.chart.base.IChartDraw;
 import com.lsj.kchart.kchartlib.chart.base.IDateTimeFormatter;
 import com.lsj.kchart.kchartlib.chart.base.IValueFormatter;
+import com.lsj.kchart.kchartlib.chart.entity.KLineImpl;
+import com.lsj.kchart.kchartlib.chart.formatter.TimeFormatter;
+import com.lsj.kchart.kchartlib.chart.formatter.ValueFormatter;
 
 import java.util.ArrayList;
 import java.util.Date;

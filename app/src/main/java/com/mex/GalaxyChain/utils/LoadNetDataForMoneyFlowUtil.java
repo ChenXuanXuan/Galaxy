@@ -4,13 +4,10 @@ import android.os.Build;
 
 import com.mex.GalaxyChain.MyApplication;
 import com.mex.GalaxyChain.bean.MoneyFlowBean;
-import com.mex.GalaxyChain.bean.eventbean.MeneyFlowFailebean;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.net.HttpInterceptor;
 import com.mex.GalaxyChain.net.repo.UserRepo;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 
@@ -68,7 +65,6 @@ public class LoadNetDataForMoneyFlowUtil {
                          @Override
                          public void onError(Throwable e) {
                              ToastUtils.showTextInMiddle("无网络");
-                             EventBus.getDefault().post(new MeneyFlowFailebean());
                              if (!IsEmptyUtils.isEmpty(loadMeneyFlowCallBackListener)) {
                                  loadMeneyFlowCallBackListener.onFailtueCallBack();
                              }
@@ -84,6 +80,24 @@ public class LoadNetDataForMoneyFlowUtil {
                                      }
                                      break;
                                  }
+
+                                 case Constants.CONGZHI: {
+                                     if (!IsEmptyUtils.isEmpty(loadMeneyFlowCallBackListener)) {
+                                         loadMeneyFlowCallBackListener.onSuccessCallBack(moneyFlowBean);
+                                     }
+                                     break;
+                                 }
+
+
+                                 case Constants.TIXIAN: {
+                                     if (!IsEmptyUtils.isEmpty(loadMeneyFlowCallBackListener)) {
+                                         loadMeneyFlowCallBackListener.onSuccessCallBack(moneyFlowBean);
+                                     }
+                                     break;
+                                 }
+
+
+
                              }
                          }});
 
