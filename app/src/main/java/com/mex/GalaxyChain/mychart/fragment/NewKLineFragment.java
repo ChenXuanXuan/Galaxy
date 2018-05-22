@@ -15,7 +15,6 @@ import com.google.gson.Gson;
 import com.lsj.kchart.kchartlib.chart.BaseKChartView;
 import com.lsj.kchart.kchartlib.chart.KChartView;
 import com.lsj.kchart.kchartlib.chart.formatter.DateFormatter;
-import com.lsj.kchart.kchartlib.utils.DateUtil;
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.bean.HistoryKLineBean;
 import com.mex.GalaxyChain.common.Constants;
@@ -32,7 +31,6 @@ import com.mex.GalaxyChain.ui.asset.activity.MarketMainAct;
 import com.mex.GalaxyChain.ui.asset.fragment.LineBaseFragment;
 import com.mex.GalaxyChain.utils.AppUtil;
 
-import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -59,8 +57,7 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
     private KChartAdapter mAdapter;
     private TextView kai, gao, fu, msgChengjiao, shou, di, e, junjia;
     private List<KLineEntity> data;
-    private boolean isLoading;
-    private int page = 0;
+    private boolean isLoading = false;
     private long starttime = 0;
     private String interval;
     private String symbol;
@@ -76,15 +73,6 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.achart_kline_new_frag, null);
-    }
-
-    public void initData() {
-        isFirstLoading = true;
-        mKChartView.showLoading();
-        mKChartView.setRefreshListener(this);
-        starttime = 0;
-        onLoadKData();
-//        onLoadMoreBegin(mKChartView);
     }
 
 
@@ -110,17 +98,22 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
 
 
     public void setType(String instID, String type, String selType, String interval, String symbol) {
-        mAdapter.clearItems();
-        this.instID = instID;
-        this.type = type;
-        this.selType = selType;
-        isLoading = false;
-        page = 0;
-        this.interval = interval;//周期
-        this.symbol = symbol;//  symbol
+        this.interval = interval;
+        this.symbol = symbol;
         initData();
     }
 
+
+    public void initData() {
+        isLoading = false;
+        isFirstLoading = true;
+        mKChartView.showLoading();
+        mKChartView.setRefreshListener(this);
+        mKChartView.refreshEnd();
+        starttime = 0;
+        onLoadKData();
+//        onLoadMoreBegin(mKChartView);
+    }
 
     private void onLoadKData() {
         if (UserGolbal.getInstance().locationSuccess()) {
@@ -156,17 +149,21 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
 
                         @Override
                         public void onNext(HistoryKLineBean historyKLineBean) {
+                            isFirstLoading = false;
                             List<KLineEntity> kLineEntityArrayList = new ArrayList<>();
                             //K历史数据
                             List<HistoryKLineBean.DataBean> dataBeanList = historyKLineBean.getData();
-                            Collections.reverse(dataBeanList);
+                            LogUtils.d("TAG:K线--->数据" + new Gson().toJson(dataBeanList));
                             starttime = dataBeanList.get(dataBeanList.size() - 1).getTimes();
+                            LogUtils.d("TAG:K线--->每页第一条time:" + dataBeanList.get(0).getTimes());
+                            LogUtils.d("TAG:K线--->每页第一条time:" + AppUtil.getDateToString(dataBeanList.get(0).getTimes()));
+                            LogUtils.d("TAG:K线--->每页最后一条time:" + starttime);
+                            LogUtils.d("TAG:K线--->每页最后一条time:" + AppUtil.getDateToString(starttime));
                             if (dataBeanList != null && dataBeanList.size() > 0) {
                                 if (dataBeanList.size() == 1) { //当第一页都不够500条 如何
                                     mKChartView.refreshEnd();
                                     return;
                                 }
-
                                 for (HistoryKLineBean.DataBean dataBean : dataBeanList) {
                                     KLineEntity kLineEntity = new KLineEntity();
                                     kLineEntity.Open = (float) dataBean.getOpen();
@@ -177,20 +174,8 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
                                     kLineEntity.Volume = (float) dataBean.getVol();
                                     kLineEntityArrayList.add(kLineEntity);
                                 }
-//                                Collections.reverse(kLineEntityArrayList); // 倒序排列kLineEntityArrayList 否者K线显示方向不对
-
-                                //==============================
+                                Collections.reverse(kLineEntityArrayList); // 倒序排列kLineEntityArrayList 否者K线显示方向不对
                                 DataHelper.calculate(kLineEntityArrayList);
-                                List<KLineEntity> dataNew = new ArrayList<>();
-                                int start = Math.max(0, kLineEntityArrayList.size() - 1 - mAdapter.getCount() - 500);
-                                int stop = Math.min(kLineEntityArrayList.size(), kLineEntityArrayList.size() - mAdapter.getCount());
-                                for (int i = start; i < stop; i++) {
-                                    dataNew.add(kLineEntityArrayList.get(i));
-                                }
-
-                                //=============================
-                            } else {
-                                mKChartView.refreshEnd();
                             }
 
                             //第一次加载时开始动画
@@ -205,8 +190,9 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
                                 isLoading = true;
                             }
                             //加载完成，还有更多数据
-                            if (kLineEntityArrayList.size() > 0) {
+                            if (kLineEntityArrayList.size() > 50) {
                                 mKChartView.refreshComplete();
+                                mKChartView.resetLoadMoreEnd();
                             }
                             //加载完成，没有更多数据
                             else {
@@ -225,8 +211,8 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
     public void onLoadMoreBegin(KChartView chart) {
         if (!isFirstLoading)
             onLoadKData();
-        isFirstLoading = false;
     }
+
 
     public void setObject(MarketMainAct newMarketMainAct) {
         this.newMarketMainAct = newMarketMainAct;
