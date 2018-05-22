@@ -52,8 +52,6 @@ import rx.Subscriber;
 public class CryptocurrencyFragment extends BaseFragment {
 
 
-
-
     @ViewById
     TextView noData;
     @ViewById
@@ -61,18 +59,14 @@ public class CryptocurrencyFragment extends BaseFragment {
     private AllVarietyAdapter2 mAllVarietyAdapter2;
 
 
-
-
     @AfterViews
     protected void initViewData() {
 
         mAllVarietyAdapter2 = new AllVarietyAdapter2(getActivity());
         listView.setAdapter(mAllVarietyAdapter2);
-        initLoacationAndRequestData( );
+        initLoacationAndRequestData();
 
     }
-
-
 
 
     private void initLoacationAndRequestData() {
@@ -93,6 +87,7 @@ public class CryptocurrencyFragment extends BaseFragment {
 
 
     private AMapLocationClient locationClient = null;
+
     //初始化定位
     private void initLocation() {
 
@@ -124,7 +119,7 @@ public class CryptocurrencyFragment extends BaseFragment {
                         LogUtils.d("经度:" + location.getLongitude() + " 纬度:" + location.getLatitude());
                         double mLongitude = location.getLongitude();
                         double mLatitude = location.getLatitude();
-                        loadNetData( mLongitude, mLatitude);
+                        loadNetData(mLongitude, mLatitude);
 
                     } else {
                         Log.e("AmapError", "location Error, ErrCode:"
@@ -140,9 +135,9 @@ public class CryptocurrencyFragment extends BaseFragment {
     }
 
 
-
-    private void loadNetData( double mLongitude,double mLatitude) {
-        showLoading(getString(R.string.loading));
+    private void loadNetData(double mLongitude, double mLatitude) {
+        if (isAdded())
+            showLoading(getString(R.string.loading));
         MyApplication instance = MyApplication.getInstance();
         String device_identifier = DeviceUtil.getUdid(instance);
         int all_variety = Constants.CRYPTO_CURRENCY; // 加密货币
@@ -155,14 +150,12 @@ public class CryptocurrencyFragment extends BaseFragment {
         String deviceID = HttpInterceptor.silentURLEncode(device_identifier);//设备ID
 
 
-        netDataForDescription(all_variety,deviceType,phoneModel,channelID,APKVersion,deviceID,mLongitude,mLatitude);
+        netDataForDescription(all_variety, deviceType, phoneModel, channelID, APKVersion, deviceID, mLongitude, mLatitude);
 
-        netDataForGoodsPrice(all_variety,deviceType,phoneModel,channelID,APKVersion,deviceID,mLongitude,mLatitude);
+        netDataForGoodsPrice(all_variety, deviceType, phoneModel, channelID, APKVersion, deviceID, mLongitude, mLatitude);
 
-         startTimer(all_variety,deviceType,phoneModel,channelID,APKVersion,deviceID,mLongitude,mLatitude);
+        startTimer(all_variety, deviceType, phoneModel, channelID, APKVersion, deviceID, mLongitude, mLatitude);
     }
-
-
 
 
     private void netDataForDescription(final int all_variety, int deviceType, String phoneModel, int channelID, String APKVersion, String deviceID, final double mLongitude, final double mLatitude) {
@@ -185,43 +178,42 @@ public class CryptocurrencyFragment extends BaseFragment {
         UserRepo.getInstance().getSymbols(requestBody)
                 .subscribe(new Subscriber<SymbolBean>() {
                     @Override
-                    public void onCompleted() { }
+                    public void onCompleted() {
+                    }
 
                     @Override
                     public void onError(Throwable e) {
                         dismissLoading();
-                        e.printStackTrace();}
+                        e.printStackTrace();
+                    }
 
                     @Override
                     public void onNext(SymbolBean symbolBean) {
                         dismissLoading();
                         //ToastUtils.showCorrectImage("请求成功0");
                         //LogUtils.d(symbolBean.toString());
-                        SymbolBean.DataBean   dataBean=symbolBean.getData();
-                        if(dataBean==null) return;
-                        List<SymbolBean.DataBean.SymbolInfosBean> symbolInfosBeanList= dataBean.getSymbolInfos();
-                        if(symbolInfosBeanList==null||symbolInfosBeanList.size()==0){
+                        SymbolBean.DataBean dataBean = symbolBean.getData();
+                        if (dataBean == null) return;
+                        List<SymbolBean.DataBean.SymbolInfosBean> symbolInfosBeanList = dataBean.getSymbolInfos();
+                        if (symbolInfosBeanList == null || symbolInfosBeanList.size() == 0) {
                             noData.setVisibility(View.VISIBLE);
                             listView.setEmptyView(noData);
                             return;
                         }
                         mAllVarietyAdapter2.setItems(symbolInfosBeanList);
                         List<SymbolBean.DataBean.HandNumSBean> handNumSBeanList = symbolBean.getData().getHandNumS();// 几手
-                        List<SymbolBean.DataBean.StopLossTimesBean> stopLossTimesBeanList  =symbolBean.getData().getStopLossTimes(); //几倍
-                        setOnItemClickForListView(symbolInfosBeanList,mLongitude,mLatitude,all_variety,handNumSBeanList,stopLossTimesBeanList);
+                        List<SymbolBean.DataBean.StopLossTimesBean> stopLossTimesBeanList = symbolBean.getData().getStopLossTimes(); //几倍
+                        setOnItemClickForListView(symbolInfosBeanList, mLongitude, mLatitude, all_variety, handNumSBeanList, stopLossTimesBeanList);
                     }
                 });
-
 
 
     }
 
 
+    List<GoodsPriceBean.DataBean> goodsPriceList = new ArrayList<>();
 
-
-
-    List<GoodsPriceBean.DataBean>  goodsPriceList = new ArrayList<>();
-    private void netDataForGoodsPrice(int all_variety,int deviceType,String phoneModel,int channelID,String APKVersion, String deviceID,double mLongitude,double mLatitude  ) {
+    private void netDataForGoodsPrice(int all_variety, int deviceType, String phoneModel, int channelID, String APKVersion, String deviceID, double mLongitude, double mLatitude) {
         RequestGoodsPrice requestGoodsPrice = new RequestGoodsPrice();  //商品价格
         requestGoodsPrice.setCommoditytype(all_variety);
         requestGoodsPrice.setDeviceType(deviceType);
@@ -242,7 +234,8 @@ public class CryptocurrencyFragment extends BaseFragment {
         UserRepo.getInstance().getGoodsPrice(requestBody)
                 .subscribe(new Subscriber<GoodsPriceBean>() {
                     @Override
-                    public void onCompleted() {}
+                    public void onCompleted() {
+                    }
 
                     @Override
                     public void onError(Throwable e) {
@@ -252,34 +245,33 @@ public class CryptocurrencyFragment extends BaseFragment {
 
                     @Override
                     public void onNext(GoodsPriceBean goodsPriceBean) {
-                        if(goodsPriceBean.getCode()==200){
+                        if (goodsPriceBean.getCode() == 200) {
                             //ToastUtils.showCorrectImage("请求成功1");
                             //LogUtils.d("TAG",goodsPriceBean.toString());
-                            List<GoodsPriceBean.DataBean>  dataBeanList=goodsPriceBean.getData();
-                            if(dataBeanList==null||dataBeanList.size()==0)return;
+                            List<GoodsPriceBean.DataBean> dataBeanList = goodsPriceBean.getData();
+                            if (dataBeanList == null || dataBeanList.size() == 0) return;
                             goodsPriceList.clear();
                             goodsPriceList.addAll(dataBeanList);
                             mAllVarietyAdapter2.transmitGoodsPriceList(goodsPriceList);
                         }
                     }
                 });
-        }
-
+    }
 
 
     private MyCountDownTimer mCountDownTimer;
-    private void startTimer(int all_variety,int deviceType,String phoneModel,int channelID,String APKVersion, String deviceID,double mLongitude,double mLatitude ) {
+
+    private void startTimer(int all_variety, int deviceType, String phoneModel, int channelID, String APKVersion, String deviceID, double mLongitude, double mLatitude) {
         if (mCountDownTimer == null) {
             mCountDownTimer = new MyCountDownTimer(3000, 1000,
-                    all_variety,deviceType,phoneModel,channelID,APKVersion,deviceID,mLongitude,mLatitude);
+                    all_variety, deviceType, phoneModel, channelID, APKVersion, deviceID, mLongitude, mLatitude);
         }
-         mCountDownTimer.start();
+        mCountDownTimer.start();
 
     }
 
 
-
-    public class MyCountDownTimer  extends CountDownTimer {
+    public class MyCountDownTimer extends CountDownTimer {
 
         private final int all_variety;
         private final int deviceType;
@@ -294,37 +286,38 @@ public class CryptocurrencyFragment extends BaseFragment {
          * @param millisInFuture    计时总时间，计时结束调用onfinish方法
          * @param countDownInterval 多长时间回调一次ontick方法
          */
-        public MyCountDownTimer(long millisInFuture, long countDownInterval,int all_variety,int deviceType,String phoneModel,int channelID,String APKVersion, String deviceID,double mLongitude,double mLatitude) {
+        public MyCountDownTimer(long millisInFuture, long countDownInterval, int all_variety, int deviceType, String phoneModel, int channelID, String APKVersion, String deviceID, double mLongitude, double mLatitude) {
             super(millisInFuture, countDownInterval);
-            this.all_variety=all_variety;
-            this.deviceType=deviceType;
-            this.phoneModel=phoneModel;
-            this.channelID=channelID;
-            this.APKVersion=APKVersion;
-            this.deviceID=deviceID;
-            this.mLongitude=mLongitude;
-            this.mLatitude=mLatitude;
+            this.all_variety = all_variety;
+            this.deviceType = deviceType;
+            this.phoneModel = phoneModel;
+            this.channelID = channelID;
+            this.APKVersion = APKVersion;
+            this.deviceID = deviceID;
+            this.mLongitude = mLongitude;
+            this.mLatitude = mLatitude;
         }
 
         @Override
-        public void onTick(long millisUntilFinished) {}
+        public void onTick(long millisUntilFinished) {
+        }
 
         @Override
         public void onFinish() {
-            netDataForGoodsPrice(all_variety,deviceType,phoneModel,channelID,APKVersion,deviceID,mLongitude,mLatitude);
+            netDataForGoodsPrice(all_variety, deviceType, phoneModel, channelID, APKVersion, deviceID, mLongitude, mLatitude);
             mCountDownTimer.start();
 
         }
     }
 
-    private void setOnItemClickForListView(final List<SymbolBean.DataBean.SymbolInfosBean>   mSymbolInfosBeanList
+    private void setOnItemClickForListView(final List<SymbolBean.DataBean.SymbolInfosBean> mSymbolInfosBeanList
             , final double mLongitude, final double mLatitude, final int all_variety, final List<SymbolBean.DataBean.HandNumSBean> handNumSBeanList,
                                            final List<SymbolBean.DataBean.StopLossTimesBean> stopLossTimesBeanList) {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(mSymbolInfosBeanList!=null&&mSymbolInfosBeanList.size()>0){
-                    SymbolBean.DataBean.SymbolInfosBean symbolInfosBean=   mSymbolInfosBeanList.get(position);
+                if (mSymbolInfosBeanList != null && mSymbolInfosBeanList.size() > 0) {
+                    SymbolBean.DataBean.SymbolInfosBean symbolInfosBean = mSymbolInfosBeanList.get(position);
                     UserGolbal.getInstance().setSymbol(symbolInfosBean.getSymbol());
                     UserGolbal.getInstance().setSymbolname(symbolInfosBean.getSymbolname());
                     UserGolbal.getInstance().setTag(all_variety);//加密货币
@@ -344,7 +337,7 @@ public class CryptocurrencyFragment extends BaseFragment {
 
                     }
 
-                    if(stopLossTimesBeanList!=null&&stopLossTimesBeanList.size()>0){
+                    if (stopLossTimesBeanList != null && stopLossTimesBeanList.size() > 0) {
                         List<MultiplBean> multiplBeanList = new ArrayList<>();
                         for (SymbolBean.DataBean.StopLossTimesBean stopLossTimesBean : stopLossTimesBeanList) {
                             MultiplBean multiplBean = new MultiplBean();
@@ -401,28 +394,26 @@ public class CryptocurrencyFragment extends BaseFragment {
 */
 
 
-
-
     /**
      * setUserVisibleHint(boolean isVisibleToUser) 实在Fragment OnCreateView()方法之前调用的
-     *
+     * <p>
      * 如果是与ViewPager一起使用，调用的是setUserVisibleHint
-     *
-     isVisibleToUser =true的时候代表当前页面可见， 就加载当前的界面fargment网络数据
-     isVisibleToUser =false 表当前页面不可见， 就不加载当前的界面fargment网络数据
+     * <p>
+     * isVisibleToUser =true的时候代表当前页面可见， 就加载当前的界面fargment网络数据
+     * isVisibleToUser =false 表当前页面不可见， 就不加载当前的界面fargment网络数据
      */
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
-        if(getUserVisibleHint()){ //可见
-            if(mCountDownTimer!=null){
+        if (getUserVisibleHint()) { //可见
+            if (mCountDownTimer != null) {
                 mCountDownTimer.start();
 
             }
-        }else{
-            if(mCountDownTimer!=null){
+        } else {
+            if (mCountDownTimer != null) {
                 mCountDownTimer.onFinish();
-                LogUtils.d("TAG","mCountDownTimer is finish34");
+                LogUtils.d("TAG", "mCountDownTimer is finish34");
             }
         }
 

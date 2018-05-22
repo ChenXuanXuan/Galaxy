@@ -149,6 +149,7 @@ public class AllVarietyFragment extends BaseFragment {
 
 
     private void loadNetData(double mLongitude, double mLatitude) {
+        if (isAdded())
         showLoading(getString(R.string.loading));
         MyApplication instance = MyApplication.getInstance();
         String device_identifier = DeviceUtil.getUdid(instance);

@@ -51,6 +51,7 @@ public class OpenPositionFragment extends BaseFragment {
         mMoneyFlowAdapter = new MoneyFlowAdapter(getActivity());
         listView.setAdapter(mMoneyFlowAdapter);
         //setOnItemClickForListView();
+        if (isAdded())
         showLoading(getString(R.string.loading));
         currentPage = 1;
         loadNetData(currentPage, Constants.KAICHANG);

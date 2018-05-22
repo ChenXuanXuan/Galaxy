@@ -29,7 +29,6 @@ import java.util.List;
 public class SettleAccountsFragment extends BaseFragment {
 
 
-
     @ViewById(R.id.refreshLayout)
     BaseSmartRefreshLayout refreshLayout;
 
@@ -49,21 +48,22 @@ public class SettleAccountsFragment extends BaseFragment {
         mMoneyFlowAdapter = new MoneyFlowAdapter(getActivity());
         listView.setAdapter(mMoneyFlowAdapter);
         //setOnItemClickForListView();
-        showLoading(getString(R.string.loading));
+        if (isAdded())
+            showLoading(getString(R.string.loading));
         currentPage = 1;
         loadNetData(currentPage, Constants.PINCHANG);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                currentPage=1;
-                loadNetData(currentPage,Constants.PINCHANG);
+                currentPage = 1;
+                loadNetData(currentPage, Constants.PINCHANG);
             }
         });
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
                 currentPage++;
-                loadNetData(currentPage,Constants.PINCHANG);
+                loadNetData(currentPage, Constants.PINCHANG);
             }
         });
 
@@ -75,20 +75,20 @@ public class SettleAccountsFragment extends BaseFragment {
             @Override
             public void onSuccessCallBack(MoneyFlowBean moneyFlowBean) {
                 refreshComplete();
-                LogUtils.d("TAG-->成功回调&资金明细&结算", moneyFlowBean.getData().getList().size()+new Gson().toJson(moneyFlowBean));
-                MoneyFlowBean.DataBean dataBean=moneyFlowBean.getData();
-                if(dataBean==null) return;
+                LogUtils.d("TAG-->成功回调&资金明细&结算", moneyFlowBean.getData().getList().size() + new Gson().toJson(moneyFlowBean));
+                MoneyFlowBean.DataBean dataBean = moneyFlowBean.getData();
+                if (dataBean == null) return;
                 mListBeanList = dataBean.getList();
-                if(currentPage==1){
-                    if(mListBeanList ==null|| mListBeanList.size()==0){
+                if (currentPage == 1) {
+                    if (mListBeanList == null || mListBeanList.size() == 0) {
                         listView.setEmptyView(noData);
                     }
                     mMoneyFlowAdapter.setItems(mListBeanList);
-                }else{
+                } else {
                     mMoneyFlowAdapter.addItems(mListBeanList);
                 }
 
-                refreshLayout.setLoadmoreFinished(mListBeanList == null || mListBeanList.size() == 0||mListBeanList.size()<Constants.PAGESIZE);
+                refreshLayout.setLoadmoreFinished(mListBeanList == null || mListBeanList.size() == 0 || mListBeanList.size() < Constants.PAGESIZE);
             }
 
             @Override
@@ -101,13 +101,12 @@ public class SettleAccountsFragment extends BaseFragment {
     }
 
 
-
     private void refreshComplete() {
         dismissLoading();
-        if(refreshLayout != null){
-            if(currentPage==1){
+        if (refreshLayout != null) {
+            if (currentPage == 1) {
                 refreshLayout.finishRefresh();
-            }else{
+            } else {
                 refreshLayout.finishLoadmore();
             }
         }

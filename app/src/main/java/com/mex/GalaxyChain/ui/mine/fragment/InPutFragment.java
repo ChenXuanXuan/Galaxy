@@ -47,21 +47,22 @@ public class InPutFragment extends BaseFragment {
         mMoneyFlowAdapter = new MoneyFlowAdapter(getActivity());
         listView.setAdapter(mMoneyFlowAdapter);
         //setOnItemClickForListView();
-        showLoading(getString(R.string.loading));
+        if (isAdded())
+            showLoading(getString(R.string.loading));
         currentPage = 1;
         loadNetData(currentPage, Constants.CONGZHI);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-                currentPage=1;
-                loadNetData(currentPage,Constants.CONGZHI);
+                currentPage = 1;
+                loadNetData(currentPage, Constants.CONGZHI);
             }
         });
         refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
             @Override
             public void onLoadmore(RefreshLayout refreshlayout) {
                 currentPage++;
-                loadNetData(currentPage,Constants.CONGZHI);
+                loadNetData(currentPage, Constants.CONGZHI);
             }
         });
 
@@ -73,20 +74,20 @@ public class InPutFragment extends BaseFragment {
             @Override
             public void onSuccessCallBack(MoneyFlowBean moneyFlowBean) {
                 refreshComplete();
-                LogUtils.d("TAG-->成功回调&资金明细&全部", moneyFlowBean.getData().getList().size()+new Gson().toJson(moneyFlowBean));
-                MoneyFlowBean.DataBean dataBean=moneyFlowBean.getData();
-                if(dataBean==null) return;
+                LogUtils.d("TAG-->成功回调&资金明细&全部", moneyFlowBean.getData().getList().size() + new Gson().toJson(moneyFlowBean));
+                MoneyFlowBean.DataBean dataBean = moneyFlowBean.getData();
+                if (dataBean == null) return;
                 mListBeanList = dataBean.getList();
-                if(currentPage==1){
-                    if(mListBeanList ==null|| mListBeanList.size()==0){
+                if (currentPage == 1) {
+                    if (mListBeanList == null || mListBeanList.size() == 0) {
                         listView.setEmptyView(noData);
                     }
                     mMoneyFlowAdapter.setItems(mListBeanList);
-                }else{
+                } else {
                     mMoneyFlowAdapter.addItems(mListBeanList);
                 }
 
-                refreshLayout.setLoadmoreFinished(mListBeanList == null || mListBeanList.size() == 0||mListBeanList.size()<Constants.PAGESIZE);
+                refreshLayout.setLoadmoreFinished(mListBeanList == null || mListBeanList.size() == 0 || mListBeanList.size() < Constants.PAGESIZE);
             }
 
             @Override
@@ -99,19 +100,16 @@ public class InPutFragment extends BaseFragment {
     }
 
 
-
     private void refreshComplete() {
         dismissLoading();
-        if(refreshLayout != null){
-            if(currentPage==1){
+        if (refreshLayout != null) {
+            if (currentPage == 1) {
                 refreshLayout.finishRefresh();
-            }else{
+            } else {
                 refreshLayout.finishLoadmore();
             }
         }
     }
-
-
 
 
 }

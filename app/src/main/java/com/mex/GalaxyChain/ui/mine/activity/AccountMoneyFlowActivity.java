@@ -94,7 +94,7 @@ public class AccountMoneyFlowActivity extends BaseActivity {
     private void initViewpager() {
         mIndicatorViewPagerAdapter = new IndicatorViewPagerAdapter(getSupportFragmentManager(), mFragmentList, titleTabArr);
         vp_hq_fragment.setAdapter(mIndicatorViewPagerAdapter);
-        vp_hq_fragment.setOffscreenPageLimit(5);
+        vp_hq_fragment.setOffscreenPageLimit(0);
         vp_hq_fragment.setCurrentItem(0);
     }
 

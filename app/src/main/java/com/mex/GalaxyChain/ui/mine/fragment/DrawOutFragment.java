@@ -51,7 +51,8 @@ public class DrawOutFragment extends BaseFragment {
         mMoneyFlowAdapter = new MoneyFlowAdapter(getActivity());
         listView.setAdapter(mMoneyFlowAdapter);
         //setOnItemClickForListView();
-        showLoading(getString(R.string.loading));
+        if (isAdded())
+            showLoading(getString(R.string.loading));
         currentPage = 1;
         loadNetData(currentPage, Constants.TIXIAN);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
