@@ -160,9 +160,9 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
                             LogUtils.d("TAG:K线--->数据"+new Gson().toJson(dataBeanList));
                             starttime = dataBeanList.get(dataBeanList.size()-1).getTimes();
                             LogUtils.d("TAG:K线--->每页第一条time:"+dataBeanList.get(0).getTimes());
-                            LogUtils.d("TAG:K线--->每页第一条time:"+AppUtil.getDateToString(dataBeanList.get(0).getTimes()) );
+                            LogUtils.d("TAG:K线--->每页第一条time:"+AppUtil.getDateToStringDetail2(dataBeanList.get(0).getTimes()) );
                             LogUtils.d("TAG:K线--->每页最后一条time:"+starttime);
-                            LogUtils.d("TAG:K线--->每页最后一条time:"+AppUtil.getDateToString(starttime));
+                            LogUtils.d("TAG:K线--->每页最后一条time:"+AppUtil.getDateToStringDetail2(starttime));
                             if (dataBeanList != null && dataBeanList.size() > 0) {
                                 if (dataBeanList.size()==1){ //当第一页都不够500条 如何
                                     mKChartView.refreshEnd();
@@ -174,7 +174,7 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
                                     KLineEntity kLineEntity = new KLineEntity();
                                     kLineEntity.Open = (float) dataBean.getOpen();
                                     kLineEntity.Close = (float) dataBean.getClose();
-                                    kLineEntity.Date = AppUtil.getDateToString(dataBean.getTimes());
+                                    kLineEntity.Date = AppUtil.getDateToStringDetail2(dataBean.getTimes());
                                     kLineEntity.High = (float) dataBean.getHigh();
                                     kLineEntity.Low = (float) dataBean.getLow();
                                     kLineEntity.Volume = (float) dataBean.getVol();

@@ -300,7 +300,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
     private void showExchange(int type) {
         View popupView = getLayoutInflater().inflate(R.layout.exchange_popu, null);
         PopupWindow window = new PopupWindow(popupView, 800, 600);
-//		window.setAnimationStyle(R.style.popup_window_anim);
+          //	 window.setAnimationStyle(R.style.popup_window_anim);
         window.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#F8F8F8")));
         window.setFocusable(true);
         window.setOutsideTouchable(true);

@@ -146,7 +146,7 @@ public class MineFragment extends BaseFragment {
                                 UserAccountInfoBean.DataBean.AccountMoneyInfoBean accountMoneyInfo = data.getAccountMoneyInfo();
 
                                 tv_amount_type.setText("总金额(" + accountMoneyInfo.getCurrenttype() + ")");
-                                tv_canusedamount.setText(accountMoneyInfo.getCanusedamount() + "");
+                                tv_canusedamount.setText(accountMoneyInfo.getAmount()+"");
                                 UserGolbal.getInstance().setRealnamestatus(accountMoneyInfo.getRealnamestatus());
                                 UserGolbal.getInstance().amount = accountMoneyInfo.getAmount();
                                 UserGolbal.getInstance().canusedamount = accountMoneyInfo.getCanusedamount();
