@@ -221,8 +221,7 @@ public class MineFragment extends BaseFragment {
                 //  RegisActivity_.intent(getActivity()).start();
                 break;
 
-
-            case R.id.rl_getMoneyFlow: // 资金明细
+                case R.id.rl_getMoneyFlow: // 资金明细
                  AccountMoneyFlowActivity_.intent(getActivity()).start();
                 break;
         }
