@@ -76,6 +76,7 @@ public class LoadNetDataForMoneyFlowUtil {
                              switch (biztype) {
                                  case Constants.ALL: {
                                      if (!IsEmptyUtils.isEmpty(loadMeneyFlowCallBackListener)) {
+                                         LogUtils.d("TAG->"+Constants.ALL,moneyFlowBean.getData().getList().size()+"");
                                          loadMeneyFlowCallBackListener.onSuccessCallBack(moneyFlowBean);
                                      }
                                      break;
@@ -83,6 +84,7 @@ public class LoadNetDataForMoneyFlowUtil {
 
                                  case Constants.CONGZHI: {
                                      if (!IsEmptyUtils.isEmpty(loadMeneyFlowCallBackListener)) {
+                                         LogUtils.d("TAG->"+Constants.CONGZHI,moneyFlowBean.getData().getList().size()+"");
                                          loadMeneyFlowCallBackListener.onSuccessCallBack(moneyFlowBean);
                                      }
                                      break;
@@ -91,10 +93,30 @@ public class LoadNetDataForMoneyFlowUtil {
 
                                  case Constants.TIXIAN: {
                                      if (!IsEmptyUtils.isEmpty(loadMeneyFlowCallBackListener)) {
+                                         LogUtils.d("TAG->"+Constants.TIXIAN,moneyFlowBean.getData().getList().size()+"");
                                          loadMeneyFlowCallBackListener.onSuccessCallBack(moneyFlowBean);
                                      }
                                      break;
                                  }
+
+
+                                 case Constants.KAICHANG: {
+                                     if (!IsEmptyUtils.isEmpty(loadMeneyFlowCallBackListener)) {
+                                         LogUtils.d("TAG->"+Constants.KAICHANG,moneyFlowBean.getData().getList().size()+"");
+                                         loadMeneyFlowCallBackListener.onSuccessCallBack(moneyFlowBean);
+                                     }
+                                     break;
+                                 }
+
+                                 case Constants.PINCHANG: {
+                                     if (!IsEmptyUtils.isEmpty(loadMeneyFlowCallBackListener)) {
+                                         LogUtils.d("TAG->"+Constants.PINCHANG,moneyFlowBean.getData().getList().size()+"");
+                                         loadMeneyFlowCallBackListener.onSuccessCallBack(moneyFlowBean);
+                                     }
+                                     break;
+                                 }
+
+
 
 
 

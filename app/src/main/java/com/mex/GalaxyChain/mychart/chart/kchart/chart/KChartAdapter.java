@@ -3,6 +3,7 @@ package com.mex.GalaxyChain.mychart.chart.kchart.chart;
 
 
 import com.lsj.kchart.kchartlib.chart.BaseKChartAdapter;
+import com.mex.GalaxyChain.utils.LogUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,6 +42,7 @@ public class KChartAdapter extends BaseKChartAdapter {
             date.setYear(Integer.parseInt(split[0]) - 1900);
             date.setMonth(Integer.parseInt(split[1]) - 1);
             date.setDate(Integer.parseInt(split[2]));
+            LogUtils.d("TAG",date.toString());
             return date;
         } catch (Exception e) {
             e.printStackTrace();

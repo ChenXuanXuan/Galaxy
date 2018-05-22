@@ -32,6 +32,7 @@ import com.mex.GalaxyChain.ui.asset.fragment.LineBaseFragment;
 import com.mex.GalaxyChain.utils.AppUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -129,7 +130,7 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
             //  String symbol = "BTCUSDT";
             paramMap.put("symbol", symbol);//todo 变化的
             paramMap.put("starttime", starttime);//返回每次数量的最后一条蜡烛数据的时间撮
-            int count = -500;//(- 向左 每次取500条   + 向右 每次取500)一开始时间为节点，正直是向右取，负值是向左取(每次返回的条数)
+            int count = -100;//(- 向左 每次取500条   + 向右 每次取500)一开始时间为节点，正直是向右取，负值是向左取(每次返回的条数)
             paramMap.put("count", count);
            // String interval = Constants.ONE_MIN; //默认周期  1分钟 todo 变化的
             paramMap.put("interval", interval);
@@ -156,15 +157,19 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
                             List<KLineEntity> kLineEntityArrayList = new ArrayList<>();
                             //K历史数据
                             List<HistoryKLineBean.DataBean> dataBeanList = historyKLineBean.getData();
-                            LogUtils.d("K线--->数据"+new Gson().toJson(dataBeanList));
+                            LogUtils.d("TAG:K线--->数据"+new Gson().toJson(dataBeanList));
                             starttime = dataBeanList.get(dataBeanList.size()-1).getTimes();
-                            LogUtils.d("K线--->每页最后一条time:"+starttime);
+                            LogUtils.d("TAG:K线--->每页第一条time:"+dataBeanList.get(0).getTimes());
+                            LogUtils.d("TAG:K线--->每页第一条time:"+AppUtil.getDateToString(dataBeanList.get(0).getTimes()) );
+                            LogUtils.d("TAG:K线--->每页最后一条time:"+starttime);
+                            LogUtils.d("TAG:K线--->每页最后一条time:"+AppUtil.getDateToString(starttime));
                             if (dataBeanList != null && dataBeanList.size() > 0) {
                                 if (dataBeanList.size()==1){ //当第一页都不够500条 如何
                                     mKChartView.refreshEnd();
                                     //ToastUtils.showTextInMiddle("没有更多数据了");
                                     return;
                                 }
+
                                 for (HistoryKLineBean.DataBean dataBean : dataBeanList) {
                                     KLineEntity kLineEntity = new KLineEntity();
                                     kLineEntity.Open = (float) dataBean.getOpen();
@@ -175,6 +180,9 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
                                     kLineEntity.Volume = (float) dataBean.getVol();
                                     kLineEntityArrayList.add(kLineEntity);
                                 }
+                                Collections.reverse(kLineEntityArrayList); // 倒序排列kLineEntityArrayList 否者K线显示方向不对
+
+                                //==============================
                                 DataHelper.calculate(kLineEntityArrayList);
                                 List<KLineEntity> dataNew = new ArrayList<>();
                                 int start = Math.max(0, kLineEntityArrayList.size() - 1 - mAdapter.getCount() - 500);
@@ -182,6 +190,8 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
                                 for (int i = start; i < stop; i++) {
                                     dataNew.add(kLineEntityArrayList.get(i));
                                 }
+
+                                //=============================
                             }else {
                                 mKChartView.refreshEnd();
                             }
