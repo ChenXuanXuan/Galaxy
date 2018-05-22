@@ -19,11 +19,6 @@ public class KLineEntity implements KLineImpl {
     }
 
     @Override
-    public String getData() {
-        return StringData;
-    }
-
-    @Override
     public float getHighPrice() {
         return High;
     }

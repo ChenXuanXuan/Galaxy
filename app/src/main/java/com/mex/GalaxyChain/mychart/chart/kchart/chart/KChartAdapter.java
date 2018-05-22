@@ -50,6 +50,17 @@ public class KChartAdapter extends BaseKChartAdapter {
         return null;
     }
 
+    @Override
+    public String getStringDate(int position) {
+        try {
+            String s = datas.get(position).Date;
+            return s;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     /**
      * 向头部添加数据
      */

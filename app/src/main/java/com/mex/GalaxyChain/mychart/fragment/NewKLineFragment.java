@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.lsj.kchart.kchartlib.chart.BaseKChartView;
 import com.lsj.kchart.kchartlib.chart.KChartView;
 import com.lsj.kchart.kchartlib.chart.formatter.DateFormatter;
+import com.lsj.kchart.kchartlib.utils.DateUtil;
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.bean.HistoryKLineBean;
 import com.mex.GalaxyChain.common.Constants;
@@ -31,6 +32,7 @@ import com.mex.GalaxyChain.ui.asset.activity.MarketMainAct;
 import com.mex.GalaxyChain.ui.asset.fragment.LineBaseFragment;
 import com.mex.GalaxyChain.utils.AppUtil;
 
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -59,7 +61,7 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
     private List<KLineEntity> data;
     private boolean isLoading;
     private int page = 0;
-    private  long starttime = 0;
+    private long starttime = 0;
     private String interval;
     private String symbol;
     private Boolean isFirstLoading = true;
@@ -107,15 +109,15 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
     }
 
 
-    public void setType(String instID, String type, String selType,String interval,String symbol) {
+    public void setType(String instID, String type, String selType, String interval, String symbol) {
         mAdapter.clearItems();
         this.instID = instID;
         this.type = type;
         this.selType = selType;
         isLoading = false;
         page = 0;
-        this.interval=interval;//周期
-        this.symbol=symbol;//  symbol
+        this.interval = interval;//周期
+        this.symbol = symbol;//  symbol
         initData();
     }
 
@@ -157,16 +159,11 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
                             List<KLineEntity> kLineEntityArrayList = new ArrayList<>();
                             //K历史数据
                             List<HistoryKLineBean.DataBean> dataBeanList = historyKLineBean.getData();
-                            LogUtils.d("TAG:K线--->数据"+new Gson().toJson(dataBeanList));
-                            starttime = dataBeanList.get(dataBeanList.size()-1).getTimes();
-                            LogUtils.d("TAG:K线--->每页第一条time:"+dataBeanList.get(0).getTimes());
-                            LogUtils.d("TAG:K线--->每页第一条time:"+AppUtil.getDateToString(dataBeanList.get(0).getTimes()) );
-                            LogUtils.d("TAG:K线--->每页最后一条time:"+starttime);
-                            LogUtils.d("TAG:K线--->每页最后一条time:"+AppUtil.getDateToString(starttime));
+                            Collections.reverse(dataBeanList);
+                            starttime = dataBeanList.get(dataBeanList.size() - 1).getTimes();
                             if (dataBeanList != null && dataBeanList.size() > 0) {
-                                if (dataBeanList.size()==1){ //当第一页都不够500条 如何
+                                if (dataBeanList.size() == 1) { //当第一页都不够500条 如何
                                     mKChartView.refreshEnd();
-                                    //ToastUtils.showTextInMiddle("没有更多数据了");
                                     return;
                                 }
 
@@ -174,13 +171,13 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
                                     KLineEntity kLineEntity = new KLineEntity();
                                     kLineEntity.Open = (float) dataBean.getOpen();
                                     kLineEntity.Close = (float) dataBean.getClose();
-                                    kLineEntity.Date = AppUtil.getDateToString(dataBean.getTimes());
+                                    kLineEntity.Date = AppUtil.getDateToStringDetail(dataBean.getTimes());
                                     kLineEntity.High = (float) dataBean.getHigh();
                                     kLineEntity.Low = (float) dataBean.getLow();
                                     kLineEntity.Volume = (float) dataBean.getVol();
                                     kLineEntityArrayList.add(kLineEntity);
                                 }
-                                Collections.reverse(kLineEntityArrayList); // 倒序排列kLineEntityArrayList 否者K线显示方向不对
+//                                Collections.reverse(kLineEntityArrayList); // 倒序排列kLineEntityArrayList 否者K线显示方向不对
 
                                 //==============================
                                 DataHelper.calculate(kLineEntityArrayList);
@@ -192,7 +189,7 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
                                 }
 
                                 //=============================
-                            }else {
+                            } else {
                                 mKChartView.refreshEnd();
                             }
 
