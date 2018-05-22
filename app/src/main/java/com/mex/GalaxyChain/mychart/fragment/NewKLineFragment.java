@@ -77,7 +77,7 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
     }
 
     public void initData() {
-       isFirstLoading = true;
+        isFirstLoading = true;
         mKChartView.showLoading();
         mKChartView.setRefreshListener(this);
         starttime = 0;
@@ -115,7 +115,7 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
         isLoading = false;
         page = 0;
         this.interval=interval;//周期
-         this.symbol=symbol;//  symbol
+        this.symbol=symbol;//  symbol
         initData();
     }
 
@@ -132,7 +132,7 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
             paramMap.put("starttime", starttime);//返回每次数量的最后一条蜡烛数据的时间撮
             int count = -100;//(- 向左 每次取500条   + 向右 每次取500)一开始时间为节点，正直是向右取，负值是向左取(每次返回的条数)
             paramMap.put("count", count);
-           // String interval = Constants.ONE_MIN; //默认周期  1分钟 todo 变化的
+            // String interval = Constants.ONE_MIN; //默认周期  1分钟 todo 变化的
             paramMap.put("interval", interval);
             int vol = 500; //交易量
             paramMap.put("vol", vol);
@@ -174,8 +174,7 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
                                     KLineEntity kLineEntity = new KLineEntity();
                                     kLineEntity.Open = (float) dataBean.getOpen();
                                     kLineEntity.Close = (float) dataBean.getClose();
-                                    kLineEntity.Date= AppUtil.getDateToString(dataBean.getTimes());
-                                    kLineEntity.StringData = AppUtil.getDateToStringDetail(dataBean.getTimes());
+                                    kLineEntity.Date = AppUtil.getDateToString(dataBean.getTimes());
                                     kLineEntity.High = (float) dataBean.getHigh();
                                     kLineEntity.Low = (float) dataBean.getLow();
                                     kLineEntity.Volume = (float) dataBean.getVol();
@@ -228,7 +227,7 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
     @Override
     public void onLoadMoreBegin(KChartView chart) {
         if (!isFirstLoading)
-        onLoadKData();
+            onLoadKData();
         isFirstLoading = false;
     }
 
