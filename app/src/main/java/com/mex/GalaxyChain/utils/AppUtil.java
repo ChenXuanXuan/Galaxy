@@ -597,7 +597,7 @@ context.getPackageName(), PackageManager.GET_SIGNATURES);
 	public static SimpleDateFormat sf = null;
 	public static String getDateToString(long time) {
 		Date d = new Date(time);
-		sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		sf = new SimpleDateFormat("yyyy/MM/dd");
 		return sf.format(d);
 	}
 
