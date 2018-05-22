@@ -57,16 +57,16 @@ public class AccountMoneyFlowActivity extends BaseActivity {
     ImageView back;
 
     @Click(R.id.back)
-    void onClick(View view){
-         finish();
+    void onClick(View view) {
+        finish();
     }
 
-    String[]  titleTabArr = {"全部","充值","提现","开仓","结算"};
+    String[] titleTabArr = {"全部", "充值", "提现", "开仓", "结算"};
     List<BaseFragment> mFragmentList;
     private IndicatorViewPagerAdapter mIndicatorViewPagerAdapter;
 
     @AfterViews
-    void init(){
+    void init() {
         mTitle.setText("资金明细");
         back.setVisibility(View.VISIBLE);
         intFragmentList();
@@ -76,15 +76,13 @@ public class AccountMoneyFlowActivity extends BaseActivity {
     }
 
 
-
-
     private void intFragmentList() {
-         mFragmentList =new ArrayList<>();
+        mFragmentList = new ArrayList<>();
         AllFragment allFragment = AllFragment_.builder().build();
         InPutFragment inPutFragment = InPutFragment_.builder().build();
         DrawOutFragment drawOutFragment = DrawOutFragment_.builder().build();
-        OpenPositionFragment openPositionFragment =  OpenPositionFragment_.builder().build();
-        SettleAccountsFragment settleAccountsFragment =  SettleAccountsFragment_.builder().build();
+        OpenPositionFragment openPositionFragment = OpenPositionFragment_.builder().build();
+        SettleAccountsFragment settleAccountsFragment = SettleAccountsFragment_.builder().build();
         mFragmentList.add(allFragment);
         mFragmentList.add(inPutFragment);
         mFragmentList.add(drawOutFragment);
@@ -92,7 +90,8 @@ public class AccountMoneyFlowActivity extends BaseActivity {
         mFragmentList.add(settleAccountsFragment);
 
     }
-    private void  initViewpager(){
+
+    private void initViewpager() {
         mIndicatorViewPagerAdapter = new IndicatorViewPagerAdapter(getSupportFragmentManager(), mFragmentList, titleTabArr);
         vp_hq_fragment.setAdapter(mIndicatorViewPagerAdapter);
         vp_hq_fragment.setOffscreenPageLimit(5);
@@ -142,7 +141,6 @@ public class AccountMoneyFlowActivity extends BaseActivity {
         magic_indicator4.setNavigator(commonNavigator);
         ViewPagerHelper.bind(magic_indicator4, vp_hq_fragment);
     }
-
 
 
     private void initListener() {
