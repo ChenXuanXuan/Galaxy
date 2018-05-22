@@ -190,7 +190,7 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
                                 isLoading = true;
                             }
                             //加载完成，还有更多数据
-                            if (kLineEntityArrayList.size() > 50) {
+                            if (kLineEntityArrayList.size() >=50) {
                                 mKChartView.refreshComplete();
                                 mKChartView.resetLoadMoreEnd();
                             }
