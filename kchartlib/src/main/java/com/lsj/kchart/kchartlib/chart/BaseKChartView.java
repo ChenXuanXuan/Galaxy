@@ -242,7 +242,6 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
      *
      * @param canvas
      */
-    @SuppressLint("LongLogTag")
     private void drawK(Canvas canvas) {
         //保存之前的平移，缩放
         canvas.save();
@@ -444,8 +443,8 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
         mMainMinValue = Float.MAX_VALUE;
         mChildMaxValue = Float.MIN_VALUE;
         mChildMinValue = Float.MAX_VALUE;
-        mStartIndex = indexOfTranslateX(xToTranslateX(0));
         mStopIndex = indexOfTranslateX(xToTranslateX(mWidth));
+        mStartIndex = indexOfTranslateX(xToTranslateX(0));
         for (int i = mStartIndex; i <= mStopIndex; i++) {
             KLineImpl point = (KLineImpl) getItem(i);
             if (mMainDraw != null) {
@@ -487,24 +486,44 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
         }
     }
 
+//    /**
+//     * 获取平移的最小值
+//     *
+//     * @return
+//     */
+//    private float getMinTranslateX() {
+//        return -mDataLen + mWidth / mScaleX - mPointWidth / 2;
+//    }
+//
+//    /**
+//     * 获取平移的最大值
+//     *
+//     * @return
+//     */
+//    private float getMaxTranslateX() {
+//        if (!isFullScreen()) {
+//            return getMinTranslateX();
+//        }
+//        return mPointWidth / 2;
+//    }
+
+    /*****************解决数据少时数据从右边显示问题***********************/
     /**
      * 获取平移的最小值
-     *
      * @return
      */
     private float getMinTranslateX() {
+        if (!isFullScreen()) {
+            return getMaxTranslateX();
+        }
         return -mDataLen + mWidth / mScaleX - mPointWidth / 2;
     }
 
     /**
      * 获取平移的最大值
-     *
      * @return
      */
     private float getMaxTranslateX() {
-        if (!isFullScreen()) {
-            return getMinTranslateX();
-        }
         return mPointWidth / 2;
     }
 
