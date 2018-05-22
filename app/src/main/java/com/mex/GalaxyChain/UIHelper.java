@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 
+import com.mex.GalaxyChain.ui.activity.AmountH5Activity_;
 import com.mex.GalaxyChain.ui.activity.ChiCangUnLoginActivity_;
 import com.mex.GalaxyChain.ui.activity.JieSuanActivity_;
 import com.mex.GalaxyChain.ui.asset.activity.MarketMainAct;
@@ -113,6 +114,13 @@ public class UIHelper {
 
     public static void jumptoChiCangUnLoginActivity(Activity activity) {
         Intent intent = new Intent(activity, ChiCangUnLoginActivity_.class);
+        activity.startActivity(intent);
+    }
+
+    public static void toAmountH5Activity(Activity activity, String url) {
+
+        Intent intent = new Intent(activity, AmountH5Activity_.class);
+        intent.putExtra("url", url);
         activity.startActivity(intent);
     }
 }

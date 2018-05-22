@@ -14,7 +14,7 @@ public class DateFormatter implements IDateTimeFormatter {
     @Override
     public String format(Date date) {
         if (date != null) {
-            return DateUtil.longlonTimeFormat.format(date);
+            return DateUtil.DateFormat.format(date);
         } else {
             return "";
         }

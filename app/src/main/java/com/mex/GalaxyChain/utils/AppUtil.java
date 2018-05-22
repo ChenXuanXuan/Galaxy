@@ -609,11 +609,7 @@ context.getPackageName(), PackageManager.GET_SIGNATURES);
 
 
 
-    public static String getDateToStringDetail2(long time) {
-        Date d = new Date(time);
-        sf = new SimpleDateFormat("MM-dd HH:mm");
-        return sf.format(d);
-    }
+
 
 
 

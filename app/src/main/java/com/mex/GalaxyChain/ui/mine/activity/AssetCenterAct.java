@@ -5,6 +5,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mex.GalaxyChain.R;
+import com.mex.GalaxyChain.UIHelper;
 import com.mex.GalaxyChain.common.BaseActivity;
 import com.mex.GalaxyChain.common.UserGolbal;
 
@@ -18,7 +19,7 @@ import org.androidannotations.annotations.ViewById;
  * describe:
  * author: LSJ
  * time 24/4/18 上午10:32
- *  账户中心
+ *  账户中心: 手机号  实名认证原生  交易账户  资产账户 H5
  *
  */
 
@@ -57,13 +58,18 @@ public class AssetCenterAct extends BaseActivity {
 				finish();
 				break;
 
-			case R.id.exchange://交易账户
-				ExchangeActivity_.intent(AssetCenterAct.this).start();
+			case R.id.exchange://交易账户(H5)
+				  ExchangeActivity_.intent(AssetCenterAct.this).start();
+				  break;
+
+			case R.id.amount://资产账户(H5)
+				//AmountActivity_.intent(AssetCenterAct.this).start();
+                String url = "http://yanshengpin.mex.group:82/";
+                  UIHelper.toAmountH5Activity(AssetCenterAct.this,url);
 				break;
 
-			case R.id.amount://资产账户
-				AmountActivity_.intent(AssetCenterAct.this).start();
-				break;
+
+
             case R.id.rl_amountCenter_Certification://实名认证
                 CertificationActivity_.intent(AssetCenterAct.this).start();
                 break;

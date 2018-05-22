@@ -178,6 +178,15 @@
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
 
         <activity
+            android:name="com.mex.GalaxyChain.ui.activity.AmountH5Activity_"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
+
+
+
+        <activity
             android:name="com.mex.GalaxyChain.ui.mine.activity.AmountActivity_"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"

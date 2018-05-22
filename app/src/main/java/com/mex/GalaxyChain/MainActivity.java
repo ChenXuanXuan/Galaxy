@@ -91,12 +91,12 @@ public class MainActivity extends FragmentActivity implements BackHandledInterfa
                 break;
             case R.id.main_tab_mine:
 
-                if (!IsEmptyUtils.isEmpty(UserGolbal.getInstance().getUserToken())) {
+               // if (!IsEmptyUtils.isEmpty(UserGolbal.getInstance().getUserToken())) {
                     showFragment(Constants.INDEX_MINE);
-                } else {
-                    UIHelper.jumptoPhoneNumLoginActivity(this, "");
-                    finish();
-                }
+                //} else {
+                //    UIHelper.jumptoPhoneNumLoginActivity(this, "");
+               //     finish();
+              //  }
 
 
                 break;

@@ -8,7 +8,7 @@ import java.text.SimpleDateFormat;
  */
 public class DateUtil {
     public static SimpleDateFormat longlongTimeFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    public static SimpleDateFormat longlonTimeFormat = new SimpleDateFormat("MM-dd HH:mm");
+    public static SimpleDateFormat longlong2TimeFormat = new SimpleDateFormat("MM-dd HH:mm");
     public static SimpleDateFormat longTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     public static SimpleDateFormat shortTimeFormat = new SimpleDateFormat("HH:mm");
     public static SimpleDateFormat DateFormat = new SimpleDateFormat("yyyy/MM/dd");
