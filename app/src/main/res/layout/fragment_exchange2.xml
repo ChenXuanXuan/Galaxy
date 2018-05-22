@@ -100,32 +100,6 @@
         android:layout_marginRight="24dp"
         android:background="@color/btn_bg_gray_pressed" />
 
-     <LinearLayout
-        android:id="@+id/noData"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="gone">
-
-        <ImageView
-            android:id="@+id/group"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/dp30"
-            android:src="@drawable/group" />
-
-        <TextView
-            android:id="@+id/tv_sart_profit"
-            android:layout_width="@dimen/dp100"
-            android:layout_height="@dimen/dp30"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/dp20"
-            android:background="@drawable/code_bg"
-            android:gravity="center"
-            android:text="开创盈利"
-            android:textColor="@color/white" />
-    </LinearLayout>
     <include layout="@layout/layout_refresh"/>
 
   </LinearLayout>

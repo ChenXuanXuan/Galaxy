@@ -27,7 +27,6 @@ import com.mex.GalaxyChain.net.HttpInterceptor;
 import com.mex.GalaxyChain.net.repo.UserRepo;
 import com.mex.GalaxyChain.utils.AppUtil;
 import com.mex.GalaxyChain.utils.DeviceUtil;
-import com.mex.GalaxyChain.utils.LogUtils;
 import com.mex.GalaxyChain.utils.ToastUtils;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -78,24 +77,17 @@ public class ExchangeFragment2 extends BaseFragment {
     @ViewById(R.id.tv_post)
     TextView tv_post;//仓位
 
-    @ViewById(R.id.tv_sart_profit)
-    TextView tv_sart_profit;//开创盈利
+    private HomeHeaderView headerView;
 
 
     private TagBean tagBean;
     private VarietyHoldPosiBean mVarietyHoldPosiBean;
 
-    @Click({R.id.tv_isLogined_jiesuan, R.id.tv_sart_profit})
+    @Click({R.id.tv_isLogined_jiesuan})
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_isLogined_jiesuan:
                 gotoJieSuan();
-                break;
-
-            case R.id.tv_sart_profit:
-                // ToastUtils.showTextInMiddle("HAHAHAHA");
-                //    UIHelper.jumptoMainActivity(getActivity(),"");
-                EventBus.getDefault().post(new ToMarketFragBean());
                 break;
 
         }
@@ -118,13 +110,15 @@ public class ExchangeFragment2 extends BaseFragment {
 
     @AfterViews
     void init() {
+        headerView = HomeHeaderView_.build(getActivity());
+        listView.addHeaderView(headerView);
         mVarietyHoldPosiBean = ConfigManager.getVarietyHold();
         EventBus.getDefault().register(this);
         searchAdapter = new SearchAdapter(getActivity(), new SearchAdapter.setBack() {
             @Override
             public void back() {
                 loadNetData(mVarietyHoldPosiBean);
-                }
+            }
         });
         listView.setAdapter(searchAdapter);
         showLoading(getString(R.string.loading));
@@ -187,7 +181,7 @@ public class ExchangeFragment2 extends BaseFragment {
                             dismissLoading();
                             if (refreshLayout != null) refreshLayout.finishRefresh();
                             if (holdPositionBean.getCode() == 200) {
-                                LogUtils.d("TAG--->请求持仓列表数据成功",holdPositionBean.getData().getList().size()+"");
+                                ToastUtils.showTextInMiddle(holdPositionBean.getMsg());
                                 HoldPositionBean.DataBean dataBean = holdPositionBean.getData();
                                 tv_total_amount.setText("总资金: " + dataBean.getTotalamount());//总资金
 
@@ -202,11 +196,13 @@ public class ExchangeFragment2 extends BaseFragment {
                                 List<HoldPositionBean.DataBean.ListBean> listBeanList = dataBean.getList();
 
                                 if (listBeanList == null || listBeanList.size() == 0) {  //listBeanList 没有数据  暂无持仓
-                                    listView.setEmptyView(noData);
+                                    headerView.bindView(true);
                                     tv_total_amount.setText("总资金: " + 0);//总资金
                                     tv_total_float_lossprofit.setText(0 + "");//总盈亏(总浮动盈亏)
                                     tv_canusedamount.setText(0 + "");//可用余额
                                     tv_post.setText(0 + "");
+                                }else{
+                                    headerView.bindView(false);
                                 }
 
                                 searchAdapter.setItems(listBeanList);
@@ -242,6 +238,5 @@ public class ExchangeFragment2 extends BaseFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMoonEvent(QuitEvent event) {
     }
-
 }
 

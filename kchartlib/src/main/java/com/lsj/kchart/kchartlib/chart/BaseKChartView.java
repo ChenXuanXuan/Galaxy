@@ -1,6 +1,7 @@
 package com.lsj.kchart.kchartlib.chart;
 
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.database.DataSetObserver;
 import android.graphics.Canvas;
@@ -14,13 +15,13 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.lsj.kchart.kchartlib.R;
-import com.lsj.kchart.kchartlib.chart.entity.KLineImpl;
-import com.lsj.kchart.kchartlib.chart.formatter.TimeFormatter;
-import com.lsj.kchart.kchartlib.chart.formatter.ValueFormatter;
 import com.lsj.kchart.kchartlib.chart.base.IAdapter;
 import com.lsj.kchart.kchartlib.chart.base.IChartDraw;
 import com.lsj.kchart.kchartlib.chart.base.IDateTimeFormatter;
 import com.lsj.kchart.kchartlib.chart.base.IValueFormatter;
+import com.lsj.kchart.kchartlib.chart.entity.KLineImpl;
+import com.lsj.kchart.kchartlib.chart.formatter.TimeFormatter;
+import com.lsj.kchart.kchartlib.chart.formatter.ValueFormatter;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -71,7 +72,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
 
     private Paint mBackgroundPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-    private Paint mSelectedLinePaint=new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint mSelectedLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
     private int mSelectedIndex;
 
@@ -138,7 +139,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
         mDetector = new GestureDetectorCompat(getContext(), this);
         mScaleDetector = new ScaleGestureDetector(getContext(), this);
         mTopPadding = (int) getResources().getDimension(R.dimen.chart_top_padding);
-        mBottomPadding = (int)getResources().getDimension(R.dimen.chart_bottom_padding);
+        mBottomPadding = (int) getResources().getDimension(R.dimen.chart_bottom_padding);
 
         mKChartTabView = new KChartTabView(getContext());
         addView(mKChartTabView, new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -164,20 +165,19 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         this.mWidth = w;
-        initRect(w,h);
+        initRect(w, h);
         mKChartTabView.setTranslationY(mMainRect.bottom);
         setTranslateXFromScrollX(mScrollX);
     }
 
-    private void initRect(int w,int h)
-    {
+    private void initRect(int w, int h) {
         int mMainChildSpace = mKChartTabView.getMeasuredHeight();
         int displayHeight = h - mTopPadding - mBottomPadding - mMainChildSpace;
         int mMainHeight = (int) (displayHeight * 0.75f);
         int mChildHeight = (int) (displayHeight * 0.25f);
-        mMainRect=new Rect(0,mTopPadding,mWidth,mTopPadding+mMainHeight);
-        mTabRect=new Rect(0,mMainRect.bottom,mWidth,mMainRect.bottom+mMainChildSpace);
-        mChildRect=new Rect(0,mTabRect.bottom,mWidth,mTabRect.bottom+mChildHeight);
+        mMainRect = new Rect(0, mTopPadding, mWidth, mTopPadding + mMainHeight);
+        mTabRect = new Rect(0, mMainRect.bottom, mWidth, mMainRect.bottom + mMainChildSpace);
+        mChildRect = new Rect(0, mTabRect.bottom, mWidth, mTabRect.bottom + mChildHeight);
     }
 
     @Override
@@ -198,7 +198,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
     }
 
     public float getMainY(float value) {
-        return (mMainMaxValue - value) * mMainScaleY+mMainRect.top;
+        return (mMainMaxValue - value) * mMainScaleY + mMainRect.top;
     }
 
     public float getChildY(float value) {
@@ -215,6 +215,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
 
     /**
      * 画表格
+     *
      * @param canvas
      */
     private void drawGird(Canvas canvas) {
@@ -222,7 +223,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
         //横向的grid
         float rowSpace = mMainRect.height() / mGridRows;
         for (int i = 0; i <= mGridRows; i++) {
-            canvas.drawLine(0, rowSpace * i+mMainRect.top, mWidth, rowSpace * i+mMainRect.top, mGridPaint);
+            canvas.drawLine(0, rowSpace * i + mMainRect.top, mWidth, rowSpace * i + mMainRect.top, mGridPaint);
         }
         //-----------------------下方子图------------------------
         canvas.drawLine(0, mChildRect.top, mWidth, mChildRect.top, mGridPaint);
@@ -238,8 +239,10 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
 
     /**
      * 画k线图
+     *
      * @param canvas
      */
+    @SuppressLint("LongLogTag")
     private void drawK(Canvas canvas) {
         //保存之前的平移，缩放
         canvas.save();
@@ -265,7 +268,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
             float y = getMainY(point.getClosePrice());
             canvas.drawLine(x, mMainRect.top, x, mMainRect.bottom, mSelectedLinePaint);
             canvas.drawLine(-mTranslateX, y, -mTranslateX + mWidth / mScaleX, y, mSelectedLinePaint);
-            canvas.drawLine(x,mChildRect.top, x,mChildRect.bottom, mSelectedLinePaint);
+            canvas.drawLine(x, mChildRect.top, x, mChildRect.bottom, mSelectedLinePaint);
         }
         //还原 平移缩放
         canvas.restore();
@@ -273,6 +276,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
 
     /**
      * 画文字
+     *
      * @param canvas
      */
     private void drawText(Canvas canvas) {
@@ -281,18 +285,18 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
         float baseLine = (textHeight - fm.bottom - fm.top) / 2;
         //--------------画上方k线图的值-------------
         if (mMainDraw != null) {
-            canvas.drawText(formatValue(mMainMaxValue), 0, baseLine+mMainRect.top, mTextPaint);
-            canvas.drawText(formatValue(mMainMinValue), 0, mMainRect.bottom-textHeight+baseLine, mTextPaint);
+            canvas.drawText(formatValue(mMainMaxValue), 0, baseLine + mMainRect.top, mTextPaint);
+            canvas.drawText(formatValue(mMainMinValue), 0, mMainRect.bottom - textHeight + baseLine, mTextPaint);
             float rowValue = (mMainMaxValue - mMainMinValue) / mGridRows;
             float rowSpace = mMainRect.height() / mGridRows;
             for (int i = 1; i < mGridRows; i++) {
                 String text = formatValue(rowValue * (mGridRows - i) + mMainMinValue);
-                canvas.drawText(text, 0, fixTextY(rowSpace * i+mMainRect.top), mTextPaint);
+                canvas.drawText(text, 0, fixTextY(rowSpace * i + mMainRect.top), mTextPaint);
             }
         }
         //--------------画下方子图的值-------------
         if (mChildDraw != null) {
-            canvas.drawText(mChildDraw.getValueFormatter().format(mChildMaxValue), 0, mChildRect.top+ baseLine, mTextPaint);
+            canvas.drawText(mChildDraw.getValueFormatter().format(mChildMaxValue), 0, mChildRect.top + baseLine, mTextPaint);
             canvas.drawText(mChildDraw.getValueFormatter().format(mChildMinValue), 0, mChildRect.bottom, mTextPaint);
         }
         //--------------画时间---------------------
@@ -339,6 +343,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
 
     /**
      * 画值
+     *
      * @param canvas
      * @param position 显示某个点的值
      */
@@ -348,7 +353,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
         float baseLine = (textHeight - fm.bottom - fm.top) / 2;
         if (position >= 0 && position < mItemCount) {
             if (mMainDraw != null) {
-                float y =mMainRect.top+baseLine-textHeight;
+                float y = mMainRect.top + baseLine - textHeight;
                 float x = 0;
                 mMainDraw.drawText(canvas, this, position, x, y);
             }
@@ -452,14 +457,14 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
                 mChildMinValue = Math.min(mChildMinValue, mChildDraw.getMinValue(point));
             }
         }
-        if(mMainMaxValue!=mMainMinValue) {
+        if (mMainMaxValue != mMainMinValue) {
             float padding = (mMainMaxValue - mMainMinValue) * 0.05f;
             mMainMaxValue += padding;
             mMainMinValue -= padding;
         } else {
             //当最大值和最小值都相等的时候 分别增大最大值和 减小最小值
-            mMainMaxValue += Math.abs(mMainMaxValue*0.05f);
-            mMainMinValue -= Math.abs(mMainMinValue*0.05f);
+            mMainMaxValue += Math.abs(mMainMaxValue * 0.05f);
+            mMainMinValue -= Math.abs(mMainMinValue * 0.05f);
             if (mMainMaxValue == 0) {
                 mMainMaxValue = 1;
             }
@@ -467,8 +472,8 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
 
         if (mChildMaxValue == mChildMinValue) {
             //当最大值和最小值都相等的时候 分别增大最大值和 减小最小值
-            mChildMaxValue += Math.abs(mChildMaxValue*0.05f);
-            mChildMinValue -= Math.abs(mChildMinValue*0.05f);
+            mChildMaxValue += Math.abs(mChildMaxValue * 0.05f);
+            mChildMinValue -= Math.abs(mChildMinValue * 0.05f);
             if (mChildMaxValue == 0) {
                 mChildMaxValue = 1;
             }
@@ -484,6 +489,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
 
     /**
      * 获取平移的最小值
+     *
      * @return
      */
     private float getMinTranslateX() {
@@ -492,6 +498,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
 
     /**
      * 获取平移的最大值
+     *
      * @return
      */
     private float getMaxTranslateX() {
@@ -516,6 +523,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
 
     /**
      * 在主区域画线
+     *
      * @param startX    开始点的横坐标
      * @param stopX     开始点的值
      * @param stopX     结束点的横坐标
@@ -527,6 +535,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
 
     /**
      * 在子区域画线
+     *
      * @param startX     开始点的横坐标
      * @param startValue 开始点的值
      * @param stopX      结束点的横坐标
@@ -538,6 +547,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
 
     /**
      * 根据索引获取实体
+     *
      * @param position 索引值
      * @return
      */
@@ -551,6 +561,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
 
     /**
      * 根据索引索取x坐标
+     *
      * @param position 索引值
      * @return
      */
@@ -560,6 +571,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
 
     /**
      * 获取适配器
+     *
      * @return
      */
     public IAdapter getAdapter() {
@@ -568,6 +580,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
 
     /**
      * 设置子图的绘制方法
+     *
      * @param position
      */
     private void setChildDraw(int position) {
@@ -578,7 +591,8 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
 
     /**
      * 给子区域添加画图方法
-     * @param name 显示的文字标签
+     *
+     * @param name      显示的文字标签
      * @param childDraw IChartDraw
      */
     public void addChildDraw(String name, IChartDraw childDraw) {
@@ -588,6 +602,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
 
     /**
      * scrollX 转换为 TranslateX
+     *
      * @param scrollX
      */
     private void setTranslateXFromScrollX(int scrollX) {
@@ -596,6 +611,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
 
     /**
      * 获取ValueFormatter
+     *
      * @return
      */
     public IValueFormatter getValueFormatter() {
@@ -604,6 +620,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
 
     /**
      * 设置ValueFormatter
+     *
      * @param valueFormatter value格式化器
      */
     public void setValueFormatter(IValueFormatter valueFormatter) {
@@ -612,6 +629,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
 
     /**
      * 获取DatetimeFormatter
+     *
      * @return 时间格式化器
      */
     public IDateTimeFormatter getDateTimeFormatter() {
@@ -620,6 +638,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
 
     /**
      * 设置dateTimeFormatter
+     *
      * @param dateTimeFormatter 时间格式化器
      */
     public void setDateTimeFormatter(IDateTimeFormatter dateTimeFormatter) {
@@ -628,6 +647,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
 
     /**
      * 格式化时间
+     *
      * @param date
      */
     public String formatDateTime(Date date) {
@@ -639,6 +659,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
 
     /**
      * 获取主区域的 IChartDraw
+     *
      * @return IChartDraw
      */
     public IChartDraw getMainDraw() {
@@ -647,6 +668,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
 
     /**
      * 设置主区域的 IChartDraw
+     *
      * @param mainDraw IChartDraw
      */
     public void setMainDraw(IChartDraw mainDraw) {
@@ -655,6 +677,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
 
     /**
      * 二分查找当前值的index
+     *
      * @return
      */
     public int indexOfTranslateX(float translateX, int start, int end) {
@@ -734,6 +757,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
 
     /**
      * view中的x转化为TranslateX
+     *
      * @param x
      * @return
      */
@@ -743,6 +767,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
 
     /**
      * translateX转化为view中的x
+     *
      * @param translateX
      * @return
      */
@@ -759,6 +784,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
 
     /**
      * 获取图的宽度
+     *
      * @return
      */
     public int getChartWidth() {
@@ -817,6 +843,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
 
     /**
      * 设置上方padding
+     *
      * @param topPadding
      */
     public void setTopPadding(int topPadding) {
@@ -825,6 +852,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
 
     /**
      * 设置下方padding
+     *
      * @param bottomPadding
      */
     public void setBottomPadding(int bottomPadding) {
@@ -860,7 +888,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
     }
 
     /**
-     *设置文字颜色
+     * 设置文字颜色
      */
     public void setTextColor(int color) {
         mTextPaint.setColor(color);
@@ -869,8 +897,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
     /**
      * 设置文字大小
      */
-    public void setTextSize(float textSize)
-    {
+    public void setTextSize(float textSize) {
         mTextPaint.setTextSize(textSize);
     }
 
@@ -888,6 +915,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
     public interface OnSelectedChangedListener {
         /**
          * 当选点中变化时
+         *
          * @param view  当前view
          * @param point 选中的点
          * @param index 选中点的索引
@@ -898,8 +926,7 @@ public abstract class BaseKChartView extends ScrollAndScaleView {
     /**
      * 获取文字大小
      */
-    public float getTextSize()
-    {
+    public float getTextSize() {
         return mTextPaint.getTextSize();
     }
 
