@@ -12,6 +12,8 @@ public interface CandleImpl {
      */
     float getOpenPrice();
 
+    String getData();
+
     /**
      * 最高价
      */
