@@ -7,7 +7,6 @@ import com.google.gson.Gson;
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.adapter.MoneyFlowAdapter;
 import com.mex.GalaxyChain.bean.MoneyFlowBean;
-import com.mex.GalaxyChain.bean.eventbean.MeneyFlowFailebean;
 import com.mex.GalaxyChain.common.BaseFragment;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.view.BaseSmartRefreshLayout;
@@ -20,9 +19,6 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -44,7 +40,7 @@ public class AllFragment extends BaseFragment {
 
     @AfterViews
     void init() {
-        EventBus.getDefault().register(this);
+      //  EventBus.getDefault().register(this);
         mMoneyFlowAdapter = new MoneyFlowAdapter(getActivity());
         listView.setAdapter(mMoneyFlowAdapter);
        //setOnItemClickForListView();
@@ -74,18 +70,16 @@ public class AllFragment extends BaseFragment {
             @Override
             public void onSuccessCallBack(MoneyFlowBean moneyFlowBean) {
                 refreshComplete();
-                LogUtils.d("TAG-->成功回调&资金明细&全部", new Gson().toJson(moneyFlowBean));
+                LogUtils.d("TAG-->成功回调&资金明细&全部", moneyFlowBean.getData().getList().size()+new Gson().toJson(moneyFlowBean));
                 MoneyFlowBean.DataBean dataBean=moneyFlowBean.getData();
-                        if(dataBean==null) return;
-                mListBeanList = dataBean.getList();
+                   if(dataBean==null) return;
+                 mListBeanList = dataBean.getList();
                    if(currentPage==1){
                        if(mListBeanList ==null|| mListBeanList.size()==0){
                            listView.setEmptyView(noData);
                        }
                        mMoneyFlowAdapter.setItems(mListBeanList);
-
-
-                   }else{
+                       }else{
                        mMoneyFlowAdapter.addItems(mListBeanList);
                    }
 
@@ -94,11 +88,10 @@ public class AllFragment extends BaseFragment {
 
             @Override
             public void onFailtueCallBack() {
-                LogUtils.e("TAG","失败回调");
+                refreshComplete();
+                LogUtils.d("TAG-->失败回调&资金明细&全部", "全部");
             }
-
-
-        });
+            });
 
     }
 
@@ -115,11 +108,7 @@ public class AllFragment extends BaseFragment {
      }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMeneyFlowFaileEvent(MeneyFlowFailebean meneyFlowFailebean) {
-        refreshComplete();
-        LogUtils.d("TAG-->失败回调&资金明细&全部", "全部");
-    }
+
 
 
 }

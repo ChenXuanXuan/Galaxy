@@ -15,7 +15,6 @@ import com.mex.GalaxyChain.UIHelper;
 import com.mex.GalaxyChain.bean.HoldPositionBean;
 import com.mex.GalaxyChain.bean.QuitEvent;
 import com.mex.GalaxyChain.bean.eventbean.TagBean;
-import com.mex.GalaxyChain.bean.eventbean.ToMarketFragBean;
 import com.mex.GalaxyChain.bean.eventbean.VarietyHoldPosiBean;
 import com.mex.GalaxyChain.bean.requestbean.RequestTradeHomeBean;
 import com.mex.GalaxyChain.common.BaseFragment;
@@ -27,6 +26,7 @@ import com.mex.GalaxyChain.net.HttpInterceptor;
 import com.mex.GalaxyChain.net.repo.UserRepo;
 import com.mex.GalaxyChain.utils.AppUtil;
 import com.mex.GalaxyChain.utils.DeviceUtil;
+import com.mex.GalaxyChain.utils.LogUtils;
 import com.mex.GalaxyChain.utils.ToastUtils;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -181,10 +181,9 @@ public class ExchangeFragment2 extends BaseFragment {
                             dismissLoading();
                             if (refreshLayout != null) refreshLayout.finishRefresh();
                             if (holdPositionBean.getCode() == 200) {
-                                ToastUtils.showTextInMiddle(holdPositionBean.getMsg());
+                                LogUtils.d("TAG-->刷新持仓列表数据",holdPositionBean.getData().getList().size()+"");
                                 HoldPositionBean.DataBean dataBean = holdPositionBean.getData();
                                 tv_total_amount.setText("总资金: " + dataBean.getTotalamount());//总资金
-
                                 tv_canusedamount.setText(String.valueOf(dataBean.getCanusedamount()));//可用余额
                                 NumberFormat mNumberFormat = MyApplication.getInstance().mNumberFormat;
                                 mNumberFormat.setMaximumFractionDigits(2);
@@ -207,7 +206,7 @@ public class ExchangeFragment2 extends BaseFragment {
 
                                 searchAdapter.setItems(listBeanList);
                                 searchAdapter.setItemData(varietyHoldPosiBean);
-                                ;
+
 
                             } else {
                                 ToastUtils.showTextInMiddle("获取持仓失败");

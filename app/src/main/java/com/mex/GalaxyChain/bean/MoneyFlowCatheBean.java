@@ -1,4 +1,6 @@
 package com.mex.GalaxyChain.bean;
 
-public class MoneyFlowCatheBean {
+import java.io.Serializable;
+
+public class MoneyFlowCatheBean implements Serializable {
 }

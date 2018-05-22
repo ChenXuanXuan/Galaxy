@@ -180,7 +180,7 @@
     <string name="tab_asset_usd">%1$1sUSD</string>
     <string name="tab_asset_withdraw_amount">请输入提现金额</string>
     <string name="tab_asset_withdraw_nodata">暂无记录</string>
-    <string name="tab_asset_inpour_nodata">暂无结算数据</string>
+    <string name="tab_asset_inpour_nodata">暂无数据</string>
     <string name="tab_asset_withdrawcancle">您确认要取消吗</string>
     <string name="tab_asset_resend_email">发送邮件成功</string>
     <string name="tab_asset_resendemial">重发邮件</string>

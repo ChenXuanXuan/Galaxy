@@ -27,8 +27,6 @@ import com.mex.GalaxyChain.utils.DeviceUtil;
 import com.mex.GalaxyChain.utils.IPutils;
 import com.mex.GalaxyChain.utils.ToastUtils;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.util.Map;
 
 import okhttp3.MediaType;
@@ -212,7 +210,7 @@ public class SearchAdapter extends BaseAbsListAdapter<HoldPositionBean.DataBean.
                                     public void onNext(PostCloseOrderBean postCloseOrderBean) {
                                         if (postCloseOrderBean.getCode() == 200) {
                                             ToastUtils.showTextInMiddle(postCloseOrderBean.getMsg());
-                                            setBackListener.back();
+                                             setBackListener.back();
                                         } else if (postCloseOrderBean.getCode() == 402) {
                                             ToastUtils.showTextInMiddle("已在平仓状态");
                                         } else {
