@@ -16,8 +16,8 @@ public class LogInterceptor implements Interceptor {
 		okhttp3.Request request = chain.request();
 
 		long t1 = System.nanoTime();
-		LNLog.i("onRequest", String.format("Sending request %s on %s%n%s",
-				request.url(), chain.connection(), request.headers()));
+//		LNLog.i("onRequest", String.format("Sending request %s on %s%n%s",
+//				request.url(), chain.connection(), request.headers()));
 
 		Response response = chain.proceed(request);
 		long t2 = System.nanoTime();
