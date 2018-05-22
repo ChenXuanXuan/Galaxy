@@ -601,6 +601,12 @@ context.getPackageName(), PackageManager.GET_SIGNATURES);
 		return sf.format(d);
 	}
 
+	public static String getDateToStringDetail(long time) {
+		Date d = new Date(time);
+		sf = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		return sf.format(d);
+	}
+
 
 
 
