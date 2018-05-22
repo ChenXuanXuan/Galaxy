@@ -20,7 +20,7 @@ public class KLineEntity implements KLineImpl {
 
     @Override
     public String getData() {
-        return Date;
+        return StringData;
     }
 
     @Override
@@ -129,11 +129,14 @@ public class KLineEntity implements KLineImpl {
     }
 
     public String Date;
+    public String StringData;
     public float Open;
     public float High;
     public float Low;
     public float Close;
     public float Volume;
+
+
 
     public float MA5Price;
 

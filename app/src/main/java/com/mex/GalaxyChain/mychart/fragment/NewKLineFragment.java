@@ -174,7 +174,8 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
                                     KLineEntity kLineEntity = new KLineEntity();
                                     kLineEntity.Open = (float) dataBean.getOpen();
                                     kLineEntity.Close = (float) dataBean.getClose();
-                                    kLineEntity.Date = AppUtil.getDateToStringDetail(dataBean.getTimes());
+                                    kLineEntity.Date= AppUtil.getDateToString(dataBean.getTimes());
+                                    kLineEntity.StringData = AppUtil.getDateToStringDetail(dataBean.getTimes());
                                     kLineEntity.High = (float) dataBean.getHigh();
                                     kLineEntity.Low = (float) dataBean.getLow();
                                     kLineEntity.Volume = (float) dataBean.getVol();
