@@ -26,7 +26,7 @@ import java.util.List;
 *  充值
 * */
 @EFragment(R.layout.fragment_moneyflow)
-public class InPutFragment extends BaseFragment {
+public class InPutFragment extends BaseFragment implements OnLoadmoreListener,OnRefreshListener{
 
     @ViewById(R.id.refreshLayout)
     BaseSmartRefreshLayout refreshLayout;
@@ -43,29 +43,10 @@ public class InPutFragment extends BaseFragment {
 
     @AfterViews
     void init() {
-        //  EventBus.getDefault().register(this);
         mMoneyFlowAdapter = new MoneyFlowAdapter(getActivity());
         listView.setAdapter(mMoneyFlowAdapter);
-        //setOnItemClickForListView();
-        if (isAdded())
-            showLoading(getString(R.string.loading));
-        currentPage = 1;
-        loadNetData(currentPage, Constants.CONGZHI);
-        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                currentPage = 1;
-                loadNetData(currentPage, Constants.CONGZHI);
-            }
-        });
-        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
-            @Override
-            public void onLoadmore(RefreshLayout refreshlayout) {
-                currentPage++;
-                loadNetData(currentPage, Constants.CONGZHI);
-            }
-        });
-
+        refreshLayout.setOnRefreshListener(this);
+        refreshLayout.setOnLoadmoreListener(this);
     }
 
     private void loadNetData(final int currentPage, int biztype) {
@@ -111,5 +92,35 @@ public class InPutFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onLoadmore(RefreshLayout refreshlayout) {
+        currentPage++;
+        loadNetData(currentPage,Constants.ALL);
+    }
+
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        currentPage=1;
+        loadNetData(currentPage,Constants.ALL);
+    }
+
+
+//    @Override
+//    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        super.setUserVisibleHint(isVisibleToUser);
+//        if(isVisibleToUser && refreshLayout!=null){
+//            refreshLayout.autoRefresh();
+//        }
+//    }
+
+    public void setRefresh() {
+        if (refreshLayout!=null)
+            refreshLayout.autoRefresh();
+    }
+
+    public void finishRefresh() {
+        if (refreshLayout!=null)
+            refreshLayout.finishRefresh();
+    }
 
 }

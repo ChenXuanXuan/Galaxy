@@ -28,7 +28,7 @@ import java.util.List;
 *
 * */
 @EFragment(R.layout.fragment_moneyflow)
-public class DrawOutFragment extends BaseFragment {
+public class DrawOutFragment extends BaseFragment implements OnLoadmoreListener,OnRefreshListener{
 
 
 
@@ -47,30 +47,12 @@ public class DrawOutFragment extends BaseFragment {
 
     @AfterViews
     void init() {
-        //  EventBus.getDefault().register(this);
         mMoneyFlowAdapter = new MoneyFlowAdapter(getActivity());
         listView.setAdapter(mMoneyFlowAdapter);
-        //setOnItemClickForListView();
-        if (isAdded())
-            showLoading(getString(R.string.loading));
-        currentPage = 1;
-        loadNetData(currentPage, Constants.TIXIAN);
-        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                currentPage=1;
-                loadNetData(currentPage,Constants.TIXIAN);
-            }
-        });
-        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
-            @Override
-            public void onLoadmore(RefreshLayout refreshlayout) {
-                currentPage++;
-                loadNetData(currentPage,Constants.TIXIAN);
-            }
-        });
-
+        refreshLayout.setOnRefreshListener(this);
+        refreshLayout.setOnLoadmoreListener(this);
     }
+
 
     private void loadNetData(final int currentPage, int biztype) {
         LoadNetDataForMoneyFlowUtil.getMoneyFlowInstance().loadNetData(currentPage, biztype);
@@ -118,5 +100,25 @@ public class DrawOutFragment extends BaseFragment {
 
 
 
+    @Override
+    public void onLoadmore(RefreshLayout refreshlayout) {
+        currentPage++;
+        loadNetData(currentPage,Constants.ALL);
+    }
 
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        currentPage=1;
+        loadNetData(currentPage,Constants.ALL);
+    }
+
+    public void setRefresh() {
+        if (refreshLayout!=null)
+            refreshLayout.autoRefresh();
+    }
+
+    public void finishRefresh() {
+        if (refreshLayout!=null)
+            refreshLayout.finishRefresh();
+    }
 }

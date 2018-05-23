@@ -23,7 +23,7 @@ import org.androidannotations.annotations.ViewById;
 import java.util.List;
 
 @EFragment(R.layout.fragment_moneyflow)
-public class AllFragment extends BaseFragment {
+public class AllFragment extends BaseFragment implements OnLoadmoreListener,OnRefreshListener{
 
     @ViewById(R.id.refreshLayout)
     BaseSmartRefreshLayout refreshLayout;
@@ -40,29 +40,11 @@ public class AllFragment extends BaseFragment {
 
     @AfterViews
     void init() {
-      //  EventBus.getDefault().register(this);
         mMoneyFlowAdapter = new MoneyFlowAdapter(getActivity());
         listView.setAdapter(mMoneyFlowAdapter);
-       //setOnItemClickForListView();
-        if (isAdded())
-            showLoading(getString(R.string.loading));
-        currentPage = 1;
-        loadNetData(currentPage, Constants.ALL);
-        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                currentPage=1;
-                loadNetData(currentPage,Constants.ALL);
-            }
-        });
-        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
-            @Override
-            public void onLoadmore(RefreshLayout refreshlayout) {
-                currentPage++;
-                loadNetData(currentPage,Constants.ALL);
-            }
-        });
-
+        refreshLayout.setOnRefreshListener(this);
+        refreshLayout.setOnLoadmoreListener(this);
+        refreshLayout.autoRefresh();
     }
 
     private void loadNetData(final int currentPage, int biztype) {
@@ -109,7 +91,25 @@ public class AllFragment extends BaseFragment {
      }
     }
 
+    @Override
+    public void onLoadmore(RefreshLayout refreshlayout) {
+        currentPage++;
+        loadNetData(currentPage,Constants.ALL);
+    }
 
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        currentPage=1;
+        loadNetData(currentPage,Constants.ALL);
+    }
 
+    public void setRefresh() {
+        if (refreshLayout!=null)
+            refreshLayout.autoRefresh();
+    }
 
+    public void finishRefresh() {
+        if (refreshLayout!=null)
+            refreshLayout.finishRefresh();
+    }
 }
