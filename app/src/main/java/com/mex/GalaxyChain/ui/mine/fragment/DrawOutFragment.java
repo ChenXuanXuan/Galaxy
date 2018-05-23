@@ -28,7 +28,8 @@ import java.util.List;
 *
 * */
 @EFragment(R.layout.fragment_moneyflow)
-public class DrawOutFragment extends BaseFragment {
+public class
+DrawOutFragment extends BaseFragment {
 
 
 

@@ -52,7 +52,7 @@
             android:background="@drawable/code_bg"
             android:gravity="center"
             android:layout_marginBottom="@dimen/dp15"
-            android:text="确认充值"
+            android:text="确认提现"
             android:textColor="@color/white"
             android:textSize="@dimen/dp15" />
 

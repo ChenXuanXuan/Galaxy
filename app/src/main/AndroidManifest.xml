@@ -146,6 +146,28 @@
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
 
         <activity
+            android:name="com.mex.GalaxyChain.ui.mine.activity.WithDrawActivity_"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
+        <activity
+            android:name="com.mex.GalaxyChain.ui.mine.activity.WithDrawSuccessActivity_"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
+       <!-- <activity
+            android:name="com.mex.GalaxyChain.ui.mine.activity.WithDrawSuccessActivity_"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />-->
+
+
+
+
+
+        <activity
             android:name=".ui.activity.RefreshActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait"
@@ -183,6 +205,17 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
 
+        <activity
+            android:name="com.mex.GalaxyChain.ui.mine.activity.CoinsCoinsRechargeH5Activity_"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
+        <activity
+            android:name="com.mex.GalaxyChain.ui.mine.activity.FaBiRechargeH5Activity_"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
 
 
 

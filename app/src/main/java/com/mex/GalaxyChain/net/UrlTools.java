@@ -12,6 +12,12 @@ public class UrlTools {
 	private static final String HOST = "https://www.mex.link/api";//线上https
 	public static final String DEBUG_HOST = "http://aaa.mex.group:81/exchange-api";//测试 http
   // public static final String DEBUG_HOST = "http://192.168.1.152:8080/exchange-api";//测试 http
+
+
+    public static final String H5_URL_BIBICHONGZHI="http://yanshengpin.mex.group:82/recharge-account.html";
+    public static final String H5_URL_FABICHONGZHI="http://yanshengpin.mex.group:82/currency-account.html";
+
+
 	public static final long READ_TIMEOUT = 60;
 	public static final long WRITE_TIMEOUT = 120;
 	public static final long CONNECT_TIMEOUT = 30;
@@ -19,6 +25,7 @@ public class UrlTools {
 	public static final int NET_UPDATE = 1004;
 	public static final int ERR_CODE = 0;
 	public static final String ERR_MSG = "ok";
+
 
 //    private static final String HOST = "http://123.57.152.239:80";//线上
 

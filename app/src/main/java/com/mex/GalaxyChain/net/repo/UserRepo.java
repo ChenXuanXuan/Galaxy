@@ -5,6 +5,7 @@ import com.mex.GalaxyChain.bean.HoldPositionBean;
 import com.mex.GalaxyChain.bean.LoginOutBean;
 import com.mex.GalaxyChain.bean.MoneyFlowBean;
 import com.mex.GalaxyChain.bean.OrderBuyBean;
+import com.mex.GalaxyChain.bean.PayOutMeneyBean;
 import com.mex.GalaxyChain.bean.PostCloseOrderBean;
 import com.mex.GalaxyChain.bean.PostLoginBean;
 import com.mex.GalaxyChain.bean.PostOrderBean;
@@ -287,6 +288,21 @@ public class UserRepo extends BaseRepo<IUserService> {
                 // TradeDetailBean
 
         }
+
+    public Observable<PayOutMeneyBean> postPayOutMeney(RequestBody requestBody) {
+        return getService().payOutMoney(requestBody)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+
+
+
+        //PayOutMeneyBean
+    }
+
+
+
+
+
 
 
 

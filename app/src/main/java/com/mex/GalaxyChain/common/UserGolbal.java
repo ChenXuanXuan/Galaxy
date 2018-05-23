@@ -68,7 +68,10 @@ public class UserGolbal {
     public double frozenmargin;//冻结保证金(占用保证金)
     public double amount;//总金额
     public double totalprofit;//总盈亏(浮动)
-    public double canusedamount;//可用余额
+    public double canusedamount;//可用余额()
+
+
+    public String drawedYYAcount;// 提现的YY数量
 
 
 

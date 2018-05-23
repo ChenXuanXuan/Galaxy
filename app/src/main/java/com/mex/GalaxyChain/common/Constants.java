@@ -109,4 +109,17 @@ int SUSPEND_TRADING=4;
    int TIXIAN=9;
    int PINCHANG=7;//平仓委托 = 就是结算
    int KAICHANG=11; // 开仓委托
+    double MIN_YY_ACONUT=10.00;
+
+
+    int PAYOUTMONEYTYPE_BIBI=1;
+    int  PAYOUTMONEYTYPE_FABI=2;
+
+
+
+
+    int MONEYFLOW_WITHDRAW=3;//资金明细提现
+
+
+
 }

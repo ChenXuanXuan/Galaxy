@@ -13,6 +13,7 @@ import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.adapter.viewpagerAdapter.IndicatorViewPagerAdapter;
 import com.mex.GalaxyChain.common.BaseActivity;
 import com.mex.GalaxyChain.common.BaseFragment;
+import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.ui.mine.fragment.AllFragment;
 import com.mex.GalaxyChain.ui.mine.fragment.AllFragment_;
 import com.mex.GalaxyChain.ui.mine.fragment.DrawOutFragment;
@@ -42,6 +43,10 @@ import org.androidannotations.annotations.ViewById;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/*
+*  资金明细
+* */
 @EActivity(R.layout.activity_moneyflow)
 public class AccountMoneyFlowActivity extends BaseActivity {
 
@@ -55,6 +60,7 @@ public class AccountMoneyFlowActivity extends BaseActivity {
 
     @ViewById(R.id.back)
     ImageView back;
+    private int mTag;
 
     @Click(R.id.back)
     void onClick(View view) {
@@ -69,6 +75,7 @@ public class AccountMoneyFlowActivity extends BaseActivity {
     void init() {
         mTitle.setText("资金明细");
         back.setVisibility(View.VISIBLE);
+        mTag = getIntent().getIntExtra("tag",0);
         intFragmentList();
         initViewpager();
         initMagicIndicator();
@@ -95,7 +102,12 @@ public class AccountMoneyFlowActivity extends BaseActivity {
         mIndicatorViewPagerAdapter = new IndicatorViewPagerAdapter(getSupportFragmentManager(), mFragmentList, titleTabArr);
         vp_hq_fragment.setAdapter(mIndicatorViewPagerAdapter);
         vp_hq_fragment.setOffscreenPageLimit(0);
-        vp_hq_fragment.setCurrentItem(0);
+       if(mTag== Constants.MONEYFLOW_WITHDRAW){
+           vp_hq_fragment.setCurrentItem(2);
+       }else{
+           vp_hq_fragment.setCurrentItem(0);
+       }
+
     }
 
     private void initMagicIndicator() {

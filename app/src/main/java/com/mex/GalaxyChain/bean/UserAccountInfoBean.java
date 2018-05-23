@@ -69,7 +69,7 @@ public class UserAccountInfoBean  extends BaseBean{
              */
 
             private double amount;//总金额
-            private double canusedamount;//可用余额
+            private double canusedamount;//可用余额(多少YY币)
             private String currenttype;//币种 (YY)
             private double frozenamount;//提现冻结金额
 

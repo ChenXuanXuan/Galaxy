@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.mex.GalaxyChain.MyApplication;
 import com.mex.GalaxyChain.R;
+import com.mex.GalaxyChain.UIHelper;
 import com.mex.GalaxyChain.bean.QuitEvent;
 import com.mex.GalaxyChain.bean.UserAccountInfoBean;
 import com.mex.GalaxyChain.common.BaseFragment;
@@ -187,8 +188,8 @@ public class MineFragment extends BaseFragment {
                 InpourActivity_.intent(this).start();
                 break;
 
-            case R.id.withDraw:
-
+            case R.id.withDraw://提现(原生)
+                UIHelper.ToWithDrawActivity(getActivity());
                 break;
 
             case R.id.assetCenter://账户中心
