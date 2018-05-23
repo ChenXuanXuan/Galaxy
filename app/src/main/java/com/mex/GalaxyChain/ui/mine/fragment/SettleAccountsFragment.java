@@ -26,7 +26,7 @@ import java.util.List;
  *  结算
  * */
 @EFragment(R.layout.fragment_moneyflow)
-public class SettleAccountsFragment extends BaseFragment {
+public class SettleAccountsFragment extends BaseFragment implements OnLoadmoreListener,OnRefreshListener{
 
 
     @ViewById(R.id.refreshLayout)
@@ -44,28 +44,10 @@ public class SettleAccountsFragment extends BaseFragment {
 
     @AfterViews
     void init() {
-        //  EventBus.getDefault().register(this);
         mMoneyFlowAdapter = new MoneyFlowAdapter(getActivity());
         listView.setAdapter(mMoneyFlowAdapter);
-        //setOnItemClickForListView();
-        if (isAdded())
-            showLoading(getString(R.string.loading));
-        currentPage = 1;
-        loadNetData(currentPage, Constants.PINCHANG);
-        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                currentPage = 1;
-                loadNetData(currentPage, Constants.PINCHANG);
-            }
-        });
-        refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
-            @Override
-            public void onLoadmore(RefreshLayout refreshlayout) {
-                currentPage++;
-                loadNetData(currentPage, Constants.PINCHANG);
-            }
-        });
+        refreshLayout.setOnRefreshListener(this);
+        refreshLayout.setOnLoadmoreListener(this);
 
     }
 
@@ -113,4 +95,31 @@ public class SettleAccountsFragment extends BaseFragment {
     }
 
 
+    @Override
+    public void onLoadmore(RefreshLayout refreshlayout) {
+        currentPage++;
+        loadNetData(currentPage,Constants.ALL);
+    }
+
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        currentPage=1;
+        loadNetData(currentPage,Constants.ALL);
+    }
+
+    @Override
+    public void onResume() {
+        refreshLayout.autoRefresh();
+        super.onResume();
+    }
+
+    public void setRefresh() {
+        if (refreshLayout!=null)
+            refreshLayout.autoRefresh();
+    }
+
+    public void finishRefresh() {
+        if (refreshLayout!=null)
+            refreshLayout.finishRefresh();
+    }
 }

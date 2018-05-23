@@ -101,7 +101,7 @@
         <!-- lsj 9f73fb84b1db9a7ac10415730af6e99c-->
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="d3f7d97b4eb25c1a29bf012908c6329a" />
+            android:value="9f73fb84b1db9a7ac10415730af6e99c" />
         <!-- 定位需要的服务 -->
         <service android:name="com.amap.api.location.APSService"></service>
 

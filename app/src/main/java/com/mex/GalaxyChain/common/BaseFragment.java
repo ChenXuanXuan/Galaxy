@@ -151,7 +151,10 @@ public abstract class BaseFragment extends Fragment {
     public void onLeave() {
     }
 
+	public void setRefresh() {
+	}
 
-
+	public void finishRefresh() {
+	}
 }
 

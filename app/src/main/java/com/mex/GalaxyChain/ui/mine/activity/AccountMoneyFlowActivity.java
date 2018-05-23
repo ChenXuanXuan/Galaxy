@@ -13,7 +13,6 @@ import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.adapter.viewpagerAdapter.IndicatorViewPagerAdapter;
 import com.mex.GalaxyChain.common.BaseActivity;
 import com.mex.GalaxyChain.common.BaseFragment;
-import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.ui.mine.fragment.AllFragment;
 import com.mex.GalaxyChain.ui.mine.fragment.AllFragment_;
 import com.mex.GalaxyChain.ui.mine.fragment.DrawOutFragment;
@@ -43,10 +42,6 @@ import org.androidannotations.annotations.ViewById;
 import java.util.ArrayList;
 import java.util.List;
 
-
-/*
-*  资金明细
-* */
 @EActivity(R.layout.activity_moneyflow)
 public class AccountMoneyFlowActivity extends BaseActivity {
 
@@ -107,8 +102,31 @@ public class AccountMoneyFlowActivity extends BaseActivity {
        }else{
            vp_hq_fragment.setCurrentItem(0);
        }
+        vp_hq_fragment.setCurrentItem(0);
+        vp_hq_fragment.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                for (int i = 0; i < mFragmentList.size(); i++) {
+                    if (position == i) {
+                        mFragmentList.get(position).setRefresh();
+                    } else {
+                        mFragmentList.get(position).finishRefresh();
+                    }
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
+
 
     private void initMagicIndicator() {
         magic_indicator4.setBackgroundColor(Color.TRANSPARENT);
