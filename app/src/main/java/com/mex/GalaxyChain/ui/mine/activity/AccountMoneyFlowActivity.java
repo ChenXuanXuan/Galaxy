@@ -96,7 +96,30 @@ public class AccountMoneyFlowActivity extends BaseActivity {
         vp_hq_fragment.setAdapter(mIndicatorViewPagerAdapter);
         vp_hq_fragment.setOffscreenPageLimit(0);
         vp_hq_fragment.setCurrentItem(0);
+        vp_hq_fragment.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                for (int i = 0; i < mFragmentList.size(); i++) {
+                    if (position == i) {
+                        mFragmentList.get(position).setRefresh();
+                    } else {
+                        mFragmentList.get(position).finishRefresh();
+                    }
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
     }
+
 
     private void initMagicIndicator() {
         magic_indicator4.setBackgroundColor(Color.TRANSPARENT);

@@ -25,7 +25,7 @@ import com.mex.GalaxyChain.utils.LNLog;
 /**
  * Created by lenote on 2015/9/6.
  */
-public class BaseActivity extends FragmentActivity {
+public class BaseActivity extends FragmentActivity{
 	protected ProgressDialog mLoading;
 	private Dialog dialog;
 
