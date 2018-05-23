@@ -55,7 +55,7 @@ public class InPutFragment extends BaseFragment implements OnLoadmoreListener,On
             @Override
             public void onSuccessCallBack(MoneyFlowBean moneyFlowBean) {
                 refreshComplete();
-                LogUtils.d("TAG-->成功回调&资金明细&全部", moneyFlowBean.getData().getList().size() + new Gson().toJson(moneyFlowBean));
+                LogUtils.d("TAG-->成功回调&资金明细&充值", moneyFlowBean.getData().getList().size() + new Gson().toJson(moneyFlowBean));
                 MoneyFlowBean.DataBean dataBean = moneyFlowBean.getData();
                 if (dataBean == null) return;
                 mListBeanList = dataBean.getList();
@@ -95,23 +95,17 @@ public class InPutFragment extends BaseFragment implements OnLoadmoreListener,On
     @Override
     public void onLoadmore(RefreshLayout refreshlayout) {
         currentPage++;
-        loadNetData(currentPage,Constants.ALL);
+        loadNetData(currentPage,Constants.CONGZHI);
     }
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
         currentPage=1;
-        loadNetData(currentPage,Constants.ALL);
+        loadNetData(currentPage,Constants.CONGZHI);
     }
 
 
-//    @Override
-//    public void setUserVisibleHint(boolean isVisibleToUser) {
-//        super.setUserVisibleHint(isVisibleToUser);
-//        if(isVisibleToUser && refreshLayout!=null){
-//            refreshLayout.autoRefresh();
-//        }
-//    }
+
 
     public void setRefresh() {
         if (refreshLayout!=null)

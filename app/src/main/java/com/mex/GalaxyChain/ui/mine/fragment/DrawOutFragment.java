@@ -103,13 +103,13 @@ public class DrawOutFragment extends BaseFragment implements OnLoadmoreListener,
     @Override
     public void onLoadmore(RefreshLayout refreshlayout) {
         currentPage++;
-        loadNetData(currentPage,Constants.ALL);
+        loadNetData(currentPage,Constants.TIXIAN);
     }
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
         currentPage=1;
-        loadNetData(currentPage,Constants.ALL);
+        loadNetData(currentPage,Constants.TIXIAN);
     }
 
     public void setRefresh() {

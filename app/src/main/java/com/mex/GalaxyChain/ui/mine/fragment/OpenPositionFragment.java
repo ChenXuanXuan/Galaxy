@@ -98,13 +98,13 @@ public class OpenPositionFragment extends BaseFragment implements OnLoadmoreList
     @Override
     public void onLoadmore(RefreshLayout refreshlayout) {
         currentPage++;
-        loadNetData(currentPage, Constants.ALL);
+        loadNetData(currentPage, Constants.KAICHANG);
     }
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
         currentPage = 1;
-        loadNetData(currentPage, Constants.ALL);
+        loadNetData(currentPage, Constants.KAICHANG);
     }
 
     public void setRefresh() {

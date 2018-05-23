@@ -13,6 +13,7 @@ import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.adapter.viewpagerAdapter.IndicatorViewPagerAdapter;
 import com.mex.GalaxyChain.common.BaseActivity;
 import com.mex.GalaxyChain.common.BaseFragment;
+import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.ui.mine.fragment.AllFragment;
 import com.mex.GalaxyChain.ui.mine.fragment.AllFragment_;
 import com.mex.GalaxyChain.ui.mine.fragment.DrawOutFragment;
@@ -102,7 +103,7 @@ public class AccountMoneyFlowActivity extends BaseActivity {
        }else{
            vp_hq_fragment.setCurrentItem(0);
        }
-        vp_hq_fragment.setCurrentItem(0);
+         //viewpager 有缓存功能,会欲加载请求左右两边的数据
         vp_hq_fragment.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -113,9 +114,9 @@ public class AccountMoneyFlowActivity extends BaseActivity {
             public void onPageSelected(int position) {
                 for (int i = 0; i < mFragmentList.size(); i++) {
                     if (position == i) {
-                        mFragmentList.get(position).setRefresh();
+                        mFragmentList.get(position).setRefresh();//viewPager 滑动到某个子fragment界面 开始自动刷新状态
                     } else {
-                        mFragmentList.get(position).finishRefresh();
+                        mFragmentList.get(position).finishRefresh();//否者 关闭结束自动刷新状态
                     }
                 }
             }

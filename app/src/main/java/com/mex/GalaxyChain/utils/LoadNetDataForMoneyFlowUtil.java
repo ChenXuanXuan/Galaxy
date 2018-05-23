@@ -64,7 +64,7 @@ public class LoadNetDataForMoneyFlowUtil {
 
                          @Override
                          public void onError(Throwable e) {
-                             ToastUtils.showTextInMiddle("无网络");
+                           //  ToastUtils.showTextInMiddle("无网络");
                              if (!IsEmptyUtils.isEmpty(loadMeneyFlowCallBackListener)) {
                                  loadMeneyFlowCallBackListener.onFailtueCallBack();
                              }

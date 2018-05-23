@@ -98,20 +98,16 @@ public class SettleAccountsFragment extends BaseFragment implements OnLoadmoreLi
     @Override
     public void onLoadmore(RefreshLayout refreshlayout) {
         currentPage++;
-        loadNetData(currentPage,Constants.ALL);
+        loadNetData(currentPage,Constants.PINCHANG);
     }
 
     @Override
     public void onRefresh(RefreshLayout refreshlayout) {
         currentPage=1;
-        loadNetData(currentPage,Constants.ALL);
+        loadNetData(currentPage,Constants.PINCHANG);
     }
 
-    @Override
-    public void onResume() {
-        refreshLayout.autoRefresh();
-        super.onResume();
-    }
+
 
     public void setRefresh() {
         if (refreshLayout!=null)

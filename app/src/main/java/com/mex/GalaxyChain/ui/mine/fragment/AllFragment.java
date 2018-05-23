@@ -44,7 +44,7 @@ public class AllFragment extends BaseFragment implements OnLoadmoreListener,OnRe
         listView.setAdapter(mMoneyFlowAdapter);
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setOnLoadmoreListener(this);
-        refreshLayout.autoRefresh();
+        refreshLayout.autoRefresh();//默认我们一进入第一个当前子fragement 就自动刷新 数据
     }
 
     private void loadNetData(final int currentPage, int biztype) {
