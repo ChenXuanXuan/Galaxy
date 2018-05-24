@@ -39,8 +39,8 @@ version	"1.0.0"
     String POST_REALNAME_AUTH=ACCOUNTURL+"/api/Userinfo/PostRealNameAuth";  // 实名认证
     String GET_USER_ACCOUNTINFO=ACCOUNTURL+"/api/Account/GetAccountInfo";//获取账号信息
     String GET_ACCOUNT_MONEYFLOW_LIST=ACCOUNTURL+"/api/Account/GetFundAccountMoneyFlowList";//资金明细
-    String POST_PAYOUT_MONEY=ACCOUNTURL+"/api/Account/PostOutMoney"; //出金
-
+    String POST_PAYOUT_MONEY=ACCOUNTURL+"/api/Account/PostOutMoney"; //出金(就是 提现)
+    String GET_ACCOUNT_PAYOUT_LIST=ACCOUNTURL+"/api/Account/GetPayOutList";//提现记录
 
       String TRADEURL="http://39.105.28.205:8001";
        String  GET_ORDER_BUYPAGE=TRADEURL+"/api/Order/GetBuyPage";//买入的所有信息

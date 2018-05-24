@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.adapter.MoneyFlowAdapter;
 import com.mex.GalaxyChain.bean.MoneyFlowBean;
+import com.mex.GalaxyChain.bean.PayOutListBean;
 import com.mex.GalaxyChain.common.BaseFragment;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.view.BaseSmartRefreshLayout;
@@ -55,7 +56,7 @@ public class SettleAccountsFragment extends BaseFragment implements OnLoadmoreLi
         LoadNetDataForMoneyFlowUtil.getMoneyFlowInstance().loadNetData(currentPage, biztype);
         LoadNetDataForMoneyFlowUtil.getMoneyFlowInstance().setLoadMeneyFlowCallBackListener(new LoadNetDataForMoneyFlowUtil.LoadMeneyFlowsSuccessCallBackListener() {
             @Override
-            public void onSuccessCallBack(MoneyFlowBean moneyFlowBean) {
+            public void onSuccessCallBack(MoneyFlowBean moneyFlowBean,PayOutListBean payOutListBean) {
                 refreshComplete();
                 LogUtils.d("TAG-->成功回调&资金明细&结算", moneyFlowBean.getData().getList().size() + new Gson().toJson(moneyFlowBean));
                 MoneyFlowBean.DataBean dataBean = moneyFlowBean.getData();

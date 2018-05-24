@@ -43,6 +43,7 @@ public class WithDrawSuccessActivity extends BaseActivity {
           case  R.id.tv_confirm:
               int tag= Constants.MONEYFLOW_WITHDRAW;
               UIHelper.ToAccountMoneyFlowActivity(WithDrawSuccessActivity.this,tag);
+             // EventBus.getDefault().post(new RefleshDrawOutBean());
               break;
       }
 
@@ -54,4 +55,6 @@ public class WithDrawSuccessActivity extends BaseActivity {
         back.setVisibility(View.VISIBLE);
         tv_drawed_YYCount.setText(UserGolbal.getInstance().drawedYYAcount+"YY");//已提现的YY币
     }
+
+
 }

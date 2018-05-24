@@ -118,7 +118,7 @@ int SUSPEND_TRADING=4;
 
 
 
-    int MONEYFLOW_WITHDRAW=3;//资金明细提现
+    int MONEYFLOW_WITHDRAW=2;//资金明细提现
 
 
 

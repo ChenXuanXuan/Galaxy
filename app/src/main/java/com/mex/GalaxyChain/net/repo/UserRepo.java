@@ -5,6 +5,7 @@ import com.mex.GalaxyChain.bean.HoldPositionBean;
 import com.mex.GalaxyChain.bean.LoginOutBean;
 import com.mex.GalaxyChain.bean.MoneyFlowBean;
 import com.mex.GalaxyChain.bean.OrderBuyBean;
+import com.mex.GalaxyChain.bean.PayOutListBean;
 import com.mex.GalaxyChain.bean.PayOutMeneyBean;
 import com.mex.GalaxyChain.bean.PostCloseOrderBean;
 import com.mex.GalaxyChain.bean.PostLoginBean;
@@ -336,5 +337,10 @@ public class UserRepo extends BaseRepo<IUserService> {
     }
 
 
-
+    public Observable<PayOutListBean> getPayOutList(HashMap<String, Object> paramMap) {
+        return getService().PayOutList(paramMap)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+        // PayOutListBean
+    }
 }

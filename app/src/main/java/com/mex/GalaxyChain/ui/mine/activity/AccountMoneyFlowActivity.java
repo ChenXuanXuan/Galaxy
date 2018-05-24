@@ -11,9 +11,9 @@ import android.widget.TextView;
 
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.adapter.viewpagerAdapter.IndicatorViewPagerAdapter;
+import com.mex.GalaxyChain.bean.eventbean.RefleshDrawOutBean;
 import com.mex.GalaxyChain.common.BaseActivity;
 import com.mex.GalaxyChain.common.BaseFragment;
-import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.ui.mine.fragment.AllFragment;
 import com.mex.GalaxyChain.ui.mine.fragment.AllFragment_;
 import com.mex.GalaxyChain.ui.mine.fragment.DrawOutFragment;
@@ -24,6 +24,7 @@ import com.mex.GalaxyChain.ui.mine.fragment.OpenPositionFragment;
 import com.mex.GalaxyChain.ui.mine.fragment.OpenPositionFragment_;
 import com.mex.GalaxyChain.ui.mine.fragment.SettleAccountsFragment;
 import com.mex.GalaxyChain.ui.mine.fragment.SettleAccountsFragment_;
+import com.mex.GalaxyChain.utils.ToastUtils;
 import com.mex.GalaxyChain.view.magicindicator.MagicIndicator;
 import com.mex.GalaxyChain.view.magicindicator.ViewPagerHelper;
 import com.mex.GalaxyChain.view.magicindicator.buildins.UIUtil;
@@ -39,6 +40,9 @@ import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,6 +73,7 @@ public class AccountMoneyFlowActivity extends BaseActivity {
 
     @AfterViews
     void init() {
+        EventBus.getDefault().register(this);
         mTitle.setText("资金明细");
         back.setVisibility(View.VISIBLE);
         mTag = getIntent().getIntExtra("tag",0);
@@ -78,6 +83,13 @@ public class AccountMoneyFlowActivity extends BaseActivity {
         initListener();
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(EventBus.getDefault().isRegistered(this)){
+            EventBus.getDefault().unregister(this);
+        }
+    }
 
     private void intFragmentList() {
         mFragmentList = new ArrayList<>();
@@ -98,17 +110,15 @@ public class AccountMoneyFlowActivity extends BaseActivity {
         mIndicatorViewPagerAdapter = new IndicatorViewPagerAdapter(getSupportFragmentManager(), mFragmentList, titleTabArr);
         vp_hq_fragment.setAdapter(mIndicatorViewPagerAdapter);
         vp_hq_fragment.setOffscreenPageLimit(0);
-       if(mTag== Constants.MONEYFLOW_WITHDRAW){
-           vp_hq_fragment.setCurrentItem(2);
-       }else{
+      // if(mTag== Constants.MONEYFLOW_WITHDRAW){ //从提现审核跳转到资金明细/提现子fragment界面 自动刷新请求数据
+        //   vp_hq_fragment.setCurrentItem(2);
+          // }else{
            vp_hq_fragment.setCurrentItem(0);
-       }
+      // }
          //viewpager 有缓存功能,会欲加载请求左右两边的数据
         vp_hq_fragment.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
 
             @Override
             public void onPageSelected(int position) {
@@ -176,5 +186,14 @@ public class AccountMoneyFlowActivity extends BaseActivity {
 
     private void initListener() {
     }
+
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMoonEvent(RefleshDrawOutBean refleshDrawOutBean) {
+        ToastUtils.showTextInMiddle("TAG->回调");
+        vp_hq_fragment.setCurrentItem(2);
+    }
+
 
 }

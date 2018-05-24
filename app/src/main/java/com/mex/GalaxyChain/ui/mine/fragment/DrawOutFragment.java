@@ -5,8 +5,10 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.mex.GalaxyChain.R;
-import com.mex.GalaxyChain.adapter.MoneyFlowAdapter;
+import com.mex.GalaxyChain.adapter.DrawOutAdapter;
 import com.mex.GalaxyChain.bean.MoneyFlowBean;
+import com.mex.GalaxyChain.bean.PayOutListBean;
+import com.mex.GalaxyChain.bean.eventbean.RefleshDrawOutBean;
 import com.mex.GalaxyChain.common.BaseFragment;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.view.BaseSmartRefreshLayout;
@@ -19,6 +21,9 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
 import org.androidannotations.annotations.ViewById;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.List;
 
@@ -42,13 +47,20 @@ public class DrawOutFragment extends BaseFragment implements OnLoadmoreListener,
 
 
     int currentPage = 1;
-    private MoneyFlowAdapter mMoneyFlowAdapter;
-    private List<MoneyFlowBean.DataBean.ListBean> mListBeanList;
+    //private MoneyFlowAdapter mMoneyFlowAdapter;
 
+   // private List<MoneyFlowBean.DataBean.ListBean> mListBeanList;
+    private  List<PayOutListBean.DataBean.ListBean> mListBeanList;
+    private DrawOutAdapter mDrawOutAdapter;
+
+    // PayOutListBean
     @AfterViews
     void init() {
-        mMoneyFlowAdapter = new MoneyFlowAdapter(getActivity());
-        listView.setAdapter(mMoneyFlowAdapter);
+
+            EventBus.getDefault().register(this);
+           // mMoneyFlowAdapter = new MoneyFlowAdapter(getActivity());
+        mDrawOutAdapter = new DrawOutAdapter(getActivity());
+        listView.setAdapter(mDrawOutAdapter);
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setOnLoadmoreListener(this);
     }
@@ -57,24 +69,26 @@ public class DrawOutFragment extends BaseFragment implements OnLoadmoreListener,
     private void loadNetData(final int currentPage, int biztype) {
         LoadNetDataForMoneyFlowUtil.getMoneyFlowInstance().loadNetData(currentPage, biztype);
         LoadNetDataForMoneyFlowUtil.getMoneyFlowInstance().setLoadMeneyFlowCallBackListener(new LoadNetDataForMoneyFlowUtil.LoadMeneyFlowsSuccessCallBackListener() {
+            //MoneyFlowBean moneyFlowBean 不需要  PayOutListBean 是提现记录的回调数据
             @Override
-            public void onSuccessCallBack(MoneyFlowBean moneyFlowBean) {
+            public void onSuccessCallBack(MoneyFlowBean moneyFlowBean, PayOutListBean payOutListBean) {
                 refreshComplete();
-                LogUtils.d("TAG-->成功回调&资金明细&提现", moneyFlowBean.getData().getList().size()+new Gson().toJson(moneyFlowBean));
-                MoneyFlowBean.DataBean dataBean=moneyFlowBean.getData();
+                LogUtils.d("TAG-->成功回调&资金明细&提现", payOutListBean.getData().getList().size()+new Gson().toJson(payOutListBean));
+                PayOutListBean.DataBean dataBean=payOutListBean.getData();
                 if(dataBean==null) return;
                 mListBeanList = dataBean.getList();
                 if(currentPage==1){
                     if(mListBeanList ==null|| mListBeanList.size()==0){
                         listView.setEmptyView(noData);
                     }
-                    mMoneyFlowAdapter.setItems(mListBeanList);
+                    mDrawOutAdapter.setItems(mListBeanList);
                 }else{
-                    mMoneyFlowAdapter.addItems(mListBeanList);
+                    mDrawOutAdapter.addItems(mListBeanList);
                 }
 
                 refreshLayout.setLoadmoreFinished(mListBeanList == null || mListBeanList.size() == 0||mListBeanList.size()<Constants.PAGESIZE);
             }
+
 
             @Override
             public void onFailtueCallBack() {
@@ -121,4 +135,12 @@ public class DrawOutFragment extends BaseFragment implements OnLoadmoreListener,
         if (refreshLayout!=null)
             refreshLayout.finishRefresh();
     }
+
+
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMoonEvent(RefleshDrawOutBean refleshDrawOutBean) {
+        setRefresh();
+        }
+
 }
