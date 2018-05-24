@@ -184,7 +184,7 @@ public class MineFragment extends BaseFragment {
             R.id.about_us, R.id.setting, R.id.iv_user_icon, R.id.rl_getMoneyFlow})
     void onClick(View view) {
         switch (view.getId()) {
-            case R.id.inpour: //充值
+            case R.id.inpour: //充值(H5)
                 InpourActivity_.intent(this).start();
                 break;
 
@@ -216,7 +216,7 @@ public class MineFragment extends BaseFragment {
                 break;
 
 
-            case R.id.rl_getMoneyFlow: // 资金明细
+            case R.id.rl_getMoneyFlow: // 我的 资金明细列表--->资金明细界面 默认显示 第0个子fragment数据(AllFragment)
                 AccountMoneyFlowActivity_.intent(getActivity()).type(0).start();
                 break;
         }

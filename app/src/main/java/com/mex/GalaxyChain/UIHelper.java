@@ -153,9 +153,9 @@ public class UIHelper {
         activity.startActivity(intent);
     }
 
-    public static void ToAccountMoneyFlowActivity(Activity activity,int tag) {
+    public static void ToAccountMoneyFlowActivity(Activity activity,int type) {
         Intent intent = new Intent(activity, AccountMoneyFlowActivity_.class);
-        intent.putExtra("tag", tag);
+        intent.putExtra("type", type);
         activity.startActivity(intent);
     }
 }

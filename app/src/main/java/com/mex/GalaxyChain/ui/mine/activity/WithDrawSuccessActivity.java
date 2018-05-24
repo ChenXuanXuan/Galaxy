@@ -5,7 +5,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mex.GalaxyChain.R;
-import com.mex.GalaxyChain.UIHelper;
 import com.mex.GalaxyChain.common.BaseActivity;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
@@ -41,9 +40,10 @@ public class WithDrawSuccessActivity extends BaseActivity {
               finish();
               break;
           case  R.id.tv_confirm:
-              int tag= Constants.MONEYFLOW_WITHDRAW;
-              UIHelper.ToAccountMoneyFlowActivity(WithDrawSuccessActivity.this,tag);
-             // EventBus.getDefault().post(new RefleshDrawOutBean());
+              int type= Constants.MONEYFLOW_WITHDRAW;
+               AccountMoneyFlowActivity_.intent(getActivity()).type(2).start();
+             // UIHelper.ToAccountMoneyFlowActivity(WithDrawSuccessActivity.this,type);
+
               break;
       }
 

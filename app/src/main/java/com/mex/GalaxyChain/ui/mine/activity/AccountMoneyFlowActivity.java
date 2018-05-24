@@ -1,21 +1,18 @@
 package com.mex.GalaxyChain.ui.mine.activity;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
-import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.adapter.viewpagerAdapter.IndicatorViewPagerAdapter;
 import com.mex.GalaxyChain.common.BaseActivity;
 import com.mex.GalaxyChain.common.BaseFragment;
-import com.mex.GalaxyChain.mychart.utils.LogUtils;
 import com.mex.GalaxyChain.ui.mine.fragment.AllFragment;
 import com.mex.GalaxyChain.ui.mine.fragment.AllFragment_;
 import com.mex.GalaxyChain.ui.mine.fragment.DrawOutFragment;
@@ -26,8 +23,6 @@ import com.mex.GalaxyChain.ui.mine.fragment.OpenPositionFragment;
 import com.mex.GalaxyChain.ui.mine.fragment.OpenPositionFragment_;
 import com.mex.GalaxyChain.ui.mine.fragment.SettleAccountsFragment;
 import com.mex.GalaxyChain.ui.mine.fragment.SettleAccountsFragment_;
-import com.mex.GalaxyChain.view.magicindicator.MagicIndicator;
-import com.mex.GalaxyChain.view.magicindicator.ViewPagerHelper;
 import com.mex.GalaxyChain.view.magicindicator.buildins.UIUtil;
 import com.mex.GalaxyChain.view.magicindicator.buildins.commonnavigator.CommonNavigator;
 import com.mex.GalaxyChain.view.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
@@ -102,9 +97,14 @@ public class AccountMoneyFlowActivity extends BaseActivity {
         mIndicatorViewPagerAdapter = new IndicatorViewPagerAdapter(getSupportFragmentManager(), mFragmentList, titleTabArr);
         vp_hq_fragment.setAdapter(mIndicatorViewPagerAdapter);
         vp_hq_fragment.setOffscreenPageLimit(0);
-        vp_hq_fragment.setCurrentItem(type);
-        tabLayout.setupWithViewPager(vp_hq_fragment);
-        vp_hq_fragment.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        //if(type==2){
+         //   vp_hq_fragment.setCurrentItem(2);
+         //  mFragmentList.get(2).setRefresh();
+         // }
+          vp_hq_fragment.setCurrentItem(type);
+          mFragmentList.get(type).setRefresh();
+          tabLayout.setupWithViewPager(vp_hq_fragment);
+       vp_hq_fragment.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
 

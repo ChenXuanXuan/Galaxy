@@ -75,7 +75,7 @@ public class MarketFragment extends BaseFragment {
 	private void initViewpager() {
         mIndicatorViewPagerAdapter = new IndicatorViewPagerAdapter(getChildFragmentManager(), mFragmentList, titleTabArr);
 		  vp_hq_fragment.setAdapter(mIndicatorViewPagerAdapter);
-		  vp_hq_fragment.setOffscreenPageLimit(0);
+		  vp_hq_fragment.setOffscreenPageLimit(2);
 		 vp_hq_fragment.setCurrentItem(0);
 		 //额外添加的
         vp_hq_fragment.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
