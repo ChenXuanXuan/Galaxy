@@ -63,6 +63,8 @@ public class BrowserActivity extends BaseActivity {
             }
 
         }, "android");
+
+
         mWebView.addJavascriptInterface(this, "tjAdver");
 
         /**这是本地调用js方法，传递参数，如果不需要就把参数去掉*/

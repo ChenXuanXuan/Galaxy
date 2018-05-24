@@ -4,6 +4,7 @@ import android.os.Build;
 
 import com.mex.GalaxyChain.MyApplication;
 import com.mex.GalaxyChain.bean.MoneyFlowBean;
+import com.mex.GalaxyChain.bean.PayOutListBean;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.net.HttpInterceptor;
@@ -40,8 +41,14 @@ public class LoadNetDataForMoneyFlowUtil {
              String token = UserGolbal.getInstance().getUserToken();
              paramMap.put("latitude", mLatitude);
              paramMap.put("longitude", mLongitude);
-             paramMap.put("usertoken", token);
-             paramMap.put("biztype", biztype);
+             if(biztype==Constants.TIXIAN){//提现记录(没有biztype 参数)
+                 paramMap.put("token", token);
+             }else{ //全部 充值 开仓 结算
+                 paramMap.put("usertoken", token);
+                 paramMap.put("biztype", biztype);
+             }
+
+
              paramMap.put("page", page);
              paramMap.put("pagesize", Constants.PAGESIZE);
              final int deviceType = Constants.ANDROID;//设备类型(1=IOS，2=安卓,3=UWP,4=PC)
@@ -55,73 +62,14 @@ public class LoadNetDataForMoneyFlowUtil {
              String device_identifier = DeviceUtil.getUdid(instance);
              String deviceID= HttpInterceptor.silentURLEncode(device_identifier);
              paramMap.put("deviceId", deviceID);
-             UserRepo.getInstance().getMoneyFlow(paramMap)
-                    .subscribe(new Subscriber<MoneyFlowBean>() {
-                         @Override
-                         public void onCompleted() {
 
-                         }
+                 if(biztype==Constants.TIXIAN){ //提现记录的网络回调
+                     analysistixianNetData(paramMap);
+                 }else{ //全部 充值 开仓 结算的网络回调
+                     analysisOtherNetData(paramMap,biztype);
+                 }
 
-                         @Override
-                         public void onError(Throwable e) {
-                             ToastUtils.showTextInMiddle("无网络");
-                             if (!IsEmptyUtils.isEmpty(loadMeneyFlowCallBackListener)) {
-                                 loadMeneyFlowCallBackListener.onFailtueCallBack();
-                             }
-
-                             }
-
-                         @Override
-                         public void onNext(MoneyFlowBean moneyFlowBean) {
-                             switch (biztype) {
-                                 case Constants.ALL: {
-                                     if (!IsEmptyUtils.isEmpty(loadMeneyFlowCallBackListener)) {
-                                         LogUtils.d("TAG->"+Constants.ALL,moneyFlowBean.getData().getList().size()+"");
-                                         loadMeneyFlowCallBackListener.onSuccessCallBack(moneyFlowBean);
-                                     }
-                                     break;
-                                 }
-
-                                 case Constants.CONGZHI: {
-                                     if (!IsEmptyUtils.isEmpty(loadMeneyFlowCallBackListener)) {
-                                         LogUtils.d("TAG->"+Constants.CONGZHI,moneyFlowBean.getData().getList().size()+"");
-                                         loadMeneyFlowCallBackListener.onSuccessCallBack(moneyFlowBean);
-                                     }
-                                     break;
-                                 }
-
-
-                                 case Constants.TIXIAN: {
-                                     if (!IsEmptyUtils.isEmpty(loadMeneyFlowCallBackListener)) {
-                                         LogUtils.d("TAG->"+Constants.TIXIAN,moneyFlowBean.getData().getList().size()+"");
-                                         loadMeneyFlowCallBackListener.onSuccessCallBack(moneyFlowBean);
-                                     }
-                                     break;
-                                 }
-
-
-                                 case Constants.KAICHANG: {
-                                     if (!IsEmptyUtils.isEmpty(loadMeneyFlowCallBackListener)) {
-                                         LogUtils.d("TAG->"+Constants.KAICHANG,moneyFlowBean.getData().getList().size()+"");
-                                         loadMeneyFlowCallBackListener.onSuccessCallBack(moneyFlowBean);
-                                     }
-                                     break;
-                                 }
-
-                                 case Constants.PINCHANG: {
-                                     if (!IsEmptyUtils.isEmpty(loadMeneyFlowCallBackListener)) {
-                                         LogUtils.d("TAG->"+Constants.PINCHANG,moneyFlowBean.getData().getList().size()+"");
-                                         loadMeneyFlowCallBackListener.onSuccessCallBack(moneyFlowBean);
-                                     }
-                                     break;
-                                 }
-
-
-
-
-
-                             }
-                         }});
+                   
 
              }else{
              //重新去请求经纬度 在进行赋值
@@ -131,8 +79,108 @@ public class LoadNetDataForMoneyFlowUtil {
 
    }
 
+    private void analysistixianNetData(HashMap<String, Object> paramMap) {
+        UserRepo.getInstance().getPayOutList(paramMap)
+                .subscribe(new Subscriber<PayOutListBean>() {
+                    @Override
+                    public void onCompleted() {}
+
+                    @Override
+                    public void onError(Throwable e) {
+                        if (!IsEmptyUtils.isEmpty(loadMeneyFlowCallBackListener)) {
+                            loadMeneyFlowCallBackListener.onFailtueCallBack();
+                        }
+                    }
+
+                    @Override
+                    public void onNext(PayOutListBean payOutListBean) {
+                        if (!IsEmptyUtils.isEmpty(loadMeneyFlowCallBackListener)) {
+                            LogUtils.d("TAG->提现",payOutListBean.getData().getList().size()+"");
+                            loadMeneyFlowCallBackListener.onSuccessCallBack(null,payOutListBean);
+                        }
+                    }
+                });
+    }
+
+    private void analysisOtherNetData(HashMap<String, Object> paramMap,final int biztype) {
+        UserRepo.getInstance().getMoneyFlow(paramMap)
+                .subscribe(new Subscriber<MoneyFlowBean>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        //  ToastUtils.showTextInMiddle("无网络");
+                        if (!IsEmptyUtils.isEmpty(loadMeneyFlowCallBackListener)) {
+                            loadMeneyFlowCallBackListener.onFailtueCallBack();
+                        }
+
+                    }
+
+                    @Override
+                    public void onNext(MoneyFlowBean moneyFlowBean) {
+                        switch (biztype) {
+                            case Constants.ALL: {
+                                if (!IsEmptyUtils.isEmpty(loadMeneyFlowCallBackListener)) {
+                                    LogUtils.d("TAG->"+Constants.ALL,moneyFlowBean.getData().getList().size()+"");
+                                    loadMeneyFlowCallBackListener.onSuccessCallBack(moneyFlowBean,null);
+                                }
+                                break;
+                            }
+
+                            case Constants.CONGZHI: {
+                                if (!IsEmptyUtils.isEmpty(loadMeneyFlowCallBackListener)) {
+                                    LogUtils.d("TAG->"+Constants.CONGZHI,moneyFlowBean.getData().getList().size()+"");
+                                    loadMeneyFlowCallBackListener.onSuccessCallBack(moneyFlowBean,null);
+                                }
+                                break;
+                            }
 
 
+                                /* case Constants.TIXIAN: {
+                                     if (!IsEmptyUtils.isEmpty(loadMeneyFlowCallBackListener)) {
+                                         LogUtils.d("TAG->"+Constants.TIXIAN,moneyFlowBean.getData().getList().size()+"");
+                                         loadMeneyFlowCallBackListener.onSuccessCallBack(moneyFlowBean);
+                                     }
+                                     break;
+                                 }*/
+
+
+                            case Constants.KAICHANG: {
+                                if (!IsEmptyUtils.isEmpty(loadMeneyFlowCallBackListener)) {
+                                    LogUtils.d("TAG->"+Constants.KAICHANG,moneyFlowBean.getData().getList().size()+"");
+                                    loadMeneyFlowCallBackListener.onSuccessCallBack(moneyFlowBean,null);
+                                }
+                                break;
+                            }
+
+                            case Constants.PINCHANG: {
+                                if (!IsEmptyUtils.isEmpty(loadMeneyFlowCallBackListener)) {
+                                    LogUtils.d("TAG->"+Constants.PINCHANG,moneyFlowBean.getData().getList().size()+"");
+                                    loadMeneyFlowCallBackListener.onSuccessCallBack(moneyFlowBean,null);
+                                }
+                                break;
+                            }
+
+
+
+
+
+                        }
+                    }});
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
     private LoadMeneyFlowsSuccessCallBackListener loadMeneyFlowCallBackListener;
     public void setLoadMeneyFlowCallBackListener(LoadMeneyFlowsSuccessCallBackListener loadMeneyFlowCallBackListener){
@@ -140,7 +188,7 @@ public class LoadNetDataForMoneyFlowUtil {
     };
 
    public interface LoadMeneyFlowsSuccessCallBackListener {
-        void  onSuccessCallBack(MoneyFlowBean moneyFlowBean);
+        void  onSuccessCallBack(MoneyFlowBean moneyFlowBean,PayOutListBean payOutListBean);
        void  onFailtueCallBack();
 
         }

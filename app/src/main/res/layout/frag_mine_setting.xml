@@ -7,9 +7,11 @@
 
     <include layout="@layout/layout_topbar" />
 
+    <!-- 支付密码 修改密码1.0 暂时不做-->
     <RelativeLayout
         android:id="@+id/passWord"
-        style="@style/MineView">
+        style="@style/MineView"
+        android:visibility="gone">
 
         <TextView
             style="@style/MineTV"

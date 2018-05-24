@@ -1,6 +1,8 @@
 package com.mex.GalaxyChain.bean.eventbean;
 
-public class VarietyHoldPosi {
+import java.io.Serializable;
+
+public class VarietyHoldPosi  implements Serializable{
 
 
     public String symbol;//品种EURUSD

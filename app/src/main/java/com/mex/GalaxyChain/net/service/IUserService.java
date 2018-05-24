@@ -6,6 +6,8 @@ import com.mex.GalaxyChain.bean.HoldPositionBean;
 import com.mex.GalaxyChain.bean.LoginOutBean;
 import com.mex.GalaxyChain.bean.MoneyFlowBean;
 import com.mex.GalaxyChain.bean.OrderBuyBean;
+import com.mex.GalaxyChain.bean.PayOutListBean;
+import com.mex.GalaxyChain.bean.PayOutMeneyBean;
 import com.mex.GalaxyChain.bean.PostCloseOrderBean;
 import com.mex.GalaxyChain.bean.PostLoginBean;
 import com.mex.GalaxyChain.bean.PostOrderBean;
@@ -148,6 +150,10 @@ public interface IUserService {
  @GET(NetFuncConstants.GET_ACCOUNT_MONEYFLOW_LIST)
     Observable<MoneyFlowBean>  MoneyFlow(@QueryMap HashMap<String, Object> paramMap);
 
+  //提现记录
+  @GET(NetFuncConstants.GET_ACCOUNT_PAYOUT_LIST)
+    Observable<PayOutListBean> PayOutList(@QueryMap HashMap<String, Object> paramMap);
+
 
     @POST(NetFuncConstants.GET_ORDER_BUYPAGE)
      Observable<OrderBuyBean> orderBuyPage(@Body RequestBody requestBody);
@@ -163,6 +169,9 @@ public interface IUserService {
 
     @POST(NetFuncConstants.POST_REALNAME_AUTH)
     Observable<RealNameAuthBean>  CheckRealNameAuth(@Body RequestBody requestBody);
+
+    @POST(NetFuncConstants.POST_PAYOUT_MONEY)
+    Observable<PayOutMeneyBean> payOutMoney(@Body RequestBody requestBody);
 
 
 

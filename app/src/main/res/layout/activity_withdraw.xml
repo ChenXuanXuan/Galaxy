@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_topbar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp20"
+        android:textColor="@color/light_gray"
+        android:text="提现到法币账户"
+        android:layout_marginLeft="@dimen/dp15"
+        android:layout_marginTop="@dimen/dp15"/>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp24"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/dp15"
+        android:layout_marginLeft="@dimen/dp15"
+        android:layout_marginRight="@dimen/dp15">
+
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/sp15"
+            android:textColor="@color/light_bule"
+            android:text="交易账户"
+            android:gravity="left"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/sp15"
+            android:textColor="@color/light_bule"
+            android:text="------------------------->"
+            android:gravity="center"
+            android:layout_gravity="center"
+            />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:textSize="@dimen/dp15"
+            android:textColor="@color/light_bule"
+            android:text="法币账户"
+            android:gravity="right"
+            android:layout_gravity="center"
+            />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp15"
+        android:textColor="@color/light_gray"
+        android:text="提现到法币账户后"
+        android:layout_marginLeft="@dimen/dp15"
+        android:layout_marginTop="@dimen/dp15"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp15"
+        android:textColor="@color/light_gray"
+        android:text="可以通过法币账户的C2C交易卖出YY币"
+        android:layout_marginLeft="@dimen/dp15"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0.5"
+        android:layout_marginLeft="@dimen/dp15"
+        android:layout_marginRight="@dimen/dp15"
+        android:layout_marginTop="@dimen/dp10"
+        android:background="@color/line_color" />
+
+
+<RelativeLayout
+    android:layout_width="match_parent"
+
+    android:layout_height="@dimen/dp24"
+    android:layout_marginTop="@dimen/dp10"
+    android:layout_marginLeft="@dimen/dp15"
+    android:layout_marginRight="@dimen/dp15">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:gravity="center_vertical"
+        android:text="提现数量" />
+
+
+    <TextView
+        android:id="@+id/tv_canDraw_YY"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:gravity="center_vertical"
+        android:textColor="@color/light_gray"
+        android:text="当前可提0YY" />
+
+</RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0.5"
+        android:layout_marginLeft="@dimen/dp15"
+        android:layout_marginRight="@dimen/dp15"
+        android:layout_marginTop="@dimen/dp10"
+        android:background="@color/line_color" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp24"
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_marginLeft="@dimen/dp15"
+        android:layout_marginRight="@dimen/dp15"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="YY"
+            android:textColor="@color/hint_color" />
+
+        <EditText
+            android:id="@+id/et_inPut_yyAcount"
+            android:layout_width="wrap_content"
+            android:inputType="numberDecimal"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp15"
+            android:background="@null"
+            android:hint="最小提现数量10.00"
+            android:gravity="center_vertical"
+            android:textColor="@color/light_gray"
+            android:singleLine="true"
+            android:textSize="@dimen/dp12"
+            android:minWidth="@dimen/dp150" />
+
+        <!--numberDecimal设置可输入小数 -->
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0.5"
+        android:layout_marginLeft="@dimen/dp15"
+        android:layout_marginRight="@dimen/dp15"
+        android:layout_marginTop="@dimen/dp10"
+        android:background="@color/line_color" />
+
+
+
+
+    <TextView
+        android:id="@+id/tv_withDraw_next"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp45"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="@dimen/dp15"
+        android:background="@drawable/code_bg"
+        android:gravity="center"
+        android:text="下 一 步"
+        android:textColor="@color/white" />
+
+</LinearLayout>

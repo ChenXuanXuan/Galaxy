@@ -80,15 +80,13 @@ public class SettingActivity extends BaseActivity {
                 AppUtil.getVersionHome(this);
 				break;
 
-			case R.id.passWord://支付密码
-				PassWordActivity_.intent(this).start();
+			case R.id.passWord://支付密码(1.0暂时不做)
+				//PassWordActivity_.intent(this).start();
 				break;
 
 			case R.id.loginOut:
-
 			    PostLoginOut();
-
-				break;
+			    break;
 		}
 	}
 
@@ -97,7 +95,7 @@ public class SettingActivity extends BaseActivity {
 	    if(UserGolbal.getInstance().locationSuccess()){
             //定位成功 经纬度直接用
             double mLongitude = UserGolbal.getInstance().getLongitude(); //空
-            double mLatitude = UserGolbal.getInstance().getLongitude();//空
+            double mLatitude = UserGolbal.getInstance().getLatitude();//空
             String token = UserGolbal.getInstance().getUserToken();
             PostLoginOutBean  postLoginOutBean =new PostLoginOutBean();
             postLoginOutBean.setToken(token);

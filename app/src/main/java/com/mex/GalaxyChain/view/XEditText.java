@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
 public class XEditText extends EditText {
 
 	// 保存设置的所有输入限制
-	private List<InputFilter> inputFilters;
+	private  List<InputFilter> inputFilters;
 
 	public XEditText(Context context) {
 		super(context);

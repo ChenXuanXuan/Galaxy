@@ -13,8 +13,13 @@ import com.mex.GalaxyChain.ui.market.FindPwStepOneActivity_;
 import com.mex.GalaxyChain.ui.market.FindPwStepThreeActivity_;
 import com.mex.GalaxyChain.ui.market.FindPwStepTwoActivity_;
 import com.mex.GalaxyChain.ui.market.PhoneNumLoginActivity_;
+import com.mex.GalaxyChain.ui.mine.activity.AccountMoneyFlowActivity_;
+import com.mex.GalaxyChain.ui.mine.activity.CoinsCoinsRechargeH5Activity_;
+import com.mex.GalaxyChain.ui.mine.activity.FaBiRechargeH5Activity_;
 import com.mex.GalaxyChain.ui.mine.activity.PhoneNumRegistActivity1_;
 import com.mex.GalaxyChain.ui.mine.activity.PhoneNumRegistActivity2_;
+import com.mex.GalaxyChain.ui.mine.activity.WithDrawActivity_;
+import com.mex.GalaxyChain.ui.mine.activity.WithDrawSuccessActivity_;
 
 
 public class UIHelper {
@@ -121,6 +126,36 @@ public class UIHelper {
 
         Intent intent = new Intent(activity, AmountH5Activity_.class);
         intent.putExtra("url", url);
+        activity.startActivity(intent);
+    }
+
+    public static void ToCoinsCoinsRechargeH5Activity(Activity activity, String url) {
+        Intent intent = new Intent(activity, CoinsCoinsRechargeH5Activity_.class);
+        intent.putExtra("url", url);
+        activity.startActivity(intent);
+
+    }
+
+    public static void ToFaBiRechargeH5Activity(Activity activity, String url) {
+        Intent intent = new Intent(activity, FaBiRechargeH5Activity_.class);
+        intent.putExtra("url", url);
+        activity.startActivity(intent);
+    }
+
+    public static void ToWithDrawActivity(Activity activity) {
+        Intent intent = new Intent(activity, WithDrawActivity_.class);
+
+        activity.startActivity(intent);
+    }
+
+    public static void ToWithDrawSuccessActivity(Activity activity) {
+        Intent intent = new Intent(activity, WithDrawSuccessActivity_.class);
+        activity.startActivity(intent);
+    }
+
+    public static void ToAccountMoneyFlowActivity(Activity activity,int tag) {
+        Intent intent = new Intent(activity, AccountMoneyFlowActivity_.class);
+        intent.putExtra("tag", tag);
         activity.startActivity(intent);
     }
 }

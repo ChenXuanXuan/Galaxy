@@ -1,5 +1,4 @@
-
-package com.mex.GalaxyChain.ui.activity;
+package com.mex.GalaxyChain.ui.mine.activity;
 
 import android.graphics.PixelFormat;
 import android.view.View;
@@ -16,9 +15,9 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
+@EActivity(R.layout.activity_coinscoinsrecharge_h5)
+public class CoinsCoinsRechargeH5Activity extends BaseActivity {
 
-@EActivity(R.layout.fragment_mine_amount_h5)
-public class AmountH5Activity extends BaseActivity {
 
     @ViewById(R.id.back)
     ImageView back;
@@ -28,35 +27,23 @@ public class AmountH5Activity extends BaseActivity {
     X5WebView mWebView;
     private String mUrl;
 
+
     @Click(R.id.back)
     void  onClick(View view){
         finish();
     }
 
+
     @AfterViews
     void init(){
-        mTitle.setText("资产账户");
+        mTitle.setText("币币充值");
         back.setVisibility(View.VISIBLE);
         mUrl = getIntent().getStringExtra("url");
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE |
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         mWebView.loadUrl(mUrl);
+
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

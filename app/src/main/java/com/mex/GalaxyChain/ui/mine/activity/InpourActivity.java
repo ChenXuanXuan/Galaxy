@@ -2,10 +2,13 @@ package com.mex.GalaxyChain.ui.mine.activity;
 
 import android.view.InputEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mex.GalaxyChain.R;
+import com.mex.GalaxyChain.UIHelper;
 import com.mex.GalaxyChain.common.BaseActivity;
+import com.mex.GalaxyChain.net.UrlTools;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -19,6 +22,8 @@ import org.greenrobot.eventbus.ThreadMode;
  * describe:
  * author: LSJ
  * time 23/4/18 下午9:45
+ *
+ * 充值
  */
 @EActivity(R.layout.layout_inpour)
 public class InpourActivity extends BaseActivity {
@@ -33,24 +38,35 @@ public class InpourActivity extends BaseActivity {
 //	private InPourAdapter topUpAdapter;
 //	private int currentPageNo = 1;
 
+@ViewById(R.id.back)
+    ImageView back;
+
 	@ViewById
 	TextView mTitle;
 
 	@AfterViews
 	void  init(){
 		mTitle.setText("充值");
+		back.setVisibility(View.VISIBLE);
 	}
 
-	@Click({R.id.bibi, R.id.fabi})
+	@Click({R.id.bibi, R.id.fabi,R.id.back})
 	void onClick(View v) {
 		switch (v.getId()) {
-			case R.id.bibi:
-				InpourChannelAct_.intent(this).start();
+			case R.id.bibi://币币充值账户(H5)
+				 // InpourChannelAct_.intent(this).start();
+                 String url= UrlTools.H5_URL_BIBICHONGZHI;
+                UIHelper.ToCoinsCoinsRechargeH5Activity(this,url);
 				break;
 
-			case R.id.fabi:
-				InpourChannelAct_.intent(this).start();
+			case R.id.fabi: //法币充值(H5)
+				//InpourChannelAct_.intent(this).start();
+                String url_fabi= UrlTools.H5_URL_FABICHONGZHI;
+                UIHelper.ToFaBiRechargeH5Activity(this,url_fabi);
 				break;
+            case R.id.back:
+                finish();
+                break;
 		}
 	}
 

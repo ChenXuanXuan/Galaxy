@@ -58,7 +58,7 @@ public class AssetCenterAct extends BaseActivity {
 				finish();
 				break;
 
-			case R.id.exchange://交易账户(H5)
+			case R.id.exchange://交易账户
 				  ExchangeActivity_.intent(AssetCenterAct.this).start();
 				  break;
 

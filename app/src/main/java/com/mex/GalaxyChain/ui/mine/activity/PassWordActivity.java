@@ -2,12 +2,12 @@ package com.mex.GalaxyChain.ui.mine.activity;
 
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.common.BaseActivity;
-import com.mex.GalaxyChain.ui.asset.view.XEditText;
 import com.mex.GalaxyChain.utils.IEditTextChangeListener;
 import com.mex.GalaxyChain.utils.ToastUtils;
 import com.mex.GalaxyChain.utils.WorksSizeCheckUtil;
@@ -32,10 +32,10 @@ public class PassWordActivity extends BaseActivity {
 	TextView mTitle;
 
 	@ViewById
-    XEditText etPsw;
+    EditText etPsw;
 
 	@ViewById
-    XEditText etPswAgain;
+    EditText etPswAgain;
 
 	@ViewById
 	TextView confirm;
@@ -46,7 +46,7 @@ public class PassWordActivity extends BaseActivity {
 	}
 
 	private void initView() {
-		mTitle.setText("支付密码");
+		mTitle.setText("设置支付密码");
 		back.setVisibility(View.VISIBLE);
 		initEditListener();
 	}
@@ -58,11 +58,11 @@ public class PassWordActivity extends BaseActivity {
 			@Override
 			public void textChange(boolean isHasContent) {
 				if (isHasContent) {
-					confirm.setEnabled(true);
-//						confirm.setBackgroundResource(R.drawable.code_bg);
+					     confirm.setEnabled(true);
+ 						 confirm.setBackgroundResource(R.drawable.code_bg);
 				} else {
 					confirm.setEnabled(false);
-//						confirm.setBackgroundResource(R.drawable.code_normar_bg);
+ 						confirm.setBackgroundResource(R.drawable.code_normal_bg);
 				}
 			}
 		});
@@ -83,12 +83,12 @@ public class PassWordActivity extends BaseActivity {
 
 	private void doConfirm() {
 		if (TextUtils.isEmpty(etPsw.getText().toString().trim())) {
-			ToastUtils.showErrorImage("请输入支付密码");
+			ToastUtils.showTextInMiddle("请输入支付密码");
 			return;
 		}
 
 		if (TextUtils.isEmpty(etPswAgain.getText().toString().trim())) {
-			ToastUtils.showErrorImage("请再次输入支付密码");
+			ToastUtils.showTextInMiddle("请再次输入支付密码");
 			return;
 		}
 
@@ -96,6 +96,11 @@ public class PassWordActivity extends BaseActivity {
 			ToastUtils.showErrorImage("输入密码不一致");
 			return;
 		}
+
+		//对输入的字符长度不能小于8位
+
+
+
 
 		//进行网络请求
 	}

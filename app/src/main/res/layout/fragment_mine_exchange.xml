@@ -7,26 +7,26 @@
 
     <include layout="@layout/layout_topbar" />
 
-    <LinearLayout style="@style/MineView">
+    <RelativeLayout style="@style/MineView">
 
         <TextView
-
             style="@style/MineTextView"
             android:text="总资金(YY)" />
 
         <TextView
             android:id="@+id/tv_totalAmount"
             style="@style/MineTextViewShow"
+            android:layout_alignParentRight="true"
             android:text="0" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp0.5"
         android:background="@color/line_color" />
 
-    <LinearLayout style="@style/MineView">
+    <RelativeLayout style="@style/MineView">
 
         <TextView
             style="@style/MineTextView"
@@ -35,16 +35,17 @@
         <TextView
             android:id="@+id/tv_canUsedAmount"
             style="@style/MineTextViewShow"
+            android:layout_alignParentRight="true"
             android:text="0" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp0.5"
         android:background="@color/line_color" />
 
-    <LinearLayout style="@style/MineView">
+    <RelativeLayout style="@style/MineView">
 
         <TextView
             style="@style/MineTextView"
@@ -53,16 +54,17 @@
         <TextView
             android:id="@+id/tv_frozenmargin"
             style="@style/MineTextViewShow"
+            android:layout_alignParentRight="true"
             android:text="0" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp0.5"
         android:background="@color/line_color" />
 
-    <LinearLayout style="@style/MineView">
+    <RelativeLayout style="@style/MineView">
 
         <TextView
             style="@style/MineTextView"
@@ -71,9 +73,10 @@
         <TextView
             android:id="@+id/tv_totalprofit"
             style="@style/MineTextViewShow"
+            android:layout_alignParentRight="true"
             android:text="0" />
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <View
         android:layout_width="match_parent"

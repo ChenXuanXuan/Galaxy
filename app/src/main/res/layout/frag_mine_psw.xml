@@ -18,17 +18,21 @@
             android:text="设置支付密码" />
 
 
-        <com.mex.GalaxyChain.ui.asset.view.XEditText
+        <EditText
             android:id="@+id/etPsw"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/dp15"
+            android:layout_marginLeft="@dimen/dp5"
             android:layout_toRightOf="@+id/psw"
             android:background="@null"
             android:digits="@string/filter_vcode"
-            android:hint="请输入支付密码"
+            android:hint="请输入8-16位数字和字母"
             android:inputType="textVisiblePassword"
-            android:minWidth="@dimen/dp150" />
+            android:maxLength="16"
+            android:textSize="@dimen/sp12"
+            />
+
+
 
     </RelativeLayout>
 
@@ -44,17 +48,19 @@
             android:text="确认支付密码" />
 
 
-        <com.mex.GalaxyChain.ui.asset.view.XEditText
+        <EditText
             android:id="@+id/etPswAgain"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/dp15"
+            android:layout_marginLeft="@dimen/dp5"
             android:layout_toRightOf="@+id/pswAgain"
             android:background="@null"
             android:digits="@string/filter_vcode"
-            android:hint="请确认支付密码"
+            android:hint="请输入8-16位数字和字母"
             android:inputType="textVisiblePassword"
-            android:minWidth="@dimen/dp150" />
+            android:maxLength="16"
+            android:textSize="@dimen/sp12"
+             />
 
     </RelativeLayout>
 
@@ -66,11 +72,10 @@
         android:layout_height="@dimen/dp45"
         android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/dp15"
-        android:background="@drawable/code_bg"
+        android:background="@drawable/code_normal_bg"
         android:gravity="center"
         android:text="确认"
         android:textColor="@color/white"
-        android:textSize="@dimen/dp15" />
-
+        android:textSize="@dimen/sp15" />
 
 </RelativeLayout>
