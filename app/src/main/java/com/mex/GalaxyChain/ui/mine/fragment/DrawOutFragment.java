@@ -63,7 +63,7 @@ public class DrawOutFragment extends BaseFragment implements OnLoadmoreListener,
         listView.setAdapter(mDrawOutAdapter);
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setOnLoadmoreListener(this);
-        refreshLayout.autoRefresh();
+        refreshLayout.autoRefresh();//我们让提现也自动刷新 一进入此界面
     }
 
 

@@ -108,7 +108,7 @@ int SUSPEND_TRADING=4;
     int CONGZHI=8;
    int TIXIAN=9;
    int PINCHANG=7;//平仓委托 = 就是结算
-   int KAICHANG=11; // 开仓委托
+   int KAICHANG=1; // 开仓委托
     double MIN_YY_ACONUT=10.00;
 
 
@@ -120,6 +120,12 @@ int SUSPEND_TRADING=4;
 
     int MONEYFLOW_WITHDRAW=2;//资金明细提现
 
+     //提现状态   1=提现审核中,2=提现成功，3=提现失败
+    int DRAWOUT_STATUS_ING=1;
+    int DRAWOUT_STATUS_SUCCESS=2;
+    int DRAWOUT_STATUS_FAILURE=3;
 
+
+    String YY="YYB";
 
 }

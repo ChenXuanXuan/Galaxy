@@ -18,10 +18,22 @@
             android:id="@+id/tv_left"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="3"
+            android:layout_weight="0.5"
             android:gravity="center_vertical"
             android:layout_gravity="center_vertical"
+            android:lines="1"
+            android:singleLine="true"
+            android:text="--"
+            android:textColor="@color/rgb_54_54_54"
+            android:textSize="@dimen/sp12"/>
 
+        <TextView
+            android:id="@+id/tv_middle"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.2"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
             android:lines="1"
             android:singleLine="true"
             android:text="--"
@@ -32,7 +44,7 @@
             android:id="@+id/tv_right"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1.2"
+            android:layout_weight="1.8"
             android:gravity="end"
              android:layout_gravity="center_vertical"
             android:text="+100000"
@@ -67,7 +79,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:gravity="center_vertical"
-            android:text="可用余额:100000"
+            android:text="可用余额:0"
             android:textColor="@color/rgb_54_54_54"
             android:textSize="@dimen/sp10"></TextView>
 
