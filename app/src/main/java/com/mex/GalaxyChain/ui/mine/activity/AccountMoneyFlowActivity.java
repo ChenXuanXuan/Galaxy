@@ -2,17 +2,20 @@ package com.mex.GalaxyChain.ui.mine.activity;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.adapter.viewpagerAdapter.IndicatorViewPagerAdapter;
 import com.mex.GalaxyChain.common.BaseActivity;
 import com.mex.GalaxyChain.common.BaseFragment;
+import com.mex.GalaxyChain.mychart.utils.LogUtils;
 import com.mex.GalaxyChain.ui.mine.fragment.AllFragment;
 import com.mex.GalaxyChain.ui.mine.fragment.AllFragment_;
 import com.mex.GalaxyChain.ui.mine.fragment.DrawOutFragment;
@@ -37,6 +40,7 @@ import com.mex.GalaxyChain.view.magicindicator.buildins.commonnavigator.titles.S
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
 import java.util.ArrayList;
@@ -47,10 +51,13 @@ public class AccountMoneyFlowActivity extends BaseActivity {
 
     @ViewById(R.id.mTitle)
     TextView mTitle;
-    @ViewById(R.id.magic_indicator4)
-    MagicIndicator magic_indicator4;
     @ViewById(R.id.vp_hq_fragment)
     ViewPager vp_hq_fragment;
+    @Extra
+    int type;
+
+    @ViewById
+    TabLayout tabLayout;
 
 
     @ViewById(R.id.back)
@@ -95,7 +102,8 @@ public class AccountMoneyFlowActivity extends BaseActivity {
         mIndicatorViewPagerAdapter = new IndicatorViewPagerAdapter(getSupportFragmentManager(), mFragmentList, titleTabArr);
         vp_hq_fragment.setAdapter(mIndicatorViewPagerAdapter);
         vp_hq_fragment.setOffscreenPageLimit(0);
-        vp_hq_fragment.setCurrentItem(0);
+        vp_hq_fragment.setCurrentItem(type);
+        tabLayout.setupWithViewPager(vp_hq_fragment);
         vp_hq_fragment.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -122,7 +130,7 @@ public class AccountMoneyFlowActivity extends BaseActivity {
 
 
     private void initMagicIndicator() {
-        magic_indicator4.setBackgroundColor(Color.TRANSPARENT);
+//        magic_indicator4.setBackgroundColor(Color.TRANSPARENT);
         CommonNavigator commonNavigator = new CommonNavigator(getActivity());
         commonNavigator.setAdjustMode(true);
         commonNavigator.setScrollPivotX(0.8f);
@@ -160,9 +168,9 @@ public class AccountMoneyFlowActivity extends BaseActivity {
                 return linePagerIndicator;
             }
         });
-
-        magic_indicator4.setNavigator(commonNavigator);
-        ViewPagerHelper.bind(magic_indicator4, vp_hq_fragment);
+//
+//        magic_indicator4.setNavigator(commonNavigator);
+//        ViewPagerHelper.bind(magic_indicator4, vp_hq_fragment);
     }
 
 

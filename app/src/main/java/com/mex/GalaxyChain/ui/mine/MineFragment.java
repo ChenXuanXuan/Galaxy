@@ -216,7 +216,7 @@ public class MineFragment extends BaseFragment {
 
 
             case R.id.rl_getMoneyFlow: // 资金明细
-                AccountMoneyFlowActivity_.intent(getActivity()).start();
+                AccountMoneyFlowActivity_.intent(getActivity()).type(0).start();
                 break;
         }
     }
