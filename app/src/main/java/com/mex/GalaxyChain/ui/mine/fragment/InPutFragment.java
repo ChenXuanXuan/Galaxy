@@ -36,8 +36,6 @@ public class InPutFragment extends BaseFragment implements OnLoadmoreListener,On
     TextView noData;
     @ViewById(R.id.listView)
     ListView listView;
-
-
     int currentPage = 1;
     private MoneyFlowAdapter mMoneyFlowAdapter;
     private List<MoneyFlowBean.DataBean.ListBean> mListBeanList;
