@@ -184,11 +184,11 @@ public class MineFragment extends BaseFragment {
             R.id.about_us, R.id.setting, R.id.iv_user_icon, R.id.rl_getMoneyFlow})
     void onClick(View view) {
         switch (view.getId()) {
-            case R.id.inpour: //充值(H5)
+            case R.id.inpour:  //充值(H5)
                 InpourActivity_.intent(this).start();
                 break;
 
-            case R.id.withDraw://提现(原生)
+            case R.id.withDraw:  //提现(原生)
                 UIHelper.ToWithDrawActivity(getActivity());
                 break;
 

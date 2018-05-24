@@ -14,8 +14,9 @@ public class UrlTools {
   // public static final String DEBUG_HOST = "http://192.168.1.152:8080/exchange-api";//测试 http
 
 
-    public static final String H5_URL_BIBICHONGZHI="http://yanshengpin.mex.group:82/recharge-account.html";
-    public static final String H5_URL_FABICHONGZHI="http://yanshengpin.mex.group:82/currency-account.html";
+    public static final String H5_URL_BIBICHONGZHI="http://yanshengpin.mex.group:82/recharge-account.html";//币币充值
+
+    public static final String H5_URL_FABICHONGZHI="http://yanshengpin.mex.group:82/currency-account.html";//法币账户
 
 
 	public static final long READ_TIMEOUT = 60;

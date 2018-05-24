@@ -41,6 +41,7 @@ version	"1.0.0"
     String GET_ACCOUNT_MONEYFLOW_LIST=ACCOUNTURL+"/api/Account/GetFundAccountMoneyFlowList";//资金明细
     String POST_PAYOUT_MONEY=ACCOUNTURL+"/api/Account/PostOutMoney"; //出金(就是 提现)
     String GET_ACCOUNT_PAYOUT_LIST=ACCOUNTURL+"/api/Account/GetPayOutList";//提现记录
+    String POST_PAYIN_MONEY=ACCOUNTURL+"/api/Account/PostPayInMoney";//入金
 
       String TRADEURL="http://39.105.28.205:8001";
        String  GET_ORDER_BUYPAGE=TRADEURL+"/api/Order/GetBuyPage";//买入的所有信息

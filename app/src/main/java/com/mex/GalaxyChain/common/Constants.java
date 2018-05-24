@@ -128,4 +128,6 @@ int SUSPEND_TRADING=4;
 
     String YY="YYB";
 
+    String CHANNEL="mexysp";
+
 }

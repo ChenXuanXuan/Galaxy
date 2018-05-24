@@ -8,7 +8,6 @@ import android.widget.TextView;
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.bean.PayOutListBean;
 import com.mex.GalaxyChain.common.Constants;
-import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.common.control.BaseAbsListAdapter;
 import com.mex.GalaxyChain.common.control.BaseViewHolder;
 import com.mex.GalaxyChain.utils.DecimalFormatUtils;
@@ -53,8 +52,8 @@ public class DrawOutAdapter extends BaseAbsListAdapter<PayOutListBean.DataBean.L
             tv_middle.setText(data.getStatustring());//提现状态的显示
             tv_right.setText("提现金额 "+DecimalFormatUtils.getDecimal(data.getAmount(),2)+ Constants.YY);
              tv_time.setText("提现时间 "+data.getWithdrawalstime());
-               tv_canuseAmount.setText("可用余额 "+ DecimalFormatUtils.getDecimal(UserGolbal.getInstance().canusedamount-data.getAmount(),2)+Constants.YY );
-            //  UserGolbal.getInstance().canusedamount
+               tv_canuseAmount.setText("可用余额 "+data.getCanusedamount()+Constants.YY );
+
 
 
 

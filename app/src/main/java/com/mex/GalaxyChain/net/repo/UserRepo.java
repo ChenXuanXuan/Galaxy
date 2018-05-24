@@ -10,6 +10,7 @@ import com.mex.GalaxyChain.bean.PayOutMeneyBean;
 import com.mex.GalaxyChain.bean.PostCloseOrderBean;
 import com.mex.GalaxyChain.bean.PostLoginBean;
 import com.mex.GalaxyChain.bean.PostOrderBean;
+import com.mex.GalaxyChain.bean.PostPayInBean;
 import com.mex.GalaxyChain.bean.RealNameAuthBean;
 import com.mex.GalaxyChain.bean.ResetPWBean;
 import com.mex.GalaxyChain.bean.SymbolBean;
@@ -294,14 +295,16 @@ public class UserRepo extends BaseRepo<IUserService> {
         return getService().payOutMoney(requestBody)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
-
-
-
         //PayOutMeneyBean
     }
 
 
-
+    public Observable<PostPayInBean> getPostPayInMoney(RequestBody requestBody) {
+        return getService().PostPayInMoney(requestBody)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+            // PostPayInBean
+    }
 
 
 
@@ -343,4 +346,6 @@ public class UserRepo extends BaseRepo<IUserService> {
                 .observeOn(AndroidSchedulers.mainThread());
         // PayOutListBean
     }
+
+
 }

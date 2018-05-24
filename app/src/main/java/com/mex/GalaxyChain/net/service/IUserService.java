@@ -11,6 +11,7 @@ import com.mex.GalaxyChain.bean.PayOutMeneyBean;
 import com.mex.GalaxyChain.bean.PostCloseOrderBean;
 import com.mex.GalaxyChain.bean.PostLoginBean;
 import com.mex.GalaxyChain.bean.PostOrderBean;
+import com.mex.GalaxyChain.bean.PostPayInBean;
 import com.mex.GalaxyChain.bean.RealNameAuthBean;
 import com.mex.GalaxyChain.bean.ResetPWBean;
 import com.mex.GalaxyChain.bean.SymbolBean;
@@ -170,9 +171,9 @@ public interface IUserService {
     @POST(NetFuncConstants.POST_REALNAME_AUTH)
     Observable<RealNameAuthBean>  CheckRealNameAuth(@Body RequestBody requestBody);
 
-    @POST(NetFuncConstants.POST_PAYOUT_MONEY)
+    @POST(NetFuncConstants.POST_PAYOUT_MONEY)//出金
     Observable<PayOutMeneyBean> payOutMoney(@Body RequestBody requestBody);
 
-
-
+    @POST(NetFuncConstants.POST_PAYIN_MONEY) //入金
+    Observable<PostPayInBean> PostPayInMoney(@Body RequestBody requestBody);
 }

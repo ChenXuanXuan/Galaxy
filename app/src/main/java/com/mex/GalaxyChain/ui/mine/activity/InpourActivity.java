@@ -8,7 +8,9 @@ import android.widget.TextView;
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.UIHelper;
 import com.mex.GalaxyChain.common.BaseActivity;
+import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.net.UrlTools;
+import com.mex.GalaxyChain.utils.LogUtils;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -55,7 +57,8 @@ public class InpourActivity extends BaseActivity {
 		switch (v.getId()) {
 			case R.id.bibi://币币充值账户(H5)
 				 // InpourChannelAct_.intent(this).start();
-                 String url= UrlTools.H5_URL_BIBICHONGZHI;
+                 String url= UrlTools.H5_URL_BIBICHONGZHI+"?userId=10007&"+"token="+ UserGolbal.getInstance().getUserToken();
+                LogUtils.d("TAG-->H5:URL",url);
                 UIHelper.ToCoinsCoinsRechargeH5Activity(this,url);
 				break;
 

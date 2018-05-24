@@ -90,6 +90,7 @@ public class PayOutListBean extends BaseBean {
              */
 
             private double amount;//提现金额
+            private double canusedamount;//可用余额
             private String currenttype;//提现币种
             private int fundaccountid;//资金账号ID
             private int payouttype;//出金类型(1=币币,2=法币)
@@ -99,6 +100,18 @@ public class PayOutListBean extends BaseBean {
             private int status;//提现状态1=提现审核中,2=提现成功，3=提现失败
             private String statustring;//状态中文
             private String withdrawalstime;//提现时间
+
+
+            public double getCanusedamount() {
+                return canusedamount;
+            }
+
+            public void setCanusedamount(double canusedamount) {
+                this.canusedamount = canusedamount;
+            }
+
+
+
 
             public double getAmount() {
                 return amount;
