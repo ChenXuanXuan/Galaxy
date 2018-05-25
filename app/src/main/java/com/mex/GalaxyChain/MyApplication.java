@@ -49,7 +49,7 @@ public class MyApplication extends Application{
 		wm.getDefaultDisplay().getRectSize(displayRect);
 		wm.getDefaultDisplay().getMetrics(displayMetrics);
 		isDebug = BuildConfig.DEBUG;
-//		initBugly();
+		initBugly();
         //初始化number 保留小数点位数格式
         mNumberFormat = NumberFormat.getInstance();
 		//初始化X5内核
