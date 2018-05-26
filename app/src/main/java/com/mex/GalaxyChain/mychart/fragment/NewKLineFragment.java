@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.gson.Gson;
 import com.lsj.kchart.kchartlib.chart.BaseKChartView;
 import com.lsj.kchart.kchartlib.chart.KChartView;
 import com.lsj.kchart.kchartlib.chart.formatter.DateFormatter;
@@ -20,7 +19,6 @@ import com.mex.GalaxyChain.MyApplication;
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.bean.HistoryKLineBean;
 import com.mex.GalaxyChain.bean.NewestKLineBean;
-import com.mex.GalaxyChain.bean.TickeBean;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.mychart.chart.kchart.DataHelper;
@@ -70,10 +68,10 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
     private String symbol;
     private Boolean isFirstLoading = true;
 
-    private TickeBean mTickeBean;
+
     // private NewestKLineBean.DataBean mNewestKLineBeanData;
     private List<KLineEntity> mKLineEntityArrayList;
-    private long compare_time;
+
      private List<HistoryKLineBean.DataBean> mDataBeanList;
 
     @Override
@@ -110,11 +108,9 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
     }
 
 
-    public void setType(String instID, String type, String selType, String interval, String symbol,long compare_time ) {
+    public void setType(String instID, String type, String selType, String interval, String symbol) {
         this.interval = interval;
         this.symbol = symbol;
-        this.mTickeBean=mTickeBean;
-        this.compare_time=compare_time;
         initData();
     }
 
@@ -125,8 +121,6 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
         mKChartView.showLoading();
         mKChartView.setRefreshListener(this);
         mKChartView.refreshEnd();
-
-
         starttime = 0;
         onLoadKData();
 //   onLoadMoreBegin(mKChartView);
@@ -170,12 +164,10 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
             UserRepo.getInstance().getHistoryKLine(paramMap)
                     .subscribe(new Subscriber<HistoryKLineBean>() {
                         @Override
-                        public void onCompleted() {
-                        }
+                        public void onCompleted() {}
 
                         @Override
-                        public void onError(Throwable e) {
-                        }
+                        public void onError(Throwable e) {}
 
                         @Override
                         public void onNext(HistoryKLineBean historyKLineBean) {
@@ -298,6 +290,7 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
              myCountDownTimer=new MyCountDownTimer(2*1000, 1000);
              }
             myCountDownTimer.start();
+
     }
 
 
@@ -309,18 +302,14 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
         }
 
         @Override
-        public void onTick(long millisUntilFinished) {
-
-        }
+        public void onTick(long millisUntilFinished) {}
 
         @Override
         public void onFinish() {
             loadDataGetNewestK();
             myCountDownTimer.start();
         }
-
-
-    }
+        }
 
 
     private void loadDataGetNewestK() {
@@ -353,16 +342,20 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
                         LogUtils.e("TAG-->获取最新一条K线数据:时间" + AppUtil.getDateToStringDetail(newKLineTime));
                         if (!IsEmptyUtils.isEmpty(times_frist, newKLineTime)) {
                             if (times_frist == newKLineTime) {
-                                KLineEntity kLineEntity = mKLineEntityArrayList.get(0);
-                                kLineEntity.High = (float) mNewestKLineBeanData.getHigh();
+                                List<KLineEntity> newKDataList = new ArrayList<>();
+                                KLineEntity kLineEntity = new KLineEntity();
+                                 kLineEntity.High = (float) mNewestKLineBeanData.getHigh();
                                 kLineEntity.Low = (float) mNewestKLineBeanData.getLow();
                                 kLineEntity.Close = (float) mNewestKLineBeanData.getClose();
                                 kLineEntity.Open = (float) mNewestKLineBeanData.getOpen();
                                 kLineEntity.Date = AppUtil.getDateToStringDetail(newKLineTime);
                                 kLineEntity.Volume = (float) mNewestKLineBeanData.getVol();
-                                mAdapter.changeItem(0, kLineEntity);
-                                Collections.reverse(mKLineEntityArrayList);
+                                newKDataList.add(kLineEntity);
+                                mAdapter.removeItemData(mAdapter.getCount() - 1);
+                                mAdapter.addHeaderData(newKDataList);
+                                DataHelper.calculate(newKDataList);
                                 }else{
+                                List<KLineEntity> newKDataList = new ArrayList<>();
                                 KLineEntity kLineEntity =new  KLineEntity();
                                 kLineEntity.High = (float) mNewestKLineBeanData.getHigh();
                                 kLineEntity.Low = (float) mNewestKLineBeanData.getLow();
@@ -370,12 +363,43 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
                                 kLineEntity.Open = (float) mNewestKLineBeanData.getOpen();
                                 kLineEntity.Date = AppUtil.getDateToStringDetail(newKLineTime);
                                 kLineEntity.Volume = (float) mNewestKLineBeanData.getVol();
-
+                                newKDataList.add(kLineEntity);
+                                mAdapter.addHeaderData(newKDataList);
+                                times_frist=newKLineTime;
+                                DataHelper.calculate(newKDataList);
                             }
-
                             startTimerGetNewK();
                         }
                     }
                         });
     }
+
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        end();
+    }
+
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        end();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        end();
+    }
+
+    public void end() {
+        if (myCountDownTimer != null) {
+            myCountDownTimer.cancel();
+
+        }
+    }
+
+
 }

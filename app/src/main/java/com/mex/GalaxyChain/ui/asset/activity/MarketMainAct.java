@@ -239,7 +239,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                 selType = "2";
                 interval = Constants.ONE_MIN; //  1分钟
                 long compare_time=Constants.ONE_FEN;
-                klFragment.setType(instID, typeKx, selType, interval, symbol,compare_time);
+                klFragment.setType(instID, typeKx, selType, interval, symbol);
                 changeType(3);
                 break;
 
@@ -247,7 +247,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                 typeKx = "7";
                 selType = "3";
                 interval = Constants.THREE_MIN; //  3分钟
-                klFragment.setType(instID, typeKx, selType, interval, symbol,0);
+                klFragment.setType(instID, typeKx, selType, interval, symbol);
                 changeType(4);
                 break;
 
@@ -255,7 +255,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                 typeKx = "8";
                 selType = "4";
                 interval = Constants.DAY_K; //  日K
-                klFragment.setType(instID, typeKx, selType, interval, symbol,0);
+                klFragment.setType(instID, typeKx, selType, interval, symbol);
                 changeType(5);
                 break;
 
@@ -267,7 +267,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                 typeKx = "5";
                 selType = "5";
                 interval = Constants.FIVE_MIN; //  5分钟
-                klFragment.setType(instID, typeKx, selType, interval, symbol,0);
+                klFragment.setType(instID, typeKx, selType, interval, symbol);
                 changeMin(1);
                 break;
 
@@ -275,7 +275,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                 typeKx = "4";
                 selType = "6";
                 interval = Constants.FIFTEEN_MIN; //  15分钟
-                klFragment.setType(instID, typeKx, selType, interval, symbol,0);
+                klFragment.setType(instID, typeKx, selType, interval, symbol);
                 changeMin(2);
                 break;
 
@@ -284,7 +284,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                 typeKx = "3";
                 selType = "7";
                 interval = Constants.THIRTY_MIN; //  30分钟
-                klFragment.setType(instID, typeKx, selType, interval, symbol,0);
+                klFragment.setType(instID, typeKx, selType, interval, symbol);
                 break;
 
             case R.id.minutes4://60分钟
@@ -292,7 +292,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                 typeKx = "2";
                 selType = "8";
                 interval = Constants.SIXTY_MIN; //  60分钟
-                klFragment.setType(instID, typeKx, selType, interval, symbol,0);
+                klFragment.setType(instID, typeKx, selType, interval, symbol);
                 break;
 
         }
