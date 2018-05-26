@@ -43,6 +43,7 @@ import java.io.File;
 import java.lang.reflect.Method;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -597,7 +598,7 @@ context.getPackageName(), PackageManager.GET_SIGNATURES);
 	public static SimpleDateFormat sf = null;
 	public static String getDateToString(long time) {
 		Date d = new Date(time);
-		sf = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+		sf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		return sf.format(d);
 	}
 
@@ -610,7 +611,18 @@ context.getPackageName(), PackageManager.GET_SIGNATURES);
 
 
 
+    /*将字符串转为时间戳*/
+    public static long getStringToDate(String dateString){
+        sf = new SimpleDateFormat("MM-dd HH:mm");
+        Date date = new Date();
+        try {
+            date = sf.parse(dateString);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
+        return date.getTime();
+    }
 
 
 

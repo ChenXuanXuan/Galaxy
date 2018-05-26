@@ -4,6 +4,7 @@ import com.mex.GalaxyChain.bean.HistoryKLineBean;
 import com.mex.GalaxyChain.bean.HoldPositionBean;
 import com.mex.GalaxyChain.bean.LoginOutBean;
 import com.mex.GalaxyChain.bean.MoneyFlowBean;
+import com.mex.GalaxyChain.bean.NewestKLineBean;
 import com.mex.GalaxyChain.bean.OrderBuyBean;
 import com.mex.GalaxyChain.bean.PayOutListBean;
 import com.mex.GalaxyChain.bean.PayOutMeneyBean;
@@ -318,6 +319,14 @@ public class UserRepo extends BaseRepo<IUserService> {
 
         }
 
+        public  Observable<NewestKLineBean> getNewestKLine(HashMap<String, Object> paramMap) {
+            return getService().getNewestKData(paramMap)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread());
+
+            // NewestKLineBean
+    }
+
 
     public Observable<UserAccountInfoBean> getUserAccountInfo(HashMap<String, Object> paramMap) {
         return getService().userAccountInfo(paramMap)
@@ -346,6 +355,7 @@ public class UserRepo extends BaseRepo<IUserService> {
                 .observeOn(AndroidSchedulers.mainThread());
         // PayOutListBean
     }
+
 
 
 }

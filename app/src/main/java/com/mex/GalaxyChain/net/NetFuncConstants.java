@@ -7,14 +7,13 @@ package com.mex.GalaxyChain.net;
  */
 
 public interface NetFuncConstants {
-	String POST_REGISTER = "api/reg_mobile"; //手机注册
-    String POST_LOGIN = "api/login_mobile"; //手机登陆
-	String GET_CODE = "api/verifycode_sms";
-	String RESET_PHONE_LOGIN_PW="api/reset_password_by_ph";//重置手机密码
+	String POST_REGISTER = "api/yibitong/reg_mobile"; //手机注册
+    String POST_LOGIN = "api/yibitong/login_mobile"; //手机登陆
+	String GET_CODE = "api/yibitong/verifycode_sms";//验证码
+	String RESET_PHONE_LOGIN_PW="api/yibitong/reset_password_by_ph";//重置手机密码
 
 
     String DEBUG_MARKET_URL="http://39.105.28.205:7000/";
-
     String POST_SYMBOL = DEBUG_MARKET_URL+"api/Symbol/GetDescription";
 
     String  POST_GOODSPRICE=DEBUG_MARKET_URL+"api/Symbol/GetPrice";
@@ -56,7 +55,8 @@ version	"1.0.0"
 
 
      String MARKETURL="http://39.105.28.205:7000";
-    String GET_HISTORY_KLIINE=MARKETURL+"/api/KLine/GetHistory";
+    String GET_HISTORY_KLIINE=MARKETURL+"/api/KLine/GetHistory";//K历史
+    String GET_NEWEST_KLIINE=MARKETURL+"/api/KLine/GetNew";//最新一条K
 
 
 

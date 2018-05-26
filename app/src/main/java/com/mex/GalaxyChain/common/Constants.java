@@ -78,6 +78,12 @@ int SUSPEND_TRADING=4;
     String SIXTY_MIN="1h";
     String DAY_K="1d";
 
+    long ONE_FEN=60*1000;
+
+
+
+
+
    String FROM_PAYORDER_K_MOKEMORE="from_payorder_k_mokemore";
    String FROM_CHICANG_UNLOGIN="from_chicang_unlogin";
    String  FROM_K_BUTTON_PAYORDERMORE="from_k_button_payordermore"; //点击下单按钮做多 跳转到持仓界面
@@ -129,5 +135,6 @@ int SUSPEND_TRADING=4;
     String YY="YYB";
 
     String CHANNEL="mexysp";
+
 
 }
