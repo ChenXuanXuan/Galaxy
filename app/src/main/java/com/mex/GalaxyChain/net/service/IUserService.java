@@ -5,6 +5,7 @@ import com.mex.GalaxyChain.bean.HistoryKLineBean;
 import com.mex.GalaxyChain.bean.HoldPositionBean;
 import com.mex.GalaxyChain.bean.LoginOutBean;
 import com.mex.GalaxyChain.bean.MoneyFlowBean;
+import com.mex.GalaxyChain.bean.NewestKLineBean;
 import com.mex.GalaxyChain.bean.OrderBuyBean;
 import com.mex.GalaxyChain.bean.PayOutListBean;
 import com.mex.GalaxyChain.bean.PayOutMeneyBean;
@@ -143,6 +144,10 @@ public interface IUserService {
      @GET(NetFuncConstants.GET_HISTORY_KLIINE)
      Observable<HistoryKLineBean> getHistoryKLine(@QueryMap Map<String, Object> paramMap);
 
+   //获取最新一条K线数据
+    @GET(NetFuncConstants.GET_NEWEST_KLIINE)
+    Observable<NewestKLineBean> getNewestKData(@QueryMap Map<String, Object> paramMap);
+
     //获取中户账号信息
     @GET(NetFuncConstants.GET_USER_ACCOUNTINFO)
      Observable<UserAccountInfoBean> userAccountInfo(@QueryMap HashMap<String, Object> paramMap);
@@ -176,4 +181,6 @@ public interface IUserService {
 
     @POST(NetFuncConstants.POST_PAYIN_MONEY) //入金
     Observable<PostPayInBean> PostPayInMoney(@Body RequestBody requestBody);
+
+
 }

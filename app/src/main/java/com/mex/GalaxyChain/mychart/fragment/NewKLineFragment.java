@@ -2,6 +2,7 @@ package com.mex.GalaxyChain.mychart.fragment;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.text.Html;
@@ -15,8 +16,11 @@ import com.google.gson.Gson;
 import com.lsj.kchart.kchartlib.chart.BaseKChartView;
 import com.lsj.kchart.kchartlib.chart.KChartView;
 import com.lsj.kchart.kchartlib.chart.formatter.DateFormatter;
+import com.mex.GalaxyChain.MyApplication;
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.bean.HistoryKLineBean;
+import com.mex.GalaxyChain.bean.NewestKLineBean;
+import com.mex.GalaxyChain.bean.TickeBean;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.mychart.chart.kchart.DataHelper;
@@ -25,11 +29,14 @@ import com.mex.GalaxyChain.mychart.chart.kchart.chart.KLineEntity;
 import com.mex.GalaxyChain.mychart.obser.IObserver;
 import com.mex.GalaxyChain.mychart.utils.LogUtils;
 import com.mex.GalaxyChain.mychart.utils.NewColorUtil;
+import com.mex.GalaxyChain.net.HttpInterceptor;
 import com.mex.GalaxyChain.net.repo.UserRepo;
 import com.mex.GalaxyChain.ui.asset.activity.LandMarketMainAct;
 import com.mex.GalaxyChain.ui.asset.activity.MarketMainAct;
 import com.mex.GalaxyChain.ui.asset.fragment.LineBaseFragment;
 import com.mex.GalaxyChain.utils.AppUtil;
+import com.mex.GalaxyChain.utils.DeviceUtil;
+import com.mex.GalaxyChain.utils.IsEmptyUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -62,6 +69,12 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
     private String interval;
     private String symbol;
     private Boolean isFirstLoading = true;
+
+    private TickeBean mTickeBean;
+    // private NewestKLineBean.DataBean mNewestKLineBeanData;
+    private List<KLineEntity> mKLineEntityArrayList;
+    private long compare_time;
+    // private List<HistoryKLineBean.DataBean> mDataBeanList;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -97,9 +110,11 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
     }
 
 
-    public void setType(String instID, String type, String selType, String interval, String symbol) {
+    public void setType(String instID, String type, String selType, String interval, String symbol,long compare_time ) {
         this.interval = interval;
         this.symbol = symbol;
+        this.mTickeBean=mTickeBean;
+        this.compare_time=compare_time;
         initData();
     }
 
@@ -110,16 +125,23 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
         mKChartView.showLoading();
         mKChartView.setRefreshListener(this);
         mKChartView.refreshEnd();
+
+
         starttime = 0;
         onLoadKData();
-//        onLoadMoreBegin(mKChartView);
+//   onLoadMoreBegin(mKChartView);
+            startTimerGetNewK();
+
     }
 
+
+
+    double mLongitude,mLatitude;
     private void onLoadKData() {
         if (UserGolbal.getInstance().locationSuccess()) {
             HashMap<String, Object> paramMap = new HashMap<>();
-            double mLongitude = UserGolbal.getInstance().getLongitude();
-            double mLatitude = UserGolbal.getInstance().getLatitude();
+              mLongitude = UserGolbal.getInstance().getLongitude();
+              mLatitude = UserGolbal.getInstance().getLatitude();
             paramMap.put("latitude", mLatitude);
             paramMap.put("longitude", mLongitude);
             //  String symbol = "BTCUSDT";
@@ -137,6 +159,12 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
             paramMap.put("devcieModel", devcieModel);
             int channelId = Constants.channelId;////白标ID
             paramMap.put("channelId", channelId);
+            paramMap.put("version",AppUtil.getAppVersionName(MyApplication.getInstance()));
+            MyApplication instance = MyApplication.getInstance();
+            String device_identifier = DeviceUtil.getUdid(instance);
+            String deviceID= HttpInterceptor.silentURLEncode(device_identifier);
+            paramMap.put("deviceId",deviceID);
+
             UserRepo.getInstance().getHistoryKLine(paramMap)
                     .subscribe(new Subscriber<HistoryKLineBean>() {
                         @Override
@@ -150,21 +178,22 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
                         @Override
                         public void onNext(HistoryKLineBean historyKLineBean) {
                             isFirstLoading = false;
-                            List<KLineEntity> kLineEntityArrayList = new ArrayList<>();
-                            //K历史数据
-                            List<HistoryKLineBean.DataBean> dataBeanList = historyKLineBean.getData();
-                            LogUtils.d("TAG:K线--->数据" + new Gson().toJson(dataBeanList));
-                            starttime = dataBeanList.get(dataBeanList.size() - 1).getTimes();
-                            LogUtils.d("TAG:K线--->每页第一条time:" + dataBeanList.get(0).getTimes());
-                            LogUtils.d("TAG:K线--->每页第一条time:" + AppUtil.getDateToString(dataBeanList.get(0).getTimes()));
+                            mKLineEntityArrayList = new ArrayList<>();
+                            //K历史数据集合
+                            List<HistoryKLineBean.DataBean>  mDataBeanList = historyKLineBean.getData();
+                            LogUtils.d( "TAG:K线--->数据" + new Gson().toJson(mDataBeanList));
+                            starttime = mDataBeanList.get(mDataBeanList.size() - 1).getTimes();
+                             long times_frist= mDataBeanList.get(0).getTimes();
+                            LogUtils.d("TAG:K线--->每页第一条time:" +times_frist);
+                            LogUtils.d("TAG:K线--->每页第一条time:" + AppUtil.getDateToStringDetail(mDataBeanList.get(0).getTimes()));
                             LogUtils.d("TAG:K线--->每页最后一条time:" + starttime);
-                            LogUtils.d("TAG:K线--->每页最后一条time:" + AppUtil.getDateToString(starttime));
-                            if (dataBeanList != null && dataBeanList.size() > 0) {
-                                if (dataBeanList.size() == 1) { //当第一页都不够500条 如何
+                            LogUtils.d("TAG:K线--->每页最后一条time:" + AppUtil.getDateToStringDetail(starttime));
+                            if (mDataBeanList != null && mDataBeanList.size() > 0) {
+                                if (mDataBeanList.size() == 1) { //当第一页都不够500条 如何
                                     mKChartView.refreshEnd();
                                     return;
                                 }
-                                for (HistoryKLineBean.DataBean dataBean : dataBeanList) {
+                                for (HistoryKLineBean.DataBean dataBean : mDataBeanList) {
                                     KLineEntity kLineEntity = new KLineEntity();
                                     kLineEntity.Open = (float) dataBean.getOpen();
                                     kLineEntity.Close = (float) dataBean.getClose();
@@ -172,10 +201,10 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
                                     kLineEntity.High = (float) dataBean.getHigh();
                                     kLineEntity.Low = (float) dataBean.getLow();
                                     kLineEntity.Volume = (float) dataBean.getVol();
-                                    kLineEntityArrayList.add(kLineEntity);
+                                    mKLineEntityArrayList.add(kLineEntity);
                                 }
-                                Collections.reverse(kLineEntityArrayList); // 倒序排列kLineEntityArrayList 否者K线显示方向不对
-                                DataHelper.calculate(kLineEntityArrayList);
+                                Collections.reverse(mKLineEntityArrayList); // 倒序排列kLineEntityArrayList 否者K线显示方向不对
+                                DataHelper.calculate(mKLineEntityArrayList);
                             }
 
                             //第一次加载时开始动画
@@ -183,14 +212,15 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
                                 mKChartView.startAnimation();
                             }
                             if (isLoading) {
-                                mAdapter.addFooterData(kLineEntityArrayList);
+                                mAdapter.addFooterData(mKLineEntityArrayList);
+
                             } else {
                                 mAdapter.clearItems();
-                                mAdapter.setItems(kLineEntityArrayList);
+                                mAdapter.setItems(mKLineEntityArrayList);
                                 isLoading = true;
-                            }
+                                }
                             //加载完成，还有更多数据
-                            if (kLineEntityArrayList.size() >=50) {
+                            if (mKLineEntityArrayList.size() >=50) {
                                 mKChartView.refreshComplete();
                                 mKChartView.resetLoadMoreEnd();
                             }
@@ -223,9 +253,7 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
     }
 
     @Override
-    public void onTabSelected(TabLayout.Tab tab) {
-
-    }
+    public void onTabSelected(TabLayout.Tab tab) {}
 
     @Override
     public void Response(int i) {
@@ -256,5 +284,120 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
         e.setText(Html.fromHtml(NewColorUtil.getNewE(data)));
         junjia.setText(Html.fromHtml(NewColorUtil.getNewJunjia(data)));
 
+    }
+
+
+
+
+
+    MyCountDownTimer  myCountDownTimer;
+    private void startTimerGetNewK() {
+         if(myCountDownTimer == null){
+             myCountDownTimer=new MyCountDownTimer(10*1000, 1000);
+             }
+            myCountDownTimer.start();
+    }
+
+
+    private class MyCountDownTimer extends CountDownTimer {
+
+
+
+        public MyCountDownTimer(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+
+        }
+
+        @Override
+        public void onFinish() {
+            loadDataGetNewestK();
+            myCountDownTimer.start();
+        }
+
+
+    }
+
+
+
+
+    private void loadDataGetNewestK() {
+
+        HashMap<String, Object> paramMap = new HashMap<>();
+        paramMap.put("latitude", mLatitude);
+        paramMap.put("longitude", mLongitude);
+        paramMap.put("symbol", symbol);
+        paramMap.put("interval", interval);
+        paramMap.put("deviceType", Constants.ANDROID);
+        paramMap.put("devcieModel", Build.MODEL);
+        paramMap.put("channelId", Constants.channelId);
+        paramMap.put("version",AppUtil.getAppVersionName(MyApplication.getInstance()));
+        MyApplication instance = MyApplication.getInstance();
+        String device_identifier = DeviceUtil.getUdid(instance);
+        String deviceID= HttpInterceptor.silentURLEncode(device_identifier);
+        paramMap.put("deviceId",deviceID);
+        UserRepo.getInstance().getNewestKLine(paramMap)
+                .subscribe(new Subscriber<NewestKLineBean>() {
+                    @Override
+                    public void onCompleted() {}
+
+                    @Override
+                    public void onError(Throwable e) {}
+
+                    @Override
+                    public void onNext(NewestKLineBean newestKLineBean) {
+                        LogUtils.d("TAG-->最新一条K线数据"+new Gson().toJson(newestKLineBean));
+                        LogUtils.e("TAG-->open" +new Gson().toJson(newestKLineBean.getData().getOpen()));
+                             //请求的最新一条K线数据对象
+                        NewestKLineBean.DataBean mNewestKLineBeanData = newestKLineBean.getData();
+
+                        //获取K历史数据 最右边最新的一个蜡烛(mKLineEntityArrayList的最后一条)
+                        LogUtils.e("TAG-->集合:"+mKLineEntityArrayList.size());
+                        KLineEntity kLineEntity = null;
+                        if(mKLineEntityArrayList!=null&&mKLineEntityArrayList.size()>0) {
+                              kLineEntity = mKLineEntityArrayList.get(mKLineEntityArrayList.size() - 1);
+                        }
+
+                       LogUtils.e("TAG-->历史最新的右边蜡烛对象"+new Gson().toJson(kLineEntity));
+                              //时间撮的判断
+                            long times_newestKLine=mNewestKLineBeanData.getTimes();//最新时间撮
+                            long  time_right_first=AppUtil.getStringToDate(kLineEntity.getDatetime()); //最右边第一根蜡烛时间撮
+                           LogUtils.e("TAG-->时间  "+time_right_first);
+                            if(compare_time==Constants.ONE_FEN){//1分
+                                   if(!IsEmptyUtils.isEmpty(times_newestKLine,time_right_first)){
+                                             if(times_newestKLine-time_right_first<Constants.ONE_FEN){
+                                                 KLineEntity kLineEntity1=new KLineEntity();
+                                                 kLineEntity1.High=(float)mNewestKLineBeanData.getHigh();
+                                                 kLineEntity1.Low=(float)mNewestKLineBeanData.getLow();
+                                                 kLineEntity1.Close=(float) mNewestKLineBeanData.getClose();
+                                                 kLineEntity1.Open=(float) mNewestKLineBeanData.getOpen();
+                                               //  kLineEntity1.Date=AppUtil.getDateToStringDetail(mNewestKLineBeanData.getTimes());
+                                                 kLineEntity1.Volume = (float) mNewestKLineBeanData.getVol();
+                                                 mKLineEntityArrayList.add(kLineEntity1);
+                                                 Collections.reverse(mKLineEntityArrayList);
+                                                 LogUtils.e("TAG-->kLineEntity1"+new Gson().toJson(kLineEntity1));
+                                                 mAdapter.changeItem(mKLineEntityArrayList.size() - 1,kLineEntity1);
+                                          }else  {
+                                                 KLineEntity   kLineEntity2=new KLineEntity();
+                                                 kLineEntity2.High=(float)mNewestKLineBeanData.getHigh();
+                                                 kLineEntity2.Low=(float)mNewestKLineBeanData.getLow();
+                                                 kLineEntity2.Close=(float) mNewestKLineBeanData.getClose();
+                                                 kLineEntity2.Open=(float) mNewestKLineBeanData.getOpen();
+                                                 kLineEntity2.Date=AppUtil.getDateToStringDetail(mNewestKLineBeanData.getTimes());
+                                                 kLineEntity2.Volume = (float) mNewestKLineBeanData.getVol();
+                                                 mKLineEntityArrayList.add(kLineEntity2);
+                                                 Collections.reverse(mKLineEntityArrayList);
+                                                 LogUtils.e("TAG-->kLineEntity2"+new Gson().toJson(kLineEntity2));
+                                                 mAdapter.addHeaderData(mKLineEntityArrayList);
+
+                                             }
+
+                                  }
+                                   }
+                            }
+                        });
     }
 }

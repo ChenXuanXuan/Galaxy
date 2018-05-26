@@ -127,9 +127,10 @@ public class LandMarketMainAct extends BaseActivity implements View.OnClickListe
     private double mMLongitude;
     private double mMLatitude;
     private String mToken;
+   // private TickeBean mTickeBean;
 
 
-	public static void launch(Context mContext) {
+    public static void launch(Context mContext) {
 		Intent intent = new Intent(mContext, LandMarketMainAct.class);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 		mContext.startActivity(intent);
@@ -204,7 +205,7 @@ public class LandMarketMainAct extends BaseActivity implements View.OnClickListe
 				typeKx = "6";
 				selType = "2";
                 interval = Constants.ONE_MIN; //  1分钟
-				klFragment.setType(instID, typeKx, selType,interval,symbol);
+				klFragment.setType(instID, typeKx, selType,interval,symbol,0);
 				changeType(3);
 				break;
 
@@ -212,7 +213,7 @@ public class LandMarketMainAct extends BaseActivity implements View.OnClickListe
 				typeKx = "7";
 				selType = "3";
                 interval = Constants.THREE_MIN; //  3分钟
-				klFragment.setType(instID, typeKx, selType,interval,symbol);
+				klFragment.setType(instID, typeKx, selType,interval,symbol,0);
 				changeType(4);
 				break;
 
@@ -220,7 +221,7 @@ public class LandMarketMainAct extends BaseActivity implements View.OnClickListe
 				typeKx = "8";
 				selType = "4";
                 interval = Constants.DAY_K; //  日K
-				klFragment.setType(instID, typeKx, selType,interval,symbol);
+				klFragment.setType(instID, typeKx, selType,interval,symbol,0);
 				changeType(5);
 				break;
 
@@ -232,7 +233,7 @@ public class LandMarketMainAct extends BaseActivity implements View.OnClickListe
 				typeKx = "5";
 				selType = "5";
                 interval = Constants.FIVE_MIN; //  5分钟
-				klFragment.setType(instID, typeKx, selType,interval,symbol);
+				klFragment.setType(instID, typeKx, selType,interval,symbol,0);
 				changeMin(1);
 				break;
 
@@ -240,7 +241,7 @@ public class LandMarketMainAct extends BaseActivity implements View.OnClickListe
 				typeKx = "4";
 				selType = "6";
                 interval = Constants.FIFTEEN_MIN; //  15分钟
-				klFragment.setType(instID, typeKx, selType,interval,symbol);
+				klFragment.setType(instID, typeKx, selType,interval,symbol,0);
 				changeMin(2);
 				break;
 
@@ -249,7 +250,7 @@ public class LandMarketMainAct extends BaseActivity implements View.OnClickListe
 				typeKx = "3";
 				selType = "7";
                 interval = Constants.THIRTY_MIN; //  30分钟
-				klFragment.setType(instID, typeKx, selType,interval,symbol);
+				klFragment.setType(instID, typeKx, selType,interval,symbol,0);
 				break;
 
 			case R.id.minutes4://60分钟
@@ -257,7 +258,7 @@ public class LandMarketMainAct extends BaseActivity implements View.OnClickListe
 				typeKx = "2";
 				selType = "8";
                 interval = Constants.SIXTY_MIN; //  60分钟
-				klFragment.setType(instID, typeKx, selType,interval,symbol);
+				klFragment.setType(instID, typeKx, selType,interval,symbol,0);
 				break;
 
 
@@ -1068,13 +1069,13 @@ public class LandMarketMainAct extends BaseActivity implements View.OnClickListe
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(TickerEvent event) {
         if (event != null) {
-            TickeBean tickeBean = event.getTickeBean();
-            LogUtils.d("TAG-->横屏接收",new Gson().toJson(tickeBean));
+            TickeBean  mTickeBean = event.getTickeBean();
+            LogUtils.d("TAG-->横屏接收",new Gson().toJson(mTickeBean));
             if (tvCurrent != null) {
                 String newestPrice = tvCurrent.getText().toString();
-                if (tickeBean != null && !isEmpty(newestPrice) && tickeBean.getOfferPrice() != null) {
-                    double offerPrice = Double.parseDouble(tickeBean.getOfferPrice()); //最新价 (卖价) 12841.99
-                    double preClose = Double.parseDouble(tickeBean.getPreClose());  //昨日收盘价12840.34
+                if (mTickeBean != null && !isEmpty(newestPrice) && mTickeBean.getOfferPrice() != null) {
+                    double offerPrice = Double.parseDouble(mTickeBean.getOfferPrice()); //最新价 (卖价) 12841.99
+                    double preClose = Double.parseDouble(mTickeBean.getPreClose());  //昨日收盘价12840.34
                     //  涨跌幅度=(最新价 -  昨日收盘价)100% /  昨日收盘价
                     double upsAndDowns_rate = (offerPrice - preClose) * 100 / preClose;
                     if (offerPrice == preClose) {
@@ -1092,17 +1093,17 @@ public class LandMarketMainAct extends BaseActivity implements View.OnClickListe
                     }
 
 
-                    tvCurrent.setText(tickeBean.getOfferPrice()); //最新价
-                    tv_makeMore_newPrice.setText(tickeBean.getOfferPrice()); //最新价
-                    tv_makeLoss_newPrice.setText(tickeBean.getOfferPrice()); //最新价
+                    tvCurrent.setText(mTickeBean.getBidPrice()); //最新价
+                    tv_makeMore_newPrice.setText(mTickeBean.getBidPrice()); //最新价
+                    tv_makeLoss_newPrice.setText(mTickeBean.getBidPrice()); //最新价
                     NumberFormat mNumberFormat = MyApplication.getInstance().mNumberFormat;
                     mNumberFormat.setMaximumFractionDigits(2);
                     tv_downUp_rate.setText(mNumberFormat.format(upsAndDowns_rate) + "%"); //涨跌幅
                     tv_downUp.setText(mNumberFormat.format(offerPrice - preClose));    //涨跌=(最新价 -  昨日收盘价)
-                    open.setText(tickeBean.getOpen());//今开
-                    high.setText(tickeBean.getHigh());//最高
-                    low.setText(tickeBean.getLow());//最低
-                    close.setText(tickeBean.getPreClose());//昨收
+                    open.setText(mTickeBean.getOpen());//今开
+                    high.setText(mTickeBean.getHigh());//最高
+                    low.setText(mTickeBean.getLow());//最低
+                    close.setText(mTickeBean.getPreClose());//昨收
 
                 }
 

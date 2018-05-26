@@ -10,15 +10,15 @@ public class TickeBean extends BaseBean {
 
     /**
      * Status : 1
-     * BidPrice : 1.19352
-     * BidSize : 4500000.0
+     * BidPrice : 1.19352（cc 买价）
+     * BidSize : 4500000.0 （cc 买价交易数量）
      * OfferPrice : 1.19357
      * OfferSize : 4000000.0
      * High : 1.18695
      * Low : 1.18425
      * Open : 1.18548
      * PreClose : 1.18548
-     * UtcTimeStamp : 1525959520632
+     * UtcTimeStamp : 1525959520632(cc)
      * Symbol : EURUSD
      */
 

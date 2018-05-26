@@ -137,6 +137,8 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
     private int mGet_selectedBeiShuNum;
     private int mDefautl_beishu_one;
     private TextView iv_top_guizhe;
+    private long mUtcTimeStamp;
+    // private TickeBean mTickeBean;
 
 
     public static void launch(Context mContext) {
@@ -236,8 +238,8 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                 typeKx = "6";
                 selType = "2";
                 interval = Constants.ONE_MIN; //  1分钟
-                //symbol
-                klFragment.setType(instID, typeKx, selType, interval, symbol);
+                long compare_time=Constants.ONE_FEN;
+                klFragment.setType(instID, typeKx, selType, interval, symbol,compare_time);
                 changeType(3);
                 break;
 
@@ -245,7 +247,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                 typeKx = "7";
                 selType = "3";
                 interval = Constants.THREE_MIN; //  3分钟
-                klFragment.setType(instID, typeKx, selType, interval, symbol);
+                klFragment.setType(instID, typeKx, selType, interval, symbol,0);
                 changeType(4);
                 break;
 
@@ -253,7 +255,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                 typeKx = "8";
                 selType = "4";
                 interval = Constants.DAY_K; //  日K
-                klFragment.setType(instID, typeKx, selType, interval, symbol);
+                klFragment.setType(instID, typeKx, selType, interval, symbol,0);
                 changeType(5);
                 break;
 
@@ -265,7 +267,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                 typeKx = "5";
                 selType = "5";
                 interval = Constants.FIVE_MIN; //  5分钟
-                klFragment.setType(instID, typeKx, selType, interval, symbol);
+                klFragment.setType(instID, typeKx, selType, interval, symbol,0);
                 changeMin(1);
                 break;
 
@@ -273,7 +275,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                 typeKx = "4";
                 selType = "6";
                 interval = Constants.FIFTEEN_MIN; //  15分钟
-                klFragment.setType(instID, typeKx, selType, interval, symbol);
+                klFragment.setType(instID, typeKx, selType, interval, symbol,0);
                 changeMin(2);
                 break;
 
@@ -282,7 +284,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                 typeKx = "3";
                 selType = "7";
                 interval = Constants.THIRTY_MIN; //  30分钟
-                klFragment.setType(instID, typeKx, selType, interval, symbol);
+                klFragment.setType(instID, typeKx, selType, interval, symbol,0);
                 break;
 
             case R.id.minutes4://60分钟
@@ -290,7 +292,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                 typeKx = "2";
                 selType = "8";
                 interval = Constants.SIXTY_MIN; //  60分钟
-                klFragment.setType(instID, typeKx, selType, interval, symbol);
+                klFragment.setType(instID, typeKx, selType, interval, symbol,0);
                 break;
 
         }
@@ -900,13 +902,16 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(TickerEvent event) {
         if (event != null) {
-            TickeBean tickeBean = event.getTickeBean();
-            LogUtils.d("TAG-->竖屏接收",new Gson().toJson(tickeBean));
+            TickeBean  mTickeBean = event.getTickeBean();
+
+            LogUtils.d("TAG-->竖屏接收",new Gson().toJson(mTickeBean));
             if (tvCurrent != null) {
                 String newestPrice = tvCurrent.getText().toString();
-                if (tickeBean != null && !isEmpty(newestPrice) && tickeBean.getOfferPrice() != null) {
-                    double offerPrice = Double.parseDouble(tickeBean.getOfferPrice()); //最新价 (卖价) 12841.99
-                    double preClose = Double.parseDouble(tickeBean.getPreClose());  //昨日收盘价12840.34
+                if (mTickeBean != null && !isEmpty(newestPrice) && mTickeBean.getOfferPrice() != null) {
+
+                    mUtcTimeStamp = mTickeBean.getUtcTimeStamp();
+                    double offerPrice = Double.parseDouble(mTickeBean.getOfferPrice()); //最新价 (卖价) 12841.99
+                    double preClose = Double.parseDouble(mTickeBean.getPreClose());  //昨日收盘价12840.34
                     //  涨跌幅度=(最新价 -  昨日收盘价)100% /  昨日收盘价
                     double upsAndDowns_rate = (offerPrice - preClose) * 100 / preClose;
                     if (offerPrice == preClose) {
@@ -924,17 +929,17 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                     }
 
 
-                    tvCurrent.setText(tickeBean.getOfferPrice()); //最新价
-                    tv_makeMore_newPrice.setText(tickeBean.getOfferPrice()); //最新价
-                    tv_makeLoss_newPrice.setText(tickeBean.getOfferPrice()); //最新价
+                    tvCurrent.setText(mTickeBean.getBidPrice()); //最新价
+                    tv_makeMore_newPrice.setText(mTickeBean.getBidPrice()); //最新价
+                    tv_makeLoss_newPrice.setText(mTickeBean.getBidPrice()); //最新价
                     NumberFormat mNumberFormat = MyApplication.getInstance().mNumberFormat;
                     mNumberFormat.setMaximumFractionDigits(2);
                     tv_downUp_rate.setText(mNumberFormat.format(upsAndDowns_rate) + "%"); //涨跌幅
                     tv_downUp.setText(mNumberFormat.format(offerPrice - preClose));    //涨跌=(最新价 -  昨日收盘价)
-                    open.setText(tickeBean.getOpen());//今开
-                    high.setText(tickeBean.getHigh());//最高
-                    low.setText(tickeBean.getLow());//最低
-                    close.setText(tickeBean.getPreClose());//昨收
+                    open.setText(mTickeBean.getOpen());//今开
+                    high.setText(mTickeBean.getHigh());//最高
+                    low.setText(mTickeBean.getLow());//最低
+                    close.setText(mTickeBean.getPreClose());//昨收
 
                 }
 
