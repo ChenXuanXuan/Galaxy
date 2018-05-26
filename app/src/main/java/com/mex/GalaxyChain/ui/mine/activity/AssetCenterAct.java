@@ -2,6 +2,7 @@ package com.mex.GalaxyChain.ui.mine.activity;
 
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.mex.GalaxyChain.R;
@@ -15,10 +16,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 /**
- * name：
- * describe:
- * author: LSJ
- * time 24/4/18 上午10:32
+
  *  账户中心: 手机号  实名认证原生  交易账户  资产账户 H5
  *
  */
@@ -31,9 +29,14 @@ public class AssetCenterAct extends BaseActivity {
 	@ViewById
 	TextView mTitle;
 
-    @ViewById
+    @ViewById(R.id.tv_isRenZheng)
     TextView tv_isRenZheng;//tv_isRenZheng
 
+    @ViewById(R.id.phoneNum)
+    TextView phoneNum;
+
+    @ViewById(R.id.rl_amountCenter_Certification)
+    RelativeLayout rl_amountCenter_Certification;
 
 	@AfterViews
 	void init() {
@@ -43,11 +46,14 @@ public class AssetCenterAct extends BaseActivity {
 	private void initView() {
 		mTitle.setText("账户中心");
 		back.setVisibility(View.VISIBLE);
+        phoneNum.setText(UserGolbal.getInstance().getPhoneNum());
         int realnamestatus=UserGolbal.getInstance().getRealnamestatus();
         if(realnamestatus==1){ //已认证
             tv_isRenZheng.setText("已认证");
+            //rl_amountCenter_Certification.setClickable(false);
         }else{
             tv_isRenZheng.setText("未认证");
+           // rl_amountCenter_Certification.setClickable(true);
         }
 	}
 

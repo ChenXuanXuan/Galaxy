@@ -13,12 +13,7 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
-/**
- * name：
- * describe:
- * author: LSJ
- * time 24/4/18 下午1:24
- */
+
 @EActivity(R.layout.frag_mine_regis)
 public class RegisActivity extends BaseActivity {
 

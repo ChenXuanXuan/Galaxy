@@ -12,6 +12,7 @@
         style="@style/MineView">
 
         <TextView
+
             style="@style/MineTV"
             android:text="手机号" />
 

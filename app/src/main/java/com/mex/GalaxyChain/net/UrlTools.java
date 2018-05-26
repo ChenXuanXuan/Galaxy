@@ -8,15 +8,15 @@ import com.mex.GalaxyChain.BuildConfig;
  * Created by apple on 2015/11/25.
  */
 public class UrlTools {
-
-	private static final String HOST = "https://www.mex.link/api";//线上https
+   //mex
+   public static final String HOST = "https://www.mex.link/api";//线上https
 	public static final String DEBUG_HOST = "http://aaa.mex.group:81/exchange-api";//测试 http
-  // public static final String DEBUG_HOST = "http://192.168.1.152:8080/exchange-api";//测试 http
 
 
+
+    //H5
     public static final String H5_URL_BIBICHONGZHI="http://yanshengpin.mex.group:82/recharge-account.html";//币币充值
-
-    public static final String H5_URL_FABICHONGZHI="http://yanshengpin.mex.group:82/currency-account.html";//法币账户
+    public static final String H5_URL_FABICHONGZHI="http://yanshengpin.mex.group:82/currency-account.html";//法币账户充值
 
 
 	public static final long READ_TIMEOUT = 60;

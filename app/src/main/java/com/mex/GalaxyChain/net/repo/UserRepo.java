@@ -17,6 +17,7 @@ import com.mex.GalaxyChain.bean.ResetPWBean;
 import com.mex.GalaxyChain.bean.SymbolBean;
 import com.mex.GalaxyChain.bean.TradeDetailBean;
 import com.mex.GalaxyChain.bean.UserAccountInfoBean;
+import com.mex.GalaxyChain.bean.UserMeBean;
 import com.mex.GalaxyChain.bean.VerifycodeBean;
 import com.mex.GalaxyChain.bean.requestbean.GoodsPriceBean;
 import com.mex.GalaxyChain.net.BaseRepo;
@@ -176,6 +177,16 @@ public class UserRepo extends BaseRepo<IUserService> {
                      .observeOn(AndroidSchedulers.mainThread());
         }
 
+
+
+    public Observable<UserMeBean> getUserMe(String token, String timeStamp, String sign) {
+          return  getService().userme(token,timeStamp,sign)
+                  .subscribeOn(Schedulers.io())
+                  .observeOn(AndroidSchedulers.mainThread());
+
+
+          // UserMeBean
+    }
 
 
 

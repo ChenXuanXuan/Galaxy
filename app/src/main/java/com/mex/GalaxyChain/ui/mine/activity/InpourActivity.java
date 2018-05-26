@@ -8,9 +8,7 @@ import android.widget.TextView;
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.UIHelper;
 import com.mex.GalaxyChain.common.BaseActivity;
-import com.mex.GalaxyChain.common.UserGolbal;
-import com.mex.GalaxyChain.net.UrlTools;
-import com.mex.GalaxyChain.utils.LogUtils;
+import com.mex.GalaxyChain.net.NetFuncConstants;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -57,15 +55,15 @@ public class InpourActivity extends BaseActivity {
 		switch (v.getId()) {
 			case R.id.bibi://币币充值账户(H5)
 				 // InpourChannelAct_.intent(this).start();
-                 String url= UrlTools.H5_URL_BIBICHONGZHI+"?userId=10007&"+"token="+ UserGolbal.getInstance().getUserToken();
-                LogUtils.d("TAG-->H5:URL",url);
-                UIHelper.ToCoinsCoinsRechargeH5Activity(this,url);
+                //H5 币币充值url
+                String bibi_url=NetFuncConstants.H5_URL_BIBICHONGZHI;
+                UIHelper.ToCoinsCoinsRechargeH5Activity(this,bibi_url);
 				break;
 
 			case R.id.fabi: //法币充值(H5)
 				//InpourChannelAct_.intent(this).start();
-                String url_fabi= UrlTools.H5_URL_FABICHONGZHI;
-                UIHelper.ToFaBiRechargeH5Activity(this,url_fabi);
+                String fabi_url=NetFuncConstants.H5_URL_FABICHONGZHI;
+                UIHelper.ToFaBiRechargeH5Activity(this,fabi_url);
 				break;
             case R.id.back:
                 finish();

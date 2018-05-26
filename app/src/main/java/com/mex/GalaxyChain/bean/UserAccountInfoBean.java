@@ -136,6 +136,9 @@ public class UserAccountInfoBean  extends BaseBean{
                 this.realnamestatus = realnamestatus;
             }
 
+
+
+
             public double getTotalamount() {
                 return totalamount;
             }

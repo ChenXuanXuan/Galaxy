@@ -26,11 +26,11 @@ import rx.Subscriber;
 
 /*
 *
-*  实名认证(王皓)
+*  实名认证(高杰)
 *
 * */
-@EActivity(R.layout.activity_certification)
-public class CertificationActivity  extends BaseActivity {
+@EActivity(R.layout.activity_certification2)
+public class CertificationActivity2 extends BaseActivity {
 
     @ViewById(R.id.back)
     ImageView back;

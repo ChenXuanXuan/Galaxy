@@ -72,6 +72,19 @@ public class UserGolbal {
 
 
     public String drawedYYAcount;// 提现的YY数量
+    public int uid;
+    private String phoneNum;
+
+
+    public String getPhoneNum() {
+        return phoneNum;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
+
+
 
 
 
@@ -83,6 +96,12 @@ public class UserGolbal {
         this.realnamestatus = realnamestatus;
     }
 
+    public boolean isRealnameSuccess(){
+        if(!IsEmptyUtils.isEmpty(realnamestatus)&&realnamestatus==1){
+            return  true;
+        }
+        return false;
+    }
 
 
 
@@ -123,6 +142,7 @@ public class UserGolbal {
     public void setSelected_handSum(String selected_handSum) {
         this.selected_handSum = selected_handSum;
     }
+
 
 
 

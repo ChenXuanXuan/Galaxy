@@ -489,9 +489,10 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                 }
 
                 if (!isEmpty(mPerrmbfee, value, mStoplossratio) && mStoplossratio != 0.0) {
-                    tv_deal_perrmbmargin.setText("交易费用: " + mPerrmbfee
+
+                    tv_deal_perrmbmargin.setText("交易费用: " + mPerrmbfee*mSelectedHandSum
                             + " + 占用保证金: " + DecimalFormatUtils.getDecimal(Math.abs(Double.valueOf(value)) / mStoplossratio,2) + " = ");
-                    tv_sum_amount.setText( DecimalFormatUtils.getDecimal(mPerrmbfee+Math.abs(Double.valueOf(value)) / mStoplossratio,2));//价格合计
+                    tv_sum_amount.setText( DecimalFormatUtils.getDecimal(mPerrmbfee*mSelectedHandSum+Math.abs(Double.valueOf(value)) / mStoplossratio,2));//价格合计
                 }
 
 
@@ -676,11 +677,11 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
 
                                 mTv_shiyin_amount.setText(DecimalFormatUtils.getDecimal(mPer_stoploss_amount * mDefault_handNum_one * mDefautl_beishu_one * 2.0 ,2)); //(正)默认触发止盈 =默认止损金额(默认1手1倍)*2
                                 //默认占用保证金=(正)默认触发止损金额/止损率
-                                tv_deal_perrmbmargin.setText("交易费用: " + mPerrmbfee
+                                tv_deal_perrmbmargin.setText("交易费用: " + mPerrmbfee*mDefault_handNum_one
                                         + " + 占用保证金: " + DecimalFormatUtils.getDecimal((mPer_stoploss_amount * mDefault_handNum_one * mDefautl_beishu_one) / mStoplossratio,2)
                                         + " = ");//交易费用: 0 + 占用保证金: 0 =
                                 //默认合计
-                                tv_sum_amount.setText( DecimalFormatUtils.getDecimal(mPerrmbfee+(mPer_stoploss_amount * mDefault_handNum_one * mDefautl_beishu_one) / mStoplossratio,2));
+                                tv_sum_amount.setText( DecimalFormatUtils.getDecimal(mPerrmbfee*mDefault_handNum_one+(mPer_stoploss_amount * mDefault_handNum_one * mDefautl_beishu_one) / mStoplossratio,2));
                                 //==================================
                                 double mBalance = dataBean.getBalance(); //可用余额(可用资金)
                                 if (!isEmpty(mBalance))
@@ -873,11 +874,11 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                         mTv_lossAmount.setText("-" + DecimalFormatUtils.getDecimal(mPer_stoploss_amount * mSelectedHandSum * mDefautl_beishu_one,2)); //(负)改变触发止损金额(改变?手1倍)
                         mTv_shiyin_amount.setText(DecimalFormatUtils.getDecimal(mPer_stoploss_amount * mSelectedHandSum * mDefautl_beishu_one*2.0,2)); //(正)改变触发止盈金额 =改变的触发止损金额(改变?手1倍)*2
                         //改变占用保证金=(正)改变触发止损金额(改变?手1倍)/止损率
-                        tv_deal_perrmbmargin.setText("交易费用: " + DecimalFormatUtils.getDecimal(mPerrmbfee,2)
+                        tv_deal_perrmbmargin.setText("交易费用: " + DecimalFormatUtils.getDecimal(mPerrmbfee*mSelectedHandSum,2)
                                 + " + 占用保证金: " +DecimalFormatUtils.getDecimal((mPer_stoploss_amount * mSelectedHandSum * mDefautl_beishu_one) / mStoplossratio,2)
                                 + " = ");
                         //改变的合计
-                        tv_sum_amount.setText(DecimalFormatUtils.getDecimal(mPerrmbfee + (mPer_stoploss_amount * mSelectedHandSum * mDefautl_beishu_one) / mStoplossratio,2));
+                        tv_sum_amount.setText(DecimalFormatUtils.getDecimal(mPerrmbfee*mSelectedHandSum + (mPer_stoploss_amount * mSelectedHandSum * mDefautl_beishu_one) / mStoplossratio,2));
                     } else {
                         numEntityList.get(i).setSelcet(false);
                     }
@@ -904,7 +905,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
         if (event != null) {
             TickeBean  mTickeBean = event.getTickeBean();
 
-            LogUtils.d("TAG-->竖屏接收",new Gson().toJson(mTickeBean));
+           // LogUtils.d("TAG-->竖屏接收",new Gson().toJson(mTickeBean));
             if (tvCurrent != null) {
                 String newestPrice = tvCurrent.getText().toString();
                 if (mTickeBean != null && !isEmpty(newestPrice) && mTickeBean.getOfferPrice() != null) {

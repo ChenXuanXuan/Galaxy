@@ -165,7 +165,7 @@ public class GlobalIndexFragment extends BaseFragment {
 
         netDataForGoodsPrice(all_variety,deviceType,phoneModel,channelID,APKVersion,deviceID,mLongitude,mLatitude);
 
-          startTimer(all_variety,deviceType,phoneModel,channelID,APKVersion,deviceID,mLongitude,mLatitude);
+        //  startTimer(all_variety,deviceType,phoneModel,channelID,APKVersion,deviceID,mLongitude,mLatitude);
     }
 
 

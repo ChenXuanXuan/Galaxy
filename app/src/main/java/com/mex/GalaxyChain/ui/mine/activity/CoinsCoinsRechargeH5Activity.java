@@ -21,8 +21,10 @@ import com.mex.GalaxyChain.net.repo.UserRepo;
 import com.mex.GalaxyChain.utils.AppUtil;
 import com.mex.GalaxyChain.utils.DeviceUtil;
 import com.mex.GalaxyChain.utils.IsEmptyUtils;
+import com.mex.GalaxyChain.utils.LoadNetDataForMoneyFlowUtil;
 import com.mex.GalaxyChain.utils.LogUtils;
 import com.mex.GalaxyChain.utils.ToastUtils;
+import com.mex.GalaxyChain.utils.webUtils.WebViewJavaScriptFunction;
 import com.mex.GalaxyChain.view.X5WebView;
 
 import org.androidannotations.annotations.AfterViews;
@@ -69,7 +71,7 @@ public class CoinsCoinsRechargeH5Activity extends BaseActivity {
         /*JS端  调用java安卓端:  JS端 传递数据  给   安卓端
          * 例如:在H5 输入一个数据    传递给安卓原生端  安卓原生端 能够获取此数据 进行显示   */
 
-        mWebView.addJavascriptInterface(new WebViewJavaScriptFunctions() {
+        mWebView.addJavascriptInterface(new WebViewJavaScriptFunction() {
             @JavascriptInterface
             public void onJsFunctionCalled(String tag) {}
 
@@ -91,7 +93,27 @@ public class CoinsCoinsRechargeH5Activity extends BaseActivity {
                     return;
                 }
                 LogUtils.d("TAG-->获取H5传递过来的数据", payinmoney + " " + payintype + " " + sourcecurrency);
-                PostPayInMoneyRequest(payinmoney, payintype, sourcecurrency);
+               // PostPayInMoneyRequest(payinmoney, payintype, sourcecurrency);
+                LoadNetDataForMoneyFlowUtil.getMoneyFlowInstance().PostPayInMoneyRequest(payinmoney, payintype, sourcecurrency);
+                LoadNetDataForMoneyFlowUtil.getMoneyFlowInstance().setH5PayMoneyCallBackListener(new LoadNetDataForMoneyFlowUtil.H5PayMoneyCallBackListener() {
+                    @Override
+                    public void onSuccessCallBack(PostPayInBean postPayInBean) {
+                        if (postPayInBean.getCode() == 200) {
+                            //  ToastUtils.showTextInMiddle("下单成功");
+                            int mOrderid = postPayInBean.getData().getOrderid();
+                            //安卓调JS  给JS 传递参数   mOrderid&Constants.CHANNEL
+                            String str = mOrderid + "&" + Constants.CHANNEL;
+                            mWebView.loadUrl("javascript:javaCallJs('" + str + "')");
+                            LogUtils.d("TAG->安卓原生给H5传递参数", str);
+                        } else {
+                            ToastUtils.showTextInMiddle("下单失败");
+                            return;
+                        }
+                    }
+
+                    @Override
+                    public void onFailtueCallBack() {}
+                });
             }
 
 
@@ -129,8 +151,7 @@ public class CoinsCoinsRechargeH5Activity extends BaseActivity {
                         }
 
                         @Override
-                        public void onError(Throwable e) {
-                        }
+                        public void onError(Throwable e) {}
 
                         @Override
                         public void onNext(PostPayInBean postPayInBean) {
@@ -156,12 +177,7 @@ public class CoinsCoinsRechargeH5Activity extends BaseActivity {
 
     }
 
-    public interface WebViewJavaScriptFunctions {
-        void onJsFunctionCalled(String tag);
 
-        //payinmoney 入金金额  payintype 入金类型 1=币币 2=法币  sourcecurrency  目标币种
-        void getDataFromJS(String payinmoney, int payintype, String sourcecurrency);
-    }
 
 
 }

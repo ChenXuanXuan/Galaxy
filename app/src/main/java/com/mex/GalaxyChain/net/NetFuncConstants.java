@@ -1,5 +1,7 @@
 package com.mex.GalaxyChain.net;
 
+import com.mex.GalaxyChain.common.UserGolbal;
+
 /**
 
 
@@ -7,15 +9,16 @@ package com.mex.GalaxyChain.net;
  */
 
 public interface NetFuncConstants {
-	String POST_REGISTER = "api/yibitong/reg_mobile"; //手机注册
-    String POST_LOGIN = "api/yibitong/login_mobile"; //手机登陆
-	String GET_CODE = "api/yibitong/verifycode_sms";//验证码
-	String RESET_PHONE_LOGIN_PW="api/yibitong/reset_password_by_ph";//重置手机密码
+	String POST_REGISTER = "/api/yibitong/reg_mobile"; //手机注册
+    String POST_LOGIN = "/api/yibitong/login_mobile"; //手机登陆
+	String GET_CODE = "/api/yibitong/verifycode_sms";//验证码
+	String RESET_PHONE_LOGIN_PW="/api/yibitong/reset_password_by_ph";//重置手机密码
+     String GET_USERID="/api/user/me";//获取useerid
+
 
 
     String DEBUG_MARKET_URL="http://39.105.28.205:7000/";
     String POST_SYMBOL = DEBUG_MARKET_URL+"api/Symbol/GetDescription";
-
     String  POST_GOODSPRICE=DEBUG_MARKET_URL+"api/Symbol/GetPrice";
 
 
@@ -46,18 +49,20 @@ version	"1.0.0"
        String  GET_ORDER_BUYPAGE=TRADEURL+"/api/Order/GetBuyPage";//买入的所有信息
          String   POST_ORDER_MORE = TRADEURL+"/api/Order/PostOrder";   //下单
           String POST_CLOSE_ORDER=TRADEURL+"/api/Order/PostClosepostion"; //平仓
-    String POST_TRADE_DETAIL_LIST=TRADEURL+"/api/Trade/GetTradeDetailList";  //结算列表
-
-      String POST_HOLD_POSITION =TRADEURL+"/api/Trade/GetTradeHomeList"; //持仓列表
-
-
-      String POST_LOGIN_OUT=ACCOUNTURL+"/api/Userinfo/PostLogout"; //注销
-
-
+     String POST_TRADE_DETAIL_LIST=TRADEURL+"/api/Trade/GetTradeDetailList";  //结算列表
+     String POST_HOLD_POSITION =TRADEURL+"/api/Trade/GetTradeHomeList"; //持仓列表
+     String POST_LOGIN_OUT=ACCOUNTURL+"/api/Userinfo/PostLogout"; //注销
      String MARKETURL="http://39.105.28.205:7000";
     String GET_HISTORY_KLIINE=MARKETURL+"/api/KLine/GetHistory";//K历史
     String GET_NEWEST_KLIINE=MARKETURL+"/api/KLine/GetNew";//最新一条K
 
 
+
+    //H5
+    //币币充值
+    String H5_URL_BIBICHONGZHI= UrlTools.H5_URL_BIBICHONGZHI+"?userId="+ UserGolbal.getInstance().uid+"&token="+ UserGolbal.getInstance().getUserToken();
+
+    //法币充值
+    String H5_URL_FABICHONGZHI= UrlTools.H5_URL_FABICHONGZHI+"?userId="+ UserGolbal.getInstance().uid+"&token="+ UserGolbal.getInstance().getUserToken();
 
 }

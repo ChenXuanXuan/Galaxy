@@ -141,7 +141,7 @@ public class AccountMoneyFlowActivity extends BaseActivity {
                 SimplePagerTitleView simplePagerTitleView = new ScaleTransitionPagerTitleView(context);
                 simplePagerTitleView.setNormalColor(getResources().getColor(R.color.light_gray));
                 simplePagerTitleView.setTextSize(14);
-                simplePagerTitleView.setSelectedColor(getResources().getColor(R.color.light_bule));
+                simplePagerTitleView.setSelectedColor(getResources().getColor(R.color.chart_tab_indicator));
                 simplePagerTitleView.setText(titleTabArr[index]);
                 simplePagerTitleView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -159,7 +159,7 @@ public class AccountMoneyFlowActivity extends BaseActivity {
                 linePagerIndicator.setEndInterpolator(new DecelerateInterpolator(1.6f));
                 linePagerIndicator.setLineHeight(UIUtil.dip2px(context, 1));
                 linePagerIndicator.setMode(LinePagerIndicator.MODE_WRAP_CONTENT);
-                linePagerIndicator.setColors(getResources().getColor(R.color.light_bule));
+                linePagerIndicator.setColors(getResources().getColor(R.color.chart_tab_indicator));
                 linePagerIndicator.setYOffset(14);
                 return linePagerIndicator;
             }

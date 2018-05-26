@@ -258,6 +258,7 @@ public class PhoneNumRegistActivity2  extends BaseActivity{
         String timeStamp = dt.getTime() + "";
         final String  country = "86";
         final String mobilePhone =phoneNumber;
+        UserGolbal.getInstance().setPhoneNum(phoneNumber);
       //  String invitedCode="0123";
         params.put("country", country);
         params.put("mobile", mobilePhone);
