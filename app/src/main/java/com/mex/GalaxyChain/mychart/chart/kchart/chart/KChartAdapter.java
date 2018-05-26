@@ -1,7 +1,6 @@
 package com.mex.GalaxyChain.mychart.chart.kchart.chart;
 
 
-
 import com.lsj.kchart.kchartlib.chart.BaseKChartAdapter;
 import com.mex.GalaxyChain.utils.LogUtils;
 
@@ -42,7 +41,7 @@ public class KChartAdapter extends BaseKChartAdapter {
             date.setYear(Integer.parseInt(split[0]) - 1900);
             date.setMonth(Integer.parseInt(split[1]) - 1);
             date.setDate(Integer.parseInt(split[2]));
-            LogUtils.d("TAG",date.toString());
+            LogUtils.d("TAG", date.toString());
             return date;
         } catch (Exception e) {
             e.printStackTrace();
@@ -81,13 +80,25 @@ public class KChartAdapter extends BaseKChartAdapter {
         }
     }
 
+    public void addItemData(int pos ,List<KLineEntity> data) {
+        if (data != null && !data.isEmpty()) {
+            datas.addAll(pos, data);
+            notifyDataSetChanged();
+        }
+    }
+
+    public void removeItemData(int pos) {
+        datas.remove(pos);
+        notifyDataSetChanged();
+    }
+
     /**
      * 改变某个点的值
+     *
      * @param position 索引值
      */
-    public void changeItem(int position,KLineEntity data)
-    {
-        datas.set(position,data);
+    public void changeItem(int position, KLineEntity data) {
+        datas.set(position, data);
         notifyDataSetChanged();
     }
 
