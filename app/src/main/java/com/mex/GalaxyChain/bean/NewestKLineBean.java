@@ -4,9 +4,8 @@ import com.mex.GalaxyChain.net.bean.BaseBean;
 
 public class NewestKLineBean extends BaseBean {
 
-
     /**
-     * data : {"open":7619.78,"close":7619.78,"high":7619.78,"low":7619.78,"vol":0.0515,"val":392.41866999999996,"times":1527229740000}
+     * data : {"open":67.461,"close":67.445,"high":67.475,"low":67.399,"vol":80000,"val":5395047,"times":1527281940000}
      * code : 200
      * msg : 成功
      */
@@ -41,13 +40,13 @@ public class NewestKLineBean extends BaseBean {
 
     public static class DataBean {
         /**
-         * open : 7619.78
-         * close : 7619.78
-         * high : 7619.78
-         * low : 7619.78
-         * vol : 0.0515
-         * val : 392.41866999999996
-         * times : 1527229740000
+         * open : 67.461
+         * close : 67.445
+         * high : 67.475
+         * low : 67.399
+         * vol : 80000.0
+         * val : 5395047.0
+         * times : 1527281940000
          */
 
         private double open;

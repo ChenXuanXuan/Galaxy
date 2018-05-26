@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.lsj.kchart.kchartlib.chart.BaseKChartView;
 import com.lsj.kchart.kchartlib.chart.KChartView;
 import com.lsj.kchart.kchartlib.chart.formatter.DateFormatter;
@@ -203,7 +204,6 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
                                     kLineEntity.Low = (float) dataBean.getLow();
                                     kLineEntity.Volume = (float) dataBean.getVol();
                                     mKLineEntityArrayList.add(kLineEntity);
-
                                 }
                                 Collections.reverse(mKLineEntityArrayList); // 倒序排列kLineEntityArrayList 否者K线显示方向不对
                                 DataHelper.calculate(mKLineEntityArrayList);
@@ -304,7 +304,6 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
     private class MyCountDownTimer extends CountDownTimer {
 
 
-
         public MyCountDownTimer(long millisInFuture, long countDownInterval) {
             super(millisInFuture, countDownInterval);
         }
@@ -324,10 +323,7 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
     }
 
 
-
-
     private void loadDataGetNewestK() {
-
         HashMap<String, Object> paramMap = new HashMap<>();
         paramMap.put("latitude", mLatitude);
         paramMap.put("longitude", mLongitude);
