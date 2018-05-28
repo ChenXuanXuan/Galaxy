@@ -18,9 +18,11 @@ import com.mex.GalaxyChain.bean.ResetPWBean;
 import com.mex.GalaxyChain.bean.SymbolBean;
 import com.mex.GalaxyChain.bean.TradeDetailBean;
 import com.mex.GalaxyChain.bean.UserAccountInfoBean;
+import com.mex.GalaxyChain.bean.UserMeBean;
 import com.mex.GalaxyChain.bean.VerifycodeBean;
 import com.mex.GalaxyChain.bean.requestbean.GoodsPriceBean;
 import com.mex.GalaxyChain.net.NetFuncConstants;
+import com.mex.GalaxyChain.net.UrlTools;
 import com.mex.GalaxyChain.net.bean.galaxychainbean.LoginBean;
 import com.mex.GalaxyChain.net.bean.galaxychainbean.RegistBean;
 
@@ -54,7 +56,7 @@ public interface IUserService {
 
 
     @FormUrlEncoded
-    @POST(NetFuncConstants.POST_REGISTER)
+    @POST(UrlTools.DEBUG_HOST+NetFuncConstants.POST_REGISTER)
     Observable<RegistBean> register(@Field("country") String country,
                                                  @Field("mobile") String mobilePhone,
                                                  @Field("verifycode") String et_verify_passwordString,
@@ -75,12 +77,20 @@ public interface IUserService {
                                              @Field("sign") String sign);*/
 
     @FormUrlEncoded
-    @POST("http://aaa.mex.group:81/exchange-api/"+NetFuncConstants.POST_LOGIN)
+    @POST(UrlTools.DEBUG_HOST+NetFuncConstants.POST_LOGIN)
     Observable<LoginBean> login(@Field("country") String country,
                                  @Field("mobile") String mobilePhone,
                                  @Field("password") String et_phone_passwordString,
                                  @Field("time") String timeStamp,
                                  @Field("sign") String sign);
+
+
+   //获取userid
+  // @FormUrlEncoded
+   @GET(UrlTools.DEBUG_HOST+NetFuncConstants.GET_USERID)
+    Observable<UserMeBean>  userme(@Query("token") String token,
+                                   @Query("time") String timeStamp,
+                                   @Query("sign") String sign);
 
 
 
@@ -95,7 +105,7 @@ public interface IUserService {
                                                  @Field("sign") String sign);*/
 
     @FormUrlEncoded
-    @POST(NetFuncConstants.RESET_PHONE_LOGIN_PW)
+    @POST(UrlTools.DEBUG_HOST+NetFuncConstants.RESET_PHONE_LOGIN_PW)
     Observable<ResetPWBean> getReSetPW(@Field("mobile") String phoneNumber,
                                        @Field("country") String country,
                                        @Field("verifycode") String et_verify_passwordString,
@@ -105,7 +115,7 @@ public interface IUserService {
 
 
 
-	@GET(NetFuncConstants.GET_CODE)
+	@GET(UrlTools.DEBUG_HOST+NetFuncConstants.GET_CODE)
 	Observable<VerifycodeBean> getCode(@Query("country") String country,
                                                     @Query("mobile") String login,
                                                     @Query("otype") String otype,
@@ -181,6 +191,7 @@ public interface IUserService {
 
     @POST(NetFuncConstants.POST_PAYIN_MONEY) //入金
     Observable<PostPayInBean> PostPayInMoney(@Body RequestBody requestBody);
+
 
 
 }

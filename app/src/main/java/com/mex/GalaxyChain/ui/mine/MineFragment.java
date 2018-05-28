@@ -42,6 +42,7 @@ import com.mex.GalaxyChain.utils.BitmapUtils;
 import com.mex.GalaxyChain.utils.DeviceUtil;
 import com.mex.GalaxyChain.utils.IsEmptyUtils;
 import com.mex.GalaxyChain.utils.RequestPermissionUtils;
+import com.mex.GalaxyChain.utils.ToastUtils;
 import com.mex.GalaxyChain.view.PhotoPopupWindow;
 
 import org.androidannotations.annotations.AfterViews;
@@ -148,7 +149,8 @@ public class MineFragment extends BaseFragment {
 
                                 tv_amount_type.setText("总金额(" + accountMoneyInfo.getCurrenttype() + ")");
                                 tv_canusedamount.setText(accountMoneyInfo.getAmount()+"");
-                                UserGolbal.getInstance().setRealnamestatus(accountMoneyInfo.getRealnamestatus());
+                                int realnamestatus=  accountMoneyInfo.getRealnamestatus();//开户状态(1=开户(已实名认证),2=销户)
+                                UserGolbal.getInstance().setRealnamestatus(realnamestatus);
                                 UserGolbal.getInstance().amount = accountMoneyInfo.getAmount();
                                 UserGolbal.getInstance().canusedamount = accountMoneyInfo.getCanusedamount();
                                 UserGolbal.getInstance().frozenmargin = accountMoneyInfo.getFrozenmargin();
@@ -185,11 +187,23 @@ public class MineFragment extends BaseFragment {
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.inpour:  //充值(H5)
-                InpourActivity_.intent(this).start();
+               if(UserGolbal.getInstance().isRealnameSuccess()){
+                   InpourActivity_.intent(this).start();
+               }else{
+                   ToastUtils.showTextInMiddle("请先认证");
+                   return;
+               }
+
                 break;
 
             case R.id.withDraw:  //提现(原生)
-                UIHelper.ToWithDrawActivity(getActivity());
+                if(UserGolbal.getInstance().isRealnameSuccess()){
+                    UIHelper.ToWithDrawActivity(getActivity());
+                }else{
+                    ToastUtils.showTextInMiddle("请先认证");
+                    return;
+                }
+
                 break;
 
             case R.id.assetCenter://账户中心

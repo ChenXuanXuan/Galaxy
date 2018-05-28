@@ -53,22 +53,14 @@ public class BrowserActivity extends BaseActivity {
 
     private void initJs() {
         mWebView.addJavascriptInterface(new WebViewJavaScriptFunction() {
-            @Override
-            public void onJsFunctionCalled(String tag) {
-            }
-
-            @Override
-            public void getDataFromJS(double amount) {
-
-            }
 
 
-            /**js调用本地的方法，这里模仿调用登录方法*/
             @JavascriptInterface
-            public void htmlCallLogon(int type) {
-            }
+            public void onJsFunctionCalled(String tag) {}
 
-        }, "android");
+            @JavascriptInterface
+            public void getDataFromJS(String payinmoney, int payintype, String sourcecurrency) {}
+           }, "android");
 
 
         mWebView.addJavascriptInterface(this, "tjAdver");

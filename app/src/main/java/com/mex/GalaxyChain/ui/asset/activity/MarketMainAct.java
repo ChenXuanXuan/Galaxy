@@ -239,7 +239,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                 selType = "2";
                 interval = Constants.ONE_MIN; //  1分钟
                 long compare_time=Constants.ONE_FEN;
-                klFragment.setType(instID, typeKx, selType, interval, symbol,compare_time);
+                klFragment.setType(instID, typeKx, selType, interval, symbol);
                 changeType(3);
                 break;
 
@@ -247,7 +247,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                 typeKx = "7";
                 selType = "3";
                 interval = Constants.THREE_MIN; //  3分钟
-                klFragment.setType(instID, typeKx, selType, interval, symbol,0);
+                klFragment.setType(instID, typeKx, selType, interval, symbol);
                 changeType(4);
                 break;
 
@@ -255,7 +255,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                 typeKx = "8";
                 selType = "4";
                 interval = Constants.DAY_K; //  日K
-                klFragment.setType(instID, typeKx, selType, interval, symbol,0);
+                klFragment.setType(instID, typeKx, selType, interval, symbol);
                 changeType(5);
                 break;
 
@@ -267,7 +267,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                 typeKx = "5";
                 selType = "5";
                 interval = Constants.FIVE_MIN; //  5分钟
-                klFragment.setType(instID, typeKx, selType, interval, symbol,0);
+                klFragment.setType(instID, typeKx, selType, interval, symbol);
                 changeMin(1);
                 break;
 
@@ -275,7 +275,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                 typeKx = "4";
                 selType = "6";
                 interval = Constants.FIFTEEN_MIN; //  15分钟
-                klFragment.setType(instID, typeKx, selType, interval, symbol,0);
+                klFragment.setType(instID, typeKx, selType, interval, symbol);
                 changeMin(2);
                 break;
 
@@ -284,7 +284,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                 typeKx = "3";
                 selType = "7";
                 interval = Constants.THIRTY_MIN; //  30分钟
-                klFragment.setType(instID, typeKx, selType, interval, symbol,0);
+                klFragment.setType(instID, typeKx, selType, interval, symbol);
                 break;
 
             case R.id.minutes4://60分钟
@@ -292,7 +292,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                 typeKx = "2";
                 selType = "8";
                 interval = Constants.SIXTY_MIN; //  60分钟
-                klFragment.setType(instID, typeKx, selType, interval, symbol,0);
+                klFragment.setType(instID, typeKx, selType, interval, symbol);
                 break;
 
         }
@@ -489,9 +489,10 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                 }
 
                 if (!isEmpty(mPerrmbfee, value, mStoplossratio) && mStoplossratio != 0.0) {
-                    tv_deal_perrmbmargin.setText("交易费用: " + mPerrmbfee
+
+                    tv_deal_perrmbmargin.setText("交易费用: " + mPerrmbfee*mSelectedHandSum
                             + " + 占用保证金: " + DecimalFormatUtils.getDecimal(Math.abs(Double.valueOf(value)) / mStoplossratio,2) + " = ");
-                    tv_sum_amount.setText( DecimalFormatUtils.getDecimal(mPerrmbfee+Math.abs(Double.valueOf(value)) / mStoplossratio,2));//价格合计
+                    tv_sum_amount.setText( DecimalFormatUtils.getDecimal(mPerrmbfee*mSelectedHandSum+Math.abs(Double.valueOf(value)) / mStoplossratio,2));//价格合计
                 }
 
 
@@ -676,11 +677,11 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
 
                                 mTv_shiyin_amount.setText(DecimalFormatUtils.getDecimal(mPer_stoploss_amount * mDefault_handNum_one * mDefautl_beishu_one * 2.0 ,2)); //(正)默认触发止盈 =默认止损金额(默认1手1倍)*2
                                 //默认占用保证金=(正)默认触发止损金额/止损率
-                                tv_deal_perrmbmargin.setText("交易费用: " + mPerrmbfee
+                                tv_deal_perrmbmargin.setText("交易费用: " + mPerrmbfee*mDefault_handNum_one
                                         + " + 占用保证金: " + DecimalFormatUtils.getDecimal((mPer_stoploss_amount * mDefault_handNum_one * mDefautl_beishu_one) / mStoplossratio,2)
                                         + " = ");//交易费用: 0 + 占用保证金: 0 =
                                 //默认合计
-                                tv_sum_amount.setText( DecimalFormatUtils.getDecimal(mPerrmbfee+(mPer_stoploss_amount * mDefault_handNum_one * mDefautl_beishu_one) / mStoplossratio,2));
+                                tv_sum_amount.setText( DecimalFormatUtils.getDecimal(mPerrmbfee*mDefault_handNum_one+(mPer_stoploss_amount * mDefault_handNum_one * mDefautl_beishu_one) / mStoplossratio,2));
                                 //==================================
                                 double mBalance = dataBean.getBalance(); //可用余额(可用资金)
                                 if (!isEmpty(mBalance))
@@ -873,11 +874,11 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                         mTv_lossAmount.setText("-" + DecimalFormatUtils.getDecimal(mPer_stoploss_amount * mSelectedHandSum * mDefautl_beishu_one,2)); //(负)改变触发止损金额(改变?手1倍)
                         mTv_shiyin_amount.setText(DecimalFormatUtils.getDecimal(mPer_stoploss_amount * mSelectedHandSum * mDefautl_beishu_one*2.0,2)); //(正)改变触发止盈金额 =改变的触发止损金额(改变?手1倍)*2
                         //改变占用保证金=(正)改变触发止损金额(改变?手1倍)/止损率
-                        tv_deal_perrmbmargin.setText("交易费用: " + DecimalFormatUtils.getDecimal(mPerrmbfee,2)
+                        tv_deal_perrmbmargin.setText("交易费用: " + DecimalFormatUtils.getDecimal(mPerrmbfee*mSelectedHandSum,2)
                                 + " + 占用保证金: " +DecimalFormatUtils.getDecimal((mPer_stoploss_amount * mSelectedHandSum * mDefautl_beishu_one) / mStoplossratio,2)
                                 + " = ");
                         //改变的合计
-                        tv_sum_amount.setText(DecimalFormatUtils.getDecimal(mPerrmbfee + (mPer_stoploss_amount * mSelectedHandSum * mDefautl_beishu_one) / mStoplossratio,2));
+                        tv_sum_amount.setText(DecimalFormatUtils.getDecimal(mPerrmbfee*mSelectedHandSum + (mPer_stoploss_amount * mSelectedHandSum * mDefautl_beishu_one) / mStoplossratio,2));
                     } else {
                         numEntityList.get(i).setSelcet(false);
                     }
@@ -904,7 +905,7 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
         if (event != null) {
             TickeBean  mTickeBean = event.getTickeBean();
 
-            LogUtils.d("TAG-->竖屏接收",new Gson().toJson(mTickeBean));
+           // LogUtils.d("TAG-->竖屏接收",new Gson().toJson(mTickeBean));
             if (tvCurrent != null) {
                 String newestPrice = tvCurrent.getText().toString();
                 if (mTickeBean != null && !isEmpty(newestPrice) && mTickeBean.getOfferPrice() != null) {

@@ -20,6 +20,7 @@ import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.UIHelper;
 import com.mex.GalaxyChain.bean.PostLoginBean;
 import com.mex.GalaxyChain.bean.RegistLoginBean;
+import com.mex.GalaxyChain.bean.UserMeBean;
 import com.mex.GalaxyChain.bean.requestbean.RequestPostLoginBean;
 import com.mex.GalaxyChain.common.BaseActivity;
 import com.mex.GalaxyChain.common.Constants;
@@ -83,7 +84,7 @@ public class PhoneNumLoginActivity extends BaseActivity {
                 UIHelper.toFindPassWordActivity(this);
                 break;
             case R.id.tv_regist:  //to到手机号 注册界面
-                UIHelper.toRegistActivity(this); // 手机好吗注册1
+                UIHelper.toRegistActivity(this); // 手机号码注册1
                 // UIHelper.toRegistActivity2(this);   //手机好吗注册2
                 break;
             case R.id.ll_clear_phone:
@@ -167,6 +168,7 @@ public class PhoneNumLoginActivity extends BaseActivity {
         final String country = "86";
         params.put("country", country);
         params.put("mobile", mobilePhone);
+        UserGolbal.getInstance().setPhoneNum(mobilePhone);
         params.put("password", et_phone_passwordString);
         Date dt = new Date();
         String timeStamp = dt.getTime() + "";
@@ -191,7 +193,8 @@ public class PhoneNumLoginActivity extends BaseActivity {
                     public void onNext(LoginBean loginBean) {
                         if (loginBean.getCode() == 0) {
                               //登陆成功 再次登陆
-                            loacationAndPostLogin(loginBean);
+                             loacationAndPostLogin(loginBean);
+                            loadGetUserMe(loginBean);//获取userid
                         } else if (loginBean.getCode() == 110020) {
                             ToastUtils.showErrorImage("用户名不存在");
                             return;
@@ -206,6 +209,31 @@ public class PhoneNumLoginActivity extends BaseActivity {
                 });
 
 
+    }
+
+    private void loadGetUserMe(LoginBean loginBean) {
+        HashMap<String, Object> params = new HashMap<>();
+        String token=loginBean.getData().getToken();
+        params.put("token",token);
+        Date dt = new Date();
+        String timeStamp = dt.getTime() + "";
+        params.put("time", timeStamp);
+        String sign = CreatSignUtils.creatSign(params);
+        UserRepo.getInstance().getUserMe(token,timeStamp,sign)
+                .subscribe(new Subscriber<UserMeBean>() {
+                    @Override
+                    public void onCompleted() {}
+
+                    @Override
+                    public void onError(Throwable e) {}
+
+                    @Override
+                    public void onNext(UserMeBean userMeBean) {
+                       if(userMeBean.getCode().equals("0")){
+                           UserGolbal.getInstance().uid=userMeBean.getData().getUser().getUid();
+                       }
+                    }
+                });
     }
 
 
@@ -305,17 +333,19 @@ public class PhoneNumLoginActivity extends BaseActivity {
                     registLoginBean.setUsertoken(loginBean.getData().getToken());
                     UserGolbal.getInstance().setUserToken(loginBean.getData().getToken());
                     EventBus.getDefault().post(registLoginBean);
+
                       if(!isEmpty(tag)){
                                 if(tag.equals(Constants.FROM_PAYORDER_K_MOKEMORE)){ //K线详情 看涨买多 --->登陆界面---> K线详情 看涨买多
                                     UIHelper.toMarkMainAct_kLine(PhoneNumLoginActivity.this);
                                     finish();
                                 }else if(tag.equals(Constants.FROM_CHICANG_UNLOGIN)){ //持仓未登录界面--->登陆界面--->持仓已登陆界面(MainActivity 1)
+
                                     UIHelper.jumptoMainActivity(PhoneNumLoginActivity.this,tag);
+
                                     finish();
                                 }
 
                       }else{
-
                           //(不带标签tag)一般其他的 常规情况下 登陆进入主界面
                            UIHelper.jumptoMainActivity(PhoneNumLoginActivity.this,""); //主界面
                            finish();

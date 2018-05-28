@@ -2,9 +2,12 @@ package com.mex.GalaxyChain.utils;
 
 import android.os.Build;
 
+import com.google.gson.Gson;
 import com.mex.GalaxyChain.MyApplication;
 import com.mex.GalaxyChain.bean.MoneyFlowBean;
 import com.mex.GalaxyChain.bean.PayOutListBean;
+import com.mex.GalaxyChain.bean.PostPayInBean;
+import com.mex.GalaxyChain.bean.requestbean.PayInMoneyBean;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.net.HttpInterceptor;
@@ -12,6 +15,8 @@ import com.mex.GalaxyChain.net.repo.UserRepo;
 
 import java.util.HashMap;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 import rx.Subscriber;
 
 public class LoadNetDataForMoneyFlowUtil {
@@ -192,5 +197,79 @@ public class LoadNetDataForMoneyFlowUtil {
        void  onFailtueCallBack();
 
         }
+
+
+
+
+
+
+    //==============================================================
+     //H5请求
+    public void PostPayInMoneyRequest(String payinmoney, int payintype, String sourcecurrency) {
+        if (UserGolbal.getInstance().locationSuccess()) {
+            double mLongitude = UserGolbal.getInstance().getLongitude(); //空
+            double mLatitude = UserGolbal.getInstance().getLatitude();//空
+            PayInMoneyBean payInMoneyBean = new PayInMoneyBean();
+            payInMoneyBean.usertoken = UserGolbal.getInstance().getUserToken();
+            payInMoneyBean.payinmoney = Double.valueOf(payinmoney);
+            payInMoneyBean.payintype = payintype;
+            payInMoneyBean.sourcecurrency = sourcecurrency;
+            payInMoneyBean.deviceType = Constants.ANDROID;
+            payInMoneyBean.devcieModel = Build.MODEL;
+            payInMoneyBean.channelId = Constants.channelId;
+            payInMoneyBean.version = AppUtil.getAppVersionName(MyApplication.getInstance());
+            MyApplication instance = MyApplication.getInstance();
+            String device_identifier = DeviceUtil.getUdid(instance);
+            String deviceID = HttpInterceptor.silentURLEncode(device_identifier);
+            payInMoneyBean.deviceId = deviceID;
+            payInMoneyBean.longitude = mLongitude;
+            payInMoneyBean.latitude = mLatitude;
+            Gson gson = new Gson();
+            String jsonStr = gson.toJson(payInMoneyBean);
+            RequestBody requestBody = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), jsonStr);
+            UserRepo.getInstance().getPostPayInMoney(requestBody)
+                    .subscribe(new Subscriber<PostPayInBean>() {
+                        @Override
+                        public void onCompleted() {}
+
+                        @Override
+                        public void onError(Throwable e) {
+                            if (!IsEmptyUtils.isEmpty(h5PayMoneyCallBackListener)) {
+                                h5PayMoneyCallBackListener.onFailtueCallBack();
+                            }
+                        }
+
+                        @Override
+                        public void onNext(PostPayInBean postPayInBean) {
+                            if (!IsEmptyUtils.isEmpty(h5PayMoneyCallBackListener)) {
+                                h5PayMoneyCallBackListener.onSuccessCallBack(postPayInBean);
+                            }
+
+                        }
+                    });
+
+        }else{
+            UserGolbal.getInstance().requestLocation();
+        }
+
+
+     }
+
+
+
+
+
+    private H5PayMoneyCallBackListener h5PayMoneyCallBackListener;
+    public void setH5PayMoneyCallBackListener(H5PayMoneyCallBackListener h5PayMoneyCallBackListener){
+        this.h5PayMoneyCallBackListener=h5PayMoneyCallBackListener;
+    };
+
+    public interface H5PayMoneyCallBackListener {
+        void  onSuccessCallBack(PostPayInBean postPayInBean);
+        void  onFailtueCallBack();
+
+    }
+
+
 
 }

@@ -91,7 +91,7 @@
             <TextView
                 android:id="@+id/france"
                 style="@style/MineTextViewIpour"
-                android:text="法币账户通道"
+                android:text="法币账户充值"
                 android:textColor="#6D6D6D"
                 android:textSize="@dimen/sp14" />
 

@@ -48,7 +48,7 @@ public class RealNameAuthBean extends BaseBean {
     public static class DataBean {
         /**
          * idcard : 420683198702107813
-         * realname : 哈哈
+         * realname : 方明飞
          * province : 湖北
          * city : 襄阳
          * town : 枣阳市
