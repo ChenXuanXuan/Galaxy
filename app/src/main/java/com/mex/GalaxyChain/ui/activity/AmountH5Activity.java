@@ -17,6 +17,12 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 
+
+/*
+*
+* 资产账户H5: 币币账户  法币账户  银行卡  支付宝
+*
+* */
 @EActivity(R.layout.fragment_mine_amount_h5)
 public class AmountH5Activity extends BaseActivity {
 

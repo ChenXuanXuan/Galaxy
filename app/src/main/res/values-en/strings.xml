@@ -270,5 +270,10 @@
     <string name="k_min">L</string>
     <string name="k_amount">V</string>
     <string name="k_exchange">CHANGE</string>
+    <string name="country_code">CHINA+86</string>
+    <string name="xing">family name</string>
+    <string name="hinttext">please input your family name</string>
+    <string name="ming">Firstname</string>
+
 
 </resources>

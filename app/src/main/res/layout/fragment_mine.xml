@@ -14,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="220dp"
             android:layout_gravity="center_horizontal"
-            android:background="@color/btn_bg_gray_pressed"
+            android:background="@drawable/bc"
             android:gravity="center_horizontal">
 
             <ImageView
@@ -32,6 +32,7 @@
                 android:layout_below="@+id/iv_user_icon"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="@dimen/dp10"
+                android:textColor="@color/white"
                 android:text="总金额(--)" />
 
             <TextView
@@ -43,6 +44,7 @@
                 android:layout_marginTop="@dimen/dp10"
                 android:text="0"
                 android:textSize="@dimen/dp18"
+                android:textColor="@color/white"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -118,7 +120,9 @@
 
         <View style="@style/ViewLine" />
 
-        <RelativeLayout style="@style/MineView">
+        <RelativeLayout
+            android:visibility="gone"
+            style="@style/MineView">
 
             <TextView
                 style="@style/MineTV"
@@ -134,7 +138,7 @@
 
         </RelativeLayout>
 
-        <View style="@style/ViewLine" />
+      <!--  <View style="@style/ViewLine" />-->
 
         <RelativeLayout
             android:id="@+id/normalQa"

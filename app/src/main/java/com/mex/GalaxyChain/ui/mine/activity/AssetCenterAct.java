@@ -8,7 +8,9 @@ import android.widget.TextView;
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.UIHelper;
 import com.mex.GalaxyChain.common.BaseActivity;
+import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
+import com.mex.GalaxyChain.utils.ToastUtils;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -68,16 +70,25 @@ public class AssetCenterAct extends BaseActivity {
 				  ExchangeActivity_.intent(AssetCenterAct.this).start();
 				  break;
 
-			case R.id.amount://资产账户(H5)
-				//AmountActivity_.intent(AssetCenterAct.this).start();
-                String url = "http://yanshengpin.mex.group:82/";
-                  UIHelper.toAmountH5Activity(AssetCenterAct.this,url);
-				break;
+            case R.id.amount://资产账户(H5):需要认证   url需要加ususerid token
+                if(UserGolbal.getInstance().isRealnameSuccess()){
+                    int tag= Constants.ASSETACCOUNT_ZHICHAN;
+                    UIHelper.ToH5LoadingActivity(AssetCenterAct.this,tag);
+
+                   // String url=NetFuncConstants.H5_URL_ASSETACCOUNT;
+                   // UIHelper.toAmountH5Activity(AssetCenterAct.this,url);
+                }else{
+                    ToastUtils.showTextInMiddle("请先认证");
+                    return;
+                }
+
+                break;
 
 
 
             case R.id.rl_amountCenter_Certification://实名认证
-                CertificationActivity_.intent(AssetCenterAct.this).start();
+               // CertificationActivity_.intent(AssetCenterAct.this).start();//王皓实名认证
+                CertificationActivity2_.intent(AssetCenterAct.this).start();//高杰实名认证
                 break;
 		}
 	}

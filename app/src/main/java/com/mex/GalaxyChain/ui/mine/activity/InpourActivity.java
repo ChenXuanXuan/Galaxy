@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.UIHelper;
 import com.mex.GalaxyChain.common.BaseActivity;
-import com.mex.GalaxyChain.net.NetFuncConstants;
+import com.mex.GalaxyChain.common.Constants;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -49,21 +49,19 @@ public class InpourActivity extends BaseActivity {
 		mTitle.setText("充值");
 		back.setVisibility(View.VISIBLE);
 	}
-
+ int tag;
 	@Click({R.id.bibi, R.id.fabi,R.id.back})
 	void onClick(View v) {
 		switch (v.getId()) {
 			case R.id.bibi://币币充值账户(H5)
-				 // InpourChannelAct_.intent(this).start();
-                //H5 币币充值url
-                String bibi_url=NetFuncConstants.H5_URL_BIBICHONGZHI;
-                UIHelper.ToCoinsCoinsRechargeH5Activity(this,bibi_url);
-				break;
+                tag= Constants.PAYOUTMONEYTYPE_BIBI;//1
+                UIHelper.ToH5LoadingActivity(this,tag);
+                break;
 
 			case R.id.fabi: //法币充值(H5)
-				//InpourChannelAct_.intent(this).start();
-                String fabi_url=NetFuncConstants.H5_URL_FABICHONGZHI;
-                UIHelper.ToFaBiRechargeH5Activity(this,fabi_url);
+                tag= Constants.PAYOUTMONEYTYPE_FABI;//2
+                UIHelper.ToH5LoadingActivity(this,tag);
+
 				break;
             case R.id.back:
                 finish();

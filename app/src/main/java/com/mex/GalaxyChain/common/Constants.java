@@ -118,9 +118,9 @@ int SUSPEND_TRADING=4;
     double MIN_YY_ACONUT=10.00;
 
 
-    int PAYOUTMONEYTYPE_BIBI=1;
+    int  PAYOUTMONEYTYPE_BIBI=1;
     int  PAYOUTMONEYTYPE_FABI=2;
-
+    int  ASSETACCOUNT_ZHICHAN=3;
 
 
 
@@ -137,4 +137,7 @@ int SUSPEND_TRADING=4;
     String CHANNEL="mexysp";
 
 
+    String COUNTRY_CODE="156+86";
+     int  IDCARD=1;
+     int PASSPORT=2;
 }

@@ -2,62 +2,51 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-
               android:orientation="vertical">
 
     <include layout="@layout/layout_topbar" />
 
      <TextView
-         android:id="@+id/tv_showSuccess"
+        android:id="@+id/tv_country_code"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp40"
-        android:gravity="center"
-        android:text="恭喜您已通过实名认证"
-        android:visibility="gone"/>
+        android:gravity="center_vertical"
+        android:layout_marginLeft="@dimen/dp15"
+        android:text="@string/country_code"
+         />
 
-    <!-- android:visibility="gone" -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp1"
+        android:background="@color/btn_bg_gray_pressed" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp40"
         android:layout_marginLeft="@dimen/dp15"
+        android:layout_marginRight="@dimen/dp15"
         android:layout_marginTop="@dimen/dp5"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="姓      名"
+            android:text="@string/xing"
             android:textColor="@color/hint_color" />
 
         <EditText
-            android:id="@+id/ed_inputName"
-            android:layout_width="wrap_content"
+            android:id="@+id/ed_inputXing"
+            android:layout_width="0dp"
+            android:layout_weight="2.5"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/dp37"
             android:background="@null"
-            android:hint="请输入你身份证上的姓名"
+            android:hint="@string/hinttextxing"
             android:textSize="@dimen/sp12"
             android:singleLine="true"
-            android:maxLength="20"
-            android:minWidth="@dimen/dp150"
-           />
-
-        <TextView
-            android:id="@+id/tv_show_certificationName"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/dp37"
-            android:background="@null"
-            android:textSize="@dimen/sp12"
-            android:singleLine="true"
-            android:maxLength="20"
-            android:text="张三"
-            android:gravity="center_vertical"
-            android:textColor="@color/light_gray"
-            android:visibility="gone"/>
-
+            />
     </LinearLayout>
 
     <View
@@ -70,50 +59,170 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp40"
         android:layout_marginLeft="@dimen/dp15"
+        android:layout_marginRight="@dimen/dp15"
+        android:layout_marginTop="@dimen/dp5"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
-            android:text="身份证号码"
+            android:text="@string/ming"
+            android:textColor="@color/hint_color" />
+
+        <EditText
+            android:id="@+id/ed_inputMing"
+            android:layout_width="0dp"
+            android:layout_weight="2.5"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:hint="@string/hinttextming"
+            android:textSize="@dimen/sp12"
+            android:singleLine="true"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp1"
+        android:background="@color/btn_bg_gray_pressed" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp40"
+        android:layout_marginLeft="@dimen/dp15"
+        android:layout_marginRight="@dimen/dp15"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/idNum"
             android:textColor="@color/hint_color" />
 
         <EditText
             android:id="@+id/et_idNum"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="2.5"
             android:inputType="numberDecimal"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/dp15"
             android:background="@null"
             android:textSize="@dimen/sp12"
             android:hint="请输入15或18位的身份证号码"
             android:singleLine="true"
             android:maxLength="20"
-            android:minWidth="@dimen/dp150" />
-
-
-        <TextView
-            android:id="@+id/tv_show_idNum"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/dp15"
-            android:background="@null"
-            android:textSize="@dimen/sp12"
-            android:text="0"
-            android:gravity="center_vertical"
-            android:singleLine="true"
-            android:maxLength="20"
-            android:textColor="@color/light_gray"
-            android:minWidth="@dimen/dp150"
-            android:visibility="gone"/>
-
+             />
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp1"
         android:background="@color/btn_bg_gray_pressed" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp40"
+        android:layout_marginLeft="@dimen/dp15"
+        android:layout_marginRight="@dimen/dp15"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="出生日期"
+            android:textColor="@color/hint_color" />
+
+        <TextView
+            android:id="@+id/tv_birthday"
+            android:layout_width="0dp"
+            android:layout_weight="2.5"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:textSize="@dimen/sp12"
+            android:hint="请输入出生日期"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp1"
+        android:background="@color/btn_bg_gray_pressed" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp40"
+        android:layout_marginLeft="@dimen/dp15"
+        android:layout_marginRight="@dimen/dp15"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="证件颁发日期"
+            android:textColor="@color/hint_color" />
+
+        <TextView
+            android:id="@+id/tv_IDcard_statTime"
+            android:layout_width="0dp"
+            android:layout_weight="2.5"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:textSize="@dimen/sp12"
+            android:hint="请输入证件开始时间"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp1"
+        android:background="@color/btn_bg_gray_pressed" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp40"
+        android:layout_marginLeft="@dimen/dp15"
+        android:layout_marginRight="@dimen/dp15"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="证件到期日期"
+            android:textColor="@color/hint_color" />
+
+        <TextView
+            android:id="@+id/tv_IDcard_endTime"
+            android:layout_width="0dp"
+            android:layout_weight="2.5"
+            android:inputType="numberDecimal"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:textSize="@dimen/sp12"
+            android:hint="请输入证件到期时间"
+            android:gravity="center_vertical"
+            android:singleLine="true"
+            />
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp1"
+        android:background="@color/btn_bg_gray_pressed" />
+
 
 
 
@@ -131,18 +240,7 @@
         android:textColor="@color/white" />
 
 
-    <TextView
-        android:id="@+id/tv_confirm_certification"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp45"
-        android:layout_marginTop="@dimen/dp20"
-        android:layout_marginLeft="@dimen/dp15"
-        android:layout_marginRight="@dimen/dp15"
-        android:background="@drawable/code_bg"
-        android:gravity="center"
-        android:text="确 认"
-        android:textColor="@color/white"
-        android:visibility="gone"/>
+
 
 
 

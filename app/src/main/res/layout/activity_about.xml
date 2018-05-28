@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include layout="@layout/layout_topbar" />
+
+    <RelativeLayout
+        style="@style/MineView">
+
+        <TextView
+            style="@style/MineTV"
+            android:text="版本号" />
+
+
+        <TextView
+            android:id="@+id/tv_versionName"
+            style="@style/MineTV"
+            android:layout_alignParentRight="true"
+            android:text="v1.0.0" />
+
+
+    </RelativeLayout>
+
+    <View style="@style/ViewLine" />
+    <RelativeLayout
+        android:id="@+id/rl_checkVersion"
+        style="@style/MineView">
+
+        <TextView
+            style="@style/MineTV"
+            android:text="检查更新" />
+
+
+        <TextView
+            style="@style/MineTV"
+            android:layout_alignParentRight="true"
+            android:text="NEW" />
+
+
+    </RelativeLayout>
+
+      <View style="@style/ViewLine" />
+
+</LinearLayout>

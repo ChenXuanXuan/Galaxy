@@ -27,9 +27,11 @@
 
     </RelativeLayout>
 
-    <View style="@style/ViewLine" />
+   <!-- <View style="@style/ViewLine" />-->
 
-    <RelativeLayout style="@style/MineView">
+    <RelativeLayout
+        android:id="@+id/rl_connectionWe"
+        style="@style/MineView">
 
         <TextView
             style="@style/MineTV"
@@ -47,11 +49,13 @@
 
     <View style="@style/ViewLine" />
 
-    <RelativeLayout style="@style/MineView">
+    <RelativeLayout
+        android:id="@+id/rl_about"
+        style="@style/MineView">
 
         <TextView
             style="@style/MineTV"
-            android:text="关于我们" />
+            android:text="关于" />
 
 
         <ImageView
@@ -66,24 +70,7 @@
     <View style="@style/ViewLine" />
 
 
-    <RelativeLayout
-        android:id="@+id/checkVersion"
-        style="@style/MineView">
 
-        <TextView
-            style="@style/MineTV"
-            android:text="检查更新" />
-
-
-        <TextView
-            style="@style/MineTV"
-            android:layout_alignParentRight="true"
-            android:text="v1.0.0" />
-
-
-    </RelativeLayout>
-
-    <View style="@style/ViewLine" />
 
     <TextView
         android:id="@+id/loginOut"

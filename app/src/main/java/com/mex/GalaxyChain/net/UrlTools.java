@@ -17,6 +17,12 @@ public class UrlTools {
     //H5
     public static final String H5_URL_BIBICHONGZHI="http://yanshengpin.mex.group:82/recharge-account.html";//币币充值
     public static final String H5_URL_FABICHONGZHI="http://yanshengpin.mex.group:82/currency-account.html";//法币账户充值
+    public static final String H5_URL_ASSETACCOUNT="http://yanshengpin.mex.group:82/";//资产账户
+
+    //other H5
+    //常见问题  联系我们
+    public static final String H5_URL_questionAndConnectionWe="https://www.sobot.com/chat/h5/index.html?sysNum=1fe4e3a0dfab44d08337eb0b212d11d1&aid=9f728621d6454999b7d008b35058b8a2&moduleType=//3";
+
 
 
 	public static final long READ_TIMEOUT = 60;
@@ -26,6 +32,7 @@ public class UrlTools {
 	public static final int NET_UPDATE = 1004;
 	public static final int ERR_CODE = 0;
 	public static final String ERR_MSG = "ok";
+
 
 
 //    private static final String HOST = "http://123.57.152.239:80";//线上

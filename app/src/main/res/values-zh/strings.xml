@@ -1,4 +1,18 @@
 <resources>
+
+    <string name="filter_vcode">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</string>
+    <string name="guizhe">规则</string>
+     
+    <string name="btn_register">注册</string>
+    <string name="OPENING">开盘中</string>
+    <string name="CLOSING">未开盘</string>
+    <string name="TRADING">交易中</string>
+    <string name="SUSPEND_TRADING">暂停交易</string>
+
+
+
+
+
     <string name="app_name">一币通</string>
     <string name="lang">zh-CN</string>
     <string name="main_market">行情</string>
@@ -280,4 +294,22 @@
     <string name="k_min">低</string>
     <string name="k_amount">量</string>
     <string name="k_exchange">幅</string>
+    <string name="country_code">中国(CHINA)+86</string>
+    <string name="xing">姓</string>
+    <string name="hinttextxing">请输入身份证上的姓</string>
+    <string name="ming">名</string>
+    <string name="hinttextming">请输入身份证上的名</string>
+    <string name="idNum">证件号码</string>
+
+    <string name="pickerview_cancel">取消</string>
+    <string name="pickerview_submit">确定</string>
+    <string name="pickerview_year">年</string>
+    <string name="pickerview_month">月</string>
+    <string name="pickerview_day">日</string>
+    <string name="pickerview_hours">时</string>
+    <string name="pickerview_minutes">分</string>
+    <string name="pickerview_seconds">秒</string>
+
+
+
 </resources>

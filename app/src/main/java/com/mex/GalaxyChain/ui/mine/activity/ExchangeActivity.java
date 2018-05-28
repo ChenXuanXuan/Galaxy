@@ -5,8 +5,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mex.GalaxyChain.R;
+import com.mex.GalaxyChain.UIHelper;
 import com.mex.GalaxyChain.common.BaseActivity;
 import com.mex.GalaxyChain.common.UserGolbal;
+import com.mex.GalaxyChain.utils.ToastUtils;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -14,10 +16,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 /**
- * name：
- * describe:
- * author: LSJ
- * time 24/4/18 上午10:40
+交易账户: 总资金  可用余额  占用保证金    总浮动盈亏  充值  提现
  */
 @EActivity(R.layout.fragment_mine_exchange)
 public class ExchangeActivity extends BaseActivity {
@@ -65,12 +64,24 @@ public class ExchangeActivity extends BaseActivity {
 				finish();
 				break;
 
-			case R.id.inpour://充值
-				InpourActivity_.intent(this).start();
-				break;
+			case R.id.inpour://认证 充值(H5)
 
-			case R.id.withDraw://提现
-				InpourActivity_.intent(this).start();
+                if(UserGolbal.getInstance().isRealnameSuccess()){
+                    InpourActivity_.intent(this).start();
+                }else{
+                    ToastUtils.showTextInMiddle("请先认证");
+                    return;
+                }
+
+                break;
+
+			case R.id.withDraw://认证 提现(relative)
+				if(UserGolbal.getInstance().isRealnameSuccess()){
+                    UIHelper.ToWithDrawActivity(getActivity());
+                }else{
+                    ToastUtils.showTextInMiddle("请先认证");
+                    return;
+                }
 				break;
 		}
 	}

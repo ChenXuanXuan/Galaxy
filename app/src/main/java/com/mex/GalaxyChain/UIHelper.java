@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentActivity;
 
 import com.mex.GalaxyChain.ui.activity.AmountH5Activity_;
 import com.mex.GalaxyChain.ui.activity.ChiCangUnLoginActivity_;
+import com.mex.GalaxyChain.ui.activity.H5LoadingActivity_;
 import com.mex.GalaxyChain.ui.activity.JieSuanActivity_;
 import com.mex.GalaxyChain.ui.asset.activity.MarketMainAct;
 import com.mex.GalaxyChain.ui.market.FindPwStepOneActivity_;
@@ -136,6 +137,17 @@ public class UIHelper {
 
     }
 
+    public static void ToH5LoadingActivity(Activity activity,int tag) {
+        Intent intent = new Intent(activity, H5LoadingActivity_.class);
+        intent.putExtra("tag", tag);
+        activity.startActivity(intent);
+
+    }
+
+
+
+
+
     public static void ToFaBiRechargeH5Activity(Activity activity, String url) {
         Intent intent = new Intent(activity, FaBiRechargeH5Activity_.class);
         intent.putExtra("url", url);
@@ -158,4 +170,6 @@ public class UIHelper {
         intent.putExtra("type", type);
         activity.startActivity(intent);
     }
+
+
 }

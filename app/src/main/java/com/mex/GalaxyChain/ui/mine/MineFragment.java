@@ -31,6 +31,7 @@ import com.mex.GalaxyChain.common.BaseFragment;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.net.HttpInterceptor;
+import com.mex.GalaxyChain.net.UrlTools;
 import com.mex.GalaxyChain.net.repo.UserRepo;
 import com.mex.GalaxyChain.ui.activity.BrowserActivity_;
 import com.mex.GalaxyChain.ui.mine.activity.AccountMoneyFlowActivity_;
@@ -214,7 +215,7 @@ public class MineFragment extends BaseFragment {
               //  QuestionActivity_.intent(getActivity()).start();
 
                 //走H5
-                BrowserActivity_.launch(getActivity(), "https://www.sobot.com/chat/h5/index.html?sysNum=1fe4e3a0dfab44d08337eb0b212d11d1&aid=9f728621d6454999b7d008b35058b8a2&moduleType=//3");
+                BrowserActivity_.launch(getActivity(), UrlTools.H5_URL_questionAndConnectionWe);
                 break;
 
             case R.id.about_us://关于我们

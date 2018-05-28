@@ -13,6 +13,7 @@ import com.mex.GalaxyChain.bean.PostLoginBean;
 import com.mex.GalaxyChain.bean.PostOrderBean;
 import com.mex.GalaxyChain.bean.PostPayInBean;
 import com.mex.GalaxyChain.bean.RealNameAuthBean;
+import com.mex.GalaxyChain.bean.RealNameC1Bean;
 import com.mex.GalaxyChain.bean.ResetPWBean;
 import com.mex.GalaxyChain.bean.SymbolBean;
 import com.mex.GalaxyChain.bean.TradeDetailBean;
@@ -176,6 +177,22 @@ public class UserRepo extends BaseRepo<IUserService> {
                       .subscribeOn(Schedulers.io())
                      .observeOn(AndroidSchedulers.mainThread());
         }
+
+
+    public Observable<RealNameC1Bean> postRealNameC1(String country_code, int id_type,
+                                                     String idNum, String xing, String ming,
+                                                     String birthday, String idcard_statTime,
+                                                     String idcard_endTime, String token,
+                                                     String timeStamp, String sign) {
+        return getService().realNameC1(country_code,id_type,idNum,xing,ming,birthday,
+                idcard_statTime,idcard_endTime,token,timeStamp,sign)
+                 .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+
+
+        //RealNameC1Bean
+    }
+
 
 
 

@@ -14,6 +14,7 @@ import com.mex.GalaxyChain.bean.PostLoginBean;
 import com.mex.GalaxyChain.bean.PostOrderBean;
 import com.mex.GalaxyChain.bean.PostPayInBean;
 import com.mex.GalaxyChain.bean.RealNameAuthBean;
+import com.mex.GalaxyChain.bean.RealNameC1Bean;
 import com.mex.GalaxyChain.bean.ResetPWBean;
 import com.mex.GalaxyChain.bean.SymbolBean;
 import com.mex.GalaxyChain.bean.TradeDetailBean;
@@ -85,12 +86,35 @@ public interface IUserService {
                                  @Field("sign") String sign);
 
 
+
+    //mex c1认证
+    @FormUrlEncoded
+    @POST(UrlTools.DEBUG_HOST+NetFuncConstants.POST_REALNAME_C1)
+    Observable<RealNameC1Bean> realNameC1(@Field("country_code") String country_code,
+                                          @Field("type") int id_type,
+                                          @Field("number") String idNum,
+                                          @Field("first_name") String xing,
+                                          @Field("second_name") String ming,
+                                          @Field("birthday") String birthday,
+                                          @Field("begin") String idcard_statTime,
+                                          @Field("end") String idcard_endTime,
+                                          @Field("token") String token,
+                                          @Field("time") String timeStamp,
+                                          @Field("sign") String sign);
+
+
+
+
    //获取userid
   // @FormUrlEncoded
    @GET(UrlTools.DEBUG_HOST+NetFuncConstants.GET_USERID)
     Observable<UserMeBean>  userme(@Query("token") String token,
                                    @Query("time") String timeStamp,
                                    @Query("sign") String sign);
+
+
+
+
 
 
 

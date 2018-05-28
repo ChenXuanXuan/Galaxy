@@ -314,7 +314,7 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
 
     private void loadDataGetNewestK() {
         HashMap<String, Object> paramMap = new HashMap<>();
-        paramMap.put("latitude", mLatitude);
+        paramMap.  put("latitude", mLatitude);
         paramMap.put("longitude", mLongitude);
         paramMap.put("symbol", symbol);
         paramMap.put("interval", interval);
