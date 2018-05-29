@@ -32,7 +32,7 @@ public class IConstant {
 	public final static String USCCESS = "success";
 	public final static String QUIT = "quit";
 	public final static int VERSIONUPDATE = 1004;
-	public final static String APPID = "eaa7de4651";
+	public final static String APPID = "eaa7de4651";//我的
 	public  static String SYMBLE = "EURUSD";
 	/**
 	 * 禁止提现

@@ -31,9 +31,9 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/iv_user_icon"
                 android:layout_centerHorizontal="true"
-                android:layout_marginTop="@dimen/dp10"
-                android:textColor="@color/white"
-                android:text="总金额(--)" />
+                android:layout_marginTop="10dp"
+                android:text="总金额(YY币)"
+                android:textColor="@color/white"/>
 
             <TextView
                 android:id="@+id/tv_canusedamount"

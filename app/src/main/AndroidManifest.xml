@@ -164,6 +164,20 @@
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />-->
 
 
+         <activity
+            android:name="com.mex.GalaxyChain.ui.activity.H5LoadingActivity_"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@style/WelcomeEntranceActionBarTheme"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden">
+         </activity>
+
+
+        <activity
+            android:name="com.mex.GalaxyChain.ui.mine.activity.AbountActivity_"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
 
 
 

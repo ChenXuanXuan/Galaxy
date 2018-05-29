@@ -15,6 +15,7 @@ import com.mex.GalaxyChain.ui.market.FindPwStepThreeActivity_;
 import com.mex.GalaxyChain.ui.market.FindPwStepTwoActivity_;
 import com.mex.GalaxyChain.ui.market.PhoneNumLoginActivity_;
 import com.mex.GalaxyChain.ui.mine.activity.AccountMoneyFlowActivity_;
+import com.mex.GalaxyChain.ui.mine.activity.CertificationActivity_;
 import com.mex.GalaxyChain.ui.mine.activity.CoinsCoinsRechargeH5Activity_;
 import com.mex.GalaxyChain.ui.mine.activity.FaBiRechargeH5Activity_;
 import com.mex.GalaxyChain.ui.mine.activity.PhoneNumRegistActivity1_;
@@ -172,4 +173,10 @@ public class UIHelper {
     }
 
 
+     //实名认证   公安系统认证+ C1
+    public static void ToCertificationC1Activity(Activity activity) {
+        // CertificationActivity_.intent(AssetCenterAct.this).start();
+        Intent intent = new Intent(activity, CertificationActivity_.class);
+        activity.startActivity(intent);
+    }
 }

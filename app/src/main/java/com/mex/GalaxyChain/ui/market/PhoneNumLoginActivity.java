@@ -194,7 +194,7 @@ public class PhoneNumLoginActivity extends BaseActivity {
                         if (loginBean.getCode() == 0) {
                               //登陆成功 再次登陆
                              loacationAndPostLogin(loginBean);
-                              loadGetUserMe(loginBean);//mex  请求userme   获取userid
+                              loadGetUserMe(loginBean);//mex  请求userme   获取userid status
                         } else if (loginBean.getCode() == 110020) {
                             ToastUtils.showErrorImage("用户名不存在");
                             return;
@@ -229,10 +229,11 @@ public class PhoneNumLoginActivity extends BaseActivity {
 
                     @Override
                     public void onNext(UserMeBean userMeBean) {
-                       if(userMeBean.getCode().equals("0")){ //0 获取userme接口成功
+                       if(userMeBean.getCode().equals("0")){  //0 获取userme接口成功
                            UserMeBean.DataBean.AuthBean auth=userMeBean.getData().getAuth();
                             if(auth.getLevel()==Constants.RENZHENG_C1){ //=1 C1 认证
                                 UserGolbal.getInstance().setStatus_auth_c1(auth.getStatus());//status=1 C1实名认证通过
+
                             }
                             UserGolbal.getInstance().uid=userMeBean.getData().getUser().getUid();
                        }

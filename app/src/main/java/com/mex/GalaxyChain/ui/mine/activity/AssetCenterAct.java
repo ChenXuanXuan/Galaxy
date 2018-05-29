@@ -49,13 +49,12 @@ public class AssetCenterAct extends BaseActivity {
 		mTitle.setText("账户中心");
 		back.setVisibility(View.VISIBLE);
         phoneNum.setText(UserGolbal.getInstance().getPhoneNum());
-        int realnamestatus=UserGolbal.getInstance().getRealnamestatus();
-        if(realnamestatus==1){ //已认证
-            tv_isRenZheng.setText("已认证");
-            //rl_amountCenter_Certification.setClickable(false);
+        if(UserGolbal.getInstance().isRealnameAuthC1Success()){ //认证审核通过C1
+             tv_isRenZheng.setText("已认证");
+              rl_amountCenter_Certification.setClickable(false);
         }else{
             tv_isRenZheng.setText("未认证");
-           // rl_amountCenter_Certification.setClickable(true);
+             rl_amountCenter_Certification.setClickable(true);
         }
 	}
 
@@ -71,7 +70,7 @@ public class AssetCenterAct extends BaseActivity {
 				  break;
 
             case R.id.amount://资产账户(H5):需要认证   url需要加ususerid token
-                if(UserGolbal.getInstance().isRealnameSuccess()){
+                if(UserGolbal.getInstance().isRealnameAuthC1Success()){
                     int tag= Constants.ASSETACCOUNT_ZHICHAN;
                     UIHelper.ToH5LoadingActivity(AssetCenterAct.this,tag);
 
@@ -79,15 +78,18 @@ public class AssetCenterAct extends BaseActivity {
                    // UIHelper.toAmountH5Activity(AssetCenterAct.this,url);
                   }else{
                     ToastUtils.showTextInMiddle("请先认证");
-                    return;
-                }
+                    UIHelper.ToCertificationC1Activity(this);
+
+                 }
 
                 break;
 
 
 
             case R.id.rl_amountCenter_Certification://实名认证
-                CertificationActivity_.intent(AssetCenterAct.this).start();//王皓实名认证
+                //公安系统认证+ C1
+                 UIHelper.ToCertificationC1Activity(this);
+               //  CertificationActivity_.intent(AssetCenterAct.this).start();
                // CertificationActivity2_.intent(AssetCenterAct.this).start();//高杰实名认证
                 break;
 		}

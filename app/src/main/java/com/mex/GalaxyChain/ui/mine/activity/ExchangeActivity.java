@@ -16,7 +16,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 
 /**
-交易账户: 总资金  可用余额  占用保证金    总浮动盈亏  充值  提现
+交易账户: 总资金  可用余额  占用保证金    总浮动盈亏  充值(H5 需实名认证)  提现(原生 需实名认证)
  */
 @EActivity(R.layout.fragment_mine_exchange)
 public class ExchangeActivity extends BaseActivity {
@@ -64,24 +64,23 @@ public class ExchangeActivity extends BaseActivity {
 				finish();
 				break;
 
-			case R.id.inpour://认证 充值(H5)
-
-                if(UserGolbal.getInstance().isRealnameSuccess()){
+			case R.id.inpour://充值(H5  需 认证 )
+                if(UserGolbal.getInstance().isRealnameAuthC1Success()){
                     InpourActivity_.intent(this).start();
                 }else{
                     ToastUtils.showTextInMiddle("请先认证");
-                    return;
-                }
+                     UIHelper.ToCertificationC1Activity(this);
+                     }
 
                 break;
 
 			case R.id.withDraw://认证 提现(relative)
-				if(UserGolbal.getInstance().isRealnameSuccess()){
+				if(UserGolbal.getInstance().isRealnameAuthC1Success()){
                     UIHelper.ToWithDrawActivity(getActivity());
                 }else{
                     ToastUtils.showTextInMiddle("请先认证");
-                    return;
-                }
+                    UIHelper.ToCertificationC1Activity(this);
+                    }
 				break;
 		}
 	}

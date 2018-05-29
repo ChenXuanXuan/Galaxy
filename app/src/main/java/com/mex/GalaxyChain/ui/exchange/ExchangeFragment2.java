@@ -183,11 +183,11 @@ public class ExchangeFragment2 extends BaseFragment {
                             if (holdPositionBean.getCode() == 200) {
                                 LogUtils.d("TAG-->刷新持仓列表数据",holdPositionBean.getData().getList().size()+"");
                                 HoldPositionBean.DataBean dataBean = holdPositionBean.getData();
-                                tv_total_amount.setText("总资金: " + dataBean.getTotalamount());//总资金
+                                tv_total_amount.setText("总资金: " + DecimalFormatUtils.getDecimal(dataBean.getTotalamount(),2));//总资金
                                 tv_canusedamount.setText(String.valueOf(dataBean.getCanusedamount()));//可用余额
                                 tv_total_float_lossprofit.setText(DecimalFormatUtils.getDecimal(dataBean.getTotalprofit(),2));//总盈亏(总浮动盈亏)
-                                //仓位= 冻结保证金/总资金*100%
-                                tv_post.setText(DecimalFormatUtils.getDecimal((dataBean.getFrozenamout() / dataBean.getTotalamount()) * 100,2)+"%");
+                                    //  仓位= 冻结保证金/( 冻结保证金+可用余额)*100%
+                                tv_post.setText(DecimalFormatUtils.getDecimal(dataBean.getFrozenamout()/(dataBean.getFrozenamout()+dataBean.getCanusedamount())*100,2)+"%");
                                 if (dataBean == null) {
                                     return;
                                 }

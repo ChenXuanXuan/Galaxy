@@ -612,8 +612,8 @@ context.getPackageName(), PackageManager.GET_SIGNATURES);
 
 
     /*将字符串转为时间戳*/
-    public static long getStringToDate(String dateString){
-        sf = new SimpleDateFormat("MM-dd HH:mm");
+    public static long getStringToDate(String dateString,String pattern){
+        sf = new SimpleDateFormat(pattern); //"MM-dd HH:mm"
         Date date = new Date();
         try {
             date = sf.parse(dateString);

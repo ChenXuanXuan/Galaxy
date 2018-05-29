@@ -21,6 +21,9 @@ public class RealNameC1Bean extends BaseBean {
      * code : 0
      * msg : 成功
      * data : null
+     *
+     * {"code":"0","msg":"成功","data":null}
+     *
      */
 
     private String code;

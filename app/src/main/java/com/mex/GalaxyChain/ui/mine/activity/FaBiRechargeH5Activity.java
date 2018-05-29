@@ -57,7 +57,7 @@ public class FaBiRechargeH5Activity extends BaseActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE |
                 WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         mWebView.loadUrl(mUrl);
-//===================
+       //===================
 
         // 法币购买YY币   //H5 给安卓传递数据购买了多少个YY币
         mWebView.addJavascriptInterface(new WebViewJavaScriptFunction(){

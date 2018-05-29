@@ -74,7 +74,7 @@ public class UserGolbal {
     public String drawedYYAcount;// 提现的YY数量
     public int uid;
     private String phoneNum;
-    private  int  status_auth_c1=0; //高杰C1 实名认证
+    private  int  status_auth_c1; //高杰C1 实名认证
 
 
 
@@ -88,7 +88,18 @@ public class UserGolbal {
 
 
     //是否C1 认证成功
-   // public boolean isAuthC1Success(){}
+    public boolean isRealnameAuthC1Success(){
+        if(getStatus_auth_c1()==Constants.RENZHENG_C1){
+            return  true;
+
+         }else{
+             return false;
+         }
+
+         }
+
+
+
 
 
 
@@ -112,12 +123,9 @@ public class UserGolbal {
         this.realnamestatus = realnamestatus;
     }
 
-    public boolean isRealnameSuccess(){
-        if(!IsEmptyUtils.isEmpty(realnamestatus)&&realnamestatus==1){
-            return  true;
-        }
-        return false;
-    }
+
+
+
 
 
 

@@ -40,6 +40,7 @@ import com.mex.GalaxyChain.ui.mine.activity.InpourActivity_;
 import com.mex.GalaxyChain.ui.mine.activity.SettingActivity_;
 import com.mex.GalaxyChain.utils.AppUtil;
 import com.mex.GalaxyChain.utils.BitmapUtils;
+import com.mex.GalaxyChain.utils.DecimalFormatUtils;
 import com.mex.GalaxyChain.utils.DeviceUtil;
 import com.mex.GalaxyChain.utils.IsEmptyUtils;
 import com.mex.GalaxyChain.utils.RequestPermissionUtils;
@@ -148,8 +149,8 @@ public class MineFragment extends BaseFragment {
                                 UserAccountInfoBean.DataBean data = userAccountInfoBean.getData();
                                 UserAccountInfoBean.DataBean.AccountMoneyInfoBean accountMoneyInfo = data.getAccountMoneyInfo();
 
-                                tv_amount_type.setText("总金额(" + accountMoneyInfo.getCurrenttype() + ")");
-                                tv_canusedamount.setText(accountMoneyInfo.getAmount()+"");
+                              //  tv_amount_type.setText("总金额(" + accountMoneyInfo.getCurrenttype() + ")");
+                                tv_canusedamount.setText(DecimalFormatUtils.getDecimal(accountMoneyInfo.getAmount(),2));
                                 int realnamestatus=  accountMoneyInfo.getRealnamestatus();//开户状态(1=开户(已实名认证),2=销户)
                                 UserGolbal.getInstance().setRealnamestatus(realnamestatus);
                                 UserGolbal.getInstance().amount = accountMoneyInfo.getAmount();
@@ -188,21 +189,22 @@ public class MineFragment extends BaseFragment {
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.inpour:  //充值(H5)
-               if(UserGolbal.getInstance().isRealnameSuccess()){
+               if(UserGolbal.getInstance().isRealnameAuthC1Success()){
                    InpourActivity_.intent(this).start();
                }else{
                    ToastUtils.showTextInMiddle("请先认证");
-                   return;
-               }
+                   UIHelper.ToCertificationC1Activity(getActivity());
 
-                break;
+               }
+               break;
 
             case R.id.withDraw:  //提现(原生)
-                if(UserGolbal.getInstance().isRealnameSuccess()){
+                if(UserGolbal.getInstance().isRealnameAuthC1Success()){
                     UIHelper.ToWithDrawActivity(getActivity());
                 }else{
                     ToastUtils.showTextInMiddle("请先认证");
-                    return;
+                    UIHelper.ToCertificationC1Activity(getActivity());
+
                 }
 
                 break;

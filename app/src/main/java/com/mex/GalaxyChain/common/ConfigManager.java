@@ -60,8 +60,12 @@ public class ConfigManager {
 	}
 
 
-  public static void setMoneyFlowCatheBean(){
+  public static void setMoneyFlowCatheBean(){}
 
-  }
+
+
+
+
+  //
 
 }

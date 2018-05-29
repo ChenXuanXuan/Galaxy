@@ -140,6 +140,7 @@
                 android:textColorHint="@color/light_gray"
                 android:textSize="14sp"
                 android:background="@color/transparent"
+
                 />
 
 

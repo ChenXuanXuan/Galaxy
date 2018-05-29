@@ -136,8 +136,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp40"
-
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="0dp"
@@ -160,10 +160,11 @@
                 android:singleLine="true"
                 />
         </LinearLayout>
-        <View
+        <!--<View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp1"
-            android:background="@color/btn_bg_gray_pressed" />
+            android:background="@color/btn_bg_gray_pressed" />-->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp40"
@@ -216,7 +217,7 @@
                 android:layout_height="match_parent"
                 android:background="@null"
                 android:textSize="@dimen/sp12"
-                android:hint="请输入证件到期时间"
+                android:hint="证件永久有效可不输"
                 android:gravity="center_vertical"
                 android:singleLine="true"
                 />

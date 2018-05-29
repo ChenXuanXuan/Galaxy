@@ -24,9 +24,6 @@ public class H5LoadingActivity extends BaseActivity {
     @ViewById(R.id.rootView)
     LinearLayout rootView;
 
-
-
-
     @AfterViews
     void init() {
 

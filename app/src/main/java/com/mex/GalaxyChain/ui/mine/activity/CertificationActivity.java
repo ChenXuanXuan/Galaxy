@@ -1,5 +1,6 @@
 package com.mex.GalaxyChain.ui.mine.activity;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,6 +18,7 @@ import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.net.repo.UserRepo;
 import com.mex.GalaxyChain.utils.CheckUtils;
 import com.mex.GalaxyChain.utils.CreatSignUtils;
+import com.mex.GalaxyChain.utils.LogUtils;
 import com.mex.GalaxyChain.utils.ToastUtils;
 import com.mex.GalaxyChain.view.pickerview.TimePickerView;
 
@@ -91,9 +93,7 @@ public class CertificationActivity  extends BaseActivity {
     void init(){
         mTitle.setText("实名认证");
         back.setVisibility(View.VISIBLE);
-
-
-    }
+        }
 
 
     @Click({R.id.back,R.id.tv_commit_id_certification,R.id.tv_confirm_certification, R.id.tv_confirm_certification,
@@ -113,7 +113,7 @@ public class CertificationActivity  extends BaseActivity {
 
             case R.id.tv_birthday:
 
-                showTimePickerView("出生日期",tv_birthday);
+               // showTimePickerView("出生日期",tv_birthday);
                 break;
 
             case R.id.tv_IDcard_statTime:
@@ -150,10 +150,10 @@ public class CertificationActivity  extends BaseActivity {
           }
 
         final  String birthday = tv_birthday.getText().toString().trim();
-        if (isEmpty(birthday)) {
-            ToastUtils.showTextInMiddle("出生日期不能为空");
-            return;
-        }
+       // if (isEmpty(birthday)) {
+      //      ToastUtils.showTextInMiddle("出生日期不能为空");
+      //      return;
+      //  }
 
         final String idcard_statTime = tv_IDcard_statTime.getText().toString().trim();
         if (isEmpty(idcard_statTime)) {
@@ -162,11 +162,11 @@ public class CertificationActivity  extends BaseActivity {
         }
 
 
-        final String idcard_endTime = tv_IDcard_endTime.getText().toString().trim();
-        if (isEmpty(idcard_endTime)) {
-            ToastUtils.showTextInMiddle("证件到期日期不能为空");
-            return;
-        }
+        final String idcard_endTime = tv_IDcard_endTime.getText().toString();//证件结束日期
+       // if (isEmpty(idcard_endTime)) {
+       //     ToastUtils.showTextInMiddle("证件到期日期不能为空");
+       //     return;
+       // }
 
 
         mShowDialog();
@@ -195,16 +195,17 @@ public class CertificationActivity  extends BaseActivity {
                          if(realNameAuthBean.getCode()==200){//王皓的网络请求成功
                                RealNameAuthBean.DataBean  realNameAuthBeanData = realNameAuthBean.getData();
                              String verifystatus=realNameAuthBeanData.getVerifystatus();
-                             String verifymsg=realNameAuthBeanData.getVerifymsg();
+
                                   if(verifystatus.equals("0")){ //0 王皓的实名认证成功通过,
-                                      realNameAuthenticationByC1(idNum, birthday,idcard_statTime,idcard_endTime,realNameAuthBeanData); //做高杰的c1实名认证请求
+                                      realNameAuthenticationByC1(idNum,idcard_statTime,idcard_endTime,realNameAuthBeanData); //做高杰的c1实名认证请求
                                   }else {
+                                      ToastUtils.showTextInMiddle(realNameAuthBeanData.getVerifymsg());
                                       return;
                                   }
                                   }else{ //失败
+
                              ToastUtils.showTextInMiddle(realNameAuthBean.getMsg());
-                           //   tv_showSuccess.setVisibility(View.GONE);
-                            return;
+                             return;
                          }
 
 
@@ -243,7 +244,7 @@ public class CertificationActivity  extends BaseActivity {
 
 
 
-    private void realNameAuthenticationByC1(String idNum, String birthday, String idcard_statTime, String idcard_endTime,
+    private void realNameAuthenticationByC1(String idNum,String idcard_statTime, String idcard_endTime,
                                             final RealNameAuthBean.DataBean  realNameAuthBeanData) {
         HashMap<String, Object> params = new HashMap<>();
         String country_code= Constants.COUNTRY_CODE;
@@ -251,13 +252,29 @@ public class CertificationActivity  extends BaseActivity {
         int id_type=Constants.IDCARD;
         params.put("type", id_type);
         params.put("number",idNum);
-        String xing="方";
-        params.put("first_name",xing);//？？？
-        String ming ="明飞";
-        params.put("second_name",ming);//???
-        params.put("birthday",birthday);
-        params.put("begin",idcard_statTime);
-        params.put("end",idcard_endTime);
+        String realname =realNameAuthBeanData.getRealname();
+        String xing= String.valueOf(realname.charAt(0));
+        String ming= realname.substring(1);
+        params.put("first_name",xing);// String xing="方";
+        params.put("second_name",ming);// String ming ="明飞";
+        LogUtils.d("TAG",ming+xing );
+         String  birth=realNameAuthBeanData.getBirth();//1987年02月10日
+          String birthday =birth.replace("年","-").replace("月","-").replace("日"," ").trim();
+         params.put("birthday",birthday);
+         params.put("begin",idcard_statTime);
+
+
+        String[] startTimeArr = idcard_statTime.split("-");
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append(Integer.valueOf(startTimeArr[0])+100).append("-").append(startTimeArr[1]).append("-").append(startTimeArr[2]);
+
+
+        if(TextUtils.isEmpty(idcard_endTime)){
+            params.put("end",stringBuffer.toString());
+            LogUtils.d("TAG",stringBuffer.toString());
+            }else{
+            params.put("end",idcard_endTime);
+         }
         String token=UserGolbal.getInstance().getUserToken();
         params.put("token",token);
         Date dt = new Date();

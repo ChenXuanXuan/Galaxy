@@ -15,7 +15,7 @@ public interface NetFuncConstants {
 	String GET_CODE = "/api/yibitong/verifycode_sms";//验证码
 	String RESET_PHONE_LOGIN_PW="/api/yibitong/reset_password_by_ph";//重置手机密码
      String GET_USERID="/api/user/me";//获取useerid
-    String POST_REALNAME_C1 ="/api/user/realname";//MEX c1 认证
+    String POST_REALNAME_C1 ="/api/auto/realname";//MEX c1 认证
 
 
     String DEBUG_MARKET_URL="http://39.105.28.205:7000/";

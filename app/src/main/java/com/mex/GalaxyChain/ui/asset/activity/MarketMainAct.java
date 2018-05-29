@@ -66,7 +66,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -911,10 +910,9 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                 if (mTickeBean != null && !isEmpty(newestPrice) && mTickeBean.getOfferPrice() != null) {
 
                     mUtcTimeStamp = mTickeBean.getUtcTimeStamp();
-                    double offerPrice = Double.parseDouble(mTickeBean.getOfferPrice()); //最新价 (卖价) 12841.99
+                    double offerPrice = Double.parseDouble(mTickeBean.getBidPrice()); //最新价 (卖价) 12841.99
                     double preClose = Double.parseDouble(mTickeBean.getPreClose());  //昨日收盘价12840.34
-                    //  涨跌幅度=(最新价 -  昨日收盘价)100% /  昨日收盘价
-                    double upsAndDowns_rate = (offerPrice - preClose) * 100 / preClose;
+
                     if (offerPrice == preClose) {
                         tv_downUp_rate.setTextColor(getResources().getColor(R.color.device_button_normal));
                         tv_downUp.setTextColor(getResources().getColor(R.color.device_button_normal));
@@ -933,10 +931,11 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                     tvCurrent.setText(mTickeBean.getBidPrice()); //最新价
                     tv_makeMore_newPrice.setText(mTickeBean.getBidPrice()); //最新价
                     tv_makeLoss_newPrice.setText(mTickeBean.getBidPrice()); //最新价
-                    NumberFormat mNumberFormat = MyApplication.getInstance().mNumberFormat;
-                    mNumberFormat.setMaximumFractionDigits(2);
-                    tv_downUp_rate.setText(mNumberFormat.format(upsAndDowns_rate) + "%"); //涨跌幅
-                    tv_downUp.setText(mNumberFormat.format(offerPrice - preClose));    //涨跌=(最新价 -  昨日收盘价)
+                    // 涨跌幅度(%)=(最新价 -  昨日收盘价)/ 昨日收盘价*100%
+                    double upsAndDowns_rate = (offerPrice - preClose)/preClose;
+
+                    tv_downUp_rate.setText(DecimalFormatUtils.getDecimal(upsAndDowns_rate*100,2)+"%"); //涨跌幅度(%)
+                    tv_downUp.setText(DecimalFormatUtils.getDecimal(upsAndDowns_rate,2));//涨跌=(最新价 -  昨日收盘价)/ 昨日收盘价
                     open.setText(mTickeBean.getOpen());//今开
                     high.setText(mTickeBean.getHigh());//最高
                     low.setText(mTickeBean.getLow());//最低
