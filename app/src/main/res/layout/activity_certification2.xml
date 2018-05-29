@@ -113,7 +113,8 @@
             android:textSize="@dimen/sp12"
             android:hint="请输入15或18位的身份证号码"
             android:singleLine="true"
-            android:maxLength="20"
+            android:maxLength="18"
+            android:digits="@string/filter_vcode"
              />
     </LinearLayout>
 

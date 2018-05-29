@@ -9,6 +9,7 @@ import com.mex.GalaxyChain.common.UserGolbal;
  */
 
 public interface NetFuncConstants {
+    //一币通(期指会)(高杰)
 	String POST_REGISTER = "/api/yibitong/reg_mobile"; //手机注册
     String POST_LOGIN = "/api/yibitong/login_mobile"; //手机登陆
 	String GET_CODE = "/api/yibitong/verifycode_sms";//验证码

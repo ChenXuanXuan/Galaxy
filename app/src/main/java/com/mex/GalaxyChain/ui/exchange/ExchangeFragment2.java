@@ -25,6 +25,7 @@ import com.mex.GalaxyChain.common.view.BaseSmartRefreshLayout;
 import com.mex.GalaxyChain.net.HttpInterceptor;
 import com.mex.GalaxyChain.net.repo.UserRepo;
 import com.mex.GalaxyChain.utils.AppUtil;
+import com.mex.GalaxyChain.utils.DecimalFormatUtils;
 import com.mex.GalaxyChain.utils.DeviceUtil;
 import com.mex.GalaxyChain.utils.LogUtils;
 import com.mex.GalaxyChain.utils.ToastUtils;
@@ -39,7 +40,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.text.NumberFormat;
 import java.util.List;
 
 import okhttp3.MediaType;
@@ -72,7 +72,7 @@ public class ExchangeFragment2 extends BaseFragment {
     TextView tv_total_float_lossprofit; //总浮动盈亏
 
     @ViewById(R.id.tv_canusedamount)
-    TextView tv_canusedamount; //可用余额=总资金
+    TextView tv_canusedamount; //可用余额
 
     @ViewById(R.id.tv_post)
     TextView tv_post;//仓位
@@ -185,30 +185,23 @@ public class ExchangeFragment2 extends BaseFragment {
                                 HoldPositionBean.DataBean dataBean = holdPositionBean.getData();
                                 tv_total_amount.setText("总资金: " + dataBean.getTotalamount());//总资金
                                 tv_canusedamount.setText(String.valueOf(dataBean.getCanusedamount()));//可用余额
-                                NumberFormat mNumberFormat = MyApplication.getInstance().mNumberFormat;
-                                mNumberFormat.setMaximumFractionDigits(2);
-                                tv_total_float_lossprofit.setText(mNumberFormat.format(dataBean.getTotalprofit()));//总盈亏(总浮动盈亏)
-                                tv_post.setText(mNumberFormat.format((dataBean.getFrozenamout() / dataBean.getTotalamount()) * 100) + "%");//仓位= 冻结保证金/总资金*100%
+                                tv_total_float_lossprofit.setText(DecimalFormatUtils.getDecimal(dataBean.getTotalprofit(),2));//总盈亏(总浮动盈亏)
+                                //仓位= 冻结保证金/总资金*100%
+                                tv_post.setText(DecimalFormatUtils.getDecimal((dataBean.getFrozenamout() / dataBean.getTotalamount()) * 100,2)+"%");
                                 if (dataBean == null) {
                                     return;
                                 }
-                                List<HoldPositionBean.DataBean.ListBean> listBeanList = dataBean.getList();
 
+                                List<HoldPositionBean.DataBean.ListBean> listBeanList = dataBean.getList();
                                 if (listBeanList == null || listBeanList.size() == 0) {  //listBeanList 没有数据  暂无持仓
                                     headerView.bindView(true);
-                                    tv_total_amount.setText("总资金: " + 0);//总资金
-                                    tv_total_float_lossprofit.setText(0 + "");//总盈亏(总浮动盈亏)
-                                    tv_canusedamount.setText(0 + "");//可用余额
-                                    tv_post.setText(0 + "");
+
                                 }else{
                                     headerView.bindView(false);
                                 }
-
                                 searchAdapter.setItems(listBeanList);
                                 searchAdapter.setItemData(varietyHoldPosiBean);
-
-
-                            } else {
+                                } else {
                                 ToastUtils.showTextInMiddle("获取持仓失败");
                             }
 

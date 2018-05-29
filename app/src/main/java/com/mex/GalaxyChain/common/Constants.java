@@ -97,6 +97,7 @@ int SUSPEND_TRADING=4;
     String  EURO="欧元";
     String  HONGKONG_DOLLAR="港币";
     String RMB="人民币";
+    String YYB="YYB";
 
 
     //订单类型（限价委托 = 1、市价委托 = 2）
@@ -140,4 +141,7 @@ int SUSPEND_TRADING=4;
     String COUNTRY_CODE="156+86";
      int  IDCARD=1;
      int PASSPORT=2;
+
+     int  RENZHENG_C1=1;
+     int  RENZHENG_C2=2;
 }

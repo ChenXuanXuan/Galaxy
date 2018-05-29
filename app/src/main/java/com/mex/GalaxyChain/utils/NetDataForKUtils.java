@@ -128,9 +128,9 @@ public class NetDataForKUtils {
                              tv_closeTime.setText(closeTime + "自动平仓,涨"
                                      + perprofitnumber + "个点赚"
                                      + perprofit + currencytype_zh
-                                     + "(" + count_CNY + Constants.RMB + ")");
+                                     + "(" + count_CNY + Constants.YYB + ")");
 
-                             tv_current_cny_rate.setText("当前汇率:  " + "1" + currencytype_zh + "=" + rate + Constants.RMB); //人民币汇率
+                             tv_current_cny_rate.setText("当前汇率:  " + "1" + currencytype_zh + "=" + rate + Constants.YYB); //人民币汇率
                              //=================================================
                              double  mPerrmbfee = mDataBean.getPerrmbfee(); //每笔手续费(交易费用)perrmbfee todo 回返
                              double perrmbmargin = mDataBean.getPerrmbmargin();//(履约保证金)    todo 回返

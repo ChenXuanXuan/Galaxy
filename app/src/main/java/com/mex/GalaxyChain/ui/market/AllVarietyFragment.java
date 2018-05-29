@@ -163,7 +163,7 @@ public class AllVarietyFragment extends BaseFragment {
         String deviceID = HttpInterceptor.silentURLEncode(device_identifier);//设备ID
         netDataForDescription(all_variety, deviceType, phoneModel, channelID, APKVersion, deviceID, mLongitude, mLatitude);
         netDataForGoodsPrice(all_variety, deviceType, phoneModel, channelID, APKVersion, deviceID, mLongitude, mLatitude);
-        //startTimer(all_variety, deviceType, phoneModel, channelID, APKVersion, deviceID, mLongitude, mLatitude);
+        startTimer(all_variety, deviceType, phoneModel, channelID, APKVersion, deviceID, mLongitude, mLatitude);
     }
 
 

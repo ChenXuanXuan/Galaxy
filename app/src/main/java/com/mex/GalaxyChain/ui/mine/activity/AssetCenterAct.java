@@ -77,7 +77,7 @@ public class AssetCenterAct extends BaseActivity {
 
                    // String url=NetFuncConstants.H5_URL_ASSETACCOUNT;
                    // UIHelper.toAmountH5Activity(AssetCenterAct.this,url);
-                }else{
+                  }else{
                     ToastUtils.showTextInMiddle("请先认证");
                     return;
                 }
@@ -87,8 +87,8 @@ public class AssetCenterAct extends BaseActivity {
 
 
             case R.id.rl_amountCenter_Certification://实名认证
-               // CertificationActivity_.intent(AssetCenterAct.this).start();//王皓实名认证
-                CertificationActivity2_.intent(AssetCenterAct.this).start();//高杰实名认证
+                CertificationActivity_.intent(AssetCenterAct.this).start();//王皓实名认证
+               // CertificationActivity2_.intent(AssetCenterAct.this).start();//高杰实名认证
                 break;
 		}
 	}

@@ -74,6 +74,22 @@ public class UserGolbal {
     public String drawedYYAcount;// 提现的YY数量
     public int uid;
     private String phoneNum;
+    private  int  status_auth_c1=0; //高杰C1 实名认证
+
+
+
+    public int getStatus_auth_c1() {
+        return status_auth_c1;
+    }
+
+    public void setStatus_auth_c1(int status_auth_c1) {
+        this.status_auth_c1 = status_auth_c1;
+    }
+
+
+    //是否C1 认证成功
+   // public boolean isAuthC1Success(){}
+
 
 
     public String getPhoneNum() {

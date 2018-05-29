@@ -658,13 +658,13 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                                     currencytype_zh = Constants.HONGKONG_DOLLAR;
                                 }
 
-                                double count_CNY = perprofitnumber * perprofit * rate; //?CNY=点数*收益*汇率(rate)
+                                double count_CNY = perprofit * rate; //?CNY=收益*汇率(rate)
                                 tv_closeTime.setText(closeTime + "自动平仓,涨"
                                         + perprofitnumber + "个点赚"
                                         + perprofit + currencytype_zh
-                                        + "(" + DecimalFormatUtils.getDecimal(count_CNY,2) + Constants.RMB + ")");
+                                        + "(" + DecimalFormatUtils.getDecimal(count_CNY,2) + Constants.YYB + ")");
 
-                                tv_current_cny_rate.setText("当前汇率:  " + "1" + currencytype_zh + "=" + rate + Constants.RMB); //人民币汇率
+                                tv_current_cny_rate.setText("当前汇率:  " + "1" + currencytype_zh + "=" + rate + Constants.YYB); //人民币汇率
                                 //=================================================
                                 mPerrmbfee = dataBean.getPerrmbfee(); //每笔手续费(交易费用)perrmbfee
                                 double perrmbmargin = dataBean.getPerrmbmargin();//(履约保证金)

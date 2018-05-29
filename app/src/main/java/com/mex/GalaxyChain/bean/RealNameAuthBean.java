@@ -3,7 +3,11 @@ package com.mex.GalaxyChain.bean;
 import com.mex.GalaxyChain.net.bean.BaseBean;
 
 public class RealNameAuthBean extends BaseBean {
-
+/*
+*  王皓
+*
+*
+* */
 
     /**
      * data : {"idcard":"420683198702107813","realname":"哈哈","province":"湖北","city":"襄阳","town":"枣阳市","sex":"男","birth":"1987年02月10日","verifystatus":"1","verifymsg":"抱歉，身份证校验不一致！"}
@@ -54,8 +58,8 @@ public class RealNameAuthBean extends BaseBean {
          * town : 枣阳市
          * sex : 男
          * birth : 1987年02月10日
-         * verifystatus : 1
-         * verifymsg : 抱歉，身份证校验不一致！
+         * verifystatus : 0
+         * verifymsg :  身份证校验一致！
          */
 
         private String idcard;
