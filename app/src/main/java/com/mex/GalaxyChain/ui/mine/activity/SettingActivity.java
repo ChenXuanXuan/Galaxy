@@ -14,6 +14,7 @@ import com.mex.GalaxyChain.bean.LoginOutBean;
 import com.mex.GalaxyChain.bean.eventbean.CloseBean;
 import com.mex.GalaxyChain.bean.requestbean.PostLoginOutBean;
 import com.mex.GalaxyChain.common.BaseActivity;
+import com.mex.GalaxyChain.common.ConfigManager;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.net.HttpInterceptor;
@@ -22,8 +23,6 @@ import com.mex.GalaxyChain.net.repo.UserRepo;
 import com.mex.GalaxyChain.ui.activity.BrowserActivity_;
 import com.mex.GalaxyChain.utils.AppUtil;
 import com.mex.GalaxyChain.utils.DeviceUtil;
-import com.mex.GalaxyChain.utils.LogUtils;
-import com.mex.GalaxyChain.utils.MD5Util;
 import com.mex.GalaxyChain.utils.ToastUtils;
 
 import org.androidannotations.annotations.AfterViews;
@@ -31,10 +30,6 @@ import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.ViewById;
 import org.greenrobot.eventbus.EventBus;
-
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -104,7 +99,8 @@ public class SettingActivity extends BaseActivity {
             //定位成功 经纬度直接用
             double mLongitude = UserGolbal.getInstance().getLongitude(); //空
             double mLatitude = UserGolbal.getInstance().getLatitude();//空
-            String token = UserGolbal.getInstance().getUserToken();
+           // String token = UserGolbal.getInstance().getUserToken();
+            String token = ConfigManager.getUserToken();
             PostLoginOutBean  postLoginOutBean =new PostLoginOutBean();
             postLoginOutBean.setToken(token);
             postLoginOutBean.setDeviceType(Constants.ANDROID);
@@ -133,11 +129,12 @@ public class SettingActivity extends BaseActivity {
                         @Override
                         public void onNext(LoginOutBean loginOutBean) {
                              ToastUtils.showCorrectImage("退出登录成功");
-                              UserGolbal.getInstance().setLoginOut("");
+                            //  UserGolbal.getInstance().setLoginOut();
+                               ConfigManager.logOut();
                               CloseBean closeBean =new CloseBean();
                               EventBus.getDefault().post(closeBean);
                               UIHelper.jumptoPhoneNumLoginActivity(SettingActivity.this,"");
-                            finish();
+                               finish();
 
                         }
                     });

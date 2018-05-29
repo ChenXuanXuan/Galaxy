@@ -10,7 +10,8 @@
         android:layout_height="45dp"
         android:background="@color/transparent"
         android:orientation="horizontal"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:visibility="gone">
 
         <!--<ImageView
             android:id="@+id/back"
@@ -34,7 +35,7 @@
 
     </RelativeLayout>
 
-
+    <include layout="@layout/layout_topbar_transparent" />
 
 
     <LinearLayout

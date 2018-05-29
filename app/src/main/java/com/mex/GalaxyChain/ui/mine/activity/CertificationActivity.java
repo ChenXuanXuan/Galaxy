@@ -13,8 +13,8 @@ import com.mex.GalaxyChain.bean.RealNameAuthBean;
 import com.mex.GalaxyChain.bean.RealNameC1Bean;
 import com.mex.GalaxyChain.bean.requestbean.CertificationBean;
 import com.mex.GalaxyChain.common.BaseActivity;
+import com.mex.GalaxyChain.common.ConfigManager;
 import com.mex.GalaxyChain.common.Constants;
-import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.net.repo.UserRepo;
 import com.mex.GalaxyChain.utils.CheckUtils;
 import com.mex.GalaxyChain.utils.CreatSignUtils;
@@ -171,7 +171,8 @@ public class CertificationActivity  extends BaseActivity {
 
         mShowDialog();
         CertificationBean  certificationBean = new  CertificationBean();
-           certificationBean.setUsertoken(UserGolbal.getInstance().getUserToken());
+        //   certificationBean.setUsertoken(UserGolbal.getInstance().getUserToken());
+        certificationBean.setUsertoken(ConfigManager.getUserToken());
            certificationBean.setRealname(name);
           certificationBean.setIdcard(idNum);
 
@@ -275,7 +276,8 @@ public class CertificationActivity  extends BaseActivity {
             }else{
             params.put("end",idcard_endTime);
          }
-        String token=UserGolbal.getInstance().getUserToken();
+        //String token=UserGolbal.getInstance().getUserToken();
+        String token=ConfigManager.getUserToken();
         params.put("token",token);
         Date dt = new Date();
         String timeStamp = dt.getTime() + "";

@@ -14,6 +14,7 @@ import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.bean.PostPayInBean;
 import com.mex.GalaxyChain.bean.requestbean.PayInMoneyBean;
 import com.mex.GalaxyChain.common.BaseActivity;
+import com.mex.GalaxyChain.common.ConfigManager;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.net.HttpInterceptor;
@@ -127,7 +128,8 @@ public class CoinsCoinsRechargeH5Activity extends BaseActivity {
             double mLongitude = UserGolbal.getInstance().getLongitude(); //空
             double mLatitude = UserGolbal.getInstance().getLatitude();//空
             PayInMoneyBean payInMoneyBean = new PayInMoneyBean();
-            payInMoneyBean.usertoken = UserGolbal.getInstance().getUserToken();
+            payInMoneyBean.usertoken = ConfigManager.getUserToken();
+            // payInMoneyBean.usertoken = UserGolbal.getInstance().getUserToken();
             payInMoneyBean.payinmoney = Double.valueOf(payinmoney);
             payInMoneyBean.payintype = payintype;
             payInMoneyBean.sourcecurrency = sourcecurrency;

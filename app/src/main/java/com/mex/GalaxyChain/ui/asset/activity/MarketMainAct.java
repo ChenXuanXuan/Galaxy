@@ -41,6 +41,7 @@ import com.mex.GalaxyChain.bean.eventbean.TagBean;
 import com.mex.GalaxyChain.bean.requestbean.RequestOrderBuyBean;
 import com.mex.GalaxyChain.bean.requestbean.RequestPostOrderMore;
 import com.mex.GalaxyChain.common.BaseActivity;
+import com.mex.GalaxyChain.common.ConfigManager;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.event.TickerEvent;
@@ -321,7 +322,8 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
 
     //做多对话框 : 判断是否登陆
     public void showMakeMoreOrLossDialog(int bsType) {
-        if (UserGolbal.getInstance().isLogin()) {
+       // if (UserGolbal.getInstance().isLogin()) {
+        if (ConfigManager.isLogin()) {
             dialog = new Dialog(getActivity(), R.style.ActionSheetDialogStyle);
             View inflate = LayoutInflater.from(getActivity()).inflate(R.layout.layout_dialog_make_more, null);
             initDialog(bsType, inflate);
@@ -609,7 +611,8 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
         if (UserGolbal.getInstance().locationSuccess()) {
             mMLongitude = UserGolbal.getInstance().getLongitude();
             mMLatitude = UserGolbal.getInstance().getLatitude();
-            mToken = UserGolbal.getInstance().getUserToken();
+          //  mToken = UserGolbal.getInstance().getUserToken();
+            mToken = ConfigManager.getUserToken();
             RequestOrderBuyBean requestOrderBuyBean = new RequestOrderBuyBean();
             //  int bsType=Constants.BUY_RISE; //1买涨
             requestOrderBuyBean.setBstype(bsType);
@@ -928,9 +931,9 @@ public class MarketMainAct extends BaseActivity implements View.OnClickListener,
                     }
 
 
-                    tvCurrent.setText(mTickeBean.getBidPrice()); //最新价
-                    tv_makeMore_newPrice.setText(mTickeBean.getBidPrice()); //最新价
-                    tv_makeLoss_newPrice.setText(mTickeBean.getBidPrice()); //最新价
+                    tvCurrent.setText(DecimalFormatUtils.getDecimal(Double.valueOf(mTickeBean.getBidPrice()),2)); //最新价
+                    tv_makeMore_newPrice.setText(DecimalFormatUtils.getDecimal(Double.valueOf(mTickeBean.getBidPrice()),2)); //最新价
+                    tv_makeLoss_newPrice.setText(DecimalFormatUtils.getDecimal(Double.valueOf(mTickeBean.getBidPrice()),2)); //最新价
                     // 涨跌幅度(%)=(最新价 -  昨日收盘价)/ 昨日收盘价*100%
                     double upsAndDowns_rate = (offerPrice - preClose)/preClose;
 

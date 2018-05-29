@@ -94,7 +94,7 @@
         <!-- lsj 9f73fb84b1db9a7ac10415730af6e99c-->
         <meta-data
             android:name="com.amap.api.v2.apikey"
-            android:value="9f73fb84b1db9a7ac10415730af6e99c" />
+            android:value="3991b905360650bd926990b1926d590b" />
         <!-- 定位需要的服务 -->
         <service android:name="com.amap.api.location.APSService"></service>
 
@@ -176,20 +176,9 @@
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />-->
 
 
-         <activity
-            android:name="com.mex.GalaxyChain.ui.activity.H5LoadingActivity_"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:theme="@style/WelcomeEntranceActionBarTheme"
-            android:windowSoftInputMode="adjustPan|stateAlwaysHidden">
-         </activity>
 
 
-        <activity
-            android:name="com.mex.GalaxyChain.ui.mine.activity.AbountActivity_"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan|stateAlwaysHidden" />
+
 
 
 

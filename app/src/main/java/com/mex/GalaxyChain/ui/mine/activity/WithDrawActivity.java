@@ -13,6 +13,7 @@ import com.mex.GalaxyChain.UIHelper;
 import com.mex.GalaxyChain.bean.PayOutMeneyBean;
 import com.mex.GalaxyChain.bean.requestbean.PayOutMoneyBean;
 import com.mex.GalaxyChain.common.BaseActivity;
+import com.mex.GalaxyChain.common.ConfigManager;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.net.HttpInterceptor;
@@ -121,7 +122,8 @@ public class WithDrawActivity  extends BaseActivity {
             PayOutMoneyBean payOutMoneyBean = new PayOutMoneyBean();
             payOutMoneyBean.longitude = mLongitude;
             payOutMoneyBean.latitude = mLatitude;
-            payOutMoneyBean.usertoken = UserGolbal.getInstance().getUserToken();
+           // payOutMoneyBean.usertoken = UserGolbal.getInstance().getUserToken();
+            payOutMoneyBean.usertoken = ConfigManager.getUserToken();
             payOutMoneyBean.payoutmoney = Double.valueOf(yyAcount);
             payOutMoneyBean.payouttype = Constants.PAYOUTMONEYTYPE_FABI;
             payOutMoneyBean.deviceType = Constants.ANDROID;

@@ -8,6 +8,7 @@ import com.mex.GalaxyChain.bean.MoneyFlowBean;
 import com.mex.GalaxyChain.bean.PayOutListBean;
 import com.mex.GalaxyChain.bean.PostPayInBean;
 import com.mex.GalaxyChain.bean.requestbean.PayInMoneyBean;
+import com.mex.GalaxyChain.common.ConfigManager;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.net.HttpInterceptor;
@@ -43,7 +44,8 @@ public class LoadNetDataForMoneyFlowUtil {
              //定位成功 经纬度直接用
              double mLongitude = UserGolbal.getInstance().getLongitude(); //空
              double mLatitude = UserGolbal.getInstance().getLatitude();//空
-             String token = UserGolbal.getInstance().getUserToken();
+            // String token = UserGolbal.getInstance().getUserToken();
+             String token = ConfigManager.getUserToken();
              paramMap.put("latitude", mLatitude);
              paramMap.put("longitude", mLongitude);
              if(biztype==Constants.TIXIAN){//提现记录(没有biztype 参数)
@@ -210,7 +212,8 @@ public class LoadNetDataForMoneyFlowUtil {
             double mLongitude = UserGolbal.getInstance().getLongitude(); //空
             double mLatitude = UserGolbal.getInstance().getLatitude();//空
             PayInMoneyBean payInMoneyBean = new PayInMoneyBean();
-            payInMoneyBean.usertoken = UserGolbal.getInstance().getUserToken();
+           //  payInMoneyBean.usertoken = UserGolbal.getInstance().getUserToken();
+            payInMoneyBean.usertoken = ConfigManager.getUserToken();
             payInMoneyBean.payinmoney = Double.valueOf(payinmoney);
             payInMoneyBean.payintype = payintype;
             payInMoneyBean.sourcecurrency = sourcecurrency;

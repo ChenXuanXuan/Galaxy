@@ -146,7 +146,8 @@ public class SettleFragment extends BaseFragment {
 
             if(UserGolbal.getInstance().locationSuccess()){
                 RequestTradeDetailListBean   requestTradeDetailListBean = new  RequestTradeDetailListBean();
-                requestTradeDetailListBean.setUsertoken(UserGolbal.getInstance().getUserToken());
+               // requestTradeDetailListBean.setUsertoken(UserGolbal.getInstance().getUserToken());
+                requestTradeDetailListBean.setUsertoken(ConfigManager.getUserToken());
                 requestTradeDetailListBean.setLatitude(UserGolbal.getInstance().getLatitude());
                 requestTradeDetailListBean.setLongitude(UserGolbal.getInstance().getLongitude());
                 requestTradeDetailListBean.setPage(currentPage);

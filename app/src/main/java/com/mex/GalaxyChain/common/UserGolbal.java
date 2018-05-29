@@ -72,11 +72,21 @@ public class UserGolbal {
 
 
     public String drawedYYAcount;// 提现的YY数量
-    public int uid;
+
+    public int uid=0;
     private String phoneNum;
     private  int  status_auth_c1; //高杰C1 实名认证
 
 
+
+
+    public int getUid() {
+        return uid;
+    }
+
+    public void setUid(int uid) {
+        this.uid = uid;
+    }
 
     public int getStatus_auth_c1() {
         return status_auth_c1;
@@ -357,8 +367,10 @@ public class UserGolbal {
         return !TextUtils.isEmpty(mUserToken);
     }
 
-  public void setLoginOut(String token){
-          setUserToken(token);
+  public void setLoginOut(){
+        //  setUserToken("");
+         //  setUid(0);
+
   }
 
 

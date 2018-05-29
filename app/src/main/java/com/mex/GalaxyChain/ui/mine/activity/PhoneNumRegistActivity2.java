@@ -284,20 +284,20 @@ public class PhoneNumRegistActivity2  extends BaseActivity{
                                 // ToastUtils.showCorrectImage("注册成功，正在登录");
                                   RegistBean.DataBean dataBean= registBean.getData();
                                   if(dataBean==null) return;
-                                  //注册成功 直接登陆   跳到主界面
+                                   //注册成功  直接王浩登陆    跳到主界面
                                   loacationAndPostLogin(dataBean);
                              }else if(registBean.getCode().equals("110001")){
-                                 ToastUtils.showErrorImage("短信验证码错误或过期");
+                                 ToastUtils.showErrorImage("短信验证码错误或过期");return;
                              }else if(registBean.getCode().equals("110023")){
-                                 ToastUtils.showErrorImage("手机号已注册");
-                                 RegistBean.DataBean dataBean= registBean.getData();
-                                 loacationAndPostLogin(dataBean);
+                                 ToastUtils.showErrorImage("手机号已注册");return;
+                                 //RegistBean.DataBean dataBean= registBean.getData();
+                                 //loacationAndPostLogin(dataBean);
                              } else if(registBean.getCode().equals("100005")){
-                                 ToastUtils.showErrorImage("参数签名错误");
+                                 ToastUtils.showErrorImage("参数签名错误"); return;
                              }else if(registBean.getCode().equals("110013")){
-                                 ToastUtils.showErrorImage("邀请码无效");
+                                 ToastUtils.showErrorImage("邀请码无效");return;
                              }else if(registBean.getCode().equals("100001")){
-                                 ToastUtils.showErrorImage("系统异常");
+                                 ToastUtils.showErrorImage("系统异常");return;
                              }
 
                              }
@@ -414,7 +414,7 @@ public class PhoneNumRegistActivity2  extends BaseActivity{
                        UIHelper.jumptoMainActivity(PhoneNumRegistActivity2.this,""); //注册成功 直接到主界面
                         finish();
                    }else{
-                       ToastUtils.showErrorImage(postLoginBean.getCode()+"登陆失败");
+                       ToastUtils.showErrorImage(postLoginBean.getMsg()); return;
                    }
 
 

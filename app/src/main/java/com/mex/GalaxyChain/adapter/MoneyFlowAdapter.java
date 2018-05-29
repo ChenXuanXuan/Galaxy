@@ -14,7 +14,7 @@ import com.mex.GalaxyChain.utils.DecimalFormatUtils;
 
 public class MoneyFlowAdapter   extends BaseAbsListAdapter<MoneyFlowBean.DataBean.ListBean,
         MoneyFlowAdapter.MoneyFlowViewHolder> {
-    private final LayoutInflater mLayoutInflater;
+      private final LayoutInflater mLayoutInflater;
 
     public MoneyFlowAdapter(Context context) {
         super(context);

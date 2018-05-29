@@ -15,6 +15,7 @@ import com.mex.GalaxyChain.bean.eventbean.CloseBean;
 import com.mex.GalaxyChain.bean.eventbean.TagBean;
 import com.mex.GalaxyChain.bean.eventbean.ToMarketFragBean;
 import com.mex.GalaxyChain.common.BaseFragment;
+import com.mex.GalaxyChain.common.ConfigManager;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.event.NetEvent;
@@ -78,11 +79,13 @@ public class MainActivity extends FragmentActivity implements BackHandledInterfa
                 //	showFragment(Constants.INDEX_EXCHANGE);
                 //else
                 //	showLoginActivity();
-                if (!IsEmptyUtils.isEmpty(UserGolbal.getInstance().getUserToken())) {
+              //  if (!IsEmptyUtils.isEmpty(UserGolbal.getInstance().getUserToken())) {
+              //  if (!IsEmptyUtils.isEmpty(ConfigManager.getUserToken())) {
+                if(ConfigManager.isLogin()){
                     showFragment(Constants.INDEX_EXCHANGE);
                 } else {
                     UIHelper.jumptoChiCangUnLoginActivity(this);
-                    finish();
+                   //finish();
                 }
 
                 break;
@@ -91,11 +94,13 @@ public class MainActivity extends FragmentActivity implements BackHandledInterfa
                 break;
             case R.id.main_tab_mine:
 
-               if (!IsEmptyUtils.isEmpty(UserGolbal.getInstance().getUserToken())) {
+             //  if (!IsEmptyUtils.isEmpty(UserGolbal.getInstance().getUserToken())) {
+               // if (!IsEmptyUtils.isEmpty(ConfigManager.getUserToken())) {
+                if(ConfigManager.isLogin()){
                     showFragment(Constants.INDEX_MINE);
                  } else {
                     UIHelper.jumptoPhoneNumLoginActivity(this, "");
-                     finish();
+                    // finish();
                 }
 
 
@@ -310,7 +315,7 @@ public class MainActivity extends FragmentActivity implements BackHandledInterfa
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(CloseBean closeBean) {
-        finish();
+        showFragment(Constants.INDEX_MARKET);
     }
 
 

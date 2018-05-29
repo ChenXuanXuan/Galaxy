@@ -40,6 +40,7 @@ import com.mex.GalaxyChain.bean.eventbean.TagBean;
 import com.mex.GalaxyChain.bean.requestbean.RequestOrderBuyBean;
 import com.mex.GalaxyChain.bean.requestbean.RequestPostOrderMore;
 import com.mex.GalaxyChain.common.BaseActivity;
+import com.mex.GalaxyChain.common.ConfigManager;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.event.TickerEvent;
@@ -378,7 +379,8 @@ public class LandMarketMainAct extends BaseActivity implements View.OnClickListe
     }
 
     private void showMakeMoreOrLossDialog(int bsType) {
-        if (UserGolbal.getInstance().isLogin()) {
+       // if (UserGolbal.getInstance().isLogin()) {
+        if (ConfigManager.isLogin()) {
             dialog = new Dialog(getActivity(), R.style.ActionSheetDialogStyle);
             View inflate = LayoutInflater.from(getActivity()).inflate(R.layout.layout_dialog_make_more_heng, null);
             initDialog(bsType, inflate);
@@ -471,7 +473,8 @@ public class LandMarketMainAct extends BaseActivity implements View.OnClickListe
         if (UserGolbal.getInstance().locationSuccess()) {
             mMLongitude = UserGolbal.getInstance().getLongitude();
             mMLatitude = UserGolbal.getInstance().getLatitude();
-            mToken = UserGolbal.getInstance().getUserToken();
+          //  mToken = UserGolbal.getInstance().getUserToken();
+            mToken = ConfigManager.getUserToken();
             RequestOrderBuyBean requestOrderBuyBean = new RequestOrderBuyBean();
             //  int bsType=Constants.BUY_RISE; //1买涨
             requestOrderBuyBean.setBstype(bsType);

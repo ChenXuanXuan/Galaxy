@@ -16,6 +16,7 @@ import com.mex.GalaxyChain.bean.PostCloseOrderBean;
 import com.mex.GalaxyChain.bean.eventbean.VarietyHoldPosi;
 import com.mex.GalaxyChain.bean.eventbean.VarietyHoldPosiBean;
 import com.mex.GalaxyChain.bean.requestbean.RequestClosePositionBean;
+import com.mex.GalaxyChain.common.ConfigManager;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.common.control.BaseAbsListAdapter;
@@ -178,7 +179,8 @@ public class SearchAdapter extends BaseAbsListAdapter<HoldPositionBean.DataBean.
                         double mMLatitude = UserGolbal.getInstance().getLatitude();
                         requestClosePositionBean.setLatitude(mMLatitude);
                         requestClosePositionBean.setLongitude(mMLongitude);
-                        requestClosePositionBean.setUsertoken(UserGolbal.getInstance().getUserToken());
+                        //requestClosePositionBean.setUsertoken(UserGolbal.getInstance().getUserToken());
+                        requestClosePositionBean.setUsertoken(ConfigManager.getUserToken());
                         requestClosePositionBean.setPosid(listBean.getPosid());//持仓ID(订单号)（平仓用）
                         requestClosePositionBean.setOrdertype(listBean.getOrdertype());//订单类型（限价委托 = 1、市价委托 = 2）
                         requestClosePositionBean.setPrice(listBean.getNewprice());  //平仓价格

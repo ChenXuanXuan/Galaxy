@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp20"
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_marginLeft="@dimen/dp24"
+        android:layout_marginRight="@dimen/dp24"
+        android:orientation="horizontal"
+        >
+
+        <TextView
+            android:id="@+id/tv_left"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:lines="1"
+            android:singleLine="true"
+            android:text="--"
+            android:textColor="@color/rgb_54_54_54"
+            android:textSize="@dimen/sp12"/>
+
+        <TextView
+            android:id="@+id/tv_right"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1.2"
+            android:gravity="end"
+             android:layout_gravity="center_vertical"
+            android:text="+100000"
+            android:textColor="@color/rgb_54_54_54"
+            android:textSize="@dimen/sp12"/>
+
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp20"
+        android:layout_marginLeft="@dimen/dp24"
+        android:layout_marginRight="@dimen/dp24">
+
+        <TextView
+            android:id="@+id/tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="2018-05-20"
+            android:textColor="@color/rgb_54_54_54"
+            android:textSize="@dimen/sp10"></TextView>
+
+        <TextView
+            android:id="@+id/tv_canuseAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:gravity="center_vertical"
+            android:text="可用余额:100000"
+            android:textColor="@color/rgb_54_54_54"
+            android:textSize="@dimen/sp10"></TextView>
+
+    </RelativeLayout>
+
+
+    <View
+        android:layout_marginTop="@dimen/dp10"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp0.5"
+        android:background="@color/rgb_216_216_216" />
+
+
+</LinearLayout>

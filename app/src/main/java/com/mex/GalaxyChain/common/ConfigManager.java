@@ -17,6 +17,8 @@ public class ConfigManager {
 	private static final String KEY_CONFIG = "key_config";
 	private static final String KEY_ASSET = "key_asset";
 	private static VarietyHoldPosiBean varietyEntity;
+    private static final String KEY_USER_ID = "key_user_id";
+
 
 	public static void init(Context context) {
 		sharePStore = SharePStore.getStore(context, "config");
@@ -30,13 +32,9 @@ public class ConfigManager {
 		sharePStore.save(KEY_ISLOGIN, isHide);
 	}
 
-	public static String getUserToken() {
-		return sharePStore.getString(KEY_USER_TOKEN, "BELDY!7Ga$YQelBb^PSn");
-	}
 
-	public static void setUserToken(String userToken) {
-		sharePStore.save(KEY_USER_TOKEN, userToken);
-	}
+
+
 
 
   public static  void setUDeviceId(String udid){
@@ -64,8 +62,23 @@ public class ConfigManager {
 
 
 
+    public static void setUserToken(String userToken) { sharePStore.save(KEY_USER_TOKEN, userToken); }
+    public static String getUserToken() { return sharePStore.getString(KEY_USER_TOKEN, " "); }
+    public static void setUserId(int userId){
+	    sharePStore.save(KEY_USER_ID,userId);
+   }
+   public static int getUserId(){
+	    return sharePStore.getInt(KEY_USER_ID,0);
+   }
+    public static boolean isLogin() {
+        return sharePStore.getInt(KEY_USER_ID, 0) > 0;
+    }
+
+   public static void logOut() {
+        sharePStore.remove(KEY_USER_ID);
+        sharePStore.remove(KEY_USER_TOKEN);
+    }
 
 
-  //
 
 }

@@ -8,6 +8,7 @@ import com.mex.GalaxyChain.MyApplication;
 import com.mex.GalaxyChain.bean.MultiplBean;
 import com.mex.GalaxyChain.bean.OrderBuyBean;
 import com.mex.GalaxyChain.bean.requestbean.RequestOrderBuyBean;
+import com.mex.GalaxyChain.common.ConfigManager;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.net.HttpInterceptor;
@@ -66,7 +67,8 @@ public class NetDataForKUtils {
      if (UserGolbal.getInstance().locationSuccess()) {
          mMLongitude = UserGolbal.getInstance().getLongitude();
          mMLatitude = UserGolbal.getInstance().getLatitude();
-         mToken = UserGolbal.getInstance().getUserToken();
+         //mToken = UserGolbal.getInstance().getUserToken();
+         mToken = ConfigManager.getUserToken();
          RequestOrderBuyBean requestOrderBuyBean = new RequestOrderBuyBean();
          //  int bsType=Constants.BUY_RISE; //1买涨
          requestOrderBuyBean.setBstype(bsType);

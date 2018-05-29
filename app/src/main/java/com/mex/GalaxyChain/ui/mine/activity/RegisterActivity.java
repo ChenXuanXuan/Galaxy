@@ -19,12 +19,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
-/**
- * name：
- * describe:
- * author: LSJ
- * time 24/4/18 下午1:50
- */
+
 @EActivity(R.layout.mine_register)
 public class RegisterActivity extends BaseActivity {
 

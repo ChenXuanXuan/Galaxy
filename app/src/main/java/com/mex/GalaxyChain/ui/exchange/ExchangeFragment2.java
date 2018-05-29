@@ -147,7 +147,8 @@ public class ExchangeFragment2 extends BaseFragment {
     private void loadNetData(final VarietyHoldPosiBean varietyHoldPosiBean) {
         if (UserGolbal.getInstance().locationSuccess()) {
             RequestTradeHomeBean requestTradeHomeBean = new RequestTradeHomeBean();
-            requestTradeHomeBean.setUsertoken(UserGolbal.getInstance().getUserToken());
+           // requestTradeHomeBean.setUsertoken(UserGolbal.getInstance().getUserToken());
+            requestTradeHomeBean.setUsertoken(ConfigManager.getUserToken());
             requestTradeHomeBean.setLatitude(UserGolbal.getInstance().getLatitude());
             requestTradeHomeBean.setLongitude(UserGolbal.getInstance().getLongitude());
 

@@ -28,6 +28,7 @@ import com.mex.GalaxyChain.UIHelper;
 import com.mex.GalaxyChain.bean.QuitEvent;
 import com.mex.GalaxyChain.bean.UserAccountInfoBean;
 import com.mex.GalaxyChain.common.BaseFragment;
+import com.mex.GalaxyChain.common.ConfigManager;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.net.HttpInterceptor;
@@ -64,12 +65,7 @@ import rx.Subscriber;
 
 import static android.app.Activity.RESULT_OK;
 
-/**
- * name：
- * describe:个人中心
- * author: LSJ
- * time 22/3/18 下午2:28
- */
+
 @EFragment(R.layout.fragment_mine)
 public class MineFragment extends BaseFragment {
     @ViewById
@@ -116,7 +112,8 @@ public class MineFragment extends BaseFragment {
             //定位成功 经纬度直接用
             double mLongitude = UserGolbal.getInstance().getLongitude(); //空
             double mLatitude = UserGolbal.getInstance().getLatitude();//空
-            String token = UserGolbal.getInstance().getUserToken();
+           // String token = UserGolbal.getInstance().getUserToken();
+            String token = ConfigManager.getUserToken();
             paramMap.put("latitude", mLatitude);
             paramMap.put("longitude", mLongitude);
             paramMap.put("usertoken", token);
@@ -152,11 +149,11 @@ public class MineFragment extends BaseFragment {
                               //  tv_amount_type.setText("总金额(" + accountMoneyInfo.getCurrenttype() + ")");
                                 tv_canusedamount.setText(DecimalFormatUtils.getDecimal(accountMoneyInfo.getAmount(),2));
                                 int realnamestatus=  accountMoneyInfo.getRealnamestatus();//开户状态(1=开户(已实名认证),2=销户)
-                                UserGolbal.getInstance().setRealnamestatus(realnamestatus);
-                                UserGolbal.getInstance().amount = accountMoneyInfo.getAmount();
-                                UserGolbal.getInstance().canusedamount = accountMoneyInfo.getCanusedamount();
-                                UserGolbal.getInstance().frozenmargin = accountMoneyInfo.getFrozenmargin();
-                                UserGolbal.getInstance().totalprofit = accountMoneyInfo.getTotalprofit();
+                             //   UserGolbal.getInstance().setRealnamestatus(realnamestatus);
+                              //  UserGolbal.getInstance().amount = accountMoneyInfo.getAmount();
+                             //   UserGolbal.getInstance().canusedamount = accountMoneyInfo.getCanusedamount();
+                             //   UserGolbal.getInstance().frozenmargin = accountMoneyInfo.getFrozenmargin();
+                             //                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           UserGolbal.getInstance().totalprofit = accountMoneyInfo.getTotalprofit();
 
                             }
 

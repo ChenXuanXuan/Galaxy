@@ -107,12 +107,12 @@ public class MoneyFlowBean extends BaseBean {
             private String currenttype;//当前币种
             private int flowid;//流水ID
             private int fundaccountid;//资金账号ID
-            private double margin;//保证金
+            private double margin;//保证金(冻结保证金)
             private String objectid;//对象ID
             private int orderno;//订单号
             private double profit;//止盈
             private int quantity;//手数
-            private double tradefee;//手续费
+            private double tradefee;//手续费(扣除交易费用)
 
             public double getAmount() {
                 return amount;

@@ -9,6 +9,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
@@ -19,10 +20,10 @@ import com.mex.GalaxyChain.MyApplication;
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.UIHelper;
 import com.mex.GalaxyChain.bean.PostLoginBean;
-import com.mex.GalaxyChain.bean.RegistLoginBean;
 import com.mex.GalaxyChain.bean.UserMeBean;
 import com.mex.GalaxyChain.bean.requestbean.RequestPostLoginBean;
 import com.mex.GalaxyChain.common.BaseActivity;
+import com.mex.GalaxyChain.common.ConfigManager;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.net.HttpInterceptor;
@@ -43,7 +44,6 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.FocusChange;
 import org.androidannotations.annotations.ViewById;
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -67,13 +67,17 @@ public class PhoneNumLoginActivity extends BaseActivity {
     @ViewById
     EditText et_phone_password; // 设置密码
 
+    @ViewById
+    ImageView back;
 
+    @ViewById
+    TextView mTitle;
 
     @ViewById
     CheckBox cb_show_password_phone;
 
 
-    @Click({R.id.tv_login, R.id.tv_forget_pwd, R.id.tv_regist, R.id.ll_clear_phone})
+    @Click({R.id.tv_login, R.id.tv_forget_pwd, R.id.tv_regist, R.id.ll_clear_phone,R.id.back})
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_login:
@@ -92,6 +96,9 @@ public class PhoneNumLoginActivity extends BaseActivity {
                 EditUtils.cursorFollow(et_phone_number);
                 break;
 
+            case R.id.back:
+                finish();
+                break;
         }
     }
 
@@ -125,6 +132,8 @@ public class PhoneNumLoginActivity extends BaseActivity {
 
     @AfterViews
     protected void init() {
+        mTitle.setText("手机登陆");
+        back.setVisibility(View.VISIBLE);
         //  EventBus.getDefault().register(this);
         initListener();
     }
@@ -192,9 +201,9 @@ public class PhoneNumLoginActivity extends BaseActivity {
                     @Override
                     public void onNext(LoginBean loginBean) {
                         if (loginBean.getCode() == 0) {
-                              //登陆成功 再次登陆
-                             loacationAndPostLogin(loginBean);
-                              loadGetUserMe(loginBean);//mex  请求userme   获取userid status
+
+                             loacationAndPostLogin(loginBean);//MEX登陆成功   王浩再次登陆
+                              loadGetUserMe(loginBean);//mex 请求userme接口   获取userid  status
                         } else if (loginBean.getCode() == 110020) {
                             ToastUtils.showErrorImage("用户名不存在");
                             return;
@@ -235,7 +244,8 @@ public class PhoneNumLoginActivity extends BaseActivity {
                                 UserGolbal.getInstance().setStatus_auth_c1(auth.getStatus());//status=1 C1实名认证通过
 
                             }
-                            UserGolbal.getInstance().uid=userMeBean.getData().getUser().getUid();
+                          //  UserGolbal.getInstance().setUid(userMeBean.getData().getUser().getUid());
+                            ConfigManager.setUserId(userMeBean.getData().getUser().getUid());
                        }
                     }
                 });
@@ -334,19 +344,19 @@ public class PhoneNumLoginActivity extends BaseActivity {
             public void onNext(PostLoginBean postLoginBean) {
                 if (postLoginBean.getCode() == 200) {
                     dismissLoading();
-                    RegistLoginBean registLoginBean = new RegistLoginBean();
-                    registLoginBean.setUsertoken(loginBean.getData().getToken());
-                    UserGolbal.getInstance().setUserToken(loginBean.getData().getToken());
-                    EventBus.getDefault().post(registLoginBean);
+                   // RegistLoginBean registLoginBean = new RegistLoginBean();
+                  // registLoginBean.setUsertoken(loginBean.getData().getToken());
+                   //  EventBus.getDefault().post(registLoginBean);
+
+                   // UserGolbal.getInstance().setUserToken(loginBean.getData().getToken());
+                     ConfigManager.setUserToken(loginBean.getData().getToken());
 
                       if(!isEmpty(tag)){
                                 if(tag.equals(Constants.FROM_PAYORDER_K_MOKEMORE)){ //K线详情 看涨买多 --->登陆界面---> K线详情 看涨买多
                                     UIHelper.toMarkMainAct_kLine(PhoneNumLoginActivity.this);
                                     finish();
                                 }else if(tag.equals(Constants.FROM_CHICANG_UNLOGIN)){ //持仓未登录界面--->登陆界面--->持仓已登陆界面(MainActivity 1)
-
                                     UIHelper.jumptoMainActivity(PhoneNumLoginActivity.this,tag);
-
                                     finish();
                                 }
 

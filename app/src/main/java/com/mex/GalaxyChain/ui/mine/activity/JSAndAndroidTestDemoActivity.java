@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.common.BaseActivity;
-import com.mex.GalaxyChain.common.UserGolbal;
+import com.mex.GalaxyChain.common.ConfigManager;
 import com.mex.GalaxyChain.utils.ToastUtils;
 import com.mex.GalaxyChain.view.X5WebView;
 
@@ -122,7 +122,8 @@ public class JSAndAndroidTestDemoActivity extends BaseActivity {
         String uid = "y89raejosdq09reajcmjq90wefu8";
         String name="fmf";
         String password="123456";
-        String token = UserGolbal.getInstance().getUserToken();
+     //   String token = UserGolbal.getInstance().getUserToken();
+        String token = ConfigManager.getUserToken();
         mWebView.loadUrl(  "javascript:javaCallJs("+
                 "'"+uid+"',"+
                 "'"+name+"',"+
