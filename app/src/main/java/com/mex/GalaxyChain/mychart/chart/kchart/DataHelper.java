@@ -1,9 +1,7 @@
 package com.mex.GalaxyChain.mychart.chart.kchart;
 
 
-import com.mex.GalaxyChain.mychart.chart.kchart.chart.ChangeKLineEntity;
 import com.mex.GalaxyChain.mychart.chart.kchart.chart.KLineEntity;
-import com.mex.GalaxyChain.mychart.utils.LogUtils;
 
 import java.util.Collections;
 import java.util.List;

@@ -1,7 +1,5 @@
 package com.mex.GalaxyChain.mychart.chart.kchart.chart;
 
-import com.lsj.kchart.kchartlib.chart.entity.KLineImpl;
-
 import java.io.Serializable;
 
 /**

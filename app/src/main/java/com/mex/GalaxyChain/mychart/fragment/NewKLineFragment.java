@@ -22,7 +22,6 @@ import com.mex.GalaxyChain.bean.NewestKLineBean;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.mychart.chart.kchart.DataHelper;
-import com.mex.GalaxyChain.mychart.chart.kchart.chart.ChangeKLineEntity;
 import com.mex.GalaxyChain.mychart.chart.kchart.chart.KChartAdapter;
 import com.mex.GalaxyChain.mychart.chart.kchart.chart.KLineEntity;
 import com.mex.GalaxyChain.mychart.obser.IObserver;
