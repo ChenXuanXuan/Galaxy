@@ -2,6 +2,7 @@ package com.mex.GalaxyChain.ui.mine.activity;
 
 import android.graphics.PixelFormat;
 import android.os.Build;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
@@ -179,7 +180,19 @@ public class CoinsCoinsRechargeH5Activity extends BaseActivity {
 
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
 
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (mWebView != null && mWebView.canGoBack()) {
+                mWebView.goBack();
+                if (Integer.parseInt(Build.VERSION.SDK) >= 16)
+                    return true;
+            } else
+                return super.onKeyDown(keyCode, event);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
 
 }

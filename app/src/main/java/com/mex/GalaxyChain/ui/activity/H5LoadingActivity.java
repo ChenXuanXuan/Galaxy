@@ -65,10 +65,6 @@ public class H5LoadingActivity extends BaseActivity {
              finish();
         }
 
-
-
-
     }
-
 
 }
