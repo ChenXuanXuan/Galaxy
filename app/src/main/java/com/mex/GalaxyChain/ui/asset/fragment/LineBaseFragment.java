@@ -17,6 +17,7 @@ import android.widget.ListView;
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.mychart.ChartConstant;
 import com.mex.GalaxyChain.mychart.ChartView;
+import com.mex.GalaxyChain.utils.AppUtil;
 
 import rx.subscriptions.CompositeSubscription;
 
@@ -88,6 +89,25 @@ public abstract class LineBaseFragment extends Fragment implements ChartConstant
             mCompositeSubscription.unsubscribe();
         }
         super.onDestroyView();
+    }
+
+    public void mShowDialog() {
+        if (dialog == null) {
+            dialog = AppUtil.createLoadingDialog(getActivity(), true);
+            dialog.setCanceledOnTouchOutside(false);
+        }
+        if (dialog != null && !getActivity().isFinishing()) {
+            dialog.show();
+            dialog.setCanceledOnTouchOutside(false);
+        }
+    }
+
+    public void mDismissDialog() {
+        if (dialog != null && dialog.isShowing() && !getActivity().isFinishing()) {
+            dialog.dismiss();
+            AppUtil.createLoadingDialog(getActivity(), "", false);
+            dialog.setCanceledOnTouchOutside(false);
+        }
     }
 
     protected void initData() {

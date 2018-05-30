@@ -104,7 +104,6 @@ public class MineFragment extends BaseFragment {
         initListenerForPopu();
     }
 
-
     private void loadNetData() {
 
         if (UserGolbal.getInstance().locationSuccess()) {

@@ -18,6 +18,7 @@ import com.mex.GalaxyChain.common.BaseFragment;
 import com.mex.GalaxyChain.common.ConfigManager;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
+import com.mex.GalaxyChain.event.MainEvent;
 import com.mex.GalaxyChain.event.NetEvent;
 import com.mex.GalaxyChain.ui.asset.fragment.AssetFragment_;
 import com.mex.GalaxyChain.ui.common.AppManager;
@@ -316,6 +317,11 @@ public class MainActivity extends FragmentActivity implements BackHandledInterfa
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(CloseBean closeBean) {
         showFragment(Constants.INDEX_MARKET);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMain(MainEvent event) {
+        showFragment(Constants.INDEX_MINE);
     }
 
 
