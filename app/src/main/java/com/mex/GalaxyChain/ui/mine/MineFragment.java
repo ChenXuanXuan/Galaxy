@@ -44,6 +44,7 @@ import com.mex.GalaxyChain.utils.BitmapUtils;
 import com.mex.GalaxyChain.utils.DecimalFormatUtils;
 import com.mex.GalaxyChain.utils.DeviceUtil;
 import com.mex.GalaxyChain.utils.IsEmptyUtils;
+import com.mex.GalaxyChain.utils.LogUtils;
 import com.mex.GalaxyChain.utils.RequestPermissionUtils;
 import com.mex.GalaxyChain.utils.ToastUtils;
 import com.mex.GalaxyChain.view.PhotoPopupWindow;
@@ -88,8 +89,27 @@ public class MineFragment extends BaseFragment {
     @AfterViews
     void init() {
         initView();
-        loadNetData();
+      //  loadNetData();
     }
+
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            loadNetData();
+        }
+    }
+
+
+    @Override
+    public void onResume() {
+        loadNetData();
+        super.onResume();
+    }
+
+
+
 
 
     private void initView() {
@@ -143,6 +163,7 @@ public class MineFragment extends BaseFragment {
                         public void onNext(UserAccountInfoBean userAccountInfoBean) {
 
                             if (userAccountInfoBean.getCode() == 200) {
+                                LogUtils.d("TAG","MineFragment网络请求成功");
                                 UserAccountInfoBean.DataBean data = userAccountInfoBean.getData();
                                 UserAccountInfoBean.DataBean.AccountMoneyInfoBean accountMoneyInfo = data.getAccountMoneyInfo();
 
@@ -511,6 +532,12 @@ public class MineFragment extends BaseFragment {
 
         return null;
     }
+
+
+
+
+
+
 
 
 }

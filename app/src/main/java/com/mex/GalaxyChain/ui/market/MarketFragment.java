@@ -75,7 +75,7 @@ public class MarketFragment extends BaseFragment {
 	private void initViewpager() {
         mIndicatorViewPagerAdapter = new IndicatorViewPagerAdapter(getChildFragmentManager(), mFragmentList, titleTabArr);
 		  vp_hq_fragment.setAdapter(mIndicatorViewPagerAdapter);
-		  vp_hq_fragment.setOffscreenPageLimit(2);
+		  vp_hq_fragment.setOffscreenPageLimit(0);
 		 vp_hq_fragment.setCurrentItem(0);
 		 //额外添加的
         vp_hq_fragment.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -86,7 +86,7 @@ public class MarketFragment extends BaseFragment {
             public void onPageSelected(int position) {
                       for(int index = 0; index < mFragmentList.size(); index++ ){
                           if (index == position) {
-                              //开启此当前的fragment的定时器
+                               //开启此当前的fragment的定时器
                               mFragmentList.get(index).onSelect();
                           }else{
                               //关闭其他页面fragment的定时器

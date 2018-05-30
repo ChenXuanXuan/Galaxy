@@ -99,7 +99,8 @@ public class MainActivity extends FragmentActivity implements BackHandledInterfa
                 if(ConfigManager.isLogin()){
                     showFragment(Constants.INDEX_MINE);
                  } else {
-                    UIHelper.jumptoPhoneNumLoginActivity(this, "");
+                    String tag = Constants.FROM_MINE;
+                    UIHelper.jumptoPhoneNumLoginActivity(this, tag);
                     // finish();
                 }
 
@@ -163,24 +164,21 @@ public class MainActivity extends FragmentActivity implements BackHandledInterfa
           if(!IsEmptyUtils.isEmpty(tag)){
               if(tag.equals(Constants.FROM_CHICANG_UNLOGIN)){//持仓未登录界面  --->登陆界面--->持仓已登录界面(MainActivity 1)
                  initViewPager(Constants.INDEX_EXCHANGE);
-             } //else if(tag.equals(Constants.FROM_K_BUTTON_PAYORDERMORE)){//K线下单 确定做多  按钮买单 提交成功 ----> 持仓已登录界面
+             } else if(tag.equals(Constants.FROM_MINE)){//我的
+                  initViewPager(Constants.INDEX_MINE);
+              }//else if(tag.equals(Constants.FROM_K_BUTTON_PAYORDERMORE)){//K线下单 确定做多  按钮买单 提交成功 ----> 持仓已登录界面
               //   initViewPager(Constants.INDEX_EXCHANGE);
            //  } //没效果
 
 
-
-
-         }else{
+          }else{
               //其他正常情况下(未带标签) 进入主界面  0
              initViewPager(index);
          }
 
+         initLocation();
 
-
-            initLocation();
-
-
-    }
+          }
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -300,13 +298,18 @@ public class MainActivity extends FragmentActivity implements BackHandledInterfa
     @Override
     protected void onResume() {
         super.onResume();
-        //切入前台后关闭后台定位功能
-        // if(null != locationClient) {
-        //     locationClient.disableBackgroundLocation(true);
-        //   }
+
+         if(!IsEmptyUtils.isEmpty(tag)){
+             if(tag.equals(Constants.FROM_MINE)){//我的
+                 initViewPager(Constants.INDEX_MINE);
+             }
+         }
+
+        }
 
 
-    }
+
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onEvent(NetEvent event) {

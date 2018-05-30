@@ -30,6 +30,7 @@ import com.mex.GalaxyChain.common.BaseFragment;
 import com.mex.GalaxyChain.common.ConfigManager;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
+import com.mex.GalaxyChain.common.view.BaseSmartRefreshLayout;
 import com.mex.GalaxyChain.net.HttpInterceptor;
 import com.mex.GalaxyChain.net.repo.UserRepo;
 import com.mex.GalaxyChain.ui.asset.entity.NumEntity;
@@ -37,6 +38,8 @@ import com.mex.GalaxyChain.utils.AppUtil;
 import com.mex.GalaxyChain.utils.DeviceUtil;
 import com.mex.GalaxyChain.utils.LogUtils;
 import com.mex.GalaxyChain.utils.RequestPermissionUtils;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.EFragment;
@@ -55,16 +58,16 @@ import rx.Subscriber;
 
 // 全部品种
 @EFragment(R.layout.fragment_allvariety)
-public class AllVarietyFragment extends BaseFragment {
+public class AllVarietyFragment extends BaseFragment
+        implements  OnRefreshListener {
 
 
-    // @ViewById
-    //  RecyclerView rv_allvarriety;
+
     private AllVarietyAdapter2 mAllVarietyAdapter2;
-    @ViewById
+    @ViewById(R.id.noData)
     TextView noData;
-    // @ViewById
-    //PulltoRefreshBaseVeiw  refreshLayout;
+    @ViewById(R.id.refreshLayout)
+    BaseSmartRefreshLayout refreshLayout;
 
 
     @ViewById
@@ -74,13 +77,21 @@ public class AllVarietyFragment extends BaseFragment {
     @AfterViews
     protected void initViewData() {
         //  EventBus.getDefault().register(this);
-
         mAllVarietyAdapter2 = new AllVarietyAdapter2(getActivity());
         listView.setAdapter(mAllVarietyAdapter2);
-        initLoacationAndRequestData();
+        refreshLayout.setOnRefreshListener(this);
+        refreshLayout.autoRefresh();
+        //initLoacationAndRequestData();
 
 
     }
+
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+           initLoacationAndRequestData();
+    }
+
+
 
 
     private void initLoacationAndRequestData() {
@@ -296,8 +307,6 @@ public class AllVarietyFragment extends BaseFragment {
 
     }
 
-//// EventBus.getDefault().post(requestDescriptionBean);
-
     private void setOnItemClickForListView(final List<SymbolBean.DataBean.SymbolInfosBean> mSymbolInfosBeanList
             , final double mLongitude, final double mLatitude, final int all_variety, final List<SymbolBean.DataBean.HandNumSBean> handNumSBeanList,
                                            final List<SymbolBean.DataBean.StopLossTimesBean> stopLossTimesBeanList) {
@@ -358,6 +367,8 @@ public class AllVarietyFragment extends BaseFragment {
     }
 
 
+
+
     public class MyCountDownTimer extends CountDownTimer {
         private final int all_variety;
         private final int deviceType;
@@ -407,16 +418,6 @@ public class AllVarietyFragment extends BaseFragment {
         LogUtils.d("TAG", "mCountDownTimer is start");
     }
 
-    /*@Override
-    public void onStop() {
-        super.onStop();
-        if(mCountDownTimer!=null){
-
-            mCountDownTimer.onFinish();
-            LogUtils.d("TAG","mCountDownTimer is finish11");
-        }
-
-    }*/
 
     @Override
     public void onPause() {
@@ -428,42 +429,6 @@ public class AllVarietyFragment extends BaseFragment {
 
     }
 
-    /*@Override
-    public void onDestroy() {
-        super.onDestroy();
-        if(mCountDownTimer!=null){
-            mCountDownTimer.onFinish();
-            LogUtils.d("TAG","mCountDownTimer is finish13");
-        }
 
-    }*/
-
-
-/**
- * setUserVisibleHint(boolean isVisibleToUser) 实在Fragment OnCreateView()方法之前调用的
- *
- * 如果是与ViewPager一起使用，调用的是setUserVisibleHint
- *
- isVisibleToUser =true的时候代表当前页面可见， 就加载当前的界面fargment网络数据
- isVisibleToUser =false 表当前页面不可见， 就不加载当前的界面fargment网络数据
- */
-/*
-@Override
-public void setUserVisibleHint(boolean isVisibleToUser) {
-    super.setUserVisibleHint(isVisibleToUser);
-  if(getUserVisibleHint()){ //可见
-      if(mCountDownTimer!=null){
-          mCountDownTimer.start();
-
-      }
-  }else{
-      if(mCountDownTimer!=null){
-          mCountDownTimer.onFinish();
-          LogUtils.d("TAG","mCountDownTimer is finish14");
-      }
-  }
-*/
-
-//}
 
 }

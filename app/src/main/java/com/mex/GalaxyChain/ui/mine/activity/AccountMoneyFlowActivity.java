@@ -98,7 +98,7 @@ public class AccountMoneyFlowActivity extends BaseActivity {
         vp_hq_fragment.setAdapter(mIndicatorViewPagerAdapter);
         vp_hq_fragment.setOffscreenPageLimit(0);
          vp_hq_fragment.setCurrentItem(type);
-       //   mFragmentList.get(type).setRefresh();
+         //  mFragmentList.get(type).setRefresh();
           tabLayout.setupWithViewPager(vp_hq_fragment);
        vp_hq_fragment.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

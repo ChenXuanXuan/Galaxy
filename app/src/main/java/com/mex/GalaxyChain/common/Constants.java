@@ -87,7 +87,7 @@ int SUSPEND_TRADING=4;
    String FROM_PAYORDER_K_MOKEMORE="from_payorder_k_mokemore";
    String FROM_CHICANG_UNLOGIN="from_chicang_unlogin";
    String  FROM_K_BUTTON_PAYORDERMORE="from_k_button_payordermore"; //点击下单按钮做多 跳转到持仓界面
-
+  String   FROM_MINE="from_mine";//从我的来
 
     int BUY_RISE=1;//买涨做多
     int BUY_DROP=2;//买跌做空

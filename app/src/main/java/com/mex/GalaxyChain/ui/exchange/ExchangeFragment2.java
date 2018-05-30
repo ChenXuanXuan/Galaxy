@@ -47,8 +47,7 @@ import okhttp3.RequestBody;
 import rx.Subscriber;
 
 /**
- * Created by LSJ on 18/3/4.
- * <p>
+ *
  * 持仓界面(已登陆)
  */
 @EFragment(R.layout.fragment_exchange2)

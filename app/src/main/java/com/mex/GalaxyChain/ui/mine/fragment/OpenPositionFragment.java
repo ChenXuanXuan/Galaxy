@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.mex.GalaxyChain.R;
-import com.mex.GalaxyChain.adapter.MoneyFlowAdapter;
+import com.mex.GalaxyChain.adapter.OpenPositionAdapter;
 import com.mex.GalaxyChain.bean.MoneyFlowBean;
 import com.mex.GalaxyChain.bean.PayOutListBean;
 import com.mex.GalaxyChain.common.BaseFragment;
@@ -42,20 +42,25 @@ public class OpenPositionFragment extends BaseFragment implements OnLoadmoreList
 
 
     int currentPage = 1;
-    private MoneyFlowAdapter mMoneyFlowAdapter;
-    private List<MoneyFlowBean.DataBean.ListBean> mListBeanList;
+    // private MoneyFlowAdapter mMoneyFlowAdapter;
+    private OpenPositionAdapter mOpenPositionAdapter;
+   private List<MoneyFlowBean.DataBean.ListBean> mListBeanList;
 
     @AfterViews
     void init() {
-        mMoneyFlowAdapter = new MoneyFlowAdapter(getActivity());
-        listView.setAdapter(mMoneyFlowAdapter);
+        //mMoneyFlowAdapter = new MoneyFlowAdapter(getActivity());
+        // listView.setAdapter(mMoneyFlowAdapter);
+        mOpenPositionAdapter=new OpenPositionAdapter(getActivity());
+         listView.setAdapter(mOpenPositionAdapter);
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setOnLoadmoreListener(this);
     }
 
     private void loadNetData(final int currentPage, int biztype) {
         LoadNetDataForMoneyFlowUtil.getMoneyFlowInstance().loadNetData(currentPage, biztype);
-        LoadNetDataForMoneyFlowUtil.getMoneyFlowInstance().setLoadMeneyFlowCallBackListener(new LoadNetDataForMoneyFlowUtil.LoadMeneyFlowsSuccessCallBackListener() {
+        LoadNetDataForMoneyFlowUtil.getMoneyFlowInstance(
+
+        ).setLoadMeneyFlowCallBackListener(new LoadNetDataForMoneyFlowUtil.LoadMeneyFlowsSuccessCallBackListener() {
             @Override
             public void onSuccessCallBack(MoneyFlowBean moneyFlowBean,PayOutListBean payOutListBean) {
                 refreshComplete();
@@ -67,9 +72,11 @@ public class OpenPositionFragment extends BaseFragment implements OnLoadmoreList
                     if (mListBeanList == null || mListBeanList.size() == 0) {
                         listView.setEmptyView(noData);
                     }
-                    mMoneyFlowAdapter.setItems(mListBeanList);
+                    // mMoneyFlowAdapter.setItems(mListBeanList);
+                   mOpenPositionAdapter.setItems(mListBeanList);
                 } else {
-                    mMoneyFlowAdapter.addItems(mListBeanList);
+                    // mMoneyFlowAdapter.addItems(mListBeanList);
+                    mOpenPositionAdapter.addItems(mListBeanList);
                 }
 
                 refreshLayout.setLoadmoreFinished(mListBeanList == null || mListBeanList.size() == 0 || mListBeanList.size() < Constants.PAGESIZE);

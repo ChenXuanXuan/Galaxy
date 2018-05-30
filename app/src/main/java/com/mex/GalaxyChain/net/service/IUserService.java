@@ -55,7 +55,7 @@ public interface IUserService {
                                                  @Field("time") String timeStamp,
                                                  @Field("sign") String sign);*/
 
-
+//
     @FormUrlEncoded
     @POST(UrlTools.DEBUG_HOST+NetFuncConstants.POST_REGISTER)
     Observable<RegistBean> register(@Field("country") String country,
@@ -63,9 +63,13 @@ public interface IUserService {
                                                  @Field("verifycode") String et_verify_passwordString,
                                                  @Field("password") String et_phone_passwordString,
                                                  @Field("time") String timeStamp,
-
                                                  @Field("sign") String sign);
-
+    @GET(UrlTools.DEBUG_HOST+NetFuncConstants.GET_CODE)
+    Observable<VerifycodeBean> getCode(@Query("country") String country,
+                                       @Query("mobile") String login,
+                                       @Query("otype") String otype,
+                                       @Query("time") String time,
+                                       @Query("sign") String sign);
 
 
 	 //登陆
@@ -139,12 +143,7 @@ public interface IUserService {
 
 
 
-	@GET(UrlTools.DEBUG_HOST+NetFuncConstants.GET_CODE)
-	Observable<VerifycodeBean> getCode(@Query("country") String country,
-                                                    @Query("mobile") String login,
-                                                    @Query("otype") String otype,
-                                                    @Query("time") String time,
-                                                    @Query("sign") String sign);
+
 
 
 

@@ -14,16 +14,7 @@
         android:textColor="@color/white"
         android:visibility="gone" />
 
-    <ListView
-            android:id="@+id/listView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:cacheColorHint="@color/transparent"
-            android:divider="@color/line_color"
-            android:dividerHeight="1dp"
-            android:footerDividersEnabled="false"
-            android:headerDividersEnabled="false"
-            android:listSelector="@color/transparent" />
+    <include layout="@layout/layout_refresh" />
 
 
 

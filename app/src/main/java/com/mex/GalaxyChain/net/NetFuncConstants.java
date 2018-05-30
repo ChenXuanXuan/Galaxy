@@ -1,7 +1,5 @@
 package com.mex.GalaxyChain.net;
 
-import com.mex.GalaxyChain.common.ConfigManager;
-
 /**
 
 
@@ -62,13 +60,13 @@ version	"1.0.0"
     //H5
     //币币充值
    // String H5_URL_BIBICHONGZHI= UrlTools.H5_URL_BIBICHONGZHI+"?userId="+ UserGolbal.getInstance().getUid()+"&token="+ UserGolbal.getInstance().getUserToken();
-    String H5_URL_BIBICHONGZHI= UrlTools.H5_URL_BIBICHONGZHI+"?userId="+ ConfigManager.getUserId()+"&token="+ ConfigManager.getUserToken();
+    String H5_URL_BIBICHONGZHI= UrlTools.H5_URL_BIBICHONGZHI;
     //法币充值
    // String H5_URL_FABICHONGZHI= UrlTools.H5_URL_FABICHONGZHI+"?userId="+ UserGolbal.getInstance().getUid()+"&token="+ UserGolbal.getInstance().getUserToken();
-    String H5_URL_FABICHONGZHI= UrlTools.H5_URL_FABICHONGZHI+"?userId="+ConfigManager.getUserId()+"&token="+ ConfigManager.getUserToken();
+    String H5_URL_FABICHONGZHI= UrlTools.H5_URL_FABICHONGZHI;
     //资产账户
    // String H5_URL_ASSETACCOUNT =UrlTools.H5_URL_ASSETACCOUNT+"?userId="+ UserGolbal.getInstance().getUid()+"&token="+ UserGolbal.getInstance().getUserToken();
-    String H5_URL_ASSETACCOUNT =UrlTools.H5_URL_ASSETACCOUNT+"?userId="+ConfigManager.getUserId()+"&token="+ ConfigManager.getUserToken();
+    String H5_URL_ASSETACCOUNT =UrlTools.H5_URL_ASSETACCOUNT;
 
 
 }

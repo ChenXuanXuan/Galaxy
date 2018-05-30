@@ -358,6 +358,9 @@ public class PhoneNumLoginActivity extends BaseActivity {
                                 }else if(tag.equals(Constants.FROM_CHICANG_UNLOGIN)){ //持仓未登录界面--->登陆界面--->持仓已登陆界面(MainActivity 1)
                                     UIHelper.jumptoMainActivity(PhoneNumLoginActivity.this,tag);
                                     finish();
+                                }else if(tag.equals(Constants.FROM_MINE)){//从我的来
+                                    UIHelper.jumptoMainActivity(PhoneNumLoginActivity.this,tag);
+                                    finish();
                                 }
 
                       }else{

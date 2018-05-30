@@ -7,6 +7,7 @@ import android.widget.LinearLayout;
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.UIHelper;
 import com.mex.GalaxyChain.common.BaseActivity;
+import com.mex.GalaxyChain.common.ConfigManager;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.net.NetFuncConstants;
 
@@ -51,15 +52,15 @@ public class H5LoadingActivity extends BaseActivity {
 
     private void enterH5() {
         if(tag== Constants.PAYOUTMONEYTYPE_BIBI){//tag=1  币币充值H5
-            String bibi_url= NetFuncConstants.H5_URL_BIBICHONGZHI;//H5 币币充值url
+            String bibi_url= NetFuncConstants.H5_URL_BIBICHONGZHI+"?userId="+ ConfigManager.getUserId()+"&token="+ ConfigManager.getUserToken();//H5 币币充值url
             UIHelper.ToCoinsCoinsRechargeH5Activity(this,bibi_url);
             finish();
         }else if(tag== Constants.PAYOUTMONEYTYPE_FABI){//tag=2  法币充值H5
-            String fabi_url=NetFuncConstants.H5_URL_FABICHONGZHI;//H5 法币充值url
+            String fabi_url=NetFuncConstants.H5_URL_FABICHONGZHI+"?userId="+ConfigManager.getUserId()+"&token="+ ConfigManager.getUserToken();//H5 法币充值url
             UIHelper.ToFaBiRechargeH5Activity(this,fabi_url);
             finish();
         }else if(tag== Constants.ASSETACCOUNT_ZHICHAN){//tag=3 资产账户H5
-              String url=NetFuncConstants.H5_URL_ASSETACCOUNT;
+              String url=NetFuncConstants.H5_URL_ASSETACCOUNT+"?userId="+ConfigManager.getUserId()+"&token="+ ConfigManager.getUserToken();
               UIHelper.toAmountH5Activity(this,url);
              finish();
         }
