@@ -21,12 +21,12 @@ import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.UIHelper;
 import com.mex.GalaxyChain.bean.PostLoginBean;
 import com.mex.GalaxyChain.bean.UserMeBean;
- import com.mex.GalaxyChain.bean.requestbean.RequestPostLoginBean;
+import com.mex.GalaxyChain.bean.eventbean.TagBean;
+import com.mex.GalaxyChain.bean.requestbean.RequestPostLoginBean;
 import com.mex.GalaxyChain.common.BaseActivity;
 import com.mex.GalaxyChain.common.ConfigManager;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
-import com.mex.GalaxyChain.event.MainEvent;
 import com.mex.GalaxyChain.net.HttpInterceptor;
 import com.mex.GalaxyChain.net.bean.galaxychainbean.LoginBean;
 import com.mex.GalaxyChain.net.repo.UserRepo;
@@ -45,6 +45,7 @@ import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.FocusChange;
 import org.androidannotations.annotations.ViewById;
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -245,7 +246,7 @@ public class PhoneNumLoginActivity extends BaseActivity {
                                 UserGolbal.getInstance().setStatus_auth_c1(auth.getStatus());//status=1 C1实名认证通过
 
                             }
-                            EventBus.getDefault().post(new MainEvent());
+
                             ConfigManager.setUserId(userMeBean.getData().getUser().getUid());
                        }
                     }
@@ -357,7 +358,16 @@ public class PhoneNumLoginActivity extends BaseActivity {
                                     UIHelper.toMarkMainAct_kLine(PhoneNumLoginActivity.this);
                                     finish();
                                 }else if(tag.equals(Constants.FROM_CHICANG_UNLOGIN)){ //持仓未登录界面--->登陆界面--->持仓已登陆界面(MainActivity 1)
-                                    UIHelper.jumptoMainActivity(PhoneNumLoginActivity.this,tag);
+                                    UIHelper.jumptoMainActivity(PhoneNumLoginActivity.this,"");
+                                    TagBean tagBean = new TagBean();
+                                    tagBean.setTag(Constants.FROM_CHICANG_UNLOGIN);
+                                    EventBus.getDefault().post(tagBean);
+                                    finish();
+                                }else if(tag.equals(Constants.FROM_MINE)){
+                                    UIHelper.jumptoMainActivity(PhoneNumLoginActivity.this, "");
+                                    TagBean tagBean = new TagBean();
+                                    tagBean.setTag(Constants.FROM_MINE);
+                                    EventBus.getDefault().post(tagBean);//eventbus 发送 标签到Mai
                                     finish();
                                 }
 

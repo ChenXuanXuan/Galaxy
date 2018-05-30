@@ -119,8 +119,9 @@ public class UIHelper {
 
     }
 
-    public static void jumptoChiCangUnLoginActivity(Activity activity) {
+    public static void jumptoChiCangUnLoginActivity(Activity activity,String tag) {
         Intent intent = new Intent(activity, ChiCangUnLoginActivity_.class);
+        intent.putExtra("tag", tag);
         activity.startActivity(intent);
     }
 

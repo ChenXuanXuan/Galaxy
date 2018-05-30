@@ -18,7 +18,6 @@ import com.mex.GalaxyChain.common.BaseFragment;
 import com.mex.GalaxyChain.common.ConfigManager;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
-import com.mex.GalaxyChain.event.MainEvent;
 import com.mex.GalaxyChain.event.NetEvent;
 import com.mex.GalaxyChain.ui.asset.fragment.AssetFragment_;
 import com.mex.GalaxyChain.ui.common.AppManager;
@@ -76,16 +75,11 @@ public class MainActivity extends FragmentActivity implements BackHandledInterfa
                 showFragment(Constants.INDEX_MARKET);
                 break;
             case R.id.main_tab_exchange: //持仓
-                //if (ConfigManager.getIsLogin())
-                //	showFragment(Constants.INDEX_EXCHANGE);
-                //else
-                //	showLoginActivity();
-              //  if (!IsEmptyUtils.isEmpty(UserGolbal.getInstance().getUserToken())) {
-              //  if (!IsEmptyUtils.isEmpty(ConfigManager.getUserToken())) {
                 if(ConfigManager.isLogin()){
                     showFragment(Constants.INDEX_EXCHANGE);
                 } else {
-                    UIHelper.jumptoChiCangUnLoginActivity(this);
+                    String tag = Constants.FROM_CHICANG_UNLOGIN;
+                    UIHelper.jumptoChiCangUnLoginActivity(this,tag);
                    //finish();
                 }
 
@@ -94,9 +88,6 @@ public class MainActivity extends FragmentActivity implements BackHandledInterfa
                 showFragment(Constants.INDEX_ASSET);
                 break;
             case R.id.main_tab_mine:
-
-             //  if (!IsEmptyUtils.isEmpty(UserGolbal.getInstance().getUserToken())) {
-               // if (!IsEmptyUtils.isEmpty(ConfigManager.getUserToken())) {
                 if(ConfigManager.isLogin()){
                     showFragment(Constants.INDEX_MINE);
                  } else {
@@ -163,11 +154,11 @@ public class MainActivity extends FragmentActivity implements BackHandledInterfa
         EventBus.getDefault().register(this);
         AppManager.addActivity(this);
           if(!IsEmptyUtils.isEmpty(tag)){
-              if(tag.equals(Constants.FROM_CHICANG_UNLOGIN)){//持仓未登录界面  --->登陆界面--->持仓已登录界面(MainActivity 1)
+              /*if(tag.equals(Constants.FROM_CHICANG_UNLOGIN)){//持仓未登录界面  --->登陆界面--->持仓已登录界面(MainActivity 1)
                  initViewPager(Constants.INDEX_EXCHANGE);
-             } else if(tag.equals(Constants.FROM_MINE)){//我的
+             }*/ /*else if(tag.equals(Constants.FROM_MINE)){//我的
                   initViewPager(Constants.INDEX_MINE);
-              }//else if(tag.equals(Constants.FROM_K_BUTTON_PAYORDERMORE)){//K线下单 确定做多  按钮买单 提交成功 ----> 持仓已登录界面
+              }*///else if(tag.equals(Constants.FROM_K_BUTTON_PAYORDERMORE)){//K线下单 确定做多  按钮买单 提交成功 ----> 持仓已登录界面
               //   initViewPager(Constants.INDEX_EXCHANGE);
            //  } //没效果
 
@@ -189,12 +180,15 @@ public class MainActivity extends FragmentActivity implements BackHandledInterfa
     public void getTagBean(TagBean tagBean){
        if(tagBean.getTag().equals(Constants.FROM_K_BUTTON_PAYORDERMORE)){
            initViewPager(Constants.INDEX_EXCHANGE); //直接到持仓界面 1
+       }else if(tagBean.getTag().equals(Constants.FROM_MINE)){
+           initViewPager(Constants.INDEX_MINE); //直接到我的界面 1
+       }else if(tagBean.getTag().equals(Constants.FROM_CHICANG_UNLOGIN)){
+           initViewPager(Constants.INDEX_EXCHANGE); //直接到持仓界面
        }
 
-       //ToastUtils.showTextInMiddle(tagBean.getSymbolName()+tagBean.getCloseTime()+"mainAct");
-        //UserGolbal.getInstance().setSymbolname_ch(tagBean.getSymbolName_ch());
-        //UserGolbal.getInstance().setClosetime_ch(tagBean.getCloseTime_ch());
-    }
+
+
+       }
 
     private void initLocation() {
         RequestPermissionUtils.requestPermission(new Runnable() {
@@ -300,11 +294,7 @@ public class MainActivity extends FragmentActivity implements BackHandledInterfa
     protected void onResume() {
         super.onResume();
 
-         if(!IsEmptyUtils.isEmpty(tag)){
-             if(tag.equals(Constants.FROM_MINE)){//我的
-                 initViewPager(Constants.INDEX_MINE);
-             }
-         }
+
 
         }
 
@@ -322,10 +312,10 @@ public class MainActivity extends FragmentActivity implements BackHandledInterfa
         showFragment(Constants.INDEX_MARKET);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onEventMain(MainEvent event) {
-        showFragment(Constants.INDEX_MINE);
-    }
+  //  @Subscribe(threadMode = ThreadMode.MAIN)
+  //  public void onEventMain(MainEvent event) {
+    //    showFragment(Constants.INDEX_MINE);
+  //  }
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)

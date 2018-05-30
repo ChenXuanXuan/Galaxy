@@ -51,7 +51,7 @@ import rx.Subscriber;
  * 持仓界面(已登陆)
  */
 @EFragment(R.layout.fragment_exchange2)
-public class ExchangeFragment2 extends BaseFragment {
+public class ExchangeFragment2 extends BaseFragment implements OnRefreshListener {
 
     @ViewById
     BaseSmartRefreshLayout refreshLayout;
@@ -120,27 +120,33 @@ public class ExchangeFragment2 extends BaseFragment {
             }
         });
         listView.setAdapter(searchAdapter);
-        showLoading(getString(R.string.loading));
-        loadNetData(mVarietyHoldPosiBean);
-        refreshLayout.setDefaultLoadingHeaderView();
-        refreshLayout.setDefaultLoadingFooterView();
-        refreshLayout.setPrimaryColorsId(R.color.white, R.color.month_view_gray);
-        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshlayout) {
-                loadNetData(mVarietyHoldPosiBean);
-            }
-        });
-
-        /*refreshLayout.setOnLoadmoreListener(new OnLoadmoreListener() {
-            @Override
-            public void onLoadmore(RefreshLayout refreshlayout) {
-
-            }
-        });*/
-
+        refreshLayout.setOnRefreshListener(this);
+        //refreshLayout.autoRefresh();
         setOnItemClickForListView();
     }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshLayout.autoRefresh();
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            refreshLayout.autoRefresh();
+        }
+    }
+
+
+
+    @Override
+    public void onRefresh(RefreshLayout refreshlayout) {
+        loadNetData(mVarietyHoldPosiBean);
+    }
+
 
 
     private void loadNetData(final VarietyHoldPosiBean varietyHoldPosiBean) {
@@ -210,7 +216,7 @@ public class ExchangeFragment2 extends BaseFragment {
 
 
         } else { //重新去请求经纬度 在进行赋值
-            UserGolbal.getInstance().requestLocation();
+             UserGolbal.getInstance().requestLocation();
         }
 
 
@@ -228,7 +234,8 @@ public class ExchangeFragment2 extends BaseFragment {
 
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMoonEvent(QuitEvent event) {
-    }
+    public void onMoonEvent(QuitEvent event) {}
+
+
 }
 

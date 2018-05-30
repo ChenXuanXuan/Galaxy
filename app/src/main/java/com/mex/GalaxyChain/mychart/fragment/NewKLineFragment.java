@@ -375,7 +375,7 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
                                 times_frist = newKLineTime;
                                 DataHelper.calculate(newKDataList);
                             }
-//                            startTimerGetNewK();
+//     startTimerGetNewK();
                         }
                     }
                 });

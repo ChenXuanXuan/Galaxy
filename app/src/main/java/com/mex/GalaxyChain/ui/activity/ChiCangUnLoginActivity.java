@@ -7,11 +7,11 @@ import android.widget.TextView;
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.UIHelper;
 import com.mex.GalaxyChain.common.BaseActivity;
-import com.mex.GalaxyChain.common.Constants;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
+import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
 
 
@@ -27,12 +27,15 @@ public class ChiCangUnLoginActivity  extends BaseActivity {
     @ViewById
     TextView tv_chicang_login;
 
+    @Extra
+    String tag;
+
 
     @Click({R.id.tv_chicang_login,R.id.back})
     void onClick(View view) {
         switch(view.getId()){
             case R.id.tv_chicang_login:
-                UIHelper.jumptoPhoneNumLoginActivity(this, Constants.FROM_CHICANG_UNLOGIN);
+                UIHelper.jumptoPhoneNumLoginActivity(this, tag);
                 finish();
                 break;
 
