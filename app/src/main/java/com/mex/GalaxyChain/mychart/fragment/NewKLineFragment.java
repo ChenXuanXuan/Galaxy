@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.lsj.kchart.kchartlib.chart.BaseKChartView;
 import com.lsj.kchart.kchartlib.chart.KChartView;
 import com.lsj.kchart.kchartlib.chart.formatter.DateFormatter;
@@ -119,8 +120,8 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
     public void initData() {
         isLoading = false;
         isFirstLoading = true;
-       mShowDialog();
         mKChartView.setRefreshListener(this);
+        mKChartView.showLoading();
         mKChartView.refreshEnd();
         starttime = 0;
         onLoadKData();
@@ -174,12 +175,11 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
 
                         @Override
                         public void onNext(HistoryKLineBean historyKLineBean) {
-                            mDismissDialog();
                             mKLineEntityArrayList = new ArrayList<>();
                             mKlineData = new ArrayList<>();
                             //K历史数据集合
                             mDataBeanList = historyKLineBean.getData();
-                            // LogUtils.d( "TAG:K线--->数据" + new Gson().toJson(mDataBeanList));
+                             LogUtils.d( "TAG:K线--->数据" + new Gson().toJson(mDataBeanList));
                             starttime = mDataBeanList.get(mDataBeanList.size() - 1).getTimes();
                             times_frist = mDataBeanList.get(0).getTimes();
                             LogUtils.d("TAG:K线--->每页第一条time:" + times_frist);
@@ -203,11 +203,12 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
                                 }
                                 if (isFirstLoading)
                                     mKlineData = mKLineEntityArrayList;
-                                isFirstLoading = false;
+//                                isFirstLoading = false;
                                 Collections.reverse(mKLineEntityArrayList); // 倒序排列kLineEntityArrayList 否者K线显示方向不对
                                 DataHelper.calculate(mKLineEntityArrayList);
                             }
 
+                            isFirstLoading = false;
                             //第一次加载时开始动画
                             if (mAdapter.getCount() == 0) {
                                 mKChartView.startAnimation();
