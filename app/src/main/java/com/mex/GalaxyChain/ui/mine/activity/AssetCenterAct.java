@@ -8,8 +8,8 @@ import android.widget.TextView;
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.UIHelper;
 import com.mex.GalaxyChain.common.BaseActivity;
+import com.mex.GalaxyChain.common.ConfigManager;
 import com.mex.GalaxyChain.common.Constants;
-import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.utils.ToastUtils;
 
 import org.androidannotations.annotations.AfterViews;
@@ -48,8 +48,10 @@ public class AssetCenterAct extends BaseActivity {
 	private void initView() {
 		mTitle.setText("账户中心");
 		back.setVisibility(View.VISIBLE);
-        phoneNum.setText(UserGolbal.getInstance().getPhoneNum());
-        if(UserGolbal.getInstance().isRealnameAuthC1Success()){ //认证审核通过C1
+       // phoneNum.setText(UserGolbal.getInstance().getPhoneNum());
+       // if(UserGolbal.getInstance().isRealnameAuthC1Success()){ //认证审核通过C1
+        phoneNum.setText(String.valueOf(ConfigManager.getPhoneNum()));
+        if(ConfigManager.isRealnameAuthC1Success()){
              tv_isRenZheng.setText("已认证");
               rl_amountCenter_Certification.setClickable(false);
         }else{
@@ -70,7 +72,8 @@ public class AssetCenterAct extends BaseActivity {
 				  break;
 
             case R.id.amount://资产账户(H5):需要认证   url需要加ususerid token
-                if(UserGolbal.getInstance().isRealnameAuthC1Success()){
+              //  if(UserGolbal.getInstance().isRealnameAuthC1Success()){
+                if(ConfigManager.isRealnameAuthC1Success()){
                     int tag= Constants.ASSETACCOUNT_ZHICHAN;
                     UIHelper.ToH5LoadingActivity(AssetCenterAct.this,tag);
 

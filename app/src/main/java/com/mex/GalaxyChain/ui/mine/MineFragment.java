@@ -165,20 +165,10 @@ public class MineFragment extends BaseFragment {
                                 LogUtils.d("TAG","MineFragment网络请求成功");
                                 UserAccountInfoBean.DataBean data = userAccountInfoBean.getData();
                                 UserAccountInfoBean.DataBean.AccountMoneyInfoBean accountMoneyInfo = data.getAccountMoneyInfo();
-
-                              //  tv_amount_type.setText("总金额(" + accountMoneyInfo.getCurrenttype() + ")");
                                 tv_canusedamount.setText(DecimalFormatUtils.getDecimal(accountMoneyInfo.getAmount(),2));
-                                int realnamestatus=  accountMoneyInfo.getRealnamestatus();//开户状态(1=开户(已实名认证),2=销户)
-                             //   UserGolbal.getInstance().setRealnamestatus(realnamestatus);
-                              //  UserGolbal.getInstance().amount = accountMoneyInfo.getAmount();
-                             //   UserGolbal.getInstance().canusedamount = accountMoneyInfo.getCanusedamount();
-                             //   UserGolbal.getInstance().frozenmargin = accountMoneyInfo.getFrozenmargin();
-                             //                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           UserGolbal.getInstance().totalprofit = accountMoneyInfo.getTotalprofit();
+                                UserGolbal.getInstance().totalprofit = accountMoneyInfo.getTotalprofit();
 
-                            }
-
-                        }
-                    });
+                            } }});
 
 
         } else {
@@ -206,7 +196,8 @@ public class MineFragment extends BaseFragment {
     void onClick(View view) {
         switch (view.getId()) {
             case R.id.inpour:  //充值(H5)
-               if(UserGolbal.getInstance().isRealnameAuthC1Success()){
+              // if(UserGolbal.getInstance().isRealnameAuthC1Success()){
+                if(ConfigManager.isRealnameAuthC1Success()){
                    InpourActivity_.intent(this).start();
                }else{
                    ToastUtils.showTextInMiddle("请先认证");
@@ -216,7 +207,8 @@ public class MineFragment extends BaseFragment {
                break;
 
             case R.id.withDraw:  //提现(原生)
-                if(UserGolbal.getInstance().isRealnameAuthC1Success()){
+               // if(UserGolbal.getInstance().isRealnameAuthC1Success()){
+                if(ConfigManager.isRealnameAuthC1Success()){
                     UIHelper.ToWithDrawActivity(getActivity());
                 }else{
                     ToastUtils.showTextInMiddle("请先认证");

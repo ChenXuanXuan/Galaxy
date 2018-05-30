@@ -26,7 +26,6 @@ import com.mex.GalaxyChain.bean.requestbean.RequestPostLoginBean;
 import com.mex.GalaxyChain.common.BaseActivity;
 import com.mex.GalaxyChain.common.ConfigManager;
 import com.mex.GalaxyChain.common.Constants;
-import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.net.HttpInterceptor;
 import com.mex.GalaxyChain.net.bean.galaxychainbean.LoginBean;
 import com.mex.GalaxyChain.net.repo.UserRepo;
@@ -179,7 +178,8 @@ public class PhoneNumLoginActivity extends BaseActivity {
         final String country = "86";
         params.put("country", country);
         params.put("mobile", mobilePhone);
-        UserGolbal.getInstance().setPhoneNum(mobilePhone);
+      //  UserGolbal.getInstance().setPhoneNum(mobilePhone);
+        ConfigManager.setPhoneNum(Long.valueOf(mobilePhone));
         params.put("password", et_phone_passwordString);
         Date dt = new Date();
         String timeStamp = dt.getTime() + "";
@@ -243,8 +243,8 @@ public class PhoneNumLoginActivity extends BaseActivity {
                         if (userMeBean.getCode().equals("0")) {  //0 获取userme接口成功
                             UserMeBean.DataBean.AuthBean auth = userMeBean.getData().getAuth();
                             if (auth.getLevel() == Constants.RENZHENG_C1) { //=1 C1 认证
-                                UserGolbal.getInstance().setStatus_auth_c1(auth.getStatus());//status=1 C1实名认证通过
-
+                                  //UserGolbal.getInstance().setStatus_auth_c1(auth.getStatus());
+                                ConfigManager.setStatus_auth_c1(auth.getStatus());//status=1 C1实名认证通过
                             }
 
                             ConfigManager.setUserId(userMeBean.getData().getUser().getUid());

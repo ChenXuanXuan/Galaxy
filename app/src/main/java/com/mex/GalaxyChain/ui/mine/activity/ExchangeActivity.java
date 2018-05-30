@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.UIHelper;
 import com.mex.GalaxyChain.common.BaseActivity;
-import com.mex.GalaxyChain.common.UserGolbal;
+import com.mex.GalaxyChain.common.ConfigManager;
 import com.mex.GalaxyChain.utils.ToastUtils;
 
 import org.androidannotations.annotations.AfterViews;
@@ -49,10 +49,11 @@ public class ExchangeActivity extends BaseActivity {
 	private void initView() {
 		mTitle.setText("交易账户");
 		back.setVisibility(View.VISIBLE);
-        tv_totalAmount.setText(UserGolbal.getInstance().amount+"");
-        tv_canUsedAmount.setText(UserGolbal.getInstance().canusedamount+"");
-        tv_frozenmargin.setText(UserGolbal.getInstance().frozenmargin+"");
-        tv_totalprofit.setText(UserGolbal.getInstance().totalprofit+"");
+
+		//tv_totalAmount.setText(UserGolbal.getInstance().amount+"");
+       // tv_canUsedAmount.setText(UserGolbal.getInstance().canusedamount+"");
+       // tv_frozenmargin.setText(UserGolbal.getInstance().frozenmargin+"");
+       // tv_totalprofit.setText(UserGolbal.getInstance().totalprofit+"");
 
 
 	}
@@ -65,7 +66,8 @@ public class ExchangeActivity extends BaseActivity {
 				break;
 
 			case R.id.inpour://充值(H5  需 认证 )
-                if(UserGolbal.getInstance().isRealnameAuthC1Success()){
+              //  if(UserGolbal.getInstance().isRealnameAuthC1Success()){
+                if(ConfigManager.isRealnameAuthC1Success()){
                     InpourActivity_.intent(this).start();
                 }else{
                     ToastUtils.showTextInMiddle("请先认证");
@@ -75,7 +77,8 @@ public class ExchangeActivity extends BaseActivity {
                 break;
 
 			case R.id.withDraw://认证 提现(relative)
-				if(UserGolbal.getInstance().isRealnameAuthC1Success()){
+				//if(UserGolbal.getInstance().isRealnameAuthC1Success()){
+                if(ConfigManager.isRealnameAuthC1Success()){
                     UIHelper.ToWithDrawActivity(getActivity());
                 }else{
                     ToastUtils.showTextInMiddle("请先认证");

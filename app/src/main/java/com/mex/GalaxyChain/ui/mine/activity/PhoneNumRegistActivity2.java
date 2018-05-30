@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.amap.api.location.AMapLocation;
@@ -23,6 +24,7 @@ import com.mex.GalaxyChain.bean.PostLoginBean;
 import com.mex.GalaxyChain.bean.VerifycodeBean;
 import com.mex.GalaxyChain.bean.requestbean.RequestPostLoginBean;
 import com.mex.GalaxyChain.common.BaseActivity;
+import com.mex.GalaxyChain.common.ConfigManager;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.net.HttpInterceptor;
@@ -76,10 +78,13 @@ public class PhoneNumRegistActivity2  extends BaseActivity{
     @ViewById
     CheckBox cb_show_password_phone,ch_bx;
 
+    @ViewById
+    ImageView back;
+
     private MyCountDownTimer mMyCountDownTimer;
 
 
-    @Click({R.id.bt_retrieve_verify_code,R.id.bt_register_now})
+    @Click({R.id.bt_retrieve_verify_code,R.id.bt_register_now,R.id.back})
     void onClick(View view){
         switch(view.getId()){
             case R.id.bt_retrieve_verify_code://接受验证码
@@ -87,6 +92,10 @@ public class PhoneNumRegistActivity2  extends BaseActivity{
                 break;
             case R.id.bt_register_now: //立即注册
                 bt_register_now();
+                break;
+
+            case R.id.back:
+                finish();
                 break;
 
         }
@@ -136,21 +145,6 @@ public class PhoneNumRegistActivity2  extends BaseActivity{
                     }
                 });
 
-
-      /* UserRepo.getInstance().getCode(country, mobilePhone, otype, timeStamp, sign)
-                              .subscribe(new HttpSubscriber<ReponseData<BaseBean>>() {
-                                  @Override
-                                  protected void onSuccess(ReponseData<BaseBean> repoData) {
-                                      ToastUtils.showTextInMiddle("稍后验证码将以短信的形式发送到您的手机");
-                                      startTimer();
-                                  }
-
-                                  @Override
-                                  protected void onFailure(ApiException e) {
-                                      ToastUtils.showErrorImage(e.getCode()+"验证码获取失败请重试");
-
-                                  }
-                              });*/
 
 
 
@@ -258,7 +252,8 @@ public class PhoneNumRegistActivity2  extends BaseActivity{
         String timeStamp = dt.getTime() + "";
         final String  country = "86";
         final String mobilePhone =phoneNumber;
-        UserGolbal.getInstance().setPhoneNum(phoneNumber);
+      //  UserGolbal.getInstance().setPhoneNum(phoneNumber);
+
       //  String invitedCode="0123";
         params.put("country", country);
         params.put("mobile", mobilePhone);
@@ -284,8 +279,9 @@ public class PhoneNumRegistActivity2  extends BaseActivity{
                                 // ToastUtils.showCorrectImage("注册成功，正在登录");
                                   RegistBean.DataBean dataBean= registBean.getData();
                                   if(dataBean==null) return;
-                                   //注册成功  直接王浩登陆    跳到主界面
-                                  loacationAndPostLogin(dataBean);
+                                 ToastUtils.showErrorImage("注册成功");
+                                 finish();//注册成功直接返回到登陆界面进行登陆
+                                  //loacationAndPostLogin(dataBean); //注册成功  直接王浩登陆    跳到主界面
                              }else if(registBean.getCode().equals("110001")){
                                  ToastUtils.showErrorImage("短信验证码错误或过期");return;
                              }else if(registBean.getCode().equals("110023")){

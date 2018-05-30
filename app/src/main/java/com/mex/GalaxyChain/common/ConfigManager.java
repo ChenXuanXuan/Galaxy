@@ -18,9 +18,11 @@ public class ConfigManager {
 	private static final String KEY_ASSET = "key_asset";
 	private static VarietyHoldPosiBean varietyEntity;
     private static final String KEY_USER_ID = "key_user_id";
+    private static final String KEY_STATUS_AUTH_C1="key_status_auth_c1";
+    private static final String KEY_PHONENUMBER="key_phonenumber";
 
 
-	public static void init(Context context) {
+    public static void init(Context context) {
 		sharePStore = SharePStore.getStore(context, "config");
 	}
 
@@ -61,7 +63,8 @@ public class ConfigManager {
   public static void setMoneyFlowCatheBean(){}
 
 
-
+    public static void setPhoneNum(long phoneNumber) { sharePStore.save(KEY_PHONENUMBER,phoneNumber);}
+    public static long getPhoneNum(){return sharePStore.getLong(KEY_PHONENUMBER,0);}
     public static void setUserToken(String userToken) { sharePStore.save(KEY_USER_TOKEN, userToken); }
     public static String getUserToken() { return sharePStore.getString(KEY_USER_TOKEN, " "); }
     public static void setUserId(int userId){
@@ -73,13 +76,39 @@ public class ConfigManager {
     public static boolean isLogin() {
         return sharePStore.getInt(KEY_USER_ID, 0) > 0;
     }
+    public static void setStatus_auth_c1(int status) {//status=1 C1实名认证通过
+        sharePStore.save(KEY_STATUS_AUTH_C1,status);
+    }
+    public static  int getStatus_auth_c1(){
+	    return  sharePStore.getInt(KEY_STATUS_AUTH_C1,0);
+    }
+
+ //判断 是否C1 认证成功通过
+    public static boolean  isRealnameAuthC1Success(){
+	    return  getStatus_auth_c1()==1&&getStatus_auth_c1()!=0&&getStatus_auth_c1()>0;
+
+    }
+
+
+
+
+
+
+
+
 
    public static void logOut() {
 	   sharePStore.save(KEY_USER_ID,0);
 	   sharePStore.save(KEY_USER_TOKEN,"");
         sharePStore.remove(KEY_USER_ID);
         sharePStore.remove(KEY_USER_TOKEN);
+       sharePStore.remove(KEY_STATUS_AUTH_C1);
+       setStatus_auth_c1(0);//sharePStore.save(KEY_STATUS_AUTH_C1,0);
+       sharePStore.remove(KEY_PHONENUMBER);
+       setPhoneNum(0);
     }
+
+
 
 
 

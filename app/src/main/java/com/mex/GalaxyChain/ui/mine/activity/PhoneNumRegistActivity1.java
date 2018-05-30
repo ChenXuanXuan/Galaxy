@@ -34,10 +34,14 @@ public class PhoneNumRegistActivity1 extends BaseActivity {
     @ViewById
     CheckBox ch_bx;
 
+     @ViewById(R.id.back)
+    ImageView back;
 
 
 
-    @Click({R.id.tv_wanchen,R.id.ll_clear_phone})
+
+
+    @Click({R.id.tv_wanchen,R.id.ll_clear_phone,R.id.back})
     void onClick(View view){
         switch (view.getId()) {
             case R.id.tv_wanchen:
@@ -47,6 +51,10 @@ public class PhoneNumRegistActivity1 extends BaseActivity {
             case R.id.ll_clear_phone:
                 et_phone_number.setText("");
                 EditUtils.cursorFollow(et_phone_number);
+                break;
+
+            case R.id.back:
+                finish();
                 break;
 
         }
