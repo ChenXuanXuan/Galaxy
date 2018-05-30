@@ -113,6 +113,18 @@ public class MoneyFlowBean extends BaseBean {
             private double profit;//止盈
             private int quantity;//手数
             private double tradefee;//手续费(扣除交易费用)
+            private String symbol;
+            public String getSymbol() {
+                return symbol;
+            }
+
+            public void setSymbol(String symbol) {
+                this.symbol = symbol;
+            }
+
+
+
+
 
             public double getAmount() {
                 return amount;

@@ -6,6 +6,7 @@
 
 
     <include layout="@layout/layout_topbar" />
+
     <com.mex.GalaxyChain.view.X5WebView
         android:id="@+id/mWebView"
         android:layout_width="match_parent"

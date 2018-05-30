@@ -2,6 +2,7 @@ package com.mex.GalaxyChain.ui.mine.activity;
 
 import android.graphics.PixelFormat;
 import android.os.Build;
+import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
@@ -28,6 +29,8 @@ import com.mex.GalaxyChain.utils.LogUtils;
 import com.mex.GalaxyChain.utils.ToastUtils;
 import com.mex.GalaxyChain.utils.webUtils.WebViewJavaScriptFunction;
 import com.mex.GalaxyChain.view.X5WebView;
+import com.tencent.smtt.sdk.WebView;
+import com.tencent.smtt.sdk.WebViewClient;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -39,7 +42,8 @@ import okhttp3.RequestBody;
 import rx.Subscriber;
 
 
-/*  币币充值  */
+/*  币币充值 H5
+ *  */
 @EActivity(R.layout.activity_coinscoinsrecharge_h5)
 public class CoinsCoinsRechargeH5Activity extends BaseActivity {
 
@@ -55,13 +59,20 @@ public class CoinsCoinsRechargeH5Activity extends BaseActivity {
 
     @Click(R.id.back)
     void onClick(View view) {
-        finish();
+
+        if (mWebView != null && mWebView.canGoBack()) {
+            mWebView.goBack();
+
+        } else{
+            finish();
+        }
+
     }
 
 
     @AfterViews
     void init() {
-        mTitle.setText("币币充值");
+       // mTitle.setText("币币充值");
         back.setVisibility(View.VISIBLE);
         mUrl = getIntent().getStringExtra("url");
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
@@ -120,6 +131,32 @@ public class CoinsCoinsRechargeH5Activity extends BaseActivity {
 
 
         }, "android");
+
+
+        //=====================================
+        //获取每个页跳转的title
+        mWebView.setWebViewClient(new WebViewClient(){
+            @Override
+            public void onPageFinished(WebView webView, String url) {
+                super.onPageFinished(webView, url);
+                String title = webView.getTitle();
+                if (!TextUtils.isEmpty(title)) {
+                    mTitle.setText(title);
+                }
+            }
+        });
+
+
+
+        /*mWebView.setWebChromeClient(new WebChromeClient(){
+             @Override
+            public void onReceivedTitle(WebView webView, String title) {
+                super.onReceivedTitle(webView, title);
+                if(title!=null){
+                    mTitle.setText(title);
+                }
+            }
+            });*/
 
     }
 

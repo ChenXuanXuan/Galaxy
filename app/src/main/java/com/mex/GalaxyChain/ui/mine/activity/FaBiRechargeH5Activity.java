@@ -1,6 +1,9 @@
 package com.mex.GalaxyChain.ui.mine.activity;
 
 import android.graphics.PixelFormat;
+import android.os.Build;
+import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
@@ -17,6 +20,8 @@ import com.mex.GalaxyChain.utils.LogUtils;
 import com.mex.GalaxyChain.utils.ToastUtils;
 import com.mex.GalaxyChain.utils.webUtils.WebViewJavaScriptFunction;
 import com.mex.GalaxyChain.view.X5WebView;
+import com.tencent.smtt.sdk.WebView;
+import com.tencent.smtt.sdk.WebViewClient;
 
 import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
@@ -44,13 +49,18 @@ public class FaBiRechargeH5Activity extends BaseActivity {
 
     @Click(R.id.back)
     void  onClick(View view){
-        finish();
+        if (mWebView != null && mWebView.canGoBack()) {
+            mWebView.goBack();
+
+        } else{
+            finish();
+        }
     }
 
 
     @AfterViews
     void init(){
-        mTitle.setText("法币充值");
+        //mTitle.setText("法币充值");
         back.setVisibility(View.VISIBLE);
         mUrl = getIntent().getStringExtra("url");
         getWindow().setFormat(PixelFormat.TRANSLUCENT);
@@ -108,11 +118,32 @@ public class FaBiRechargeH5Activity extends BaseActivity {
 
 
   //=====================
-      // 卖出YY币   //H5 给安卓传递数据卖出了多少个YY币
+        mWebView.setWebViewClient(new WebViewClient(){
+            @Override
+            public void onPageFinished(WebView webView, String url) {
+                super.onPageFinished(webView, url);
+                String title = webView.getTitle();
+                if (!TextUtils.isEmpty(title)) {
+                    mTitle.setText(title);
+                }
+            }
+        });
 
 
+        }
 
+     @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
 
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (mWebView != null && mWebView.canGoBack()) {
+                mWebView.goBack();
+                if (Integer.parseInt(Build.VERSION.SDK) >= 16)
+                    return true;
+            } else
+                return super.onKeyDown(keyCode, event);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
 }
