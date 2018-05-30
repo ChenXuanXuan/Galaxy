@@ -75,6 +75,8 @@ public class ConfigManager {
     }
 
    public static void logOut() {
+	   sharePStore.save(KEY_USER_ID,0);
+	   sharePStore.save(KEY_USER_TOKEN,"");
         sharePStore.remove(KEY_USER_ID);
         sharePStore.remove(KEY_USER_TOKEN);
     }

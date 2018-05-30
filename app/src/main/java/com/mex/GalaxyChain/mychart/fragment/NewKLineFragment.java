@@ -119,7 +119,7 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
     public void initData() {
         isLoading = false;
         isFirstLoading = true;
-        mKChartView.showLoading();
+       mShowDialog();
         mKChartView.setRefreshListener(this);
         mKChartView.refreshEnd();
         starttime = 0;
@@ -174,6 +174,7 @@ public class NewKLineFragment extends LineBaseFragment implements KChartView.KCh
 
                         @Override
                         public void onNext(HistoryKLineBean historyKLineBean) {
+                            mDismissDialog();
                             mKLineEntityArrayList = new ArrayList<>();
                             mKlineData = new ArrayList<>();
                             //K历史数据集合

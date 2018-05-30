@@ -21,11 +21,12 @@ import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.UIHelper;
 import com.mex.GalaxyChain.bean.PostLoginBean;
 import com.mex.GalaxyChain.bean.UserMeBean;
-import com.mex.GalaxyChain.bean.requestbean.RequestPostLoginBean;
+ import com.mex.GalaxyChain.bean.requestbean.RequestPostLoginBean;
 import com.mex.GalaxyChain.common.BaseActivity;
 import com.mex.GalaxyChain.common.ConfigManager;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
+import com.mex.GalaxyChain.event.MainEvent;
 import com.mex.GalaxyChain.net.HttpInterceptor;
 import com.mex.GalaxyChain.net.bean.galaxychainbean.LoginBean;
 import com.mex.GalaxyChain.net.repo.UserRepo;
@@ -238,13 +239,13 @@ public class PhoneNumLoginActivity extends BaseActivity {
 
                     @Override
                     public void onNext(UserMeBean userMeBean) {
-                       if(userMeBean.getCode().equals("0")){  //0 获取userme接口成功
-                           UserMeBean.DataBean.AuthBean auth=userMeBean.getData().getAuth();
-                            if(auth.getLevel()==Constants.RENZHENG_C1){ //=1 C1 认证
+                        if (userMeBean.getCode().equals("0")) {  //0 获取userme接口成功
+                            UserMeBean.DataBean.AuthBean auth = userMeBean.getData().getAuth();
+                            if (auth.getLevel() == Constants.RENZHENG_C1) { //=1 C1 认证
                                 UserGolbal.getInstance().setStatus_auth_c1(auth.getStatus());//status=1 C1实名认证通过
 
                             }
-                          //  UserGolbal.getInstance().setUid(userMeBean.getData().getUser().getUid());
+                            EventBus.getDefault().post(new MainEvent());
                             ConfigManager.setUserId(userMeBean.getData().getUser().getUid());
                        }
                     }
@@ -356,9 +357,6 @@ public class PhoneNumLoginActivity extends BaseActivity {
                                     UIHelper.toMarkMainAct_kLine(PhoneNumLoginActivity.this);
                                     finish();
                                 }else if(tag.equals(Constants.FROM_CHICANG_UNLOGIN)){ //持仓未登录界面--->登陆界面--->持仓已登陆界面(MainActivity 1)
-                                    UIHelper.jumptoMainActivity(PhoneNumLoginActivity.this,tag);
-                                    finish();
-                                }else if(tag.equals(Constants.FROM_MINE)){//从我的来
                                     UIHelper.jumptoMainActivity(PhoneNumLoginActivity.this,tag);
                                     finish();
                                 }
