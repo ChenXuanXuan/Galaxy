@@ -24,7 +24,6 @@ import com.mex.GalaxyChain.bean.PostLoginBean;
 import com.mex.GalaxyChain.bean.VerifycodeBean;
 import com.mex.GalaxyChain.bean.requestbean.RequestPostLoginBean;
 import com.mex.GalaxyChain.common.BaseActivity;
-import com.mex.GalaxyChain.common.ConfigManager;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.UserGolbal;
 import com.mex.GalaxyChain.net.HttpInterceptor;
@@ -59,7 +58,7 @@ import rx.Subscriber;
 public class PhoneNumRegistActivity2  extends BaseActivity{
 
     @Extra
-    String phoneNumber;
+    String phoneNumber; // intent.putExtra("phoneNumber",phoneNum);
 
      // @ViewById
     // EditText et_phone_number,et_verify_password
@@ -123,7 +122,6 @@ public class PhoneNumRegistActivity2  extends BaseActivity{
         params.put("otype", otype);
         params.put("time", timeStamp);
         String sign = CreatSignUtils.creatSign(params);
-
         UserRepo.getInstance().getCode(country, mobilePhone, otype, timeStamp, sign)
                 .subscribe(new Subscriber<VerifycodeBean>() {
                     @Override
@@ -246,24 +244,20 @@ public class PhoneNumRegistActivity2  extends BaseActivity{
     }
 
 
-    private void registerPhoneNow(String phoneNumber, String et_verify_passwordString, final String et_phone_passwordString) {
+    private void registerPhoneNow(String phoneNumber, String et_verify_passwordString,   String et_phone_passwordString) {
         HashMap<String, Object> params = new HashMap<>();
         Date dt = new Date();
         String timeStamp = dt.getTime() + "";
-        final String  country = "86";
-        final String mobilePhone =phoneNumber;
-      //  UserGolbal.getInstance().setPhoneNum(phoneNumber);
-
-      //  String invitedCode="0123";
-        params.put("country", country);
-        params.put("mobile", mobilePhone);
+          String  country = "86";
+          params.put("country", country);
+        params.put("mobile", phoneNumber);
         params.put("verifycode", et_verify_passwordString);
         params.put("password", et_phone_passwordString);
         params.put("time", timeStamp);
-       // params.put("invitedCode",invitedCode);
+        params.put("invitedCode","");
         String sign = CreatSignUtils.creatSign(params);
 
-      UserRepo.getInstance().getRegistCode(country,mobilePhone,et_verify_passwordString,et_phone_passwordString,timeStamp,sign)
+      UserRepo.getInstance().getRegistCode(country,phoneNumber,et_verify_passwordString,et_phone_passwordString,timeStamp,sign)
           .subscribe(new Observer<RegistBean>() {
                          @Override
                          public void onCompleted() {}
@@ -276,32 +270,16 @@ public class PhoneNumRegistActivity2  extends BaseActivity{
                          @Override
                          public void onNext(RegistBean registBean) {
                              if(registBean.getCode().equals("0")){
-                                // ToastUtils.showCorrectImage("注册成功，正在登录");
-                                  RegistBean.DataBean dataBean= registBean.getData();
-                                  if(dataBean==null) return;
-                                 ToastUtils.showErrorImage("注册成功");
-                                 finish();//注册成功直接返回到登陆界面进行登陆
-                                  //loacationAndPostLogin(dataBean); //注册成功  直接王浩登陆    跳到主界面
-                             }else if(registBean.getCode().equals("110001")){
-                                 ToastUtils.showErrorImage("短信验证码错误或过期");return;
-                             }else if(registBean.getCode().equals("110023")){
-                                 ToastUtils.showErrorImage("手机号已注册");return;
-                                 //RegistBean.DataBean dataBean= registBean.getData();
-                                 //loacationAndPostLogin(dataBean);
-                             } else if(registBean.getCode().equals("100005")){
-                                 ToastUtils.showErrorImage("参数签名错误"); return;
-                             }else if(registBean.getCode().equals("110013")){
-                                 ToastUtils.showErrorImage("邀请码无效");return;
-                             }else if(registBean.getCode().equals("100001")){
-                                 ToastUtils.showErrorImage("系统异常");return;
+                                  ToastUtils.showCorrectImage("注册成功,请登陆");
+                                   finish();//注册成功直接返回到登陆界面进行登陆
+                                  // loacationAndPostLogin(dataBean); //注册成功  直接王浩登陆    跳到主界面
+                             }else{
+                                 ToastUtils.showErrorImage(registBean.getMsg()); return;
                              }
-
                              }
                      });
 
-
-
-    }
+      }
 
     private void loacationAndPostLogin(final  RegistBean.DataBean dataBean) {
         RequestPermissionUtils.requestPermission(new Runnable() {

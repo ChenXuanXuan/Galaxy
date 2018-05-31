@@ -51,7 +51,7 @@ public class AccountMoneyFlowActivity extends BaseActivity {
     @Extra
     int type;
 
-    @ViewById
+    @ViewById(R.id.tabLayout)
     TabLayout tabLayout;
 
 
@@ -164,7 +164,7 @@ public class AccountMoneyFlowActivity extends BaseActivity {
                 return linePagerIndicator;
             }
         });
-//
+
 //        magic_indicator4.setNavigator(commonNavigator);
 //        ViewPagerHelper.bind(magic_indicator4, vp_hq_fragment);
     }

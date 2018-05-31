@@ -66,7 +66,7 @@ public class PhoneNumRegistActivity1 extends BaseActivity {
     private void wanchen() {
         String et_phone_numberString = et_phone_number.getText().toString().trim();
           if(IsEmptyUtils.isEmpty(et_phone_numberString)){
-              ToastUtils.showCorrectImage(R.string.phone_num_empty);
+              ToastUtils.showTextInMiddle(R.string.phone_num_empty);
               return;
           }
 

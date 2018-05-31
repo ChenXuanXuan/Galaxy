@@ -8,15 +8,20 @@ import android.widget.ImageView;
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.UIHelper;
 import com.mex.GalaxyChain.common.BaseActivity;
+import com.mex.GalaxyChain.event.MainEvent;
 import com.mex.GalaxyChain.utils.EditUtils;
 import com.mex.GalaxyChain.utils.IsEmptyUtils;
 import com.mex.GalaxyChain.utils.ToastUtils;
 
 import org.androidannotations.annotations.AfterTextChange;
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.FocusChange;
 import org.androidannotations.annotations.ViewById;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 
 @EActivity(R.layout.activity_find_pw_one)
@@ -28,10 +33,13 @@ public class FindPwStepOneActivity extends BaseActivity {
 
     @ViewById
     ImageView ll_clear_phone;
+    @ViewById(R.id.back)
+    ImageView back;
 
 
 
-    @Click({R.id.ll_clear_phone,R.id.tv_findPS_oneNext})
+
+    @Click({R.id.ll_clear_phone,R.id.tv_findPS_oneNext,R.id.back})
     void onClick(View view ){
         switch(view.getId()){
             case R.id.ll_clear_phone:
@@ -39,11 +47,12 @@ public class FindPwStepOneActivity extends BaseActivity {
                 EditUtils.cursorFollow(et_phone_number);
                 break;
 
-
-
-
-            case R.id.tv_findPS_oneNext:
+                case R.id.tv_findPS_oneNext:
                  enterTwoStep();
+                break;
+
+            case R.id.back:
+                finish();
                 break;
         }
     }
@@ -51,12 +60,12 @@ public class FindPwStepOneActivity extends BaseActivity {
     private void enterTwoStep() {
         String et_phone_numberString = et_phone_number.getText().toString().trim();
         if(IsEmptyUtils.isEmpty(et_phone_numberString)){
-            ToastUtils.showErrorImage(R.string.phone_num_empty);
+            ToastUtils.showTextInMiddle(R.string.phone_num_empty);
             return;
         }
 
-         UIHelper.jumptoFindPwStepTwoActivity(this,et_phone_numberString);
-        finish();
+       UIHelper.jumptoFindPwStepTwoActivity(this,et_phone_numberString);
+       // finish();
     }
 
 
@@ -87,6 +96,20 @@ public class FindPwStepOneActivity extends BaseActivity {
                 break;
         }
     }
+
+
+
+    @AfterViews
+    void init(){
+        EventBus.getDefault().register(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEventMain(MainEvent event) {
+        finish();
+    }
+
+
 
 
 

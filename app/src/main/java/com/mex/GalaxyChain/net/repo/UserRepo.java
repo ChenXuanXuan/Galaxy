@@ -142,11 +142,11 @@ public class UserRepo extends BaseRepo<IUserService> {
                                                               String et_verify_passwordString,
                                                               String et_phone_passwordString,
                                                               String timeStamp,
+                                                               String sign) {
 
-                                                              String sign) {
-
-        return getService().register(country,mobilePhone,et_verify_passwordString,
-                et_phone_passwordString,timeStamp,sign)
+        return getService().register(country,mobilePhone,
+                et_verify_passwordString, et_phone_passwordString,
+                timeStamp,sign)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
 

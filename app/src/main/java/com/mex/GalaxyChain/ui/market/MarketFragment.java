@@ -10,10 +10,7 @@ import android.view.animation.DecelerateInterpolator;
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.adapter.viewpagerAdapter.IndicatorViewPagerAdapter;
 import com.mex.GalaxyChain.common.BaseFragment;
-
-
 import com.mex.GalaxyChain.view.magicindicator.MagicIndicator;
-import com.mex.GalaxyChain.view.magicindicator.ViewPagerHelper;
 import com.mex.GalaxyChain.view.magicindicator.buildins.UIUtil;
 import com.mex.GalaxyChain.view.magicindicator.buildins.commonnavigator.CommonNavigator;
 import com.mex.GalaxyChain.view.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
@@ -77,7 +74,7 @@ public class MarketFragment extends BaseFragment {
 		  vp_hq_fragment.setAdapter(mIndicatorViewPagerAdapter);
 		  vp_hq_fragment.setOffscreenPageLimit(0);
 		 vp_hq_fragment.setCurrentItem(0);
-		 //额外添加的
+		  //额外添加的
         vp_hq_fragment.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {}
@@ -141,8 +138,8 @@ public class MarketFragment extends BaseFragment {
 			}
 		});
 
-		magic_indicator4.setNavigator(commonNavigator);
-		ViewPagerHelper.bind(magic_indicator4, vp_hq_fragment);
+		  // magic_indicator4.setNavigator(commonNavigator);
+		  //ViewPagerHelper.bind(magic_indicator4, vp_hq_fragment);
 	}
 
     private void initListener() {

@@ -160,8 +160,8 @@ public class AllVarietyFragment extends BaseFragment
 
 
     private void loadNetData(double mLongitude, double mLatitude) {
-        if (isAdded())
-        showLoading(getString(R.string.loading));
+        //if (isAdded())
+        // showLoading(getString(R.string.loading));
         MyApplication instance = MyApplication.getInstance();
         String device_identifier = DeviceUtil.getUdid(instance);
         int all_variety = Constants.ALL_VARIETY; //商品品种名称
@@ -209,15 +209,17 @@ public class AllVarietyFragment extends BaseFragment
 
                     @Override
                     public void onError(Throwable e) {
-                        dismissLoading();
+                       // dismissLoading();
+                        if (refreshLayout != null) refreshLayout.finishRefresh();
                         e.printStackTrace();
                     }
 
                     @Override
                     public void onNext(SymbolBean symbolBean) {
-                        dismissLoading();
+                     //   dismissLoading();
                         //ToastUtils.showCorrectImage("请求成功0");
                         //LogUtils.d(symbolBean.toString());
+                        if (refreshLayout != null) refreshLayout.finishRefresh();
                         SymbolBean.DataBean dataBean = symbolBean.getData();
                         if (dataBean == null) return;
                         List<SymbolBean.DataBean.SymbolInfosBean> mSymbolInfosBeanList = dataBean.getSymbolInfos();
@@ -228,9 +230,6 @@ public class AllVarietyFragment extends BaseFragment
                         mAllVarietyAdapter2.setItems(mSymbolInfosBeanList);
                         List<SymbolBean.DataBean.HandNumSBean> handNumSBeanList = symbolBean.getData().getHandNumS();// 几手
                         List<SymbolBean.DataBean.StopLossTimesBean> stopLossTimesBeanList  =symbolBean.getData().getStopLossTimes(); //几倍
-
-
-
 
                         //============================
                         for (SymbolBean.DataBean.SymbolInfosBean symbolInfosBean : mSymbolInfosBeanList) {
@@ -408,7 +407,7 @@ public class AllVarietyFragment extends BaseFragment
     }
 
 
-    @Override
+   /* @Override
     public void onResume() {
         super.onResume();
         if (mCountDownTimer != null) {
@@ -416,10 +415,10 @@ public class AllVarietyFragment extends BaseFragment
 
         }
         LogUtils.d("TAG", "mCountDownTimer is start");
-    }
+    }*/
 
 
-    @Override
+    /*@Override
     public void onPause() {
         super.onPause();
         if (mCountDownTimer != null) {
@@ -427,7 +426,7 @@ public class AllVarietyFragment extends BaseFragment
             LogUtils.d("TAG", "mCountDownTimer is finish12");
         }
 
-    }
+    }*/
 
 
 

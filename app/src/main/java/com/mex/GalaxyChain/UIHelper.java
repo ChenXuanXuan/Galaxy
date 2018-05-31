@@ -115,7 +115,7 @@ public class UIHelper {
         Intent intent = new Intent(activity, PhoneNumRegistActivity2_.class);
          intent.putExtra("phoneNumber",phoneNum);
         activity.startActivity(intent);
-        activity.finish();
+         activity.finish();
 
     }
 

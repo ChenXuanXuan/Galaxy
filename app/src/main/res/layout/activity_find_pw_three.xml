@@ -10,10 +10,18 @@
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@color/transparent"
-        android:orientation="horizontal"
-        android:layout_marginTop="20dp">
 
+        >
 
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:src="@drawable/back"
+            />
 
 
         <TextView
@@ -21,10 +29,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
+            android:layout_marginTop="20dp"
             android:text="手机找回密码"
-            android:textSize="18sp"
             android:textColor="@color/font_white"
-            />
+            android:textSize="@dimen/dp18"/>
 
     </RelativeLayout>
 

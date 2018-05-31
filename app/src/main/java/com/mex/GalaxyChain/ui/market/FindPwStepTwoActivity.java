@@ -4,20 +4,26 @@ import android.os.CountDownTimer;
 import android.support.v4.util.ArrayMap;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.UIHelper;
 import com.mex.GalaxyChain.bean.VerifycodeBean;
 import com.mex.GalaxyChain.common.BaseActivity;
+import com.mex.GalaxyChain.event.MainEvent;
 import com.mex.GalaxyChain.net.repo.UserRepo;
 import com.mex.GalaxyChain.utils.CreatSignUtils;
 import com.mex.GalaxyChain.utils.ToastUtils;
 
+import org.androidannotations.annotations.AfterViews;
 import org.androidannotations.annotations.Click;
 import org.androidannotations.annotations.EActivity;
 import org.androidannotations.annotations.Extra;
 import org.androidannotations.annotations.ViewById;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Date;
 import java.util.Map;
@@ -36,10 +42,15 @@ String phoneNumber;
     @ViewById
     EditText et_verify_password; //验证码
 
+    @ViewById
+    ImageView  back;
+
+
+
     private  MyCountDownTimer mMyCountDownTimer;
 
 
-     @Click({R.id.bt_retrieve_verify_code,R.id.tv_nextStep})
+     @Click({R.id.bt_retrieve_verify_code,R.id.tv_nextStep,R.id.back})
     void onClick(View view ){
         switch(view.getId()){
             case R.id.bt_retrieve_verify_code://接受验证码
@@ -49,7 +60,10 @@ String phoneNumber;
 
             case R.id.tv_nextStep: //下一页
                 toFindPwStepThreeActivity();
+                break;
 
+            case R.id.back:
+                finish();
                 break;
         }
     }
@@ -57,13 +71,13 @@ String phoneNumber;
     private void toFindPwStepThreeActivity() {
         String et_verify_passwordString = et_verify_password.getText().toString().trim();
         if (isEmpty(et_verify_passwordString)) {
-            ToastUtils.showErrorImage("验证码不能为空");
+            ToastUtils.showTextInMiddle("验证码不能为空");
             return;
         }
 
 
         UIHelper.toFindPwStepThreeActivity(this,phoneNumber,et_verify_passwordString );
-        finish();
+       // finish();
     }
 
 
@@ -71,7 +85,7 @@ String phoneNumber;
         Map<String, Object> params = new ArrayMap<>();
 
         if(isEmpty(phoneNumber)){
-            ToastUtils.showErrorImage("手机号码不能为空");
+            ToastUtils.showTextInMiddle(R.string.phone_num_empty);
             return;
         }
 
@@ -142,6 +156,17 @@ String phoneNumber;
         }
     }
 
+
+
+    @AfterViews
+    void init(){
+        EventBus.getDefault().register(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+     public void onEventMain(MainEvent event) {
+         finish();
+      }
 
 
 }
