@@ -98,7 +98,7 @@ int SUSPEND_TRADING=4;
     String  EURO="欧元";
     String  HONGKONG_DOLLAR="港币";
     String RMB="人民币";
-    String YYB="YYB";
+   // String YYB="YYB";
 
 
     //订单类型（限价委托 = 1、市价委托 = 2）
@@ -134,7 +134,7 @@ int SUSPEND_TRADING=4;
     int DRAWOUT_STATUS_FAILURE=3;
 
 
-    String YY="YYB";
+    String YYB="YY币";
 
     String CHANNEL="mexysp";
 

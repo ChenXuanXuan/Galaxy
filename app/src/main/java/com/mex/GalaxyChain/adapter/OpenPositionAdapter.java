@@ -7,17 +7,22 @@ import android.widget.TextView;
 
 import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.bean.MoneyFlowBean;
+import com.mex.GalaxyChain.bean.eventbean.VarietyHoldPosi;
+import com.mex.GalaxyChain.bean.eventbean.VarietyHoldPosiBean;
 import com.mex.GalaxyChain.common.control.BaseAbsListAdapter;
 import com.mex.GalaxyChain.common.control.BaseViewHolder;
-import com.mex.GalaxyChain.utils.DecimalFormatUtils;
 
-public class OpenPositionAdapter extends
+import java.util.Map;
+
+public class   OpenPositionAdapter extends
         BaseAbsListAdapter<MoneyFlowBean.DataBean.ListBean,
                 OpenPositionAdapter.OpenPositionViewHolder> {
     private final LayoutInflater mLayoutInflater;
+    private final VarietyHoldPosiBean mVarietyHoldPosiBean;
 
-    public OpenPositionAdapter(Context context) {
+    public OpenPositionAdapter(Context context,VarietyHoldPosiBean mVarietyHoldPosiBean) {
         super(context);
+        this.mVarietyHoldPosiBean=mVarietyHoldPosiBean;
         mLayoutInflater = LayoutInflater.from(context);
     }
 
@@ -44,13 +49,35 @@ public class OpenPositionAdapter extends
 
 
         @Override
-        public void loadDataToView(int position, MoneyFlowBean.DataBean.ListBean data) {
+        public void loadDataToView(int position, MoneyFlowBean.DataBean.ListBean listBean) {
             super.loadDataToView(position, data);
-            //VarietyHoldPosiBean mVarietyHoldPosiBean= ConfigManager.getVarietyHold();
-           // mVarietyHoldPosiBean.getHashMap();
-           // symbolName.setText();
-            tv_time.setText(data.getBiztime());
-            tv_canuseAmount.setText(DecimalFormatUtils.getDecimal(data.getCanusedamount(),2));
+            Map<String, VarietyHoldPosi> holdPosiMap=mVarietyHoldPosiBean.getHashMap();
+            for (String key : holdPosiMap.keySet()) {
+                if(key.equals(listBean.getSymbol())){
+                    VarietyHoldPosi  varietyHoldPosi=holdPosiMap.get(listBean.getSymbol());
+                    symbolName.setText(varietyHoldPosi.symbolname+listBean.getQuantity()+"手");
+                }
+
+            }
+
+            double tradefee=listBean.getTradefee();
+             if(tradefee<0){
+                 tv_tradeFee.setTextColor(context.getResources().getColor(R.color.light_green));
+             }else{
+                 tv_tradeFee.setTextColor(context.getResources().getColor(R.color.device_button_normal));
+             }
+             tv_tradeFee.setText(tradefee+"");
+
+
+             double margin =listBean.getMargin();
+             if(margin<0){
+                 tv_margin.setTextColor(context.getResources().getColor(R.color.light_green));
+             }else{
+                 tv_margin.setTextColor(context.getResources().getColor(R.color.device_button_normal));
+             }
+            tv_margin.setText(margin+"");
+             tv_time.setText(listBean.getBiztime());
+            tv_canuseAmount.setText("可用余额 "+listBean.getCanusedamount());
     }
     }
 

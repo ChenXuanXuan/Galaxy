@@ -48,6 +48,9 @@ public class AllFragment extends BaseFragment implements OnLoadmoreListener,OnRe
         refreshLayout.autoRefresh();//默认我们一进入第一个当前子fragement 就自动刷新 数据
     }
 
+
+
+
     private void loadNetData(final int currentPage, int biztype) {
         LoadNetDataForMoneyFlowUtil.getMoneyFlowInstance().loadNetData(currentPage, biztype);
         LoadNetDataForMoneyFlowUtil.getMoneyFlowInstance().setLoadMeneyFlowCallBackListener(new LoadNetDataForMoneyFlowUtil.LoadMeneyFlowsSuccessCallBackListener() {
@@ -78,9 +81,6 @@ public class AllFragment extends BaseFragment implements OnLoadmoreListener,OnRe
             });
 
     }
-
-
-
     private void refreshComplete() {
      dismissLoading();
      if(refreshLayout != null){

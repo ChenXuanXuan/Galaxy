@@ -23,9 +23,9 @@
             android:layout_gravity="center_vertical"
             android:lines="1"
             android:singleLine="true"
-            android:text="--"
-            android:textColor="@color/rgb_54_54_54"
-            android:textSize="@dimen/sp12"/>
+            android:text="提现"
+            android:textColor="@color/bg_lv3"
+            android:textSize="@dimen/sp14"/>
 
         <TextView
             android:id="@+id/tv_middle"
@@ -37,8 +37,8 @@
             android:lines="1"
             android:singleLine="true"
             android:text="--"
-            android:textColor="@color/rgb_54_54_54"
-            android:textSize="@dimen/sp12"/>
+            android:textColor="@color/bg_lv3"
+            android:textSize="@dimen/sp14"/>
 
         <TextView
             android:id="@+id/tv_right"
@@ -48,7 +48,7 @@
             android:gravity="end"
              android:layout_gravity="center_vertical"
             android:text="+100000"
-            android:textColor="@color/rgb_54_54_54"
+            android:textColor="@color/light_green"
             android:textSize="@dimen/sp12"/>
 
 
@@ -70,7 +70,7 @@
             android:gravity="center"
             android:text="2018-05-20"
             android:textColor="@color/rgb_54_54_54"
-            android:textSize="@dimen/sp10"></TextView>
+            android:textSize="@dimen/sp12"></TextView>
 
         <TextView
             android:id="@+id/tv_canuseAmount"
@@ -79,9 +79,9 @@
             android:layout_alignParentRight="true"
             android:layout_centerInParent="true"
             android:gravity="center_vertical"
-            android:text="可用余额:0"
+            android:text="0"
             android:textColor="@color/rgb_54_54_54"
-            android:textSize="@dimen/sp10"></TextView>
+            android:textSize="@dimen/sp12"></TextView>
 
     </RelativeLayout>
 

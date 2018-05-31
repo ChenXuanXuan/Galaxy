@@ -10,7 +10,6 @@ import com.mex.GalaxyChain.bean.PayOutListBean;
 import com.mex.GalaxyChain.common.Constants;
 import com.mex.GalaxyChain.common.control.BaseAbsListAdapter;
 import com.mex.GalaxyChain.common.control.BaseViewHolder;
-import com.mex.GalaxyChain.utils.DecimalFormatUtils;
 
 
 public class DrawOutAdapter extends BaseAbsListAdapter<PayOutListBean.DataBean.ListBean,
@@ -50,9 +49,9 @@ public class DrawOutAdapter extends BaseAbsListAdapter<PayOutListBean.DataBean.L
             super.loadDataToView(position, data);
              tv_left.setText(data.getRemarks());
             tv_middle.setText(data.getStatustring());//提现状态的显示
-            tv_right.setText("提现金额 "+DecimalFormatUtils.getDecimal(data.getAmount(),2)+ Constants.YY);
-             tv_time.setText("提现时间 "+data.getWithdrawalstime());
-               tv_canuseAmount.setText("可用余额 "+data.getCanusedamount()+Constants.YY );
+            tv_right.setText( data.getAmount()+ Constants.YYB);
+             tv_time.setText(data.getWithdrawalstime());
+               tv_canuseAmount.setText("可用余额 "+data.getCanusedamount()+Constants.YYB );
 
 
 

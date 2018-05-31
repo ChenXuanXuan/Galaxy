@@ -235,7 +235,6 @@ public class MineFragment extends BaseFragment {
             case R.id.setting://设置
                 SettingActivity_.intent(getActivity()).start();
                 break;
-
             case R.id.iv_user_icon:  // 更换用户头像
                 changeUserPhoto();
                 break;

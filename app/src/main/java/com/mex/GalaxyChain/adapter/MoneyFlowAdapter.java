@@ -9,7 +9,6 @@ import com.mex.GalaxyChain.R;
 import com.mex.GalaxyChain.bean.MoneyFlowBean;
 import com.mex.GalaxyChain.common.control.BaseAbsListAdapter;
 import com.mex.GalaxyChain.common.control.BaseViewHolder;
-import com.mex.GalaxyChain.utils.DecimalFormatUtils;
 
 
 public class MoneyFlowAdapter   extends BaseAbsListAdapter<MoneyFlowBean.DataBean.ListBean,
@@ -48,9 +47,18 @@ public class MoneyFlowAdapter   extends BaseAbsListAdapter<MoneyFlowBean.DataBea
         public void loadDataToView(int position, MoneyFlowBean.DataBean.ListBean data) {
             super.loadDataToView(position, data);
             tv_left.setText(data.getComment());
-            tv_right.setText(DecimalFormatUtils.getDecimal(data.getAmount(),2) );
+            double amount=data.getAmount();
+           if(amount>0){
+               tv_right.setTextColor(context.getResources().getColor(R.color.red));
+           }else{
+               tv_right.setTextColor(context.getResources().getColor(R.color.light_green));
+           }
+
+            tv_right.setText(String.valueOf(amount));
+
+
             tv_time.setText(data.getBiztime());
-            tv_canuseAmount.setText("可用余额 "+ DecimalFormatUtils.getDecimal(data.getCanusedamount(),2) );
+            tv_canuseAmount.setText("可用余额 "+data.getCanusedamount());
 
 
         }
