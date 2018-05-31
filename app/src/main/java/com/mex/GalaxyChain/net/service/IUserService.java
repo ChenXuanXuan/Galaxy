@@ -137,7 +137,7 @@ public interface IUserService {
     @POST(UrlTools.DEBUG_HOST+NetFuncConstants.RESET_PHONE_LOGIN_PW)
     Observable<ResetPWBean> getReSetPW(@Field("mobile") String phoneNumber,
                                        @Field("country") String country,
-                                       @Field("verifycode") String et_verify_passwordString,
+                                       @Field("verfiycode") String et_verify_passwordString,
                                        @Field("loginpwd") String confirm_newPW,
                                        @Field("time") String timeStamp,
                                        @Field("sign") String sign);
